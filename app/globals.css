@@ -112,6 +112,25 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+
+  .cal-embed-shell iframe {
+    min-height: 780px !important;
+  }
+}
+
+.cal-embed-shell,
+.cal-embed-shell > div {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cal-embed-shell iframe {
+  display: block;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  border: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
