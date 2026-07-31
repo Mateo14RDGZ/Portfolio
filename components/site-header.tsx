@@ -27,7 +27,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-stretch px-3 sm:h-24 sm:px-6">
         <a href="#top" className="flex min-w-0 flex-1 items-center gap-3 border-r border-foreground pr-4 sm:gap-4 sm:pr-8">
           <span className={`size-14 shrink-0 transition-opacity duration-150 sm:size-20 ${logoIntro === 'done' ? 'opacity-100' : 'opacity-0'}`}>
-            <LogoMark className="size-full" />
+            <LogoMark animateIntro className="size-full" />
           </span>
           <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-lg">Mateo Rodríguez</span>
         </a>

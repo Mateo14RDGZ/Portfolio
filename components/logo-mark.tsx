@@ -21,6 +21,10 @@ type LogoStroke = {
 
 const DRAW_EASE = [0.65, 0, 0.35, 1] as const
 const LOGO_IMAGE = '/mr14-logo-transparent.png'
+const LOOP_DURATION = 6
+const SETTLED_AT = 2.06 / LOOP_DURATION
+const FADE_OUT_AT = 5.28 / LOOP_DURATION
+const HIDDEN_AT = 5.7 / LOOP_DURATION
 
 /**
  * These centre lines only drive the reveal mask. The visible artwork is always
@@ -124,7 +128,7 @@ export function LogoMark({
         {shouldDraw ? (
           <mask id={drawMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
             <rect width="768" height="768" fill="black" />
-            <g fill="none" stroke="white" strokeLinecap="round" strokeLinejoin="round">
+            <g fill="none" stroke="white" strokeLinecap="butt" strokeLinejoin="round">
               {LOGO_STROKES.map((path) => (
                 <motion.path
                   key={path.d}
@@ -132,10 +136,18 @@ export function LogoMark({
                   strokeWidth={path.revealWidth}
                   pathLength={1}
                   initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
+                  animate={{ pathLength: [0, 0, 1, 1, 0, 0] }}
                   transition={{
-                    duration: path.duration,
-                    delay: path.delay,
+                    duration: LOOP_DURATION,
+                    times: [
+                      0,
+                      path.delay / LOOP_DURATION,
+                      (path.delay + path.duration) / LOOP_DURATION,
+                      0.98,
+                      0.981,
+                      1,
+                    ],
+                    repeat: Infinity,
                     ease: DRAW_EASE,
                   }}
                 />
@@ -147,7 +159,18 @@ export function LogoMark({
 
       {shouldDraw ? (
         <>
-          <LogoImage mask={`url(#${drawMaskId})`} />
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1, 1, 0, 0] }}
+            transition={{
+              duration: LOOP_DURATION,
+              times: [0, 0.012, FADE_OUT_AT, HIDDEN_AT, 1],
+              repeat: Infinity,
+              ease: DRAW_EASE,
+            }}
+          >
+            <LogoImage mask={`url(#${drawMaskId})`} />
+          </motion.g>
           <motion.image
             href={LOGO_IMAGE}
             x="0"
@@ -156,8 +179,13 @@ export function LogoMark({
             height="768"
             preserveAspectRatio="xMidYMid meet"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.24, delay: 1.82, ease: DRAW_EASE }}
+            animate={{ opacity: [0, 0, 1, 1, 0, 0] }}
+            transition={{
+              duration: LOOP_DURATION,
+              times: [0, 1.82 / LOOP_DURATION, SETTLED_AT, FADE_OUT_AT, HIDDEN_AT, 1],
+              repeat: Infinity,
+              ease: DRAW_EASE,
+            }}
           />
         </>
       ) : (
@@ -173,8 +201,16 @@ export function LogoMark({
           fill={`url(#${shineId})`}
           mask={`url(#${shineMaskId})`}
           initial={{ x: -210, opacity: 0 }}
-          animate={{ x: 1020, opacity: [0, 0.38, 0] }}
-          transition={{ duration: 0.64, delay: 2.08, ease: DRAW_EASE }}
+          animate={{
+            x: [-210, -210, 1020, 1020, -210],
+            opacity: [0, 0, 0.38, 0, 0],
+          }}
+          transition={{
+            duration: LOOP_DURATION,
+            times: [0, 2.08 / LOOP_DURATION, 2.4 / LOOP_DURATION, 2.72 / LOOP_DURATION, 1],
+            repeat: Infinity,
+            ease: DRAW_EASE,
+          }}
           style={{ willChange: 'transform, opacity' }}
           onAnimationComplete={onSequenceComplete}
         />
