@@ -45,41 +45,128 @@ const BUSINESS_OPTIONS: Option[] = [
   { value: 'comercio', label: 'Comercio o tienda', detail: 'Vendo productos físicos o digitales.' },
 ]
 
-const OBJECTIVE_OPTIONS: Option[] = [
-  { value: 'presencia', label: 'Tener presencia profesional', detail: 'Explicar quién soy y cómo contactarme.' },
-  { value: 'confianza', label: 'Mostrar servicios y generar confianza', detail: 'Presentar mejor mi propuesta y experiencia.' },
-  { value: 'clientes', label: 'Conseguir más consultas', detail: 'Convertir visitas en oportunidades reales.' },
-  { value: 'operaciones', label: 'Vender o gestionar operaciones', detail: 'Pagos, reservas, usuarios o procesos internos.' },
-]
-
-const SECTION_OPTIONS: Option[] = [
+const STANDARD_SECTIONS: Option[] = [
   { value: '1', label: 'Una página', detail: 'Todo el contenido en un recorrido compacto.' },
   { value: '2-5', label: 'Entre 2 y 5', detail: 'Una estructura pequeña con páginas separadas.' },
   { value: '6-8', label: 'Entre 6 y 8', detail: 'Una web empresarial con contenido amplio.' },
   { value: '9+', label: 'Más de 8', detail: 'Arquitectura extensa o áreas personalizadas.' },
 ]
 
-const FEATURE_OPTIONS: Option[] = [
-  { value: 'contacto', label: 'Contacto y mapa', detail: 'Formulario, ubicación y horarios.' },
-  { value: 'contenido', label: 'Galería o blog', detail: 'Contenido visual o publicaciones editables.' },
-  { value: 'ventas', label: 'Catálogo y pagos', detail: 'Productos, carrito o cobros online.' },
-  { value: 'sistema', label: 'Reservas, usuarios o integraciones', detail: 'Funciones y automatizaciones a medida.' },
-]
+function getObjectiveOptions(business: string): Option[] {
+  if (business === 'comercio') {
+    return [
+      { value: 'venta', label: 'Vender directamente online', detail: 'Cobrar y gestionar pedidos desde la web.' },
+      { value: 'catalogo', label: 'Mostrar productos y recibir consultas', detail: 'Un catálogo claro sin compra inmediata.' },
+      { value: 'local', label: 'Llevar clientes al local', detail: 'Destacar productos, ubicación y horarios.' },
+      { value: 'operaciones', label: 'Centralizar pedidos u operaciones', detail: 'Reducir tareas manuales y ordenar el negocio.' },
+    ]
+  }
 
-const TIMING_OPTIONS: Option[] = [
-  { value: 'urgente', label: 'Lo antes posible', detail: 'Me gustaría comenzar en las próximas semanas.' },
-  { value: '1-2', label: 'En 1–2 meses', detail: 'Tengo margen para preparar bien el contenido.' },
-  { value: '3-6', label: 'En 3–6 meses', detail: 'Estoy planificando con anticipación.' },
-  { value: 'flexible', label: 'Sin fecha definida', detail: 'Primero quiero entender alcance y opciones.' },
-]
+  if (business === 'empresa') {
+    return [
+      { value: 'confianza', label: 'Presentar servicios y generar confianza', detail: 'Explicar mejor la empresa y su propuesta.' },
+      { value: 'clientes', label: 'Conseguir oportunidades comerciales', detail: 'Convertir visitas en consultas calificadas.' },
+      { value: 'reclutamiento', label: 'Atraer talento o socios', detail: 'Comunicar cultura, equipo y oportunidades.' },
+      { value: 'operaciones', label: 'Digitalizar un proceso', detail: 'Usuarios, datos, reservas o herramientas internas.' },
+    ]
+  }
 
-const STEPS = [
-  { eyebrow: 'Tipo de negocio', title: '¿Qué estás construyendo?', options: BUSINESS_OPTIONS },
-  { eyebrow: 'Objetivo', title: '¿Qué debe conseguir la web?', options: OBJECTIVE_OPTIONS },
-  { eyebrow: 'Cantidad de secciones', title: '¿Qué tamaño imaginas?', options: SECTION_OPTIONS },
-  { eyebrow: 'Funciones necesarias', title: '¿Qué debería poder hacer?', options: FEATURE_OPTIONS },
-  { eyebrow: 'Fecha aproximada', title: '¿Cuándo quieres comenzar?', options: TIMING_OPTIONS },
-] as const
+  if (business === 'profesional') {
+    return [
+      { value: 'presencia', label: 'Presentar mi marca profesional', detail: 'Explicar qué hago y cómo contactarme.' },
+      { value: 'clientes', label: 'Conseguir más consultas', detail: 'Transformar visitas en conversaciones reales.' },
+      { value: 'reservas', label: 'Recibir reservas o solicitudes', detail: 'Organizar citas sin intercambiar mensajes.' },
+      { value: 'contenido', label: 'Publicar contenido o trabajos', detail: 'Mostrar experiencia, portfolio o artículos.' },
+    ]
+  }
+
+  return [
+    { value: 'validar', label: 'Validar mi idea', detail: 'Salir al mercado con una propuesta clara.' },
+    { value: 'presencia', label: 'Tener presencia profesional', detail: 'Explicar el negocio y cómo contactarlo.' },
+    { value: 'clientes', label: 'Conseguir mis primeros clientes', detail: 'Convertir visitas en oportunidades.' },
+    { value: 'venta', label: 'Vender un producto o servicio', detail: 'Cobrar o gestionar pedidos desde la web.' },
+  ]
+}
+
+function getSectionOptions(answers: Answers): Option[] {
+  if (answers.business === 'comercio' || ['venta', 'catalogo'].includes(answers.objective)) {
+    return [
+      { value: '1', label: 'Una página + selección breve', detail: 'Una propuesta central y pocos productos.' },
+      { value: '2-5', label: '2–5 páginas o categorías', detail: 'Un catálogo pequeño y fácil de recorrer.' },
+      { value: '6-8', label: '6–8 páginas o categorías', detail: 'Una oferta variada con contenido propio.' },
+      { value: '9+', label: 'Más de 8 o catálogo amplio', detail: 'Muchos productos, categorías o filtros.' },
+    ]
+  }
+
+  if (['operaciones', 'reservas'].includes(answers.objective)) {
+    return [
+      { value: '1', label: 'Una experiencia principal', detail: 'Un flujo directo para una tarea concreta.' },
+      { value: '2-5', label: 'Entre 2 y 5 áreas', detail: 'Varias vistas conectadas en un mismo sistema.' },
+      { value: '6-8', label: 'Entre 6 y 8 áreas', detail: 'Roles o procesos con mayor profundidad.' },
+      { value: '9+', label: 'Más de 8 áreas', detail: 'Una plataforma extensa y personalizada.' },
+    ]
+  }
+
+  return STANDARD_SECTIONS
+}
+
+function getFeatureOptions(answers: Answers): Option[] {
+  if (answers.business === 'comercio') {
+    return [
+      { value: 'catalogo', label: 'Catálogo administrable', detail: 'Productos, categorías, filtros y búsquedas.' },
+      { value: 'pagos', label: 'Pagos online', detail: 'Carrito, cobro y confirmación de compra.' },
+      { value: 'stock', label: 'Stock, envíos o retiro', detail: 'Disponibilidad y opciones de entrega.' },
+      { value: 'integraciones', label: 'Integraciones externas', detail: 'Facturación, CRM, logística u otras APIs.' },
+    ]
+  }
+
+  if (answers.business === 'empresa') {
+    return [
+      { value: 'casos', label: 'Casos, servicios o equipo', detail: 'Contenido para respaldar la propuesta.' },
+      { value: 'idiomas', label: 'Más de un idioma', detail: 'Una experiencia preparada para otros mercados.' },
+      { value: 'crm', label: 'Formularios conectados al CRM', detail: 'Consultas organizadas automáticamente.' },
+      { value: 'panel', label: 'Usuarios o panel interno', detail: 'Acceso privado, datos y operaciones.' },
+    ]
+  }
+
+  if (answers.business === 'profesional') {
+    return [
+      { value: 'contacto', label: 'Contacto directo', detail: 'Formulario, teléfono y redes principales.' },
+      { value: 'portfolio', label: 'Portfolio o galería', detail: 'Trabajos, servicios o resultados destacados.' },
+      { value: 'blog', label: 'Blog editable', detail: 'Contenido para demostrar experiencia y posicionar.' },
+      { value: 'reservas', label: 'Agenda y reservas', detail: 'Disponibilidad y confirmaciones automáticas.' },
+    ]
+  }
+
+  return [
+    { value: 'contacto', label: 'Contacto y mapa', detail: 'Formulario, ubicación y horarios.' },
+    { value: 'galeria', label: 'Galería o trabajos', detail: 'Contenido visual para generar confianza.' },
+    { value: 'blog', label: 'Blog editable', detail: 'Publicaciones para crecer con contenido.' },
+    { value: 'pagos', label: 'Pagos o reservas', detail: 'Cobros, agenda o confirmaciones automáticas.' },
+  ]
+}
+
+function getTimingOptions(answers: Answers): Option[] {
+  const complex =
+    answers.business === 'comercio' ||
+    ['venta', 'operaciones', 'reservas'].includes(answers.objective) ||
+    answers.sections === '9+'
+
+  return [
+    { value: 'urgente', label: 'Lo antes posible', detail: complex ? 'Podemos definir una primera fase prioritaria.' : 'Me gustaría comenzar en las próximas semanas.' },
+    { value: '1-2', label: 'En 1–2 meses', detail: complex ? 'Tiempo razonable para definir alcance y contenidos.' : 'Tengo margen para preparar bien el contenido.' },
+    { value: '3-6', label: 'En 3–6 meses', detail: 'Estoy planificando con anticipación.' },
+    { value: 'flexible', label: 'Sin fecha definida', detail: 'Primero quiero entender alcance y opciones.' },
+  ]
+}
+
+function getStep(step: number, answers: Answers) {
+  if (step === 0) return { eyebrow: 'Tipo de negocio', title: '¿Qué estás construyendo?', options: BUSINESS_OPTIONS }
+  if (step === 1) return { eyebrow: 'Objetivo personalizado', title: '¿Qué resultado necesitas conseguir?', options: getObjectiveOptions(answers.business) }
+  if (step === 2) return { eyebrow: 'Tamaño del proyecto', title: answers.business === 'comercio' ? '¿Qué tamaño tendrá tu catálogo?' : '¿Qué tamaño imaginas?', options: getSectionOptions(answers) }
+  if (step === 3) return { eyebrow: 'Funciones para tu caso', title: '¿Qué necesita esta solución?', options: getFeatureOptions(answers) }
+  return { eyebrow: 'Fecha aproximada', title: '¿Cuándo quieres ponerlo en marcha?', options: getTimingOptions(answers) }
+}
 
 function getOptionLabel(options: readonly Option[], value: string) {
   return options.find((option) => option.value === value)?.label ?? value
@@ -88,14 +175,19 @@ function getOptionLabel(options: readonly Option[], value: string) {
 function recommendPlan(answers: Answers): { plan: RecommendedPlan; reason: string } {
   const needsCustomDevelopment =
     answers.business === 'comercio' ||
-    answers.objective === 'operaciones' ||
+    ['venta', 'catalogo', 'operaciones', 'reservas'].includes(answers.objective) ||
     answers.sections === '9+' ||
-    answers.features.some((feature) => ['ventas', 'sistema'].includes(feature))
+    answers.features.some((feature) =>
+      ['catalogo', 'pagos', 'stock', 'integraciones', 'panel', 'reservas'].includes(feature),
+    )
+
+  const business = getOptionLabel(BUSINESS_OPTIONS, answers.business).toLowerCase()
+  const objective = getOptionLabel(getObjectiveOptions(answers.business), answers.objective).toLowerCase()
 
   if (needsCustomDevelopment) {
     return {
       plan: 'BLACK',
-      reason: 'Tu proyecto necesita funciones o una estructura que conviene diseñar completamente a medida.',
+      reason: `Para un contexto de ${business} orientado a ${objective}, las funciones elegidas necesitan una solución diseñada a medida.`,
     }
   }
 
@@ -103,34 +195,36 @@ function recommendPlan(answers: Answers): { plan: RecommendedPlan; reason: strin
     answers.business === 'empresa' ||
     answers.objective === 'confianza' ||
     answers.objective === 'clientes' ||
+    answers.objective === 'reclutamiento' ||
+    answers.objective === 'contenido' ||
     ['2-5', '6-8'].includes(answers.sections) ||
-    answers.features.includes('contenido')
+    answers.features.some((feature) => ['casos', 'idiomas', 'crm', 'portfolio', 'blog', 'galeria'].includes(feature))
 
   if (needsProfessionalSite) {
     return {
       plan: 'GOLD',
-      reason: 'Necesitas espacio para presentar bien tu oferta, generar confianza y convertir visitas en consultas.',
+      reason: `Tu perfil de ${business} y el objetivo de ${objective} requieren una web completa para presentar, convencer y convertir.`,
     }
   }
 
   return {
     plan: 'CLASSIC',
-    reason: 'Una presencia compacta y profesional cubre lo esencial sin sumar complejidad innecesaria.',
+    reason: `Para ${objective}, una presencia compacta cubre lo esencial de tu ${business} sin sumar complejidad innecesaria.`,
   }
 }
 
 function createSummary(answers: Answers, plan: RecommendedPlan) {
   const featureLabels = answers.features.length
-    ? answers.features.map((value) => getOptionLabel(FEATURE_OPTIONS, value)).join(', ')
+    ? answers.features.map((value) => getOptionLabel(getFeatureOptions(answers), value)).join(', ')
     : 'Sin funciones adicionales'
 
   return [
     'Resumen del selector MR14:',
     `Tipo de negocio: ${getOptionLabel(BUSINESS_OPTIONS, answers.business)}.`,
-    `Objetivo: ${getOptionLabel(OBJECTIVE_OPTIONS, answers.objective)}.`,
-    `Secciones: ${getOptionLabel(SECTION_OPTIONS, answers.sections)}.`,
+    `Objetivo: ${getOptionLabel(getObjectiveOptions(answers.business), answers.objective)}.`,
+    `Secciones: ${getOptionLabel(getSectionOptions(answers), answers.sections)}.`,
     `Funciones: ${featureLabels}.`,
-    `Fecha aproximada: ${getOptionLabel(TIMING_OPTIONS, answers.timing)}.`,
+    `Fecha aproximada: ${getOptionLabel(getTimingOptions(answers), answers.timing)}.`,
     `Plan recomendado: ${plan}.`,
     '',
     'Quiero recibir una recomendación sobre el alcance de mi proyecto.',
@@ -148,8 +242,8 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
   const [answers, setAnswers] = useState<Answers>(INITIAL_ANSWERS)
   const [result, setResult] = useState<ReturnType<typeof recommendPlan> | null>(null)
 
-  const current = STEPS[step]
-  const progress = result ? 100 : ((step + 1) / STEPS.length) * 100
+  const current = getStep(step, answers)
+  const progress = result ? 100 : ((step + 1) / 5) * 100
 
   function finish(nextAnswers: Answers) {
     const nextResult = recommendPlan(nextAnswers)
@@ -162,14 +256,14 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
   }
 
   function selectSingle(value: string) {
-    const keys: Array<keyof Omit<Answers, 'features'>> = [
-      'business',
-      'objective',
-      'sections',
-      'timing',
-    ]
-    const key = step === 4 ? keys[3] : keys[step]
-    const nextAnswers = { ...answers, [key]: value }
+    const nextAnswers: Answers =
+      step === 0
+        ? { business: value, objective: '', sections: '', features: [], timing: '' }
+        : step === 1
+          ? { ...answers, objective: value, sections: '', features: [], timing: '' }
+          : step === 2
+            ? { ...answers, sections: value, features: [], timing: '' }
+            : { ...answers, timing: value }
     setAnswers(nextAnswers)
 
     if (step === 4) finish(nextAnswers)
@@ -201,7 +295,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
             Encuentra tu punto de partida.
           </h2>
           <p className="mt-5 max-w-md leading-relaxed text-foreground/65">
-            Cinco preguntas, una recomendación clara. Sin precios ocultos ni resultados inflados.
+            Cada respuesta adapta la siguiente pregunta para construir una recomendación realmente personal.
           </p>
 
           <div className="mt-8" aria-label={`Paso ${Math.min(step + 1, 5)} de 5`}>
@@ -252,6 +346,12 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
               >
                 <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">{current.eyebrow}</p>
                 <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{current.title}</h3>
+                {step > 0 ? (
+                  <p className="mt-3 text-xs font-semibold text-muted-foreground">
+                    Ruta personalizada · {getOptionLabel(BUSINESS_OPTIONS, answers.business)}
+                    {step > 1 ? ` · ${getOptionLabel(getObjectiveOptions(answers.business), answers.objective)}` : ''}
+                  </p>
+                ) : null}
 
                 <div className="mt-7 grid gap-3 sm:grid-cols-2">
                   {current.options.map((option) => {
