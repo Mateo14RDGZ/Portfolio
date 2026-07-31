@@ -1,11 +1,34 @@
 'use server'
 
+import { headers } from 'next/headers'
 import {
   validateContact,
   type ContactState,
 } from '@/lib/contact-schema'
 
 const CONTACT_TO_EMAIL = 'mrdgz14dev@gmail.com'
+const RATE_LIMIT_WINDOW_MS = 60_000
+const RATE_LIMIT_MAX_REQUESTS = 3
+const contactAttempts = new Map<string, { count: number; resetAt: number }>()
+
+function isRateLimited(identifier: string) {
+  const now = Date.now()
+  const current = contactAttempts.get(identifier)
+
+  if (!current || current.resetAt <= now) {
+    contactAttempts.set(identifier, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
+    return false
+  }
+
+  current.count += 1
+  if (contactAttempts.size > 500) {
+    for (const [key, value] of contactAttempts) {
+      if (value.resetAt <= now) contactAttempts.delete(key)
+    }
+  }
+
+  return current.count > RATE_LIMIT_MAX_REQUESTS
+}
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => ({
@@ -34,11 +57,23 @@ export async function submitContact(
     return { status: 'success', message: 'Mensaje enviado correctamente.', errors: {} }
   }
 
+  const requestHeaders = await headers()
+  const forwardedFor = requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim()
+  const identifier = forwardedFor || requestHeaders.get('x-real-ip') || 'unknown'
+
+  if (isRateLimited(identifier)) {
+    return {
+      status: 'error',
+      message: 'Recibí varias consultas seguidas. Esperá un minuto y volvé a intentar.',
+      errors: {},
+    }
+  }
+
   const errors = validateContact(input)
   if (Object.keys(errors).length > 0) {
     return {
       status: 'error',
-      message: 'Revisa los campos destacados.',
+      message: 'Revisá los campos destacados.',
       errors,
     }
   }
@@ -48,7 +83,7 @@ export async function submitContact(
     console.error('RESEND_API_KEY is not configured.')
     return {
       status: 'error',
-      message: 'No se pudo enviar el mensaje en este momento. Inténtalo de nuevo o escríbeme directamente por correo.',
+      message: 'No pude enviar el mensaje en este momento. Volvé a intentarlo o escribime directamente por correo.',
       errors: {},
     }
   }
@@ -94,7 +129,7 @@ export async function submitContact(
       console.error('Resend rejected the contact email:', response.status)
       return {
         status: 'error',
-        message: 'No se pudo enviar el mensaje en este momento. Inténtalo de nuevo o escríbeme directamente por correo.',
+        message: 'No pude enviar el mensaje en este momento. Volvé a intentarlo o escribime directamente por correo.',
         errors: {},
       }
     }
@@ -102,14 +137,14 @@ export async function submitContact(
     console.error('Contact email request failed:', error instanceof Error ? error.message : 'unknown error')
     return {
       status: 'error',
-      message: 'No se pudo enviar el mensaje en este momento. Inténtalo de nuevo o escríbeme directamente por correo.',
+      message: 'No pude enviar el mensaje en este momento. Volvé a intentarlo o escribime directamente por correo.',
       errors: {},
     }
   }
 
   return {
     status: 'success',
-    message: `Gracias, ${input.name.split(' ')[0]}. He recibido tu mensaje y te responderé en menos de 24 horas.`,
+    message: `Gracias, ${input.name.split(' ')[0]}. Recibí tu mensaje y te voy a responder en menos de 24 horas.`,
     errors: {},
   }
 }

@@ -162,10 +162,10 @@ function getTimingOptions(answers: Answers): Option[] {
 
 function getStep(step: number, answers: Answers) {
   if (step === 0) return { eyebrow: 'Tipo de negocio', title: '¿Qué estás construyendo?', options: BUSINESS_OPTIONS }
-  if (step === 1) return { eyebrow: 'Objetivo personalizado', title: '¿Qué resultado necesitas conseguir?', options: getObjectiveOptions(answers.business) }
+  if (step === 1) return { eyebrow: 'Objetivo personalizado', title: '¿Qué resultado necesitás conseguir?', options: getObjectiveOptions(answers.business) }
   if (step === 2) return { eyebrow: 'Tamaño del proyecto', title: answers.business === 'comercio' ? '¿Qué tamaño tendrá tu catálogo?' : '¿Qué tamaño imaginas?', options: getSectionOptions(answers) }
   if (step === 3) return { eyebrow: 'Funciones para tu caso', title: '¿Qué necesita esta solución?', options: getFeatureOptions(answers) }
-  return { eyebrow: 'Fecha aproximada', title: '¿Cuándo quieres ponerlo en marcha?', options: getTimingOptions(answers) }
+  return { eyebrow: 'Fecha aproximada', title: '¿Cuándo querés ponerlo en marcha?', options: getTimingOptions(answers) }
 }
 
 function getOptionLabel(options: readonly Option[], value: string) {
@@ -292,7 +292,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
         <div className="bg-accent p-7 sm:p-10 lg:p-12">
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Selector de plan</span>
           <h2 id="plan-finder-title" className="mt-4 text-4xl leading-[0.95] font-semibold tracking-[-0.05em] sm:text-5xl">
-            Encuentra tu punto de partida.
+            Encontrá tu punto de partida.
           </h2>
           <p className="mt-5 max-w-md leading-relaxed text-foreground/65">
             Cada respuesta adapta la siguiente pregunta para construir una recomendación realmente personal.
@@ -403,7 +403,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
 
       <div className="flex items-center gap-3 px-6 py-4 text-xs text-muted-foreground sm:px-10">
         <Building2 className="size-4 shrink-0 text-primary" />
-        La recomendación es orientativa. El alcance final se define contigo antes de comenzar.
+        La recomendación es orientativa. El alcance final lo definimos juntos antes de comenzar.
       </div>
     </section>
   )

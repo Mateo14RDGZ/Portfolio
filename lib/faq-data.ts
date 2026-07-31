@@ -15,23 +15,23 @@ export const FAQ_ITEMS = [
       'Cada propuesta indica sus rondas de revisión. GOLD incluye dos rondas completas. En todos los casos, primero validamos estructura y diseño para evitar cambios costosos al final.',
   },
   {
-    question: '¿Ofreces mantenimiento después del lanzamiento?',
+    question: '¿Ofrecés mantenimiento después del lanzamiento?',
     answer:
       'Sí. Puedo ocuparme de actualizaciones, copias de seguridad, pequeños cambios y mejoras continuas mediante un plan mensual. También puedo entregarte el sitio listo para que lo gestiones por tu cuenta.',
   },
   {
     question: '¿El dominio y el alojamiento están incluidos?',
     answer:
-      'Te ayudo a elegirlos y configurarlos. El dominio y los servicios externos quedan a tu nombre y se pagan directamente al proveedor, para que siempre conserves el control total del proyecto.',
+      'Te ayudo a elegirlos y configurarlos. El dominio y los servicios externos quedan a tu nombre y se pagan directamente al proveedor, para que mantengas el control total del proyecto.',
   },
   {
     question: '¿Quién prepara los textos y las imágenes?',
     answer:
-      'Puedes entregarme el contenido terminado o podemos trabajarlo juntos. Organizo y adapto el material para la web; si hace falta fotografía, redacción extensa o identidad de marca, lo cotizo por separado.',
+      'Podés entregarme el contenido terminado o podemos trabajarlo juntos. Organizo y adapto el material para la web; si hace falta fotografía, redacción extensa o identidad de marca, lo cotizo por separado.',
   },
   {
     question: '¿Qué necesito entregar para comenzar?',
     answer:
-      'Una explicación clara del negocio, el objetivo del sitio, logo y colores si ya existen, textos, imágenes y accesos necesarios. Después de la primera llamada recibirás una lista exacta y sencilla.',
+      'Una explicación clara del negocio, el objetivo del sitio, logo y colores si ya existen, textos, imágenes y accesos necesarios. Después de la primera llamada vas a recibir una lista exacta y sencilla.',
   },
 ] as const

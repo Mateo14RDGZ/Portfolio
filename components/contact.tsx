@@ -2,7 +2,8 @@
 
 import { useActionState, useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, CalendarDays, Check, Clock, Mail, Send } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, Check, Clock, Info, Mail, Send } from 'lucide-react'
+import { track } from '@vercel/analytics'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -43,6 +44,7 @@ export function Contact() {
     announced.current = state.message
 
     if (state.status === 'success') {
+      track('contact_form_submit_success')
       toast.success(state.message)
       formRef.current?.reset()
     } else if (state.status === 'error') {
@@ -59,7 +61,8 @@ export function Contact() {
   }
 
   function showCompletedForm() {
-    formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    formCardRef.current?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' })
     window.setTimeout(() => document.querySelector<HTMLInputElement>('#name')?.focus(), 550)
   }
 
@@ -86,8 +89,8 @@ export function Contact() {
           <div className="flex flex-col gap-10">
             <SectionHeading
               eyebrow="Contacto"
-              title="Cuéntame sobre tu negocio."
-              description="Envíame un breve mensaje sobre lo que necesitas y te responderé con una recomendación honesta, incluso si eso significa decirte que un plan más pequeño es suficiente."
+              title="Contame sobre tu negocio."
+              description="Enviame un breve mensaje sobre lo que necesitás y te voy a responder con una recomendación honesta, incluso si un plan más pequeño es suficiente."
               className="[&_h2]:text-background [&_p]:text-background/65 [&_span]:text-primary"
             />
 
@@ -99,6 +102,7 @@ export function Contact() {
                   render={
                     <a
                       href="#call-booking"
+                      onClick={() => track('booking_started', { source: 'contact_cta' })}
                     />
                   }
                 >
@@ -157,6 +161,12 @@ export function Contact() {
               transition={{ duration: 0.4 }}
               className="border border-background/50 bg-background p-5 text-foreground min-[380px]:p-6 sm:p-9"
             >
+              <div className="mb-6 flex gap-3 rounded-[1.25rem_0.35rem_1.25rem_0.35rem] border border-foreground/20 bg-secondary/55 p-4 sm:p-5">
+                <Info className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
+                <p className="text-sm font-medium leading-relaxed text-foreground/80">
+                  Te respondo en menos de 24 horas. Primero conversamos sobre tu idea y después te envío una propuesta con alcance, plazo y presupuesto. No tenés que pagar nada para consultar.
+                </p>
+              </div>
               <form
                 ref={formRef}
                 action={formAction}
@@ -164,7 +174,6 @@ export function Contact() {
                   setPlan('')
                   setMessage('')
                 }}
-                noValidate
               >
                 <input
                   type="text"
@@ -183,6 +192,9 @@ export function Contact() {
                         name="name"
                         autoComplete="name"
                         placeholder="Elena Moretti"
+                        required
+                        minLength={2}
+                        maxLength={80}
                         className="h-11 rounded-xl"
                         aria-invalid={!!state.errors.name || undefined}
                         aria-describedby={
@@ -190,7 +202,7 @@ export function Contact() {
                         }
                       />
                       {state.errors.name ? (
-                        <FieldDescription id="name-error">
+                        <FieldDescription id="name-error" role="alert">
                           {state.errors.name}
                         </FieldDescription>
                       ) : null}
@@ -204,6 +216,8 @@ export function Contact() {
                         type="email"
                         autoComplete="email"
                         placeholder="tu@negocio.com"
+                        required
+                        maxLength={254}
                         className="h-11 rounded-xl"
                         aria-invalid={!!state.errors.email || undefined}
                         aria-describedby={
@@ -211,7 +225,7 @@ export function Contact() {
                         }
                       />
                       {state.errors.email ? (
-                        <FieldDescription id="email-error">
+                        <FieldDescription id="email-error" role="alert">
                           {state.errors.email}
                         </FieldDescription>
                       ) : null}
@@ -219,7 +233,7 @@ export function Contact() {
                   </div>
 
                   {/* Plan selector — plain buttons keep it a single native form value */}
-                  <Field>
+                  <Field data-invalid={!!state.errors.plan || undefined}>
                     <FieldLabel htmlFor="plan-group">
                       ¿Qué plan te interesa?
                     </FieldLabel>
@@ -228,6 +242,7 @@ export function Contact() {
                       id="plan-group"
                       role="group"
                       aria-label="Qué plan te interesa"
+                      aria-describedby={state.errors.plan ? 'plan-error' : undefined}
                       className="flex flex-wrap gap-2"
                     >
                       {PLANS.map((option) => {
@@ -250,6 +265,11 @@ export function Contact() {
                         )
                       })}
                     </div>
+                    {state.errors.plan ? (
+                      <FieldDescription id="plan-error" role="alert">
+                        {state.errors.plan}
+                      </FieldDescription>
+                    ) : null}
                   </Field>
 
                   <Field data-invalid={!!state.errors.message || undefined}>
@@ -260,7 +280,10 @@ export function Contact() {
                       value={message}
                       onChange={(event) => setMessage(event.target.value)}
                       rows={5}
-                      placeholder="¿A qué se dedica tu negocio, qué necesitas conseguir con el sitio web y tienes alguna fecha límite en mente?"
+                      placeholder="¿A qué se dedica tu negocio, qué necesitás conseguir con el sitio web y tenés alguna fecha límite en mente?"
+                      required
+                      minLength={10}
+                      maxLength={4000}
                       className="resize-none rounded-xl"
                       aria-invalid={!!state.errors.message || undefined}
                       aria-describedby={
@@ -268,7 +291,7 @@ export function Contact() {
                       }
                     />
                     {state.errors.message ? (
-                      <FieldDescription id="message-error">
+                      <FieldDescription id="message-error" role="alert">
                         {state.errors.message}
                       </FieldDescription>
                     ) : (
@@ -305,7 +328,7 @@ export function Contact() {
                   </Button>
 
                   <p className="text-center text-xs leading-relaxed text-muted-foreground">
-                    Al enviar el formulario aceptas el tratamiento de tus datos
+                    Al enviar el formulario aceptás el tratamiento de tus datos
                     según la <a href="/privacidad" className="underline underline-offset-2 hover:text-foreground">política de privacidad</a>.
                   </p>
 

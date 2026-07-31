@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { EASE } from '@/lib/motion'
+import { track } from '@vercel/analytics'
 
 const SKILLS = [
   {
@@ -149,11 +150,12 @@ export function Projects() {
 
         <motion.a
           href="#contact"
+          onClick={() => track('projects_click', { source: 'skills_section' })}
           whileHover={{ y: -3 }}
           transition={{ duration: 0.35, ease: EASE }}
           className="group mt-8 flex min-h-16 items-center justify-between rounded-full border border-background/55 px-6 text-sm font-semibold transition-colors hover:bg-background hover:text-foreground"
         >
-          ¿Necesitas estas habilidades en tu proyecto?
+          ¿Necesitás estas habilidades en tu proyecto?
           <ArrowDownRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1" />
         </motion.a>
       </div>

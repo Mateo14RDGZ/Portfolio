@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { CalendarCheck2, Clock3, Globe2, Mail, Phone } from 'lucide-react'
 import { EASE } from '@/lib/motion'
+import { track } from '@vercel/analytics'
 
 const CAL_NAMESPACE = 'mr14-project-call'
 const CAL_TIMEZONE = 'America/Montevideo'
@@ -52,7 +53,7 @@ const CAL_COLORS = {
 
 function CalendarSkeleton() {
   return (
-    <div className="min-h-[820px] animate-pulse p-4 sm:min-h-[720px] sm:p-8" aria-label="Cargando calendario">
+    <div className="min-h-[820px] animate-pulse p-4 motion-reduce:animate-none sm:min-h-[720px] sm:p-8" role="status" aria-label="Cargando calendario">
       <div className="h-7 w-48 rounded-full bg-foreground/10" />
       <div className="mt-8 grid grid-cols-7 gap-2">
         {Array.from({ length: 42 }).map((_, index) => (
@@ -71,7 +72,7 @@ function MissingCalendarLink() {
       </span>
       <h4 className="mt-5 text-2xl font-semibold tracking-tight">Agenda en preparación</h4>
       <p className="mt-3 max-w-md leading-relaxed text-muted-foreground">
-        Mientras termino de conectar los horarios, puedes solicitar tu reunión directamente por correo.
+        Mientras termino de conectar los horarios, podés solicitar tu reunión directamente por correo.
       </p>
       <a
         href="mailto:mrdgz14dev@gmail.com?subject=Quiero%20agendar%20una%20reuni%C3%B3n"
@@ -128,6 +129,10 @@ export function CallBooking() {
           dark: CAL_COLORS,
         },
       })
+      cal('on', {
+        action: 'bookingSuccessfulV2',
+        callback: () => track('booking_completed', { provider: 'cal_com' }),
+      })
     })
 
     return () => {
@@ -154,14 +159,14 @@ export function CallBooking() {
             Agendemos una reunión.
           </h3>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">
-            Reserva una llamada para contarme sobre tu proyecto, resolver dudas y definir el mejor próximo paso. Sin compromiso.
+            Reservá una llamada para contarme sobre tu proyecto, resolver dudas y definir el mejor próximo paso. Sin compromiso.
           </p>
         </div>
 
         <ul className="grid gap-2 text-sm sm:grid-cols-3 lg:grid-cols-1">
           {[
             { icon: Clock3, text: '25 minutos' },
-            { icon: Globe2, text: 'Hora de Montevideo' },
+            { icon: Globe2, text: 'Hora de Montevideo · UTC−3' },
             { icon: Phone, text: 'Llamada' },
           ].map((item) => (
             <li key={item.text} className="flex min-h-11 items-center gap-2.5 rounded-full border border-foreground/30 bg-background/35 px-4 font-semibold">
@@ -175,7 +180,7 @@ export function CallBooking() {
         <div className="flex min-h-14 items-center justify-between gap-4 border-b border-foreground/25 bg-background/60 px-4 sm:min-h-16 sm:px-6">
           <div className="flex min-w-0 items-center gap-2.5">
             <span className="relative flex size-2.5 shrink-0">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-35" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-35 motion-reduce:animate-none" />
               <span className="relative inline-flex size-2.5 rounded-full bg-primary" />
             </span>
             <span className="truncate font-mono text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[10px]">
@@ -183,7 +188,7 @@ export function CallBooking() {
             </span>
           </div>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/55 min-[390px]:block">
-            America / Montevideo
+            Hora de Montevideo · UTC−3
           </span>
         </div>
 

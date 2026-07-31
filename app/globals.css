@@ -97,6 +97,10 @@
     background-image: radial-gradient(rgb(41 21 50 / 11%) 0.7px, transparent 0.7px);
     background-size: 6px 6px;
   }
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
   ::selection {
     background: rgb(174 188 255 / 70%);
   }
@@ -136,6 +140,15 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

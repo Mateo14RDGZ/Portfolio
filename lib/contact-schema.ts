@@ -21,6 +21,7 @@ export const initialContactState: ContactState = {
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+const VALID_PLANS = new Set(['', 'CLASSIC', 'GOLD', 'BLACK', 'Aún no lo sé'])
 
 export type ContactInput = {
   name: string
@@ -33,11 +34,16 @@ export type ContactInput = {
 export function validateContact(input: ContactInput) {
   const errors: ContactState['errors'] = {}
 
-  if (input.name.length < 2) errors.name = 'Indícame tu nombre.'
+  if (input.name.length < 2) errors.name = 'Indicame tu nombre.'
+  else if (input.name.length > 80) errors.name = 'El nombre debe tener menos de 80 caracteres.'
   if (!EMAIL_PATTERN.test(input.email))
-    errors.email = 'Introduce una dirección de correo válida.'
+    errors.email = 'Ingresá una dirección de correo válida.'
+  else if (input.email.length > 254)
+    errors.email = 'La dirección de correo es demasiado larga.'
+  if (!VALID_PLANS.has(input.plan))
+    errors.plan = 'Elegí una de las opciones disponibles.'
   if (input.message.length < 10)
-    errors.message = 'Añade un poco más de información para poder responderte mejor.'
+    errors.message = 'Agregá un poco más de información para poder responderte mejor.'
   else if (input.message.length > 4000)
     errors.message = 'El mensaje debe tener menos de 4000 caracteres.'
 

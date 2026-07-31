@@ -19,7 +19,7 @@ const PILLARS = [
   },
   {
     icon: MessagesSquare,
-    title: 'Hablas conmigo',
+    title: 'Hablás conmigo',
     copy: 'Sin intermediarios ni traspasos. La persona que escribe el código es la misma que responde tus mensajes.',
   },
 ]
@@ -32,7 +32,7 @@ export function About() {
           <SectionHeading
             eyebrow="Sobre mí"
             title="Un desarrollador que piensa como dueño de un negocio."
-            description="Creo sitios web modernos para pequeños negocios: páginas que cargan al instante, transmiten calidad y dejan claro por qué eres la mejor opción. Me encargo de la estrategia, el diseño y el código."
+            description="Creo sitios web modernos para pequeños negocios: páginas rápidas, claras y pensadas para mostrar por qué soy una buena opción para tu proyecto. Me encargo de la estrategia, el diseño y el código."
           />
 
           <StaggerGroup className="flex flex-col" gap={0.12}>
@@ -80,7 +80,7 @@ export function About() {
                   </span>
                 </div>
                 <span className="text-muted-foreground font-mono text-xs">
-                  EST / CET
+                  Uruguay · Trabajo remoto
                 </span>
               </div>
             </div>

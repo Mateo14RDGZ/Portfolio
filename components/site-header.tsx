@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
@@ -16,10 +16,50 @@ const LINKS = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const logoIntro = useLogoIntro()
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileNavRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const handleMenuKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        menuButtonRef.current?.focus()
+        return
+      }
+
+      if (event.key !== 'Tab') return
+      const navItems = Array.from(
+        mobileNavRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
+      )
+      const focusable = [menuButtonRef.current, ...navItems].filter(
+        (item): item is HTMLElement => item !== null,
+      )
+      const first = focusable[0]
+      const last = focusable.at(-1)
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last?.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first?.focus()
+      }
+    }
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      mobileNavRef.current?.querySelector<HTMLElement>('a[href]')?.focus()
+    })
+    window.addEventListener('keydown', handleMenuKeyboard)
+    return () => {
+      window.cancelAnimationFrame(focusFrame)
+      window.removeEventListener('keydown', handleMenuKeyboard)
+    }
   }, [open])
 
   return (
@@ -44,14 +84,14 @@ export function SiteHeader() {
           Hablemos <ArrowUpRight className="size-4" />
         </a>
 
-        <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} className="grid w-14 place-items-center sm:w-20 lg:hidden">
+        <button ref={menuButtonRef} type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} aria-controls="mobile-navigation" className="grid w-14 place-items-center sm:w-20 lg:hidden">
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
-          <motion.nav initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-24">
+          <motion.nav ref={mobileNavRef} id="mobile-navigation" initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-24">
             <div className="flex flex-1 flex-col justify-center px-5">
               {LINKS.map((link, index) => (
                 <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between border-t border-primary-foreground/40 py-5 text-[clamp(2rem,12vw,4.5rem)] leading-none tracking-[-0.06em]">

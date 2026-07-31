@@ -7,6 +7,7 @@ type SectionHeadingProps = {
   description?: string
   align?: 'left' | 'center'
   className?: string
+  id?: string
 }
 
 /** Consistent eyebrow + headline + copy block used at the top of every section. */
@@ -16,6 +17,7 @@ export function SectionHeading({
   description,
   align = 'left',
   className,
+  id,
 }: SectionHeadingProps) {
   return (
     <StaggerGroup
@@ -31,7 +33,7 @@ export function SectionHeading({
         </span>
       </RevealItem>
       <RevealItem>
-        <h2 className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
+        <h2 id={id} className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
           {title}
         </h2>
       </RevealItem>

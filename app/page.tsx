@@ -16,13 +16,20 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Mateo Rodríguez — Diseño y desarrollo web',
+  url: 'https://portfolio-mrdgz14.vercel.app/',
+  email: 'mailto:mrdgz14dev@gmail.com',
   description:
     'Desarrollador web full-stack freelance especializado en sitios rápidos y modernos para pequeños negocios.',
-  areaServed: 'Todo el mundo',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Uruguay',
+  },
+  availableLanguage: 'es',
   founder: {
     '@type': 'Person',
     name: 'Mateo Rodríguez',
     jobTitle: 'Desarrollador web full-stack',
+    url: 'https://portfolio-mrdgz14.vercel.app/',
   },
   knowsAbout: [
     'Next.js',

@@ -30,11 +30,11 @@ const siteUrl = 'https://portfolio-mrdgz14.vercel.app'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Mateo Rodríguez — Diseño y desarrollo web',
+    default: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
     template: '%s — Mateo Rodríguez',
   },
   description:
-    'Desarrollador full-stack freelance especializado en sitios web rápidos y modernos para pequeños negocios. Estrategia, diseño y desarrollo de principio a fin.',
+    'Diseño y desarrollo sitios web rápidos, claros y a medida para negocios. Trabajo remoto desde Uruguay con estrategia, diseño y código en un mismo proceso.',
   keywords: [
     'desarrollador web freelance',
     'desarrollador full-stack',
@@ -50,16 +50,25 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Mateo Rodríguez / MR14',
-    title: 'Mateo Rodríguez — Diseño y desarrollo web',
+    title: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
     description:
-      'Sitios web rápidos y modernos para pequeños negocios. Un único desarrollador, desde la primera llamada hasta el lanzamiento.',
-    locale: 'es_ES',
+      'Sitios web rápidos, claros y a medida para negocios. Estrategia, diseño y desarrollo desde Uruguay.',
+    locale: 'es_UY',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Mateo Rodríguez, diseño y desarrollo web · MR14',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mateo Rodríguez — Diseño y desarrollo web',
+    title: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
     description:
-      'Sitios web rápidos y modernos para pequeños negocios. Un único desarrollador, desde la primera llamada hasta el lanzamiento.',
+      'Sitios web rápidos, claros y a medida para negocios. Estrategia, diseño y desarrollo desde Uruguay.',
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
@@ -85,7 +94,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
+      lang="es-UY"
       className={`bg-background ${geistSans.variable} ${geistMono.variable} ${maziusDisplay.variable}`}
       suppressHydrationWarning
     >

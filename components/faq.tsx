@@ -26,6 +26,7 @@ export function Faq() {
               return (
                 <div key={item.question} className="border-b border-foreground">
                   <button
+                    id={`faq-question-${index}`}
                     type="button"
                     aria-expanded={active}
                     aria-controls={`faq-answer-${index}`}
@@ -47,6 +48,8 @@ export function Faq() {
                     {active ? (
                       <motion.div
                         id={`faq-answer-${index}`}
+                        role="region"
+                        aria-labelledby={`faq-question-${index}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}

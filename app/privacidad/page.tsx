@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const SECTIONS = [
   {
     title: 'Responsable',
-    copy: 'Mateo Rodríguez es responsable del tratamiento de los datos recibidos mediante este sitio. Puedes escribir a mrdgz14dev@gmail.com para cualquier consulta relacionada con tu privacidad.',
+    copy: 'Mateo Rodríguez es responsable del tratamiento de los datos recibidos mediante este sitio. Podés escribir a mrdgz14dev@gmail.com para cualquier consulta relacionada con tu privacidad.',
   },
   {
     title: 'Datos recopilados',
@@ -32,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: 'Tus derechos',
-    copy: 'Puedes solicitar acceso, corrección o eliminación de tus datos, así como retirar tu consentimiento. Escribe al correo indicado y responderé a tu solicitud lo antes posible.',
+    copy: 'Podés solicitar acceso, corrección o eliminación de tus datos, así como retirar tu consentimiento. Escribí al correo indicado y voy a responder a tu solicitud lo antes posible.',
   },
   {
     title: 'Analítica y cookies',
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
             Privacidad, explicada con claridad.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Esta política explica qué ocurre con la información que compartes al contactar a través de este portfolio.
+            Esta política explica qué ocurre con la información que compartís al contactarme a través de este portfolio.
           </p>
           <p className="mt-3 font-mono text-xs uppercase tracking-[0.12em] text-foreground/55">Última actualización: 31 de julio de 2026</p>
         </div>

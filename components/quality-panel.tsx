@@ -20,6 +20,7 @@ export function QualityPanel() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div>
             <SectionHeading
+              id="quality-title"
               eyebrow="Calidad comprobable"
               title="Lo que prometo también se puede medir."
               description="Resultados de una auditoría Lighthouse móvil realizada sobre este mismo portfolio publicado. Sin cifras decorativas ni métricas inventadas."

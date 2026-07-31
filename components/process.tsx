@@ -16,7 +16,7 @@ const STEPS = [
   },
   {
     title: 'Diseño',
-    copy: 'Verás pronto el diseño real —tipografía, colores y estructura— y lo perfeccionaremos juntos antes de comenzar con el código.',
+    copy: 'Vas a ver pronto el diseño real —tipografía, colores y estructura— y lo vamos a perfeccionar juntos antes de comenzar con el código.',
   },
   {
     title: 'Desarrollo',
@@ -24,7 +24,7 @@ const STEPS = [
   },
   {
     title: 'Pruebas',
-    copy: 'Comprobaciones en distintos navegadores y dispositivos reales, además de revisiones de accesibilidad y rendimiento. Nada se publica con errores.',
+    copy: 'Hago comprobaciones en distintos navegadores y dispositivos reales, además de revisiones de accesibilidad y rendimiento. No publico el sitio sin completar las pruebas acordadas.',
   },
   {
     title: 'Lanzamiento',
@@ -49,8 +49,8 @@ export function Process() {
     >
       <SectionHeading
         eyebrow="Proceso"
-        title="Seis pasos. Sin sorpresas."
-        description="Siempre sabrás en qué etapa estamos, qué necesito de ti y qué sucederá después."
+        title="Seis pasos. Un proceso claro."
+        description="Siempre vas a saber en qué etapa estamos, qué necesito de vos y qué va a pasar después."
       />
 
       <ol ref={containerRef} className="relative mt-9 flex flex-col gap-0 border-t border-foreground sm:mt-12 sm:pl-0">
