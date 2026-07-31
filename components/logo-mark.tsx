@@ -20,45 +20,48 @@ type LogoStroke = {
 }
 
 const DRAW_EASE = [0.65, 0, 0.35, 1] as const
-const LOGO_IMAGE = '/mr14-logo-transparent.png'
-const LOOP_DURATION = 6
-const SETTLED_AT = 2.06 / LOOP_DURATION
-const FADE_OUT_AT = 5.28 / LOOP_DURATION
-const HIDDEN_AT = 5.7 / LOOP_DURATION
+const LOGO_IMAGE = '/mr14-logo-vector.svg'
+const SHINE_END = 2.72
+const STATIC_HOLD_DURATION = 6
+const FADE_DURATION = 0.18
+const BLANK_DURATION = 0.1
+const LOOP_DURATION = SHINE_END + STATIC_HOLD_DURATION + FADE_DURATION + BLANK_DURATION
+const FADE_OUT_AT = (SHINE_END + STATIC_HOLD_DURATION) / LOOP_DURATION
+const HIDDEN_AT = (SHINE_END + STATIC_HOLD_DURATION + FADE_DURATION) / LOOP_DURATION
 
 /**
  * These centre lines only drive the reveal mask. The visible artwork is always
- * the approved transparent master, including the final settled frame, so the
+ * the approved vector master, including the final settled frame, so the
  * animation cannot alter the logo's proportions or intersections.
  */
 const LOGO_STROKES: readonly LogoStroke[] = [
   {
-    d: 'M 190 129 C 304 35 486 34 610 137 C 724 232 741 407 664 529',
-    revealWidth: 58,
+    d: 'M 170 130 C 304 25 500 32 625 145 C 730 245 745 420 645 555',
+    revealWidth: 90,
     delay: 0,
     duration: 1.2,
   },
   {
-    d: 'M 99 275 C 40 420 91 582 218 656 C 344 729 507 710 610 620',
-    revealWidth: 58,
+    d: 'M 95 240 C 35 420 91 600 225 672 C 365 745 525 710 635 600',
+    revealWidth: 90,
     delay: 0.18,
     duration: 1.08,
   },
   {
-    d: 'M 126 505 L 126 213 L 264 382 L 384 254 L 384 659 M 151 162 L 295 302',
-    revealWidth: 72,
+    d: 'M 126 535 L 126 190 L 264 382 L 384 240 L 384 700 M 120 130 L 320 325',
+    revealWidth: 130,
     delay: 0.46,
     duration: 0.96,
   },
   {
-    d: 'M 386 253 L 517 253 C 625 253 627 403 518 404 L 451 404 L 665 608 M 414 404 L 512 502',
-    revealWidth: 72,
+    d: 'M 370 235 L 535 235 C 650 235 650 420 520 420 L 435 420 L 720 640 M 395 385 L 535 530',
+    revealWidth: 130,
     delay: 0.92,
     duration: 0.92,
   },
   {
-    d: 'M 432 620 L 432 539 L 420 550 M 531 620 L 531 535 L 476 592 L 548 592',
-    revealWidth: 46,
+    d: 'M 432 650 L 432 515 L 400 555 M 531 650 L 531 515 L 455 605 L 570 605',
+    revealWidth: 90,
     delay: 1.42,
     duration: 0.62,
   },
@@ -143,8 +146,8 @@ export function LogoMark({
                       0,
                       path.delay / LOOP_DURATION,
                       (path.delay + path.duration) / LOOP_DURATION,
-                      0.98,
-                      0.981,
+                      0.994,
+                      0.995,
                       1,
                     ],
                     repeat: Infinity,
@@ -158,36 +161,18 @@ export function LogoMark({
       </defs>
 
       {shouldDraw ? (
-        <>
-          <motion.g
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 1, 0, 0] }}
-            transition={{
-              duration: LOOP_DURATION,
-              times: [0, 0.012, FADE_OUT_AT, HIDDEN_AT, 1],
-              repeat: Infinity,
-              ease: DRAW_EASE,
-            }}
-          >
-            <LogoImage mask={`url(#${drawMaskId})`} />
-          </motion.g>
-          <motion.image
-            href={LOGO_IMAGE}
-            x="0"
-            y="0"
-            width="768"
-            height="768"
-            preserveAspectRatio="xMidYMid meet"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0, 1, 1, 0, 0] }}
-            transition={{
-              duration: LOOP_DURATION,
-              times: [0, 1.82 / LOOP_DURATION, SETTLED_AT, FADE_OUT_AT, HIDDEN_AT, 1],
-              repeat: Infinity,
-              ease: DRAW_EASE,
-            }}
-          />
-        </>
+        <motion.g
+          initial={{ opacity: 1 }}
+          animate={{ opacity: [1, 1, 0, 0] }}
+          transition={{
+            duration: LOOP_DURATION,
+            times: [0, FADE_OUT_AT, HIDDEN_AT, 1],
+            repeat: Infinity,
+            ease: DRAW_EASE,
+          }}
+        >
+          <LogoImage mask={`url(#${drawMaskId})`} />
+        </motion.g>
       ) : (
         <LogoImage />
       )}
