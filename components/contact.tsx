@@ -20,6 +20,7 @@ import { initialContactState } from '@/lib/contact-schema'
 import { scaleIn, slideLeft } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import { CallBooking } from '@/components/call-booking'
+import { PlanFinder, type RecommendedPlan } from '@/components/plan-finder'
 
 const EMAIL = 'mrdgz14dev@gmail.com'
 
@@ -31,7 +32,9 @@ export function Contact() {
     initialContactState,
   )
   const [plan, setPlan] = useState<string>('')
+  const [message, setMessage] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
+  const formCardRef = useRef<HTMLDivElement>(null)
   const announced = useRef('')
 
   // Surface the server result as a toast and clear the form on success.
@@ -47,6 +50,19 @@ export function Contact() {
     }
   }, [state])
 
+  function handlePlanComplete(result: {
+    plan: RecommendedPlan
+    summary: string
+  }) {
+    setPlan(result.plan)
+    setMessage(result.summary)
+  }
+
+  function showCompletedForm() {
+    formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    window.setTimeout(() => document.querySelector<HTMLInputElement>('#name')?.focus(), 550)
+  }
+
   return (
     <section
       id="contact"
@@ -56,7 +72,16 @@ export function Contact() {
       <div aria-hidden className="absolute top-0 right-0 h-4 w-1/3 bg-primary" />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid gap-11 sm:gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+        <PlanFinder
+          onComplete={handlePlanComplete}
+          onReset={() => {
+            setPlan('')
+            setMessage('')
+          }}
+          onViewForm={showCompletedForm}
+        />
+
+        <div className="mt-16 grid gap-11 sm:mt-20 sm:gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
           {/* Left: pitch + direct channels */}
           <div className="flex flex-col gap-10">
             <SectionHeading
@@ -127,6 +152,7 @@ export function Contact() {
           {/* Right: form card */}
           <Reveal variants={scaleIn} delay={0.1}>
             <motion.div
+              ref={formCardRef}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.4 }}
               className="border border-background/50 bg-background p-5 text-foreground min-[380px]:p-6 sm:p-9"
@@ -134,7 +160,10 @@ export function Contact() {
               <form
                 ref={formRef}
                 action={formAction}
-                onReset={() => setPlan('')}
+                onReset={() => {
+                  setPlan('')
+                  setMessage('')
+                }}
                 noValidate
               >
                 <input
@@ -228,6 +257,8 @@ export function Contact() {
                     <Textarea
                       id="message"
                       name="message"
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
                       rows={5}
                       placeholder="¿A qué se dedica tu negocio, qué necesitas conseguir con el sitio web y tienes alguna fecha límite en mente?"
                       className="resize-none rounded-xl"
