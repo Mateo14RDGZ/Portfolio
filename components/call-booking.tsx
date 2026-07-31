@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
-import { CalendarCheck2, Clock3, Globe2, Mail, Video } from 'lucide-react'
+import { CalendarCheck2, Clock3, Globe2, Mail, Phone } from 'lucide-react'
 import { EASE } from '@/lib/motion'
 
 const CAL_NAMESPACE = 'mr14-project-call'
@@ -154,7 +154,7 @@ export function CallBooking() {
             Agendemos una reunión.
           </h3>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">
-            Reserva una videollamada para contarme sobre tu proyecto, resolver dudas y definir el mejor próximo paso. Sin compromiso.
+            Reserva una llamada para contarme sobre tu proyecto, resolver dudas y definir el mejor próximo paso. Sin compromiso.
           </p>
         </div>
 
@@ -162,7 +162,7 @@ export function CallBooking() {
           {[
             { icon: Clock3, text: '25 minutos' },
             { icon: Globe2, text: 'Hora de Montevideo' },
-            { icon: Video, text: 'Videollamada' },
+            { icon: Phone, text: 'Llamada' },
           ].map((item) => (
             <li key={item.text} className="flex min-h-11 items-center gap-2.5 rounded-full border border-foreground/30 bg-background/35 px-4 font-semibold">
               <item.icon className="size-4 text-primary" /> {item.text}

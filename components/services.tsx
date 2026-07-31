@@ -158,8 +158,12 @@ export function Services() {
                 </ul>
 
                 <Button
-                  variant={plan.featured ? 'default' : 'outline'}
-                  className="group/cta relative mt-9 h-12 w-full rounded-full text-sm font-medium"
+                  variant="outline"
+                  className={cn(
+                    'group/cta relative mt-9 h-12 w-full rounded-full text-sm font-bold',
+                    plan.featured &&
+                      'border-foreground bg-foreground text-background shadow-[0_10px_30px_rgba(41,21,50,0.2)] hover:border-background hover:bg-background hover:text-foreground focus-visible:ring-background/70',
+                  )}
                   nativeButton={false}
                   render={<a href="#contact" />}
                 >
