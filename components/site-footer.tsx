@@ -73,10 +73,10 @@ export function SiteFooter() {
             Desarrollado por{' '}
             <Link
               href="/"
-              className="font-sans text-[11px] font-bold italic tracking-[0.08em] text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-colors hover:text-primary"
-              aria-label="MR14 — volver al inicio del portfolio"
+              className="font-sans text-[11px] font-bold italic tracking-[0.08em] text-foreground transition-colors hover:text-primary"
+              aria-label="MƦ14 — volver al inicio del portfolio"
             >
-              MR14
+              MƦ14
             </Link>
           </p>
         </div>
