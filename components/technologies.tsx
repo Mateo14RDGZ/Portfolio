@@ -19,7 +19,7 @@ const STACK = [
 
 export function Technologies() {
   return (
-    <section className="relative overflow-hidden bg-primary py-20 sm:py-32">
+    <section className="relative overflow-hidden bg-primary py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Stack"
@@ -29,7 +29,7 @@ export function Technologies() {
         />
 
         <StaggerGroup
-          className="mt-10 flex flex-wrap justify-center gap-2.5 sm:mt-14 sm:gap-3"
+          className="mt-8 flex flex-wrap justify-center gap-2.5 sm:mt-10 sm:gap-3"
           gap={0.05}
         >
           {STACK.map((tech) => (
@@ -46,7 +46,7 @@ export function Technologies() {
       {/* Infinite scrolling keyword band */}
       <div
         aria-hidden
-        className="relative mt-14 flex overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] sm:mt-20 sm:py-5"
+        className="relative mt-10 flex overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] sm:mt-14 sm:py-5"
       >
         <div className="animate-marquee flex shrink-0 items-center gap-10 pr-10 motion-reduce:animate-none">
           {[...STACK, ...STACK].map((tech, i) => (

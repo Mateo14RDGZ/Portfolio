@@ -6,8 +6,8 @@ import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section id="top" className="min-h-[100svh] border-b border-foreground pt-16 sm:pt-20">
-      <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-[1400px] grid-rows-[auto_1fr_auto] sm:min-h-[calc(100svh-5rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
+    <section id="top" className="min-h-[100svh] border-b border-foreground pt-[4.5rem] sm:pt-24">
+      <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-[1400px] grid-rows-[auto_1fr_auto] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
         <div className="flex flex-col justify-between border-foreground p-5 sm:p-8 lg:border-r lg:p-12">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-xs uppercase tracking-[0.18em]">
             Desarrollador independiente · Uruguay · 2026

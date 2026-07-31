@@ -73,7 +73,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-accent py-20 sm:rounded-t-[6rem] sm:py-32"
+      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-accent py-16 sm:rounded-t-[6rem] sm:py-24"
     >
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
@@ -84,7 +84,7 @@ export function Services() {
         />
 
         <StaggerGroup
-          className="mt-11 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:items-stretch"
+          className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3 lg:items-stretch"
           gap={0.13}
         >
           {PLANS.map((plan, index) => (

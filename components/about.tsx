@@ -26,8 +26,8 @@ const PILLARS = [
 
 export function About() {
   return (
-    <section id="about" className="relative mx-auto my-8 max-w-6xl scroll-mt-24 rounded-[2.5rem_0.5rem_2.5rem_0.5rem] bg-card px-5 py-20 sm:my-16 sm:px-10 sm:py-28">
-      <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
+    <section id="about" className="relative mx-auto my-6 max-w-6xl scroll-mt-24 rounded-[2.5rem_0.5rem_2.5rem_0.5rem] bg-card px-5 py-16 sm:my-10 sm:px-10 sm:py-20">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
         <div className="flex flex-col gap-10 lg:border-r lg:border-foreground lg:pr-12">
           <SectionHeading
             eyebrow="Sobre mí"

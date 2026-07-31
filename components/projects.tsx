@@ -30,7 +30,7 @@ const DIRECTIONS = [
 
 export function Projects() {
   return (
-    <section id="work" className="scroll-mt-24 bg-foreground py-20 text-background sm:py-32">
+    <section id="work" className="scroll-mt-24 bg-foreground py-16 text-background sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Lo que puedo construir"
@@ -39,7 +39,7 @@ export function Projects() {
           className="border-background/50 [&_h2]:text-background [&_p]:text-background/65 [&_span]:text-primary"
         />
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+        <div className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3">
           {DIRECTIONS.map((item, index) => (
             <motion.article
               key={item.number}

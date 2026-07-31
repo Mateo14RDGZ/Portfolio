@@ -58,8 +58,8 @@ export const metadata: Metadata = {
   },
   generator: 'v0.app',
   icons: {
-    icon: '/mr14-logo-transparent.png',
-    apple: '/mr14-logo-transparent.png',
+    icon: '/icon.png',
+    apple: '/icon.png',
   },
 }
 

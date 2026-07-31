@@ -20,8 +20,8 @@ export function SectionHeading({
   return (
     <StaggerGroup
       className={cn(
-        'grid max-w-4xl gap-4 border-t border-foreground pt-4 sm:grid-cols-[10rem_1fr] sm:gap-8',
-        align === 'center' && 'mx-auto',
+        'flex max-w-4xl flex-col gap-3 border-t border-foreground pt-4 sm:gap-4',
+        align === 'center' && 'mx-auto text-center sm:items-center',
         className,
       )}
     >
@@ -31,13 +31,13 @@ export function SectionHeading({
         </span>
       </RevealItem>
       <RevealItem>
-        <h2 className="text-gradient text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
+        <h2 className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
           {title}
         </h2>
       </RevealItem>
       {description ? (
         <RevealItem>
-          <p className="text-muted-foreground max-w-xl text-base leading-relaxed text-pretty sm:col-start-2 sm:text-lg">
+          <p className="text-muted-foreground max-w-2xl text-base leading-relaxed text-pretty sm:text-lg">
             {description}
           </p>
         </RevealItem>

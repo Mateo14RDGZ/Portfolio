@@ -45,7 +45,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative mx-auto my-8 max-w-6xl scroll-mt-24 rounded-[0.75rem_4rem_0.75rem_4rem] bg-card px-5 py-20 sm:my-16 sm:px-10 sm:py-28"
+      className="relative mx-auto my-6 max-w-6xl scroll-mt-24 rounded-[0.75rem_4rem_0.75rem_4rem] bg-card px-5 py-16 sm:my-10 sm:px-10 sm:py-20"
     >
       <SectionHeading
         eyebrow="Proceso"
@@ -53,7 +53,7 @@ export function Process() {
         description="Siempre sabrás en qué etapa estamos, qué necesito de ti y qué sucederá después."
       />
 
-      <ol ref={containerRef} className="relative mt-11 flex flex-col gap-0 border-t border-foreground sm:mt-16 sm:pl-0">
+      <ol ref={containerRef} className="relative mt-9 flex flex-col gap-0 border-t border-foreground sm:mt-12 sm:pl-0">
         {/* Rail */}
         <motion.div aria-hidden style={{ scaleX: scaleY }} className="absolute top-0 left-0 h-1 w-full origin-left bg-primary" />
 

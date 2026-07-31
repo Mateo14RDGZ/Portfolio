@@ -50,7 +50,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-foreground py-20 text-background sm:rounded-t-[6rem] sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-foreground py-16 text-background sm:rounded-t-[6rem] sm:py-24"
     >
       {/* Ambient glow anchoring the final call to action */}
       <div aria-hidden className="absolute top-0 right-0 h-4 w-1/3 bg-primary" />
@@ -70,6 +70,7 @@ export function Contact() {
               <div className="flex flex-col gap-3">
                 <Button
                   className="group h-13 w-full justify-between rounded-none bg-primary px-5 text-base sm:w-auto sm:min-w-80"
+                  nativeButton={false}
                   render={
                     <a
                       href={WHATSAPP_URL}
@@ -91,6 +92,7 @@ export function Contact() {
                 <Button
                   variant="outline"
                   className="group h-13 w-full justify-between rounded-none border-background/40 bg-transparent px-5 text-base text-background hover:bg-background hover:text-foreground sm:w-auto sm:min-w-80"
+                  nativeButton={false}
                   render={<a href={`mailto:${EMAIL}`} />}
                 >
                   <span className="flex items-center gap-2.5">

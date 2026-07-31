@@ -22,10 +22,10 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
-      <div className="mx-auto flex h-16 max-w-[1400px] items-stretch px-4 sm:h-20 sm:px-8">
+      <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-stretch px-3 sm:h-24 sm:px-6">
         <a href="#top" className="flex min-w-0 flex-1 items-center gap-3 border-r border-foreground pr-4 sm:gap-4 sm:pr-8">
-          <Image src="/mr14-logo-transparent.png" alt="MR14" width={48} height={48} priority className="size-10 object-contain sm:size-14" />
-          <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-base">Mateo Rodríguez</span>
+          <Image src="/mr14-logo-transparent.png" alt="MR14" width={80} height={80} priority className="size-14 object-contain sm:size-20" />
+          <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-lg">Mateo Rodríguez</span>
         </a>
 
         <nav aria-label="Principal" className="hidden items-stretch lg:flex">
@@ -40,14 +40,14 @@ export function SiteHeader() {
           Hablemos <ArrowUpRight className="size-4" />
         </a>
 
-        <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} className="grid w-14 place-items-center sm:w-16 lg:hidden">
+        <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} className="grid w-14 place-items-center sm:w-20 lg:hidden">
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
-          <motion.nav initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-20">
+          <motion.nav initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-24">
             <div className="flex flex-1 flex-col justify-center px-5">
               {LINKS.map((link, index) => (
                 <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between border-t border-primary-foreground/40 py-5 text-[clamp(2rem,12vw,4.5rem)] leading-none tracking-[-0.06em]">
