@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
+import { LogoMark } from '@/components/logo-mark'
 
 const LINKS = [
   { label: 'Perfil', href: '#about' },
@@ -15,13 +15,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1400px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="grid items-center gap-8 border-b border-foreground pb-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 lg:pb-14">
           <a href="#top" className="group flex w-fit items-center gap-5" aria-label="Volver al inicio">
-            <Image
-              src="/mr14-logo-transparent.png"
-              alt="MR14"
-              width={240}
-              height={240}
-              className="size-32 object-contain transition-transform duration-500 group-hover:-rotate-6 sm:size-48 lg:size-56"
-            />
+            <LogoMark className="size-32 sm:size-48 lg:size-56" />
             <span className="hidden font-mono text-xs uppercase tracking-[0.2em] sm:block">
               Identidad<br />MR14
             </span>

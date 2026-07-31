@@ -1,61 +1,87 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
-import { EASE } from '@/lib/motion'
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { LogoMark } from '@/components/logo-mark'
 
-/**
- * Short curtain reveal on first paint, then fades the page content in.
- * Keeps the initial impression intentional instead of a hard content pop.
- */
+type IntroState = 'checking' | 'playing' | 'done'
+const LogoIntroContext = createContext<IntroState>('checking')
+const STORAGE_KEY = 'mr14-logo-intro-played-v1'
+
+export function useLogoIntro() {
+  return useContext(LogoIntroContext)
+}
+
+/** One-shot brand intro. The final move lands on the navbar logo without shifting layout. */
 export function PageTransition({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true)
+  const [introState, setIntroState] = useState<IntroState>('checking')
+  const [docking, setDocking] = useState(false)
+  const [viewportWidth, setViewportWidth] = useState(0)
+  const reduceMotion = useReducedMotion()
+
+  useLayoutEffect(() => {
+    // This mount-only state handoff intentionally happens before the first paint.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setViewportWidth(window.innerWidth)
+    const hasPlayed = window.sessionStorage.getItem(STORAGE_KEY) === 'true'
+
+    if (hasPlayed || reduceMotion) {
+      setIntroState('done')
+      return
+    }
+
+    window.sessionStorage.setItem(STORAGE_KEY, 'true')
+    setIntroState('playing')
+  }, [reduceMotion])
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 650)
-    return () => clearTimeout(timer)
-  }, [])
+    if (introState !== 'playing') return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previousOverflow }
+  }, [introState])
+
+  const dock = useMemo(() => {
+    const desktop = viewportWidth >= 640
+    const containerInset = viewportWidth > 1400 ? (viewportWidth - 1400) / 2 : 0
+    return {
+      left: containerInset + (desktop ? 24 : 12),
+      top: desktop ? 8 : 8,
+      width: desktop ? 80 : 56,
+    }
+  }, [viewportWidth])
 
   return (
-    <>
+    <LogoIntroContext.Provider value={introState}>
+      {children}
+
       <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="curtain"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="bg-background fixed inset-0 z-[100] flex items-center justify-center"
-          >
+        {introState === 'checking' ? (
+          <div className="fixed inset-0 z-[120] bg-background" aria-hidden="true" />
+        ) : null}
+
+        {introState === 'playing' ? (
+          <motion.div key="logo-intro" className="pointer-events-none fixed inset-0 z-[120]" aria-hidden="true">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="flex flex-col items-center gap-5"
+              className="absolute inset-0 bg-background"
+              animate={{ opacity: docking ? 0 : 1 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            />
+
+            <motion.div
+              className="fixed"
+              initial={{ left: '50%', top: '50%', width: 'min(58vw, 420px)', x: '-50%', y: '-50%' }}
+              animate={docking ? { left: dock.left, top: dock.top, width: dock.width, x: 0, y: 0 } : undefined}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              onAnimationComplete={() => {
+                if (docking) setIntroState('done')
+              }}
             >
-              <span className="bg-primary text-primary-foreground grid size-12 place-items-center rounded-2xl font-mono text-base font-semibold">
-                MR
-              </span>
-              <div className="bg-secondary h-px w-28 overflow-hidden rounded-full">
-                <motion.div
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '0%' }}
-                  transition={{ duration: 0.6, ease: EASE }}
-                  className="bg-primary h-full w-full"
-                />
-              </div>
+              <LogoMark animateIntro interactive={false} onSequenceComplete={() => setDocking(true)} />
             </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-      >
-        {children}
-      </motion.div>
-    </>
+    </LogoIntroContext.Provider>
   )
 }
