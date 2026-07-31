@@ -2,42 +2,43 @@
 
 import { useId } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { ALL_PATHS, CIRCLE_PATHS, MONOGRAM_PATHS, NUMBER_PATHS } from '@/components/logo-path-data'
+import { ALL_PATHS } from '@/components/logo-path-data'
 import { cn } from '@/lib/utils'
 
 type LogoMarkProps = {
   className?: string
   animateIntro?: boolean
-  ambient?: boolean
   interactive?: boolean
   onSequenceComplete?: () => void
   title?: string
 }
 
-const DRAW_EASE = [0.16, 1, 0.3, 1] as const
+const DRAW_EASE = [0.65, 0, 0.35, 1] as const
 
-function Paths({ paths }: { paths: readonly string[] }) {
-  return paths.map((path, index) => <path key={index} d={path} fill="currentColor" fillRule="evenodd" />)
+function FilledPaths() {
+  return ALL_PATHS.map((path, index) => (
+    <path key={index} d={path} fill="currentColor" fillRule="evenodd" />
+  ))
 }
 
-/** Exact vector silhouette of the approved MR14 mark, with an optional one-shot reveal. */
+/**
+ * Exact MR14 silhouette plus true SVG center-line paths used for the one-shot draw.
+ * The animated strokes never alter the geometry of the final approved mark.
+ */
 export function LogoMark({
   className,
-  animateIntro = false,
-  ambient = true,
+  animateIntro = true,
   interactive = true,
   onSequenceComplete,
   title = 'MR14',
 }: LogoMarkProps) {
   const reduceMotion = useReducedMotion()
-  const shouldAnimate = animateIntro && !reduceMotion
-  const shouldFloat = ambient && !animateIntro && !reduceMotion
+  const shouldDraw = animateIntro && !reduceMotion
   const instanceId = useId().replace(/:/g, '')
-  const circleMaskId = `mr14-circle-${instanceId}`
-  const monogramMaskId = `mr14-monogram-${instanceId}`
-  const clipId = `mr14-clip-${instanceId}`
-  const sweepId = `mr14-sweep-${instanceId}`
-  const ambientSweepId = `mr14-ambient-sweep-${instanceId}`
+  const clipId = `mr14-fill-${instanceId}`
+  const shineId = `mr14-shine-${instanceId}`
+
+  const strokeInitial = shouldDraw ? { pathLength: 0, opacity: 1 } : false
 
   return (
     <motion.svg
@@ -45,135 +46,102 @@ export function LogoMark({
       role="img"
       aria-label={title}
       className={cn('block overflow-visible text-[#171218]', className)}
-      initial={shouldAnimate ? { opacity: 0, scale: 0.985 } : false}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      whileHover={interactive ? { scale: 1.03, rotate: 1.2, filter: 'drop-shadow(0 0 12px rgba(255,93,58,0.2))' } : undefined}
-      transition={{ duration: shouldAnimate ? 0.55 : 0.35, ease: DRAW_EASE }}
-      style={{ transformOrigin: '50% 50%', willChange: 'transform' }}
+      initial={false}
+      whileHover={interactive ? { filter: 'drop-shadow(0 0 10px rgba(255,93,58,0.2))' } : undefined}
+      transition={{ duration: 0.35, ease: DRAW_EASE }}
+      style={{ transformOrigin: '50% 50%', willChange: 'filter' }}
     >
       <defs>
-        <mask id={circleMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
-          <rect width="768" height="768" fill="black" />
-          <motion.path
-            d="M 185 132 C 302 35 489 34 614 143 C 730 244 742 424 659 548 C 566 686 379 727 229 650 C 90 578 39 412 99 272"
-            fill="none"
-            stroke="white"
-            strokeWidth="64"
-            strokeLinecap="round"
-            pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 1.25 : 0, delay: shouldAnimate ? 0.35 : 0, ease: DRAW_EASE }}
-          />
-        </mask>
-
-        <mask id={monogramMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
-          <rect width="768" height="768" fill="black" />
-          <motion.path
-            d="M 125 210 L 125 510 M 130 210 L 264 382 L 384 254 L 384 663 M 145 158 L 296 302"
-            fill="none"
-            stroke="white"
-            strokeWidth="74"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 1.42 : 0, ease: DRAW_EASE }}
-          />
-          <motion.path
-            d="M 383 252 L 520 252 C 635 252 635 405 520 405 L 451 405 L 666 609 M 412 403 L 514 505"
-            fill="none"
-            stroke="white"
-            strokeWidth="76"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 2.12 : 0, ease: DRAW_EASE }}
-          />
-        </mask>
-
         <clipPath id={clipId}>
-          <Paths paths={ALL_PATHS} />
+          <FilledPaths />
         </clipPath>
-
-        <linearGradient id={sweepId} x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={shineId} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="white" stopOpacity="0" />
-          <stop offset="0.5" stopColor="white" stopOpacity="0.9" />
+          <stop offset="0.5" stopColor="white" stopOpacity="0.62" />
           <stop offset="1" stopColor="white" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id={ambientSweepId} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#ff5d3a" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#ff8a70" stopOpacity="0.72" />
-          <stop offset="1" stopColor="#ff5d3a" stopOpacity="0" />
         </linearGradient>
       </defs>
 
+      {/* Final mark: exact filled paths, introduced only after the drawing is complete. */}
       <motion.g
-        animate={shouldFloat ? { scale: [1, 1.012, 1], rotate: [-0.28, 0.28, -0.28] } : undefined}
-        transition={shouldFloat ? { duration: 5.8, repeat: Infinity, ease: 'easeInOut' } : undefined}
-        style={{ transformOrigin: '384px 384px' }}
+        initial={shouldDraw ? { opacity: 0 } : false}
+        animate={{ opacity: 1 }}
+        transition={{ duration: shouldDraw ? 0.4 : 0, delay: shouldDraw ? 1.95 : 0, ease: DRAW_EASE }}
       >
-        <g mask={shouldAnimate ? `url(#${circleMaskId})` : undefined}>
-          <Paths paths={CIRCLE_PATHS} />
-        </g>
-        <g mask={shouldAnimate ? `url(#${monogramMaskId})` : undefined}>
-          <Paths paths={MONOGRAM_PATHS} />
-        </g>
-        <motion.g
-          initial={{ opacity: shouldAnimate ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
-          animate={shouldFloat ? { opacity: [0.88, 1, 0.88], scale: [1, 1.035, 1] } : { opacity: 1, y: 0 }}
-          transition={shouldFloat
-            ? { duration: 3.8, repeat: Infinity, ease: 'easeInOut' }
-            : { duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
-          style={{ transformOrigin: '485px 575px' }}
-        >
-          <Paths paths={NUMBER_PATHS} />
-        </motion.g>
+        <FilledPaths />
       </motion.g>
 
-      {shouldAnimate ? (
-        <motion.rect
-          x="-260"
-          y="0"
-          width="150"
-          height="768"
-          fill={`url(#${sweepId})`}
-          clipPath={`url(#${clipId})`}
-          initial={{ x: -260, opacity: 0 }}
-          animate={{ x: 990, opacity: [0, 0.72, 0] }}
-          transition={{ duration: 0.9, delay: 3.32, ease: 'easeInOut' }}
-          onAnimationComplete={onSequenceComplete}
-        />
-      ) : null}
-
-      {shouldFloat ? (
-        <g aria-hidden="true">
+      {shouldDraw ? (
+        <g
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="butt"
+          strokeLinejoin="round"
+        >
+          {/* The two physical circle segments read as one continuous outer trace. */}
           <motion.path
-            d="M 185 132 C 302 35 489 34 614 143 C 730 244 742 424 659 548 C 566 686 379 727 229 650 C 90 578 39 412 99 272"
-            fill="none"
-            stroke="#ff6d4d"
-            strokeWidth="20"
-            strokeLinecap="round"
+            d="M 190 129 C 304 35 486 34 610 137 C 724 232 741 407 664 529"
+            strokeWidth="28"
             pathLength="1"
-            strokeDasharray="0.13 0.87"
-            clipPath={`url(#${clipId})`}
-            animate={{ strokeDashoffset: [0, -1], opacity: [0.38, 0.72, 0.38] }}
-            transition={{ duration: 4.8, repeat: Infinity, ease: 'linear' }}
+            initial={strokeInitial}
+            animate={{ pathLength: 1, opacity: 0 }}
+            transition={{ pathLength: { duration: 1.2, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
           />
-          <motion.rect
-            x="-260"
-            y="0"
-            width="165"
-            height="768"
-            fill={`url(#${ambientSweepId})`}
-            clipPath={`url(#${clipId})`}
-            animate={{ x: [-260, 990], opacity: [0, 0.5, 0] }}
-            transition={{ duration: 3.9, repeat: Infinity, ease: 'linear' }}
+          <motion.path
+            d="M 99 275 C 40 420 91 582 218 656 C 344 729 507 710 610 620"
+            strokeWidth="28"
+            pathLength="1"
+            initial={strokeInitial}
+            animate={{ pathLength: 1, opacity: 0 }}
+            transition={{ pathLength: { duration: 0.95, delay: 0.25, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+          />
+
+          {/* M begins before the circle completes, keeping the gesture connected. */}
+          <motion.path
+            d="M 126 213 L 126 505 M 126 213 L 264 382 L 384 254 L 384 659 M 151 162 L 295 302"
+            strokeWidth="32"
+            pathLength="1"
+            initial={strokeInitial}
+            animate={{ pathLength: 1, opacity: 0 }}
+            transition={{ pathLength: { duration: 0.9, delay: 0.5, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+          />
+
+          {/* R continues from the shared central stem into its bowl and leg. */}
+          <motion.path
+            d="M 386 253 L 517 253 C 625 253 627 403 518 404 L 451 404 L 665 608 M 414 404 L 512 502"
+            strokeWidth="32"
+            pathLength="1"
+            initial={strokeInitial}
+            animate={{ pathLength: 1, opacity: 0 }}
+            transition={{ pathLength: { duration: 0.9, delay: 1, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+          />
+
+          {/* 14 closes the construction with two compact strokes. */}
+          <motion.path
+            d="M 432 620 L 432 539 L 420 550 M 531 620 L 531 535 L 476 592 L 548 592"
+            strokeWidth="22"
+            pathLength="1"
+            initial={strokeInitial}
+            animate={{ pathLength: 1, opacity: 0 }}
+            transition={{ pathLength: { duration: 0.6, delay: 1.5, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
           />
         </g>
+      ) : null}
+
+      {/* A single restrained highlight closes the sequence; it never loops. */}
+      {shouldDraw ? (
+        <motion.rect
+          x="-220"
+          y="0"
+          width="130"
+          height="768"
+          fill={`url(#${shineId})`}
+          clipPath={`url(#${clipId})`}
+          initial={{ x: -220, opacity: 0 }}
+          animate={{ x: 960, opacity: [0, 0.48, 0] }}
+          transition={{ duration: 0.6, delay: 2.43, ease: DRAW_EASE }}
+          onAnimationComplete={onSequenceComplete}
+        />
       ) : null}
     </motion.svg>
   )
