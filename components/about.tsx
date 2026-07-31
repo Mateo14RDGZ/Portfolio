@@ -26,23 +26,23 @@ const PILLARS = [
 
 export function About() {
   return (
-    <section id="about" className="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-28 sm:py-36">
-      <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-        <div className="flex flex-col gap-10">
+    <section id="about" className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-6 sm:py-36">
+      <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
+        <div className="flex flex-col gap-10 lg:border-r lg:border-foreground lg:pr-12">
           <SectionHeading
             eyebrow="Sobre mí"
             title="Un desarrollador que piensa como dueño de un negocio."
             description="Creo sitios web modernos para pequeños negocios: páginas que cargan al instante, transmiten calidad y dejan claro por qué eres la mejor opción. Me encargo de la estrategia, el diseño y el código."
           />
 
-          <StaggerGroup className="flex flex-col gap-6" gap={0.12}>
+          <StaggerGroup className="flex flex-col" gap={0.12}>
             {PILLARS.map((pillar) => (
               <RevealItem
                 key={pillar.title}
                 variants={slideLeft}
-                className="group border-border flex gap-5 border-t pt-6"
+                className="group flex gap-5 border-t border-foreground py-6"
               >
-                <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground grid size-11 shrink-0 place-items-center rounded-2xl transition-colors duration-500">
+                <span className="text-primary grid size-11 shrink-0 place-items-center border border-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   <pillar.icon className="size-5" />
                 </span>
                 <div className="flex flex-col gap-1.5">
@@ -57,18 +57,14 @@ export function About() {
         </div>
 
         {/* Floating portrait / signature card */}
-        <Reveal variants={scaleIn} className="lg:pt-16">
+        <Reveal variants={scaleIn} className="lg:pl-12 lg:pt-0">
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-            className="glass border-border relative overflow-hidden rounded-3xl border p-8 sm:p-10"
+            className="relative overflow-hidden border border-foreground bg-primary p-6 text-primary-foreground min-[380px]:p-7 sm:p-10 [&_.text-muted-foreground]:text-primary-foreground/70"
           >
-            <div
-              aria-hidden
-              className="bg-primary/15 absolute -top-24 -right-16 size-56 rounded-full blur-3xl"
-            />
-            <div className="relative flex flex-col gap-8">
-              <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
+            <div className="relative flex flex-col gap-6 sm:gap-8">
+              <span className="font-mono text-xs tracking-[0.2em] uppercase">
                 Actualmente
               </span>
               <p className="text-2xl leading-snug font-medium tracking-tight text-balance sm:text-3xl">
@@ -78,7 +74,7 @@ export function About() {
               </p>
               <div className="border-border flex items-center justify-between border-t pt-6">
                 <div className="flex flex-col">
-                  <span className="font-medium">Mateo Ravel</span>
+                  <span className="font-medium">Mateo Rodríguez</span>
                   <span className="text-muted-foreground text-sm">
                     Desarrollador full-stack, remoto
                   </span>

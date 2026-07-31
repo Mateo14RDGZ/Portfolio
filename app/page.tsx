@@ -5,8 +5,6 @@ import { Services } from '@/components/services'
 import { Projects } from '@/components/projects'
 import { Technologies } from '@/components/technologies'
 import { Process } from '@/components/process'
-import { WhyMe } from '@/components/why-me'
-import { Testimonials } from '@/components/testimonials'
 import { Contact } from '@/components/contact'
 import { SiteFooter } from '@/components/site-footer'
 import { PageTransition } from '@/components/page-transition'
@@ -14,13 +12,13 @@ import { PageTransition } from '@/components/page-transition'
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Mateo Ravel — Desarrollo web freelance',
+  name: 'Mateo Rodríguez — Diseño y desarrollo web',
   description:
     'Desarrollador web full-stack freelance especializado en sitios rápidos y modernos para pequeños negocios.',
   areaServed: 'Todo el mundo',
   founder: {
     '@type': 'Person',
-    name: 'Mateo Ravel',
+    name: 'Mateo Rodríguez',
     jobTitle: 'Desarrollador web full-stack',
   },
   knowsAbout: [
@@ -52,8 +50,6 @@ export default function HomePage() {
         <Projects />
         <Technologies />
         <Process />
-        <WhyMe />
-        <Testimonials />
         <Contact />
       </main>
 

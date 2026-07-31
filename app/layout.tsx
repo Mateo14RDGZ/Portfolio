@@ -21,8 +21,8 @@ const siteUrl = 'https://mateoravel.dev'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Mateo Ravel — Desarrollador web full-stack freelance',
-    template: '%s — Mateo Ravel',
+    default: 'Mateo Rodríguez — Diseño y desarrollo web',
+    template: '%s — Mateo Rodríguez',
   },
   description:
     'Desarrollador full-stack freelance especializado en sitios web rápidos y modernos para pequeños negocios. Estrategia, diseño y desarrollo de principio a fin.',
@@ -34,21 +34,21 @@ export const metadata: Metadata = {
     'desarrollo web',
     'diseño web profesional',
   ],
-  authors: [{ name: 'Mateo Ravel', url: siteUrl }],
-  creator: 'Mateo Ravel',
+  authors: [{ name: 'Mateo Rodríguez', url: siteUrl }],
+  creator: 'Mateo Rodríguez',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     url: siteUrl,
-    siteName: 'Mateo Ravel',
-    title: 'Mateo Ravel — Desarrollador web full-stack freelance',
+    siteName: 'Mateo Rodríguez / MR14',
+    title: 'Mateo Rodríguez — Diseño y desarrollo web',
     description:
       'Sitios web rápidos y modernos para pequeños negocios. Un único desarrollador, desde la primera llamada hasta el lanzamiento.',
     locale: 'es_ES',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mateo Ravel — Desarrollador web full-stack freelance',
+    title: 'Mateo Rodríguez — Diseño y desarrollo web',
     description:
       'Sitios web rápidos y modernos para pequeños negocios. Un único desarrollador, desde la primera llamada hasta el lanzamiento.',
   },
@@ -58,27 +58,14 @@ export const metadata: Metadata = {
   },
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/mr14-logo.jpg',
+    apple: '/mr14-logo.jpg',
   },
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#0a0b0d',
+  colorScheme: 'light',
+  themeColor: '#dfe8c8',
   width: 'device-width',
   initialScale: 1,
 }

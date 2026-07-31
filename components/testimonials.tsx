@@ -33,20 +33,20 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-28 sm:py-36">
+    <section className="relative mx-auto max-w-6xl px-5 py-20 sm:px-6 sm:py-36">
       <SectionHeading
         eyebrow="Testimonios"
         title="Pequeños negocios, una gran diferencia."
         description="Algunas palabras de quienes confiaron algo importante a un profesional freelance."
       />
 
-      <StaggerGroup className="mt-16 grid gap-6 lg:grid-cols-3" gap={0.12}>
+      <StaggerGroup className="mt-11 grid gap-5 sm:mt-16 sm:gap-6 lg:grid-cols-3" gap={0.12}>
         {TESTIMONIALS.map((item) => (
           <RevealItem key={item.name} className="h-full">
             <motion.figure
               whileHover={{ y: -8 }}
               transition={{ duration: 0.45, ease: EASE }}
-              className="group border-border glass relative flex h-full flex-col gap-6 overflow-hidden rounded-3xl border p-8"
+              className="group border-border glass relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border p-6 min-[380px]:p-7 sm:gap-6 sm:p-8"
             >
               <div
                 aria-hidden

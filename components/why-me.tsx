@@ -53,10 +53,10 @@ const BENEFITS = [
 
 export function WhyMe() {
   return (
-    <section className="relative overflow-hidden py-28 sm:py-36">
+    <section className="relative overflow-hidden py-20 sm:py-36">
       <SectionBackdrop />
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Por qué elegirme"
           title="Todo lo que promete una agencia, sin intermediarios."
@@ -64,12 +64,12 @@ export function WhyMe() {
         />
 
         <StaggerGroup
-          className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-11 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:mt-16 sm:grid-cols-2 lg:grid-cols-3"
           gap={0.07}
         >
           {BENEFITS.map((benefit) => (
             <RevealItem key={benefit.title} className="h-full">
-              <div className="group bg-background hover:bg-card flex h-full flex-col gap-4 p-8 transition-colors duration-500">
+              <div className="group bg-background hover:bg-card flex h-full flex-col gap-4 p-6 min-[380px]:p-7 sm:p-8 transition-colors duration-500">
                 <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground grid size-11 place-items-center rounded-2xl transition-all duration-500 group-hover:scale-110">
                   <benefit.icon className="size-5" />
                 </span>
@@ -85,7 +85,7 @@ export function WhyMe() {
 
           {/* Closing cell that keeps the grid visually complete */}
           <RevealItem className="h-full">
-            <div className="bg-card flex h-full flex-col justify-center gap-3 p-8">
+            <div className="bg-card flex h-full flex-col justify-center gap-3 p-6 min-[380px]:p-7 sm:p-8">
               <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
                 Y una cosa más
               </span>

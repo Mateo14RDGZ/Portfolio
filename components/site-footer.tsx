@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowUp } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { Reveal } from '@/components/reveal'
@@ -21,14 +22,12 @@ const SOCIALS = [
 export function SiteFooter() {
   return (
     <footer className="border-border relative border-t">
-      <Reveal className="mx-auto max-w-6xl px-6 py-14">
+      <Reveal className="mx-auto max-w-6xl px-5 py-12 sm:px-6 sm:py-14">
         <div className="flex flex-col gap-10 sm:gap-12">
           <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
-            <a href="#top" className="flex items-center gap-2.5">
-              <span className="bg-primary text-primary-foreground grid size-8 place-items-center rounded-xl font-mono text-sm font-semibold">
-                MR
-              </span>
-              <span className="text-sm font-medium tracking-tight">Mateo Ravel</span>
+            <a href="#top" className="flex min-h-11 items-center gap-2.5">
+              <Image src="/mr14-logo.jpg" alt="MR14" width={44} height={44} className="size-11 object-cover mix-blend-multiply" />
+              <span className="text-sm font-medium tracking-tight">Mateo Rodríguez</span>
             </a>
 
             <nav aria-label="Pie de página" className="flex flex-wrap gap-x-6 gap-y-2">
@@ -36,7 +35,7 @@ export function SiteFooter() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                  className="text-muted-foreground hover:text-foreground inline-flex min-h-11 items-center text-sm transition-colors"
                 >
                   {link.label}
                 </a>
@@ -49,7 +48,7 @@ export function SiteFooter() {
                   key={social.label}
                   variant="outline"
                   size="icon"
-                  className="size-10 rounded-full"
+                  className="size-11 rounded-none border-foreground"
                   aria-label={social.label}
                   render={
                     <a
@@ -65,7 +64,7 @@ export function SiteFooter() {
               <Button
                 variant="outline"
                 size="icon"
-                className="size-10 rounded-full"
+                className="size-11 rounded-none border-foreground"
                 aria-label="Volver arriba"
                 render={<a href="#top" />}
               >
@@ -76,7 +75,7 @@ export function SiteFooter() {
 
           <div className="border-border flex flex-col-reverse justify-between gap-3 border-t pt-8 sm:flex-row sm:items-center">
             <p className="text-muted-foreground font-mono text-xs">
-              © {new Date().getFullYear()} Mateo Ravel. Todos los derechos reservados.
+              © {new Date().getFullYear()} Mateo Rodríguez. Todos los derechos reservados.
             </p>
             <p className="text-muted-foreground font-mono text-xs">
               Diseñado y desarrollado desde cero — Next.js, TypeScript, Tailwind CSS

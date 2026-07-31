@@ -50,28 +50,26 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden py-28 sm:py-36"
+      className="relative scroll-mt-24 overflow-hidden bg-foreground py-20 text-background sm:py-28"
     >
       {/* Ambient glow anchoring the final call to action */}
-      <div
-        aria-hidden
-        className="bg-primary/10 pointer-events-none absolute -bottom-40 left-1/2 size-[46rem] -translate-x-1/2 rounded-full blur-[150px]"
-      />
+      <div aria-hidden className="absolute top-0 right-0 h-4 w-1/3 bg-primary" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+        <div className="grid gap-11 sm:gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
           {/* Left: pitch + direct channels */}
           <div className="flex flex-col gap-10">
             <SectionHeading
               eyebrow="Contacto"
               title="Cuéntame sobre tu negocio."
               description="Envíame un breve mensaje sobre lo que necesitas y te responderé con una recomendación honesta, incluso si eso significa decirte que un plan más pequeño es suficiente."
+              className="[&_h2]:text-background [&_p]:text-background/65 [&_span]:text-primary"
             />
 
             <Reveal variants={slideLeft} delay={0.1}>
               <div className="flex flex-col gap-3">
                 <Button
-                  className="group h-13 w-full justify-between rounded-2xl px-5 text-base sm:w-auto sm:min-w-80"
+                  className="group h-13 w-full justify-between rounded-none bg-primary px-5 text-base sm:w-auto sm:min-w-80"
                   render={
                     <a
                       href={WHATSAPP_URL}
@@ -92,7 +90,7 @@ export function Contact() {
 
                 <Button
                   variant="outline"
-                  className="group glass h-13 w-full justify-between rounded-2xl px-5 text-base sm:w-auto sm:min-w-80"
+                  className="group h-13 w-full justify-between rounded-none border-background/40 bg-transparent px-5 text-base text-background hover:bg-background hover:text-foreground sm:w-auto sm:min-w-80"
                   render={<a href={`mailto:${EMAIL}`} />}
                 >
                   <span className="flex items-center gap-2.5">
@@ -108,7 +106,7 @@ export function Contact() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <ul className="border-border flex flex-col gap-3 border-t pt-6">
+              <ul className="flex flex-col gap-3 border-t border-background/30 pt-6 text-background/75">
                 {[
                   { icon: Clock, text: 'Respuesta en menos de 24 horas, de lunes a viernes' },
                   { icon: Check, text: 'Primera llamada gratuita, sin compromiso ni guiones' },
@@ -116,7 +114,7 @@ export function Contact() {
                 ].map((item) => (
                   <li
                     key={item.text}
-                    className="text-muted-foreground flex items-center gap-3 text-sm"
+                    className="flex items-center gap-3 text-sm"
                   >
                     <item.icon className="text-primary size-4 shrink-0" />
                     {item.text}
@@ -131,7 +129,7 @@ export function Contact() {
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.4 }}
-              className="glass border-border rounded-3xl border p-7 sm:p-9"
+              className="border border-background/50 bg-background p-5 text-foreground min-[380px]:p-6 sm:p-9"
             >
               <form
                 ref={formRef}
@@ -204,7 +202,7 @@ export function Contact() {
                             aria-pressed={active}
                             onClick={() => setPlan(active ? '' : option)}
                             className={cn(
-                              'rounded-full border px-4 py-2 text-sm transition-all duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
+                              'min-h-12 border px-4 py-2 text-sm transition-all duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
                               active
                                 ? 'border-primary bg-primary text-primary-foreground'
                                 : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground',
@@ -245,7 +243,7 @@ export function Contact() {
                   <Button
                     type="submit"
                     disabled={pending}
-                    className="group h-13 w-full rounded-2xl text-base font-medium"
+                    className="group h-13 w-full rounded-none text-base font-medium"
                   >
                     {pending ? (
                       <>

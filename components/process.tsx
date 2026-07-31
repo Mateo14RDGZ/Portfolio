@@ -45,7 +45,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-28 sm:py-36"
+      className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-6 sm:py-36"
     >
       <SectionHeading
         eyebrow="Proceso"
@@ -53,17 +53,9 @@ export function Process() {
         description="Siempre sabrás en qué etapa estamos, qué necesito de ti y qué sucederá después."
       />
 
-      <ol ref={containerRef} className="relative mt-16 flex flex-col gap-12 pl-12 sm:pl-16">
+      <ol ref={containerRef} className="relative mt-11 flex flex-col gap-0 border-t border-foreground sm:mt-16 sm:pl-0">
         {/* Rail */}
-        <div
-          aria-hidden
-          className="bg-border absolute top-2 bottom-2 left-[15px] w-px sm:left-[23px]"
-        >
-          <motion.div
-            style={{ scaleY }}
-            className="from-primary to-primary/30 h-full w-full origin-top bg-gradient-to-b"
-          />
-        </div>
+        <motion.div aria-hidden style={{ scaleX: scaleY }} className="absolute top-0 left-0 h-1 w-full origin-left bg-primary" />
 
         {STEPS.map((step, i) => (
           <motion.li
@@ -72,17 +64,17 @@ export function Process() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.65, ease: EASE, delay: i * 0.04 }}
-            className="group relative"
+            className="group relative grid border-b border-foreground py-7 sm:grid-cols-[10rem_1fr] sm:py-9"
           >
             {/* Node */}
             <span
               aria-hidden
-              className="border-background bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground absolute top-0.5 -left-12 grid size-8 place-items-center rounded-full border-4 font-mono text-xs font-semibold transition-colors duration-500 sm:-left-16 sm:size-12 sm:text-sm"
+              className="mb-3 font-mono text-xs font-semibold text-primary sm:mb-0"
             >
               {String(i + 1).padStart(2, '0')}
             </span>
 
-            <div className="flex flex-col gap-2 pt-0.5 sm:pt-2.5">
+            <div className="flex flex-col gap-2">
               <h3 className="text-xl font-medium tracking-tight sm:text-2xl">
                 {step.title}
               </h3>

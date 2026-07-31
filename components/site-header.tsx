@@ -1,146 +1,66 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { EASE } from '@/lib/motion'
 
-const NAV_LINKS = [
-  { label: 'Sobre mí', href: '#about' },
+const LINKS = [
+  { label: 'Perfil', href: '#about' },
   { label: 'Servicios', href: '#services' },
-  { label: 'Proyectos', href: '#work' },
-  { label: 'Proceso', href: '#process' },
-  { label: 'Contacto', href: '#contact' },
+  { label: 'Archivo', href: '#work' },
+  { label: 'Método', href: '#process' },
 ]
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const { scrollY } = useScroll()
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setScrolled(latest > 24)
-  })
-
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
+    return () => { document.body.style.overflow = '' }
   }, [open])
 
   return (
-    <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-        className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4"
-      >
-        <div
-          className={cn(
-            'mx-auto flex max-w-6xl items-center justify-between rounded-full border border-transparent px-4 py-2.5 transition-all duration-500 sm:px-5',
-            scrolled && 'glass border-border shadow-2xl shadow-black/40',
-          )}
-        >
-          <a
-            href="#top"
-            className="group flex items-center gap-2.5 rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
-          >
-            <span className="bg-primary text-primary-foreground grid size-8 place-items-center rounded-xl font-mono text-sm font-semibold transition-transform duration-500 group-hover:rotate-[8deg]">
-              MR
-            </span>
-            <span className="text-sm font-medium tracking-tight">
-              Mateo Ravel
-              <span className="text-muted-foreground ml-1.5 hidden font-mono text-xs sm:inline">
-                / dev
-              </span>
-            </span>
-          </a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
+      <div className="mx-auto flex h-16 max-w-[1400px] items-stretch px-4 sm:h-20 sm:px-8">
+        <a href="#top" className="flex min-w-0 flex-1 items-center gap-3 border-r border-foreground pr-4 sm:gap-4 sm:pr-8">
+          <Image src="/mr14-logo.jpg" alt="MR14" width={48} height={48} priority className="size-10 object-cover mix-blend-multiply sm:size-14" />
+          <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-base">Mateo Rodríguez</span>
+        </a>
 
-          <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground relative rounded-full px-3.5 py-2 text-sm transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+        <nav aria-label="Principal" className="hidden items-stretch lg:flex">
+          {LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="grid min-w-28 place-items-center border-r border-foreground px-5 font-mono text-xs uppercase tracking-[0.16em] transition-colors hover:bg-foreground hover:text-background">
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
-          <div className="flex items-center gap-2">
-            <Button
-              size="sm"
-              className="hidden rounded-full sm:inline-flex"
-              render={<a href="#contact" />}
-            >
-              Iniciar un proyecto
-              <ArrowUpRight data-icon="inline-end" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full md:hidden"
-              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {open ? <X /> : <Menu />}
-            </Button>
-          </div>
-        </div>
-      </motion.header>
+        <a href="#contact" className="hidden items-center gap-2 bg-primary px-7 text-sm font-semibold text-primary-foreground transition-colors hover:bg-foreground sm:flex">
+          Hablemos <ArrowUpRight className="size-4" />
+        </a>
+
+        <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} className="grid w-14 place-items-center sm:w-16 lg:hidden">
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
 
       <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-background/95 fixed inset-0 z-40 backdrop-blur-xl md:hidden"
-          >
-            <nav
-              aria-label="Móvil"
-              className="flex h-full flex-col justify-center gap-2 px-8"
-            >
-              {NAV_LINKS.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 + i * 0.06, duration: 0.5, ease: EASE }}
-                  className="border-border/60 border-b py-5 text-3xl font-medium tracking-tight"
-                >
-                  {link.label}
-                </motion.a>
+        {open && (
+          <motion.nav initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-20">
+            <div className="flex flex-1 flex-col justify-center px-5">
+              {LINKS.map((link, index) => (
+                <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between border-t border-primary-foreground/40 py-5 text-[clamp(2rem,12vw,4.5rem)] leading-none tracking-[-0.06em]">
+                  {link.label}<span className="font-mono text-xs tracking-normal">0{index + 1}</span>
+                </a>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5, ease: EASE }}
-                className="pt-8"
-              >
-                <Button
-                  size="lg"
-                  className="w-full rounded-full"
-                  render={<a href="#contact" onClick={() => setOpen(false)} />}
-                >
-                  Iniciar un proyecto
-                  <ArrowUpRight data-icon="inline-end" />
-                </Button>
-              </motion.div>
-            </nav>
-          </motion.div>
-        ) : null}
+            </div>
+            <a href="#contact" onClick={() => setOpen(false)} className="flex min-h-20 items-center justify-between border-t border-primary-foreground px-5 text-xl font-semibold">
+              Iniciar una conversación <ArrowUpRight />
+            </a>
+          </motion.nav>
+        )}
       </AnimatePresence>
-    </>
+    </header>
   )
 }

@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
-import { SectionBackdrop } from '@/components/aurora-backdrop'
 import { cn } from '@/lib/utils'
 import { EASE } from '@/lib/motion'
 
@@ -74,11 +73,9 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-24 overflow-hidden py-28 sm:py-36"
+      className="relative scroll-mt-24 overflow-hidden py-20 sm:py-36"
     >
-      <SectionBackdrop />
-
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Servicios"
           title="Tres formas de trabajar juntos."
@@ -87,7 +84,7 @@ export function Services() {
         />
 
         <StaggerGroup
-          className="mt-16 grid gap-6 lg:grid-cols-3 lg:items-start"
+          className="mt-11 grid gap-0 border-x border-b border-foreground sm:mt-16 lg:grid-cols-3 lg:items-stretch"
           gap={0.13}
         >
           {PLANS.map((plan) => (
@@ -96,20 +93,15 @@ export function Services() {
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.45, ease: EASE }}
                 className={cn(
-                  'group relative flex h-full flex-col overflow-hidden rounded-3xl border p-8',
+                  'group relative flex h-full flex-col overflow-hidden border-t border-foreground p-6 min-[380px]:p-7 sm:p-8 lg:border-r lg:last:border-r-0',
                   plan.featured
-                    ? 'border-primary/35 bg-card shadow-2xl shadow-black/40'
-                    : 'border-border glass',
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-background',
                 )}
               >
                 {/* Hover glow */}
-                <div
-                  aria-hidden
-                  className="bg-primary/15 pointer-events-none absolute -top-32 left-1/2 size-64 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
-                />
-
                 {plan.featured ? (
-                  <Badge className="absolute top-6 right-6 rounded-full">
+                  <Badge className="absolute top-6 right-6 rounded-none bg-foreground text-background">
                     Más solicitado
                   </Badge>
                 ) : null}
@@ -117,7 +109,7 @@ export function Services() {
                 <div className="relative flex flex-col gap-6">
                   <span
                     className={cn(
-                      'grid size-12 place-items-center rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-[6deg]',
+                      'grid size-12 place-items-center border border-current transition-transform duration-300 group-hover:-rotate-6',
                       plan.featured
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-secondary text-primary',
@@ -127,13 +119,13 @@ export function Services() {
                   </span>
 
                   <div className="flex flex-col gap-2.5">
-                    <span className="text-muted-foreground font-mono text-[0.7rem] tracking-[0.16em] uppercase">
+                    <span className={cn('font-mono text-[0.7rem] tracking-[0.16em] uppercase', plan.featured ? 'text-primary-foreground/70' : 'text-muted-foreground')}>
                       {plan.designedFor}
                     </span>
                     <h3 className="text-2xl font-medium tracking-tight">
                       {plan.name}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed text-pretty">
+                    <p className={cn('leading-relaxed text-pretty', plan.featured ? 'text-primary-foreground/80' : 'text-muted-foreground')}>
                       {plan.positioning}
                     </p>
                   </div>
