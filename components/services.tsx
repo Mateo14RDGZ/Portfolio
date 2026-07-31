@@ -73,7 +73,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-24 overflow-hidden py-20 sm:py-36"
+      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-accent py-20 sm:rounded-t-[6rem] sm:py-32"
     >
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
@@ -84,16 +84,19 @@ export function Services() {
         />
 
         <StaggerGroup
-          className="mt-11 grid gap-0 border-x border-b border-foreground sm:mt-16 lg:grid-cols-3 lg:items-stretch"
+          className="mt-11 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:items-stretch"
           gap={0.13}
         >
-          {PLANS.map((plan) => (
+          {PLANS.map((plan, index) => (
             <RevealItem key={plan.name} className="h-full">
               <motion.article
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.45, ease: EASE }}
                 className={cn(
-                  'group relative flex h-full flex-col overflow-hidden border-t border-foreground p-6 min-[380px]:p-7 sm:p-8 lg:border-r lg:last:border-r-0',
+                  'group relative flex h-full flex-col overflow-hidden border border-foreground p-6 min-[380px]:p-7 sm:p-8',
+                  index === 0 && 'rounded-[3rem_0.75rem_0.75rem_0.75rem]',
+                  index === 1 && 'rounded-[0.75rem_3rem_0.75rem_0.75rem]',
+                  index === 2 && 'rounded-[0.75rem_0.75rem_3rem_0.75rem]',
                   plan.featured
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-background',

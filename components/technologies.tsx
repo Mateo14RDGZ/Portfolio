@@ -19,7 +19,7 @@ const STACK = [
 
 export function Technologies() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-32">
+    <section className="relative overflow-hidden bg-primary py-20 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Stack"

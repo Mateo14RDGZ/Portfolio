@@ -1,137 +1,69 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'motion/react'
-import { ArrowUpRight } from 'lucide-react'
-import { RevealItem, StaggerGroup } from '@/components/reveal'
+import { ArrowDownRight, Asterisk } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
-import { cn } from '@/lib/utils'
-import { EASE } from '@/lib/motion'
 
-type Project = {
-  title: string
-  category: string
-  description: string
-  image: string
-  tech: string[]
-  wide?: boolean
-}
-
-const PROJECTS: Project[] = [
+const DIRECTIONS = [
   {
-    title: 'Lumen Dental',
-    category: 'Clínica local',
-    description:
-      'Un sitio sereno y confiable para una clínica dental con dos sedes, reservas en línea y horarios específicos para cada local.',
-    image: '/projects/dental-clinic.png',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-    wide: true,
+    number: '01',
+    title: 'Sitios que presentan y venden',
+    copy: 'Para profesionales y negocios que necesitan explicar bien qué hacen, generar confianza y convertir visitas en conversaciones.',
+    shape: 'rounded-[3rem_1rem_3rem_1rem]',
+    color: 'bg-accent',
   },
   {
-    title: 'Casa Nera',
-    category: 'Restaurant',
-    description:
-      'Menú, galería y reservas para una trattoria de barrio, con un diseño pensado primero para móviles porque el 80 % de los clientes accede desde el teléfono.',
-    image: '/projects/restaurant.png',
-    tech: ['Next.js', 'React', 'Tailwind CSS'],
+    number: '02',
+    title: 'Reservas y operaciones simples',
+    copy: 'Experiencias web para ordenar turnos, consultas, solicitudes o procesos que hoy viven entre mensajes y hojas de cálculo.',
+    shape: 'rounded-[50%_50%_1rem_1rem]',
+    color: 'bg-primary',
   },
   {
-    title: 'Northline Studio',
-    category: 'Comercio electrónico',
-    description:
-      'Una tienda boutique con carrito personalizado, stock sincronizado y un proceso de pago que carga en menos de un segundo.',
-    image: '/projects/ecommerce.png',
-    tech: ['Next.js', 'Node.js', 'MySQL', 'Vercel'],
-  },
-  {
-    title: 'Ledger Insights',
-    category: 'Aplicación web',
-    description:
-      'Un panel interno de analítica que sustituye el trabajo con hojas de cálculo: gráficos en vivo, acceso por roles y exportación a CSV.',
-    image: '/projects/saas-dashboard.png',
-    tech: ['Next.js', 'TypeScript', 'Express', 'PostgreSQL'],
-    wide: true,
+    number: '03',
+    title: 'Productos digitales pequeños',
+    copy: 'Paneles, herramientas internas y primeras versiones de una idea, construidas para aprender rápido sin montar una estructura enorme.',
+    shape: 'rounded-[1rem_4rem_1rem_4rem]',
+    color: 'bg-secondary',
   },
 ]
 
 export function Projects() {
   return (
-    <section
-      id="work"
-      className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-6 sm:py-36"
-    >
-      <SectionHeading
-        eyebrow="Proyectos seleccionados"
-        title="Negocios reales. Resultados medibles."
-        description="Una breve selección de proyectos recientes. Todos comenzaron con una conversación sobre clientes, no sobre píxeles."
-      />
+    <section id="work" className="scroll-mt-24 bg-foreground py-20 text-background sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        <SectionHeading
+          eyebrow="Lo que puedo construir"
+          title="Todavía no hay un archivo. Hay una dirección."
+          description="No voy a inventar proyectos ni resultados. Este espacio va a crecer con trabajo real; mientras tanto, estas son las clases de problemas que quiero resolver."
+          className="border-background/50 [&_h2]:text-background [&_p]:text-background/65 [&_span]:text-primary"
+        />
 
-      <StaggerGroup className="mt-11 border-t border-foreground sm:mt-16" gap={0.12}>
-        {PROJECTS.map((project) => (
-          <RevealItem
-            key={project.title}
-            className="h-full"
-          >
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          {DIRECTIONS.map((item, index) => (
             <motion.article
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              className="group grid h-full overflow-hidden border-b border-foreground bg-background md:grid-cols-[0.95fr_1.05fr]"
+              key={item.number}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: index * 0.08, duration: 0.6 }}
+              className={`${item.color} ${item.shape} flex min-h-[25rem] flex-col justify-between p-7 text-foreground sm:p-9`}
             >
-              <div
-                className={cn(
-                  'relative aspect-[4/3] overflow-hidden md:aspect-[16/10]',
-                )}
-              >
-                <Image
-                  src={project.image}
-                  alt={`${project.title}: sitio de ${project.category} diseñado y desarrollado por Mateo Rodríguez`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1100px"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-                />
-                {/* Readability + hover wash */}
-                <div className="from-card/95 absolute inset-0 bg-gradient-to-t via-transparent to-transparent" />
-                <div className="bg-primary/10 absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                <span className="absolute top-5 left-5 border border-foreground bg-background px-3 py-1 font-mono text-[0.7rem] tracking-[0.14em] uppercase">
-                  {project.category}
-                </span>
+              <div className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.18em]">
+                <span>{item.number}</span><Asterisk className="size-5" />
               </div>
-
-              <div className="flex flex-1 flex-col gap-5 border-t border-foreground p-6 sm:p-8 md:border-t-0 md:border-l">
-                <div className="flex flex-col gap-2.5">
-                  <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground max-w-xl leading-relaxed text-pretty">
-                    {project.description}
-                  </p>
-                </div>
-
-                <ul className="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <li
-                      key={tech}
-                      className="border-foreground text-muted-foreground border px-3 py-1 font-mono text-[10px] uppercase tracking-wider"
-                    >
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href="#contact"
-                  className="group/link text-primary mt-auto inline-flex min-h-11 w-fit items-center gap-1.5 rounded-full pr-3 text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring"
-                >
-                  Ver proyecto
-                  <ArrowUpRight className="size-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                  <span className="sr-only">: {project.title}</span>
-                </a>
+              <div>
+                <h3 className="max-w-xs text-3xl leading-none font-semibold tracking-[-0.05em] sm:text-4xl">{item.title}</h3>
+                <p className="mt-5 max-w-sm leading-relaxed text-foreground/70">{item.copy}</p>
               </div>
             </motion.article>
-          </RevealItem>
-        ))}
-      </StaggerGroup>
+          ))}
+        </div>
+
+        <a href="#contact" className="mt-8 flex min-h-16 items-center justify-between rounded-full border border-background/60 px-6 text-sm font-semibold transition-colors hover:bg-background hover:text-foreground">
+          ¿Tienes un problema distinto? Cuéntamelo <ArrowDownRight />
+        </a>
+      </div>
     </section>
   )
 }

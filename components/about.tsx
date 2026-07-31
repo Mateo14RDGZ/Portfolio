@@ -26,7 +26,7 @@ const PILLARS = [
 
 export function About() {
   return (
-    <section id="about" className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-6 sm:py-36">
+    <section id="about" className="relative mx-auto my-8 max-w-6xl scroll-mt-24 rounded-[2.5rem_0.5rem_2.5rem_0.5rem] bg-card px-5 py-20 sm:my-16 sm:px-10 sm:py-28">
       <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
         <div className="flex flex-col gap-10 lg:border-r lg:border-foreground lg:pr-12">
           <SectionHeading
@@ -61,7 +61,7 @@ export function About() {
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative overflow-hidden border border-foreground bg-primary p-6 text-primary-foreground min-[380px]:p-7 sm:p-10 [&_.text-muted-foreground]:text-primary-foreground/70"
+            className="relative overflow-hidden rounded-[4rem_1rem_4rem_1rem] border border-foreground bg-primary p-6 text-primary-foreground min-[380px]:p-7 sm:p-10 [&_.text-muted-foreground]:text-primary-foreground/70"
           >
             <div className="relative flex flex-col gap-6 sm:gap-8">
               <span className="font-mono text-xs tracking-[0.2em] uppercase">

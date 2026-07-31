@@ -26,7 +26,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-10 sm:gap-12">
           <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
             <a href="#top" className="flex min-h-11 items-center gap-2.5">
-              <Image src="/mr14-logo.jpg" alt="MR14" width={44} height={44} className="size-11 object-cover mix-blend-multiply" />
+              <Image src="/mr14-logo-transparent.png" alt="MR14" width={44} height={44} className="size-11 object-contain" />
               <span className="text-sm font-medium tracking-tight">Mateo Rodríguez</span>
             </a>
 

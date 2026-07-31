@@ -45,7 +45,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-20 sm:px-6 sm:py-36"
+      className="relative mx-auto my-8 max-w-6xl scroll-mt-24 rounded-[0.75rem_4rem_0.75rem_4rem] bg-card px-5 py-20 sm:my-16 sm:px-10 sm:py-28"
     >
       <SectionHeading
         eyebrow="Proceso"

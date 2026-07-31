@@ -24,7 +24,7 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
       <div className="mx-auto flex h-16 max-w-[1400px] items-stretch px-4 sm:h-20 sm:px-8">
         <a href="#top" className="flex min-w-0 flex-1 items-center gap-3 border-r border-foreground pr-4 sm:gap-4 sm:pr-8">
-          <Image src="/mr14-logo.jpg" alt="MR14" width={48} height={48} priority className="size-10 object-cover mix-blend-multiply sm:size-14" />
+          <Image src="/mr14-logo-transparent.png" alt="MR14" width={48} height={48} priority className="size-10 object-contain sm:size-14" />
           <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-base">Mateo Rodríguez</span>
         </a>
 

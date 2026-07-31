@@ -50,7 +50,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden bg-foreground py-20 text-background sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-foreground py-20 text-background sm:rounded-t-[6rem] sm:py-28"
     >
       {/* Ambient glow anchoring the final call to action */}
       <div aria-hidden className="absolute top-0 right-0 h-4 w-1/3 bg-primary" />
