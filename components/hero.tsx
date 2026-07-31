@@ -31,9 +31,9 @@ export function Hero() {
 
         <div className="relative grid min-h-[45vh] place-items-center overflow-hidden border-t border-foreground bg-accent p-8 lg:min-h-0 lg:border-t-0">
           <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em]">Identidad / MR14</span>
-          <motion.div initial={{ rotate: -8, scale: 0.85 }} animate={{ rotate: 3, scale: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }} className="relative aspect-square w-[min(88%,34rem)]">
-            <LogoMark className="size-full" title="Monograma MR14 de Mateo Rodríguez" />
-          </motion.div>
+          <div className="relative aspect-square w-[min(92%,36rem)]">
+            <LogoMark animateIntro className="size-full" title="Monograma MR14 de Mateo Rodríguez" />
+          </div>
           <span className="absolute right-4 bottom-4 font-mono text-[10px] uppercase tracking-[0.18em]">Marca personal / 14</span>
         </div>
 

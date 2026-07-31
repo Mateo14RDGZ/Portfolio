@@ -11,7 +11,7 @@ export function useLogoIntro() {
 
 /**
  * Keeps the shared logo state stable without blocking the first paint.
- * The brand now animates continuously in place instead of using a splash screen.
+ * The main brand animation is one-shot and never blocks the first paint.
  */
 export function PageTransition({ children }: { children: React.ReactNode }) {
   return (
