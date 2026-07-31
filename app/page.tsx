@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { About } from '@/components/about'
+import { CaseStudy } from '@/components/case-study'
 import { Services } from '@/components/services'
 import { Projects } from '@/components/projects'
 import { Technologies } from '@/components/technologies'
@@ -92,6 +93,7 @@ export default function HomePage() {
 
       <main>
         <Hero />
+        <CaseStudy />
         <About />
         <Services />
         <Projects />
