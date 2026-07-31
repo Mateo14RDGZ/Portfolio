@@ -60,9 +60,11 @@ export function LogoMark({
             strokeWidth="64"
             strokeLinecap="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 1.25 : 0, delay: shouldAnimate ? 0.35 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
+            animate={shouldFloat ? { pathLength: [0, 1, 1] } : { pathLength: 1 }}
+            transition={shouldFloat
+              ? { duration: 5.2, repeat: Infinity, times: [0, 0.24, 1], ease: DRAW_EASE }
+              : { duration: shouldAnimate ? 1.25 : 0, delay: shouldAnimate ? 0.35 : 0, ease: DRAW_EASE }}
           />
         </mask>
 
@@ -76,9 +78,11 @@ export function LogoMark({
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 1.42 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
+            animate={shouldFloat ? { pathLength: [0, 0, 1, 1] } : { pathLength: 1 }}
+            transition={shouldFloat
+              ? { duration: 5.2, repeat: Infinity, times: [0, 0.2, 0.43, 1], ease: DRAW_EASE }
+              : { duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 1.42 : 0, ease: DRAW_EASE }}
           />
           <motion.path
             d="M 383 252 L 520 252 C 635 252 635 405 520 405 L 451 405 L 666 609 M 412 403 L 514 505"
@@ -88,9 +92,11 @@ export function LogoMark({
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 2.12 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
+            animate={shouldFloat ? { pathLength: [0, 0, 1, 1] } : { pathLength: 1 }}
+            transition={shouldFloat
+              ? { duration: 5.2, repeat: Infinity, times: [0, 0.4, 0.63, 1], ease: DRAW_EASE }
+              : { duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 2.12 : 0, ease: DRAW_EASE }}
           />
         </mask>
 
@@ -105,21 +111,30 @@ export function LogoMark({
         </linearGradient>
       </defs>
 
+      {shouldFloat ? (
+        <g opacity="0.14" aria-hidden="true">
+          <Paths paths={ALL_PATHS} />
+        </g>
+      ) : null}
+
       <motion.g
-        animate={shouldFloat ? { scale: [1, 1.008, 1], rotate: [0, 0.45, 0] } : undefined}
-        transition={shouldFloat ? { duration: 5.6, repeat: Infinity, ease: 'easeInOut' } : undefined}
+        animate={shouldFloat ? { scale: [1, 1.018, 1], rotate: [-0.7, 0.7, -0.7] } : undefined}
+        transition={shouldFloat ? { duration: 5.2, repeat: Infinity, ease: 'easeInOut' } : undefined}
         style={{ transformOrigin: '384px 384px' }}
       >
-        <g mask={shouldAnimate ? `url(#${circleMaskId})` : undefined}>
+        <g mask={shouldAnimate || shouldFloat ? `url(#${circleMaskId})` : undefined}>
           <Paths paths={CIRCLE_PATHS} />
         </g>
-        <g mask={shouldAnimate ? `url(#${monogramMaskId})` : undefined}>
+        <g mask={shouldAnimate || shouldFloat ? `url(#${monogramMaskId})` : undefined}>
           <Paths paths={MONOGRAM_PATHS} />
         </g>
         <motion.g
-          initial={{ opacity: shouldAnimate ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
+          initial={{ opacity: shouldAnimate || shouldFloat ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
+          animate={shouldFloat ? { opacity: [0, 0, 1, 1], scale: [0.92, 0.92, 1.08, 1] } : { opacity: 1, y: 0 }}
+          transition={shouldFloat
+            ? { duration: 5.2, repeat: Infinity, times: [0, 0.58, 0.7, 1], ease: DRAW_EASE }
+            : { duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
+          style={{ transformOrigin: '485px 575px' }}
         >
           <Paths paths={NUMBER_PATHS} />
         </motion.g>
@@ -148,8 +163,8 @@ export function LogoMark({
           height="768"
           fill={`url(#${sweepId})`}
           clipPath={`url(#${clipId})`}
-          animate={{ x: [-260, 990], opacity: [0, 0.42, 0] }}
-          transition={{ duration: 1.15, repeat: Infinity, repeatDelay: 3.65, ease: 'easeInOut' }}
+          animate={{ x: [-260, 990], opacity: [0, 0.78, 0] }}
+          transition={{ duration: 0.9, delay: 3.65, repeat: Infinity, repeatDelay: 4.3, ease: 'easeInOut' }}
         />
       ) : null}
     </motion.svg>
