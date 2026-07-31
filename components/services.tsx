@@ -100,7 +100,7 @@ export function Services() {
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.45, ease: EASE }}
                 className={cn(
-                  'group relative flex h-full flex-col overflow-hidden border border-foreground p-6 min-[380px]:p-7 sm:p-8',
+                  'group relative flex h-full flex-col overflow-hidden border border-foreground p-6 font-semibold min-[380px]:p-7 sm:p-8',
                   index === 0 && 'rounded-[3rem_0.75rem_0.75rem_0.75rem]',
                   index === 1 && 'rounded-[0.75rem_3rem_0.75rem_0.75rem]',
                   index === 2 && 'rounded-[0.75rem_0.75rem_3rem_0.75rem]',
@@ -129,16 +129,16 @@ export function Services() {
                   </span>
 
                   <div className="flex flex-col gap-2.5">
-                    <span className={cn('font-mono text-[0.7rem] tracking-[0.16em] uppercase', plan.featured ? 'text-primary-foreground/70' : 'text-muted-foreground')}>
+                    <span className={cn('font-mono text-[0.7rem] font-bold tracking-[0.16em] uppercase', plan.featured ? 'text-primary-foreground/75' : 'text-muted-foreground')}>
                       {plan.designedFor}
                     </span>
-                    <h3 className="text-2xl font-medium tracking-tight">
+                    <h3 className="text-2xl font-bold tracking-tight">
                       {plan.name}
                     </h3>
                     <p className="font-mono text-sm font-semibold tracking-[-0.02em]">
                       {plan.price}
                     </p>
-                    <p className={cn('leading-relaxed text-pretty', plan.featured ? 'text-primary-foreground/80' : 'text-muted-foreground')}>
+                    <p className={cn('font-semibold leading-relaxed text-pretty', plan.featured ? 'text-primary-foreground/90' : 'text-muted-foreground')}>
                       {plan.positioning}
                     </p>
                   </div>
@@ -147,10 +147,17 @@ export function Services() {
                 <ul className="relative mt-8 flex flex-1 flex-col gap-3.5">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm">
-                      <span className="bg-primary/12 text-primary mt-0.5 grid size-5 shrink-0 place-items-center rounded-full">
+                      <span
+                        className={cn(
+                          'mt-0.5 grid size-5 shrink-0 place-items-center rounded-full',
+                          plan.featured
+                            ? 'bg-foreground text-primary'
+                            : 'bg-primary/12 text-primary',
+                        )}
+                      >
                         <Check className="size-3" strokeWidth={3} />
                       </span>
-                      <span className="text-foreground/85 leading-relaxed">
+                      <span className="text-foreground/90 font-semibold leading-relaxed">
                         {feature}
                       </span>
                     </li>
