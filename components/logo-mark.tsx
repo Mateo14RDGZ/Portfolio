@@ -2,7 +2,7 @@
 
 import { useId } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { ALL_PATHS } from '@/components/logo-path-data'
+import { ALL_PATHS, CIRCLE_PATHS, MONOGRAM_PATHS, NUMBER_PATHS } from '@/components/logo-path-data'
 import { cn } from '@/lib/utils'
 
 type LogoMarkProps = {
@@ -15,10 +15,14 @@ type LogoMarkProps = {
 
 const DRAW_EASE = [0.65, 0, 0.35, 1] as const
 
-function FilledPaths() {
-  return ALL_PATHS.map((path, index) => (
+function Paths({ paths }: { paths: readonly string[] }) {
+  return paths.map((path, index) => (
     <path key={index} d={path} fill="currentColor" fillRule="evenodd" />
   ))
+}
+
+function FilledPaths() {
+  return <Paths paths={ALL_PATHS} />
 }
 
 /**
@@ -62,13 +66,27 @@ export function LogoMark({
         </linearGradient>
       </defs>
 
-      {/* Final mark: exact filled paths, introduced only after the drawing is complete. */}
+      {/* Each exact fill settles during the final part of its own drawing window. */}
       <motion.g
         initial={shouldDraw ? { opacity: 0 } : false}
         animate={{ opacity: 1 }}
-        transition={{ duration: shouldDraw ? 0.4 : 0, delay: shouldDraw ? 1.95 : 0, ease: DRAW_EASE }}
+        transition={{ duration: shouldDraw ? 0.15 : 0, delay: shouldDraw ? 1 : 0, ease: DRAW_EASE }}
       >
-        <FilledPaths />
+        <Paths paths={CIRCLE_PATHS} />
+      </motion.g>
+      <motion.g
+        initial={shouldDraw ? { opacity: 0 } : false}
+        animate={{ opacity: 1 }}
+        transition={{ duration: shouldDraw ? 0.15 : 0, delay: shouldDraw ? 1.7 : 0, ease: DRAW_EASE }}
+      >
+        <Paths paths={MONOGRAM_PATHS} />
+      </motion.g>
+      <motion.g
+        initial={shouldDraw ? { opacity: 0 } : false}
+        animate={{ opacity: 1 }}
+        transition={{ duration: shouldDraw ? 0.15 : 0, delay: shouldDraw ? 1.9 : 0, ease: DRAW_EASE }}
+      >
+        <Paths paths={NUMBER_PATHS} />
       </motion.g>
 
       {shouldDraw ? (
@@ -85,7 +103,7 @@ export function LogoMark({
             pathLength="1"
             initial={strokeInitial}
             animate={{ pathLength: 1, opacity: 0 }}
-            transition={{ pathLength: { duration: 1.2, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+            transition={{ pathLength: { duration: 1.2, ease: DRAW_EASE }, opacity: { duration: 0.1, delay: 1.1, ease: DRAW_EASE } }}
           />
           <motion.path
             d="M 99 275 C 40 420 91 582 218 656 C 344 729 507 710 610 620"
@@ -93,7 +111,7 @@ export function LogoMark({
             pathLength="1"
             initial={strokeInitial}
             animate={{ pathLength: 1, opacity: 0 }}
-            transition={{ pathLength: { duration: 0.95, delay: 0.25, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+            transition={{ pathLength: { duration: 0.95, delay: 0.25, ease: DRAW_EASE }, opacity: { duration: 0.1, delay: 1.1, ease: DRAW_EASE } }}
           />
 
           {/* M begins before the circle completes, keeping the gesture connected. */}
@@ -103,7 +121,7 @@ export function LogoMark({
             pathLength="1"
             initial={strokeInitial}
             animate={{ pathLength: 1, opacity: 0 }}
-            transition={{ pathLength: { duration: 0.9, delay: 0.5, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+            transition={{ pathLength: { duration: 0.9, delay: 0.5, ease: DRAW_EASE }, opacity: { duration: 0.1, delay: 1.8, ease: DRAW_EASE } }}
           />
 
           {/* R continues from the shared central stem into its bowl and leg. */}
@@ -113,7 +131,7 @@ export function LogoMark({
             pathLength="1"
             initial={strokeInitial}
             animate={{ pathLength: 1, opacity: 0 }}
-            transition={{ pathLength: { duration: 0.9, delay: 1, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+            transition={{ pathLength: { duration: 0.9, delay: 1, ease: DRAW_EASE }, opacity: { duration: 0.1, delay: 1.8, ease: DRAW_EASE } }}
           />
 
           {/* 14 closes the construction with two compact strokes. */}
@@ -123,7 +141,7 @@ export function LogoMark({
             pathLength="1"
             initial={strokeInitial}
             animate={{ pathLength: 1, opacity: 0 }}
-            transition={{ pathLength: { duration: 0.6, delay: 1.5, ease: DRAW_EASE }, opacity: { duration: 0.08, delay: 2.35, ease: DRAW_EASE } }}
+            transition={{ pathLength: { duration: 0.6, delay: 1.5, ease: DRAW_EASE }, opacity: { duration: 0.1, delay: 2, ease: DRAW_EASE } }}
           />
         </g>
       ) : null}
@@ -139,7 +157,7 @@ export function LogoMark({
           clipPath={`url(#${clipId})`}
           initial={{ x: -220, opacity: 0 }}
           animate={{ x: 960, opacity: [0, 0.48, 0] }}
-          transition={{ duration: 0.6, delay: 2.43, ease: DRAW_EASE }}
+          transition={{ duration: 0.6, delay: 2.1, ease: DRAW_EASE }}
           onAnimationComplete={onSequenceComplete}
         />
       ) : null}
