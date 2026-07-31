@@ -4,7 +4,7 @@ import { motion } from 'motion/react'
 import { ArrowUpRight, Building2, Check, Globe, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { RevealItem, StaggerGroup } from '@/components/reveal'
+import { Reveal, RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { cn } from '@/lib/utils'
 import { EASE } from '@/lib/motion'
@@ -12,6 +12,7 @@ import { EASE } from '@/lib/motion'
 type Plan = {
   name: string
   icon: typeof Globe
+  price: string
   positioning: string
   designedFor: string
   features: string[]
@@ -22,6 +23,7 @@ const PLANS: Plan[] = [
   {
     name: 'CLASSIC',
     icon: Globe,
+    price: 'Desde USD 450',
     positioning:
       'Ideal para emprendimientos y pequeños negocios que quieren tener una presencia profesional en internet.',
     designedFor: 'Tu primer sitio web',
@@ -37,6 +39,7 @@ const PLANS: Plan[] = [
   {
     name: 'GOLD',
     icon: Building2,
+    price: 'Desde USD 950',
     positioning:
       'Pensado para empresas que necesitan una web más completa para mostrar sus servicios y generar confianza.',
     designedFor: 'Sitio web profesional',
@@ -55,6 +58,7 @@ const PLANS: Plan[] = [
   {
     name: 'BLACK',
     icon: Sparkles,
+    price: 'Desde USD 1.800',
     positioning:
       'Para empresas que necesitan funcionalidades específicas o un sistema completamente personalizado.',
     designedFor: 'Solución a medida',
@@ -131,6 +135,9 @@ export function Services() {
                     <h3 className="text-2xl font-medium tracking-tight">
                       {plan.name}
                     </h3>
+                    <p className="font-mono text-sm font-semibold tracking-[-0.02em]">
+                      {plan.price}
+                    </p>
                     <p className={cn('leading-relaxed text-pretty', plan.featured ? 'text-primary-foreground/80' : 'text-muted-foreground')}>
                       {plan.positioning}
                     </p>
@@ -166,6 +173,14 @@ export function Services() {
             </RevealItem>
           ))}
         </StaggerGroup>
+
+        <Reveal delay={0.15} className="mx-auto mt-7 max-w-3xl text-center">
+          <p className="text-sm leading-relaxed text-foreground/65">
+            Valores orientativos en dólares estadounidenses. El presupuesto final
+            depende del contenido, las integraciones y el alcance acordado; siempre
+            recibirás un precio cerrado antes de comenzar.
+          </p>
+        </Reveal>
       </div>
     </section>
   )

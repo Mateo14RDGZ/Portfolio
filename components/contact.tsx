@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Check, Clock, Mail, MessageCircle, Send } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, Check, Clock, Mail, Send } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -19,9 +19,9 @@ import { submitContact } from '@/app/actions/contact'
 import { initialContactState } from '@/lib/contact-schema'
 import { scaleIn, slideLeft } from '@/lib/motion'
 import { cn } from '@/lib/utils'
+import { CallBooking } from '@/components/call-booking'
 
 const EMAIL = 'mrdgz14dev@gmail.com'
-const WHATSAPP_URL = 'https://wa.me/34600000000'
 
 const PLANS = ['CLASSIC', 'GOLD', 'BLACK', 'Aún no lo sé']
 
@@ -73,15 +73,13 @@ export function Contact() {
                   nativeButton={false}
                   render={
                     <a
-                      href={WHATSAPP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#call-booking"
                     />
                   }
                 >
                   <span className="flex items-center gap-2.5">
-                    <MessageCircle data-icon="inline-start" />
-                    Escríbeme por WhatsApp
+                    <CalendarDays data-icon="inline-start" />
+                    Proponer una llamada
                   </span>
                   <ArrowUpRight
                     data-icon="inline-end"
@@ -275,6 +273,11 @@ export function Contact() {
                     )}
                   </Button>
 
+                  <p className="text-center text-xs leading-relaxed text-muted-foreground">
+                    Al enviar el formulario aceptas el tratamiento de tus datos
+                    según la <a href="/privacidad" className="underline underline-offset-2 hover:text-foreground">política de privacidad</a>.
+                  </p>
+
                   <p aria-live="polite" className="sr-only">
                     {state.message}
                   </p>
@@ -283,6 +286,10 @@ export function Contact() {
             </motion.div>
           </Reveal>
         </div>
+
+        <Reveal delay={0.1}>
+          <CallBooking />
+        </Reveal>
       </div>
     </section>
   )

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   display: 'swap',
 })
 
-const siteUrl = 'https://mateoravel.dev'
+const siteUrl = 'https://portfolio-mrdgz14.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -56,7 +56,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  generator: 'v0.app',
   icons: {
     icon: '/icon.png',
     apple: '/icon.png',

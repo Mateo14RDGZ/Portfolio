@@ -7,6 +7,7 @@ const LINKS = [
   { label: 'Servicios', href: '#services' },
   { label: 'Habilidades', href: '#work' },
   { label: 'Método', href: '#process' },
+  { label: 'Preguntas frecuentes', href: '#faq' },
 ]
 
 export function SiteFooter() {
@@ -71,7 +72,10 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-2 border-t border-foreground/35 pt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/55 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Mateo Rodríguez</p>
-          <p>Diseño y desarrollo independiente · Uruguay</p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <a href="/privacidad" className="hover:text-foreground hover:underline hover:underline-offset-4">Privacidad</a>
+            <p>Diseño y desarrollo independiente · Uruguay</p>
+          </div>
         </div>
       </div>
     </footer>

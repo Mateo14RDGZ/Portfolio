@@ -8,7 +8,7 @@ import { viewportOnce, EASE } from '@/lib/motion'
 const STEPS = [
   {
     title: 'Reunión inicial',
-    copy: 'Una llamada de 30 minutos para entender tu negocio, tus clientes y cómo sería un resultado exitoso.',
+    copy: 'Una llamada de 25 minutos para entender tu negocio, tus clientes y cómo sería un resultado exitoso.',
   },
   {
     title: 'Planificación',

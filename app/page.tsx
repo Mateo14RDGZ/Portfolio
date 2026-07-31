@@ -8,6 +8,9 @@ import { Process } from '@/components/process'
 import { Contact } from '@/components/contact'
 import { SiteFooter } from '@/components/site-footer'
 import { PageTransition } from '@/components/page-transition'
+import { QualityPanel } from '@/components/quality-panel'
+import { Faq } from '@/components/faq'
+import { FAQ_ITEMS } from '@/lib/faq-data'
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -31,6 +34,16 @@ const personSchema = {
   ],
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+}
+
 export default function HomePage() {
   return (
     <PageTransition>
@@ -49,7 +62,9 @@ export default function HomePage() {
         <Services />
         <Projects />
         <Technologies />
+        <QualityPanel />
         <Process />
+        <Faq />
         <Contact />
       </main>
 
@@ -59,6 +74,10 @@ export default function HomePage() {
         type="application/ld+json"
         // Structured data helps search engines describe the service correctly.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
     </PageTransition>
   )
