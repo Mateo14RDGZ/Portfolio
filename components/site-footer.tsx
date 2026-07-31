@@ -48,8 +48,8 @@ export function SiteFooter() {
 
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/55">Contacto directo</p>
-            <a href="mailto:hola@mateoravel.dev" className="mt-4 inline-flex items-center gap-2 font-semibold hover:underline hover:underline-offset-4">
-              <Mail className="size-4" /> hola@mateoravel.dev
+            <a href="mailto:mrdgz14dev@gmail.com" className="mt-4 inline-flex items-center gap-2 font-semibold hover:underline hover:underline-offset-4">
+              <Mail className="size-4" /> mrdgz14dev@gmail.com
             </a>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-foreground/65">Respuesta habitual en menos de 24 horas, de lunes a viernes.</p>
           </div>

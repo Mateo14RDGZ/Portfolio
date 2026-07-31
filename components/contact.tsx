@@ -20,10 +20,10 @@ import { initialContactState } from '@/lib/contact-schema'
 import { scaleIn, slideLeft } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 
-const EMAIL = 'hola@mateoravel.dev'
+const EMAIL = 'mrdgz14dev@gmail.com'
 const WHATSAPP_URL = 'https://wa.me/34600000000'
 
-const PLANS = ['Plan Presencia Web', 'Plan Empresa', 'Plan Premium', 'Aún no lo sé']
+const PLANS = ['CLASSIC', 'GOLD', 'BLACK', 'Aún no lo sé']
 
 export function Contact() {
   const [state, formAction, pending] = useActionState(
@@ -139,6 +139,14 @@ export function Contact() {
                 onReset={() => setPlan('')}
                 noValidate
               >
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="sr-only"
+                  aria-hidden="true"
+                />
                 <FieldGroup>
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field data-invalid={!!state.errors.name || undefined}>
