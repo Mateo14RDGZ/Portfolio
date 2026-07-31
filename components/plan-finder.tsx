@@ -290,16 +290,16 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
     <section aria-labelledby="plan-finder-title" className="overflow-hidden rounded-[2.75rem_0.6rem_2.75rem_0.6rem] border border-background/30 bg-background text-foreground shadow-[0_28px_80px_rgba(0,0,0,0.2)]">
       <div className="grid border-b border-foreground/20 lg:grid-cols-[0.78fr_1.22fr]">
         <div className="bg-accent p-7 sm:p-10 lg:p-12">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Selector de plan</span>
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-foreground">Selector de plan</span>
           <h2 id="plan-finder-title" className="mt-4 text-4xl leading-[0.95] font-semibold tracking-[-0.05em] sm:text-5xl">
             Encontrá tu punto de partida.
           </h2>
-          <p className="mt-5 max-w-md leading-relaxed text-foreground/65">
+          <p className="mt-5 max-w-md leading-relaxed text-foreground/80">
             Cada respuesta adapta la siguiente pregunta para construir una recomendación realmente personal.
           </p>
 
           <div className="mt-8" aria-label={`Paso ${Math.min(step + 1, 5)} de 5`}>
-            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/55">
+            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/75">
               <span>{result ? 'Completado' : `Paso ${step + 1} / 5`}</span>
               <span>{Math.round(progress)}%</span>
             </div>
@@ -344,7 +344,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
                 exit={{ opacity: 0, x: -18 }}
                 transition={{ duration: 0.32, ease: EASE }}
               >
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">{current.eyebrow}</p>
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-foreground">{current.eyebrow}</p>
                 <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{current.title}</h3>
                 {step > 0 ? (
                   <p className="mt-3 text-xs font-semibold text-muted-foreground">

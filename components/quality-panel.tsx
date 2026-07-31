@@ -25,7 +25,7 @@ export function QualityPanel() {
               title="Lo que prometo también se puede medir."
               description="Resultados de una auditoría Lighthouse móvil realizada sobre este mismo portfolio publicado. Sin cifras decorativas ni métricas inventadas."
             />
-            <div className="mt-7 flex items-center gap-3 text-sm text-foreground/65">
+            <div className="mt-7 flex items-center gap-3 text-sm text-foreground/80">
               <CheckCircle2 className="size-4 text-primary" />
               Medición del 31 de julio de 2026 · Lighthouse
             </div>

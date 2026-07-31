@@ -37,7 +37,7 @@ export function SiteFooter() {
 
         <div className="grid gap-8 py-9 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-[1fr_1fr_1fr_auto]">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/55">Navegación</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/75">Navegación</p>
             <nav className="mt-3 flex flex-col items-center sm:items-start" aria-label="Pie de página">
               {LINKS.map((link) => (
                 <a key={link.href} href={link.href} className="py-1.5 text-lg font-medium hover:underline hover:underline-offset-4">
@@ -48,16 +48,16 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/55">Contacto directo</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/75">Contacto directo</p>
             <a href="mailto:mrdgz14dev@gmail.com" className="mt-4 inline-flex items-center justify-center gap-2 font-semibold hover:underline hover:underline-offset-4 sm:justify-start">
               <Mail className="size-4" /> mrdgz14dev@gmail.com
             </a>
-            <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-foreground/65 sm:mx-0">Respuesta habitual en menos de 24 horas, de lunes a viernes.</p>
+            <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-foreground/80 sm:mx-0">Respuesta habitual en menos de 24 horas, de lunes a viernes.</p>
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/55">Disponibilidad</p>
-            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-foreground/65 sm:justify-start">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/75">Disponibilidad</p>
+            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-foreground/80 sm:justify-start">
               <span className="size-2 rounded-full bg-primary" /> Disponible para conversar
             </div>
           </div>
@@ -67,7 +67,7 @@ export function SiteFooter() {
           </a>
         </div>
 
-        <div className="flex flex-col items-center gap-2 border-t border-foreground/35 pt-5 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/55 sm:flex-row sm:justify-between sm:text-left">
+        <div className="flex flex-col items-center gap-2 border-t border-foreground/35 pt-5 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/75 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Mateo Rodríguez</p>
           <p>
             Desarrollado por{' '}

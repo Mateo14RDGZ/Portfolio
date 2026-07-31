@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/sonner'
+import { GoogleAnalytics } from '@/components/google-analytics'
+import { PwaRegistration } from '@/components/pwa-registration'
 import './globals.css'
 
 const geistSans = Geist({
@@ -46,6 +48,10 @@ export const metadata: Metadata = {
   authors: [{ name: 'Mateo Rodríguez', url: siteUrl }],
   creator: 'Mateo Rodríguez',
   alternates: { canonical: '/' },
+  manifest: '/manifest.webmanifest',
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
     type: 'website',
     url: siteUrl,
@@ -78,6 +84,14 @@ export const metadata: Metadata = {
     icon: '/icon.png',
     apple: '/icon.png',
   },
+  appleWebApp: {
+    capable: true,
+    title: 'MR14',
+    statusBarStyle: 'default',
+  },
+  formatDetection: {
+    telephone: false,
+  },
 }
 
 export const viewport: Viewport = {
@@ -100,8 +114,10 @@ export default function RootLayout({
     >
       <body className="bg-background text-foreground font-sans antialiased">
         {children}
+        <PwaRegistration />
+        <GoogleAnalytics />
         <Toaster position="bottom-right" />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.VERCEL === '1' && <Analytics />}
       </body>
     </html>
   )

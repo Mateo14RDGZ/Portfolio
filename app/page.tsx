@@ -12,32 +12,59 @@ import { QualityPanel } from '@/components/quality-panel'
 import { Faq } from '@/components/faq'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 
-const personSchema = {
+const siteUrl = 'https://portfolio-mrdgz14.vercel.app/'
+
+const siteSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Mateo Rodríguez — Diseño y desarrollo web',
-  url: 'https://portfolio-mrdgz14.vercel.app/',
-  email: 'mailto:mrdgz14dev@gmail.com',
-  description:
-    'Desarrollador web full-stack freelance especializado en sitios rápidos y modernos para pequeños negocios.',
-  areaServed: {
-    '@type': 'Country',
-    name: 'Uruguay',
-  },
-  availableLanguage: 'es',
-  founder: {
-    '@type': 'Person',
-    name: 'Mateo Rodríguez',
-    jobTitle: 'Desarrollador web full-stack',
-    url: 'https://portfolio-mrdgz14.vercel.app/',
-  },
-  knowsAbout: [
-    'Next.js',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Node.js',
-    'PostgreSQL',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: 'Mateo Rodríguez / MR14',
+      inLanguage: 'es-UY',
+      publisher: { '@id': `${siteUrl}#organization` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#organization`,
+      name: 'MR14',
+      url: siteUrl,
+      logo: `${siteUrl}icon.png`,
+      founder: { '@id': `${siteUrl}#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}#person`,
+      name: 'Mateo Rodríguez',
+      url: siteUrl,
+      email: 'mailto:mrdgz14dev@gmail.com',
+      jobTitle: 'Desarrollador web full-stack',
+      worksFor: { '@id': `${siteUrl}#organization` },
+      knowsAbout: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Tailwind CSS',
+        'Node.js',
+        'PostgreSQL',
+      ],
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${siteUrl}#service`,
+      name: 'Mateo Rodríguez — Diseño y desarrollo web',
+      url: siteUrl,
+      description:
+        'Servicio de diseño y desarrollo web full-stack para negocios, prestado de forma remota desde Uruguay.',
+      areaServed: {
+        '@type': 'Country',
+        name: 'Uruguay',
+      },
+      availableLanguage: 'es',
+      founder: { '@id': `${siteUrl}#person` },
+      parentOrganization: { '@id': `${siteUrl}#organization` },
+    },
   ],
 }
 
@@ -80,7 +107,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         // Structured data helps search engines describe the service correctly.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
       />
       <script
         type="application/ld+json"

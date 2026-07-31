@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 type LogoMarkProps = {
   className?: string
   animateIntro?: boolean
+  loopIntro?: boolean
   interactive?: boolean
   onSequenceComplete?: () => void
   title?: string
@@ -84,6 +85,7 @@ function LogoImage({ mask }: { mask?: string }) {
 export function LogoMark({
   className,
   animateIntro = false,
+  loopIntro = true,
   interactive = true,
   onSequenceComplete,
   title = 'MR14',
@@ -139,20 +141,32 @@ export function LogoMark({
                   strokeWidth={path.revealWidth}
                   pathLength={1}
                   initial={{ pathLength: 0 }}
-                  animate={{ pathLength: [0, 0, 1, 1, 0, 0] }}
-                  transition={{
-                    duration: LOOP_DURATION,
-                    times: [
-                      0,
-                      path.delay / LOOP_DURATION,
-                      (path.delay + path.duration) / LOOP_DURATION,
-                      0.994,
-                      0.995,
-                      1,
-                    ],
-                    repeat: Infinity,
-                    ease: DRAW_EASE,
-                  }}
+                  animate={{ pathLength: loopIntro ? [0, 0, 1, 1, 0, 0] : [0, 0, 1] }}
+                  transition={
+                    loopIntro
+                      ? {
+                          duration: LOOP_DURATION,
+                          times: [
+                            0,
+                            path.delay / LOOP_DURATION,
+                            (path.delay + path.duration) / LOOP_DURATION,
+                            0.994,
+                            0.995,
+                            1,
+                          ],
+                          repeat: Infinity,
+                          ease: DRAW_EASE,
+                        }
+                      : {
+                          duration: SHINE_END,
+                          times: [
+                            0,
+                            path.delay / SHINE_END,
+                            (path.delay + path.duration) / SHINE_END,
+                          ],
+                          ease: DRAW_EASE,
+                        }
+                  }
                 />
               ))}
             </g>
@@ -163,13 +177,17 @@ export function LogoMark({
       {shouldDraw ? (
         <motion.g
           initial={{ opacity: 1 }}
-          animate={{ opacity: [1, 1, 0, 0] }}
-          transition={{
-            duration: LOOP_DURATION,
-            times: [0, FADE_OUT_AT, HIDDEN_AT, 1],
-            repeat: Infinity,
-            ease: DRAW_EASE,
-          }}
+          animate={loopIntro ? { opacity: [1, 1, 0, 0] } : { opacity: 1 }}
+          transition={
+            loopIntro
+              ? {
+                  duration: LOOP_DURATION,
+                  times: [0, FADE_OUT_AT, HIDDEN_AT, 1],
+                  repeat: Infinity,
+                  ease: DRAW_EASE,
+                }
+              : undefined
+          }
         >
           <LogoImage mask={`url(#${drawMaskId})`} />
         </motion.g>
@@ -186,16 +204,31 @@ export function LogoMark({
           fill={`url(#${shineId})`}
           mask={`url(#${shineMaskId})`}
           initial={{ x: -210, opacity: 0 }}
-          animate={{
-            x: [-210, -210, 1020, 1020, -210],
-            opacity: [0, 0, 0.38, 0, 0],
-          }}
-          transition={{
-            duration: LOOP_DURATION,
-            times: [0, 2.08 / LOOP_DURATION, 2.4 / LOOP_DURATION, 2.72 / LOOP_DURATION, 1],
-            repeat: Infinity,
-            ease: DRAW_EASE,
-          }}
+          animate={
+            loopIntro
+              ? {
+                  x: [-210, -210, 1020, 1020, -210],
+                  opacity: [0, 0, 0.38, 0, 0],
+                }
+              : {
+                  x: [-210, -210, 1020, 1020],
+                  opacity: [0, 0, 0.38, 0],
+                }
+          }
+          transition={
+            loopIntro
+              ? {
+                  duration: LOOP_DURATION,
+                  times: [0, 2.08 / LOOP_DURATION, 2.4 / LOOP_DURATION, 2.72 / LOOP_DURATION, 1],
+                  repeat: Infinity,
+                  ease: DRAW_EASE,
+                }
+              : {
+                  duration: SHINE_END,
+                  times: [0, 2.08 / SHINE_END, 2.4 / SHINE_END, 1],
+                  ease: DRAW_EASE,
+                }
+          }
           style={{ willChange: 'transform, opacity' }}
           onAnimationComplete={onSequenceComplete}
         />

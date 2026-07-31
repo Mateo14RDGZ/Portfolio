@@ -129,7 +129,7 @@ export function Projects() {
                   >
                     <skill.icon className="size-5" />
                   </motion.span>
-                  <span className="font-mono text-[10px] tracking-[0.2em] text-background/45">{skill.number}</span>
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-background/70">{skill.number}</span>
                 </div>
 
                 <div>
