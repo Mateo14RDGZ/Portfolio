@@ -14,63 +14,63 @@ type LogoMarkProps = {
 
 type LogoStroke = {
   d: string
-  width: number
+  revealWidth: number
   delay: number
   duration: number
 }
 
 const DRAW_EASE = [0.65, 0, 0.35, 1] as const
+const LOGO_IMAGE = '/mr14-logo-transparent.png'
 
 /**
- * Clean centre-line geometry of the approved MR14 mark.
- * The exact same paths are used while drawing and in the final state, so there
- * is no cross-fade, raster hand-off or last-frame alignment correction.
+ * These centre lines only drive the reveal mask. The visible artwork is always
+ * the approved transparent master, including the final settled frame, so the
+ * animation cannot alter the logo's proportions or intersections.
  */
 const LOGO_STROKES: readonly LogoStroke[] = [
   {
     d: 'M 190 129 C 304 35 486 34 610 137 C 724 232 741 407 664 529',
-    width: 28,
+    revealWidth: 58,
     delay: 0,
     duration: 1.2,
   },
   {
     d: 'M 99 275 C 40 420 91 582 218 656 C 344 729 507 710 610 620',
-    width: 28,
+    revealWidth: 58,
     delay: 0.18,
     duration: 1.08,
   },
   {
     d: 'M 126 505 L 126 213 L 264 382 L 384 254 L 384 659 M 151 162 L 295 302',
-    width: 30,
+    revealWidth: 72,
     delay: 0.46,
     duration: 0.96,
   },
   {
     d: 'M 386 253 L 517 253 C 625 253 627 403 518 404 L 451 404 L 665 608 M 414 404 L 512 502',
-    width: 30,
+    revealWidth: 72,
     delay: 0.92,
     duration: 0.92,
   },
   {
     d: 'M 432 620 L 432 539 L 420 550 M 531 620 L 531 535 L 476 592 L 548 592',
-    width: 20,
+    revealWidth: 46,
     delay: 1.42,
     duration: 0.62,
   },
 ] as const
 
-function StaticGeometry({ stroke = 'currentColor' }: { stroke?: string }) {
+function LogoImage({ mask }: { mask?: string }) {
   return (
-    <g
-      fill="none"
-      stroke={stroke}
-      strokeLinecap="butt"
-      strokeLinejoin="miter"
-    >
-      {LOGO_STROKES.map((path) => (
-        <path key={path.d} d={path.d} strokeWidth={path.width} />
-      ))}
-    </g>
+    <image
+      href={LOGO_IMAGE}
+      x="0"
+      y="0"
+      width="768"
+      height="768"
+      preserveAspectRatio="xMidYMid meet"
+      mask={mask}
+    />
   )
 }
 
@@ -86,6 +86,7 @@ export function LogoMark({
   const instanceId = useId().replace(/:/g, '')
   const shineId = `mr14-shine-${instanceId}`
   const shineMaskId = `mr14-shine-mask-${instanceId}`
+  const drawMaskId = `mr14-draw-mask-${instanceId}`
 
   return (
     <motion.svg
@@ -109,37 +110,58 @@ export function LogoMark({
           <stop offset="0.5" stopColor="white" stopOpacity="0.55" />
           <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
-        <mask id={shineMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
-          <rect width="768" height="768" fill="black" />
-          <StaticGeometry stroke="white" />
+        <mask
+          id={shineMaskId}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="768"
+          height="768"
+          style={{ maskType: 'alpha' }}
+        >
+          <LogoImage />
         </mask>
+        {shouldDraw ? (
+          <mask id={drawMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
+            <rect width="768" height="768" fill="black" />
+            <g fill="none" stroke="white" strokeLinecap="round" strokeLinejoin="round">
+              {LOGO_STROKES.map((path) => (
+                <motion.path
+                  key={path.d}
+                  d={path.d}
+                  strokeWidth={path.revealWidth}
+                  pathLength={1}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{
+                    duration: path.duration,
+                    delay: path.delay,
+                    ease: DRAW_EASE,
+                  }}
+                />
+              ))}
+            </g>
+          </mask>
+        ) : null}
       </defs>
 
       {shouldDraw ? (
-        <g
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-        >
-          {LOGO_STROKES.map((path) => (
-            <motion.path
-              key={path.d}
-              d={path.d}
-              strokeWidth={path.width}
-              pathLength={1}
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{
-                duration: path.duration,
-                delay: path.delay,
-                ease: DRAW_EASE,
-              }}
-            />
-          ))}
-        </g>
+        <>
+          <LogoImage mask={`url(#${drawMaskId})`} />
+          <motion.image
+            href={LOGO_IMAGE}
+            x="0"
+            y="0"
+            width="768"
+            height="768"
+            preserveAspectRatio="xMidYMid meet"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.24, delay: 1.82, ease: DRAW_EASE }}
+          />
+        </>
       ) : (
-        <StaticGeometry />
+        <LogoImage />
       )}
 
       {shouldDraw ? (
