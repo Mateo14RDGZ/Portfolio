@@ -73,7 +73,7 @@ export function SiteFooter() {
             Desarrollado por{' '}
             <Link
               href="/"
-              className="font-sans text-[11px] font-bold italic tracking-[0.08em] text-foreground transition-colors hover:text-primary"
+              className="text-[15px] leading-none font-bold italic tracking-[0.04em] text-foreground transition-colors hover:text-primary [font-family:var(--font-mazius-display),Georgia,serif]"
               aria-label="MƦ14 — volver al inicio del portfolio"
             >
               MƦ14
