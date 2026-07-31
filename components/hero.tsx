@@ -14,9 +14,9 @@ export function Hero() {
           </motion.p>
 
           <h1 className="my-12 text-[clamp(4rem,16vw,10rem)] leading-[0.76] font-semibold tracking-[-0.085em] uppercase lg:my-0">
-            <span className="block">Webs</span>
-            <span className="block text-primary">con</span>
-            <span className="block">pulso.</span>
+            <span className="block">Cada</span>
+            <span className="block text-primary">detalle</span>
+            <span className="block">importa.</span>
           </h1>
 
           <div className="grid gap-6 border-t border-foreground pt-5 sm:grid-cols-2">

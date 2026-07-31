@@ -1,5 +1,6 @@
 'use client'
 
+import { useId } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { ALL_PATHS, CIRCLE_PATHS, MONOGRAM_PATHS, NUMBER_PATHS } from '@/components/logo-path-data'
 import { cn } from '@/lib/utils'
@@ -7,6 +8,7 @@ import { cn } from '@/lib/utils'
 type LogoMarkProps = {
   className?: string
   animateIntro?: boolean
+  ambient?: boolean
   interactive?: boolean
   onSequenceComplete?: () => void
   title?: string
@@ -22,12 +24,19 @@ function Paths({ paths }: { paths: readonly string[] }) {
 export function LogoMark({
   className,
   animateIntro = false,
+  ambient = true,
   interactive = true,
   onSequenceComplete,
   title = 'MR14',
 }: LogoMarkProps) {
   const reduceMotion = useReducedMotion()
   const shouldAnimate = animateIntro && !reduceMotion
+  const shouldFloat = ambient && !animateIntro && !reduceMotion
+  const instanceId = useId().replace(/:/g, '')
+  const circleMaskId = `mr14-circle-${instanceId}`
+  const monogramMaskId = `mr14-monogram-${instanceId}`
+  const clipId = `mr14-clip-${instanceId}`
+  const sweepId = `mr14-sweep-${instanceId}`
 
   return (
     <motion.svg
@@ -42,7 +51,7 @@ export function LogoMark({
       style={{ transformOrigin: '50% 50%', willChange: 'transform' }}
     >
       <defs>
-        <mask id="mr14-circle-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
+        <mask id={circleMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
           <rect width="768" height="768" fill="black" />
           <motion.path
             d="M 185 132 C 302 35 489 34 614 143 C 730 244 742 424 659 548 C 566 686 379 727 229 650 C 90 578 39 412 99 272"
@@ -57,7 +66,7 @@ export function LogoMark({
           />
         </mask>
 
-        <mask id="mr14-monogram-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
+        <mask id={monogramMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
           <rect width="768" height="768" fill="black" />
           <motion.path
             d="M 125 210 L 125 510 M 130 210 L 264 382 L 384 254 L 384 663 M 145 158 L 296 302"
@@ -85,29 +94,35 @@ export function LogoMark({
           />
         </mask>
 
-        <clipPath id="mr14-silhouette">
+        <clipPath id={clipId}>
           <Paths paths={ALL_PATHS} />
         </clipPath>
 
-        <linearGradient id="mr14-sweep" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={sweepId} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="white" stopOpacity="0" />
           <stop offset="0.5" stopColor="white" stopOpacity="0.9" />
           <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      <g mask={shouldAnimate ? 'url(#mr14-circle-reveal)' : undefined}>
-        <Paths paths={CIRCLE_PATHS} />
-      </g>
-      <g mask={shouldAnimate ? 'url(#mr14-monogram-reveal)' : undefined}>
-        <Paths paths={MONOGRAM_PATHS} />
-      </g>
       <motion.g
-        initial={{ opacity: shouldAnimate ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
+        animate={shouldFloat ? { scale: [1, 1.008, 1], rotate: [0, 0.45, 0] } : undefined}
+        transition={shouldFloat ? { duration: 5.6, repeat: Infinity, ease: 'easeInOut' } : undefined}
+        style={{ transformOrigin: '384px 384px' }}
       >
-        <Paths paths={NUMBER_PATHS} />
+        <g mask={shouldAnimate ? `url(#${circleMaskId})` : undefined}>
+          <Paths paths={CIRCLE_PATHS} />
+        </g>
+        <g mask={shouldAnimate ? `url(#${monogramMaskId})` : undefined}>
+          <Paths paths={MONOGRAM_PATHS} />
+        </g>
+        <motion.g
+          initial={{ opacity: shouldAnimate ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
+        >
+          <Paths paths={NUMBER_PATHS} />
+        </motion.g>
       </motion.g>
 
       {shouldAnimate ? (
@@ -116,12 +131,25 @@ export function LogoMark({
           y="0"
           width="150"
           height="768"
-          fill="url(#mr14-sweep)"
-          clipPath="url(#mr14-silhouette)"
+          fill={`url(#${sweepId})`}
+          clipPath={`url(#${clipId})`}
           initial={{ x: -260, opacity: 0 }}
           animate={{ x: 990, opacity: [0, 0.72, 0] }}
           transition={{ duration: 0.9, delay: 3.32, ease: 'easeInOut' }}
           onAnimationComplete={onSequenceComplete}
+        />
+      ) : null}
+
+      {shouldFloat ? (
+        <motion.rect
+          x="-260"
+          y="0"
+          width="130"
+          height="768"
+          fill={`url(#${sweepId})`}
+          clipPath={`url(#${clipId})`}
+          animate={{ x: [-260, 990], opacity: [0, 0.42, 0] }}
+          transition={{ duration: 1.15, repeat: Infinity, repeatDelay: 3.65, ease: 'easeInOut' }}
         />
       ) : null}
     </motion.svg>
