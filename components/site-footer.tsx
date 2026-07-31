@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
 
@@ -68,10 +69,16 @@ export function SiteFooter() {
 
         <div className="flex flex-col items-center gap-2 border-t border-foreground/35 pt-5 text-center font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/55 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Mateo Rodríguez</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end">
-            <a href="/privacidad" className="hover:text-foreground hover:underline hover:underline-offset-4">Privacidad</a>
-            <p>Desarrollado por MR14</p>
-          </div>
+          <p>
+            Desarrollado por{' '}
+            <Link
+              href="/"
+              className="font-sans text-[11px] font-bold italic tracking-[0.08em] text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-colors hover:text-primary"
+              aria-label="MR14 — volver al inicio del portfolio"
+            >
+              MR14
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
