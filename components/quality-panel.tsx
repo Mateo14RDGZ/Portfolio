@@ -7,7 +7,7 @@ import { SectionHeading } from '@/components/section-heading'
 import { EASE } from '@/lib/motion'
 
 const SCORES = [
-  { label: 'Rendimiento', value: 84 },
+  { label: 'Rendimiento', value: 94 },
   { label: 'Accesibilidad', value: 97 },
   { label: 'Buenas prácticas', value: 100 },
   { label: 'SEO', value: 100 },
