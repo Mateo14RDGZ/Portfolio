@@ -5,7 +5,7 @@ import { LogoMark } from '@/components/logo-mark'
 const LINKS = [
   { label: 'Perfil', href: '#about' },
   { label: 'Servicios', href: '#services' },
-  { label: 'Direcciones', href: '#work' },
+  { label: 'Habilidades', href: '#work' },
   { label: 'Método', href: '#process' },
 ]
 

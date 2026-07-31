@@ -39,7 +39,7 @@ export function Hero() {
 
         <div className="col-span-full grid border-t border-foreground sm:grid-cols-2">
           <a href="#work" className="flex min-h-20 items-center justify-between border-foreground px-5 text-lg font-semibold transition-colors hover:bg-foreground hover:text-background sm:border-r sm:px-8">
-            Ver trabajo seleccionado <ArrowDownRight />
+            Explorar mis habilidades <ArrowDownRight />
           </a>
           <a href="#contact" className="flex min-h-20 items-center justify-between border-t border-foreground bg-primary px-5 text-lg font-semibold text-primary-foreground transition-colors hover:bg-foreground sm:border-t-0 sm:px-8">
             Contarme tu idea <ArrowUpRight />

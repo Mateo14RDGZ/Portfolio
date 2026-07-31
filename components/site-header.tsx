@@ -9,7 +9,7 @@ import { useLogoIntro } from '@/components/page-transition'
 const LINKS = [
   { label: 'Perfil', href: '#about' },
   { label: 'Servicios', href: '#services' },
-  { label: 'Archivo', href: '#work' },
+  { label: 'Habilidades', href: '#work' },
   { label: 'Método', href: '#process' },
 ]
 
