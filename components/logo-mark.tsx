@@ -37,6 +37,7 @@ export function LogoMark({
   const monogramMaskId = `mr14-monogram-${instanceId}`
   const clipId = `mr14-clip-${instanceId}`
   const sweepId = `mr14-sweep-${instanceId}`
+  const ambientSweepId = `mr14-ambient-sweep-${instanceId}`
 
   return (
     <motion.svg
@@ -60,11 +61,9 @@ export function LogoMark({
             strokeWidth="64"
             strokeLinecap="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
-            animate={shouldFloat ? { pathLength: [0, 1, 1] } : { pathLength: 1 }}
-            transition={shouldFloat
-              ? { duration: 5.2, repeat: Infinity, times: [0, 0.24, 1], ease: DRAW_EASE }
-              : { duration: shouldAnimate ? 1.25 : 0, delay: shouldAnimate ? 0.35 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: shouldAnimate ? 1.25 : 0, delay: shouldAnimate ? 0.35 : 0, ease: DRAW_EASE }}
           />
         </mask>
 
@@ -78,11 +77,9 @@ export function LogoMark({
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
-            animate={shouldFloat ? { pathLength: [0, 0, 1, 1] } : { pathLength: 1 }}
-            transition={shouldFloat
-              ? { duration: 5.2, repeat: Infinity, times: [0, 0.2, 0.43, 1], ease: DRAW_EASE }
-              : { duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 1.42 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 1.42 : 0, ease: DRAW_EASE }}
           />
           <motion.path
             d="M 383 252 L 520 252 C 635 252 635 405 520 405 L 451 405 L 666 609 M 412 403 L 514 505"
@@ -92,11 +89,9 @@ export function LogoMark({
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength="1"
-            initial={{ pathLength: shouldAnimate || shouldFloat ? 0 : 1 }}
-            animate={shouldFloat ? { pathLength: [0, 0, 1, 1] } : { pathLength: 1 }}
-            transition={shouldFloat
-              ? { duration: 5.2, repeat: Infinity, times: [0, 0.4, 0.63, 1], ease: DRAW_EASE }
-              : { duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 2.12 : 0, ease: DRAW_EASE }}
+            initial={{ pathLength: shouldAnimate ? 0 : 1 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: shouldAnimate ? 0.95 : 0, delay: shouldAnimate ? 2.12 : 0, ease: DRAW_EASE }}
           />
         </mask>
 
@@ -109,30 +104,29 @@ export function LogoMark({
           <stop offset="0.5" stopColor="white" stopOpacity="0.9" />
           <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
+        <linearGradient id={ambientSweepId} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#ff5d3a" stopOpacity="0" />
+          <stop offset="0.5" stopColor="#ff8a70" stopOpacity="0.72" />
+          <stop offset="1" stopColor="#ff5d3a" stopOpacity="0" />
+        </linearGradient>
       </defs>
 
-      {shouldFloat ? (
-        <g opacity="0.14" aria-hidden="true">
-          <Paths paths={ALL_PATHS} />
-        </g>
-      ) : null}
-
       <motion.g
-        animate={shouldFloat ? { scale: [1, 1.018, 1], rotate: [-0.7, 0.7, -0.7] } : undefined}
-        transition={shouldFloat ? { duration: 5.2, repeat: Infinity, ease: 'easeInOut' } : undefined}
+        animate={shouldFloat ? { scale: [1, 1.012, 1], rotate: [-0.28, 0.28, -0.28] } : undefined}
+        transition={shouldFloat ? { duration: 5.8, repeat: Infinity, ease: 'easeInOut' } : undefined}
         style={{ transformOrigin: '384px 384px' }}
       >
-        <g mask={shouldAnimate || shouldFloat ? `url(#${circleMaskId})` : undefined}>
+        <g mask={shouldAnimate ? `url(#${circleMaskId})` : undefined}>
           <Paths paths={CIRCLE_PATHS} />
         </g>
-        <g mask={shouldAnimate || shouldFloat ? `url(#${monogramMaskId})` : undefined}>
+        <g mask={shouldAnimate ? `url(#${monogramMaskId})` : undefined}>
           <Paths paths={MONOGRAM_PATHS} />
         </g>
         <motion.g
-          initial={{ opacity: shouldAnimate || shouldFloat ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
-          animate={shouldFloat ? { opacity: [0, 0, 1, 1], scale: [0.92, 0.92, 1.08, 1] } : { opacity: 1, y: 0 }}
+          initial={{ opacity: shouldAnimate ? 0 : 1, y: shouldAnimate ? 8 : 0 }}
+          animate={shouldFloat ? { opacity: [0.88, 1, 0.88], scale: [1, 1.035, 1] } : { opacity: 1, y: 0 }}
           transition={shouldFloat
-            ? { duration: 5.2, repeat: Infinity, times: [0, 0.58, 0.7, 1], ease: DRAW_EASE }
+            ? { duration: 3.8, repeat: Infinity, ease: 'easeInOut' }
             : { duration: shouldAnimate ? 0.45 : 0, delay: shouldAnimate ? 2.92 : 0, ease: DRAW_EASE }}
           style={{ transformOrigin: '485px 575px' }}
         >
@@ -156,16 +150,30 @@ export function LogoMark({
       ) : null}
 
       {shouldFloat ? (
-        <motion.rect
-          x="-260"
-          y="0"
-          width="130"
-          height="768"
-          fill={`url(#${sweepId})`}
-          clipPath={`url(#${clipId})`}
-          animate={{ x: [-260, 990], opacity: [0, 0.78, 0] }}
-          transition={{ duration: 0.9, delay: 3.65, repeat: Infinity, repeatDelay: 4.3, ease: 'easeInOut' }}
-        />
+        <g aria-hidden="true">
+          <motion.path
+            d="M 185 132 C 302 35 489 34 614 143 C 730 244 742 424 659 548 C 566 686 379 727 229 650 C 90 578 39 412 99 272"
+            fill="none"
+            stroke="#ff6d4d"
+            strokeWidth="20"
+            strokeLinecap="round"
+            pathLength="1"
+            strokeDasharray="0.13 0.87"
+            clipPath={`url(#${clipId})`}
+            animate={{ strokeDashoffset: [0, -1], opacity: [0.38, 0.72, 0.38] }}
+            transition={{ duration: 4.8, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.rect
+            x="-260"
+            y="0"
+            width="165"
+            height="768"
+            fill={`url(#${ambientSweepId})`}
+            clipPath={`url(#${clipId})`}
+            animate={{ x: [-260, 990], opacity: [0, 0.5, 0] }}
+            transition={{ duration: 3.9, repeat: Infinity, ease: 'linear' }}
+          />
+        </g>
       ) : null}
     </motion.svg>
   )
