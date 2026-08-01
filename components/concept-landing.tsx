@@ -15,8 +15,8 @@ import {
   ShieldCheck,
   Sparkles,
 } from 'lucide-react'
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
+import type { CSSProperties } from 'react'
 import type { ConceptProject } from '@/lib/project-data'
 import { EASE } from '@/lib/motion'
 import { cn } from '@/lib/utils'
@@ -50,52 +50,36 @@ type StoryScene = {
   label: string
   title: string
   copy: string
-  position: string
   tone: string
 }
 
 function BrumaLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
-  const [activeStep, setActiveStep] = useState(0)
-  const stepRefs = useRef<Array<HTMLElement | null>>([])
-  const relatoRef = useRef<HTMLElement | null>(null)
-  const { scrollYProgress } = useScroll({
-    target: relatoRef,
-    offset: ['start start', 'end end'],
-  })
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 24 })
-  const buildProgress = useTransform(smoothProgress, [0, 0.34, 0.67, 1], [0, 0.4, 0.75, 1])
-  const originOpacity = useTransform(smoothProgress, [0, 0.06, 0.22, 1], [1, 1, 1, 1])
-  const methodOpacity = useTransform(smoothProgress, [0.12, 0.28, 0.44, 1], [0, 0, 1, 1])
-  const visitOpacity = useTransform(smoothProgress, [0.46, 0.66, 0.82, 1], [0, 0, 1, 1])
 
   const scenes: StoryScene[] = [
     {
       kicker: '01 / Origen',
-      label: 'La carta como punto de partida',
-      title: 'Cafe de origen, preparado sin apuro.',
+      label: 'Carta como punto de partida',
+      title: 'Caf? de origen, preparado sin apuro.',
       copy:
-        'La experiencia arranca mostrando de donde viene la propuesta. La carta se presenta breve, clara y con foco en lo que importa: ayudar a elegir rapido sin perder el caracter del lugar.',
-      position: '58% 46%',
-      tone: 'from-[#24170e]/78 via-[#24170e]/18 to-transparent',
+        'La experiencia arranca mostrando de d?nde viene la propuesta. La carta se presenta breve, clara y con foco en lo que importa: elegir r?pido sin perder el car?cter del lugar.',
+      tone: 'from-[#24170e]/78 via-[#24170e]/22 to-transparent',
     },
     {
-      kicker: '02 / Metodo',
-      label: 'Cada preparacion tiene su momento',
-      title: 'Metodos visibles, sin ruido.',
+      kicker: '02 / M?todo',
+      label: 'Cada preparaci?n tiene su momento',
+      title: 'M?todos visibles, sin ruido.',
       copy:
-        'El recorrido baja al detalle de la preparacion. La narrativa acompana metodos, especialidades y pequenas decisiones que ayudan a sentir el ritmo de la cafeteria antes de llegar.',
-      position: '80% 40%',
-      tone: 'from-[#2c1a0d]/72 via-[#2c1a0d]/18 to-transparent',
+        'El recorrido baja al detalle de la preparaci?n. La narrativa acompa?a m?todos, especialidades y peque?as decisiones que ayudan a sentir el ritmo de la cafeter?a antes de llegar.',
+      tone: 'from-[#2c1a0d]/74 via-[#2c1a0d]/24 to-transparent',
     },
     {
       kicker: '03 / Visita',
       label: 'Reservar se siente natural',
       title: 'La reserva aparece justo a tiempo.',
       copy:
-        'Cuando la historia avanza, la llamada a la accion deja de ser un boton suelto y se integra al relato. Horarios, ubicacion y reserva se muestran como una extension logica de la experiencia.',
-      position: '46% 66%',
-      tone: 'from-[#1f130b]/80 via-[#1f130b]/25 to-transparent',
+        'Cuando la historia avanza, la llamada a la acci?n deja de ser un bot?n suelto y se integra al relato. Horarios, ubicaci?n y reserva se muestran como una extensi?n l?gica de la experiencia.',
+      tone: 'from-[#1f130b]/80 via-[#1f130b]/26 to-transparent',
     },
   ]
 
@@ -103,34 +87,30 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     {
       number: '01',
       title: 'Carta breve y directa',
-      copy: 'El primer bloque arma la propuesta: lo justo para elegir rápido y con contexto.',
+      copy: 'El primer bloque arma la propuesta: lo justo para elegir r?pido y con contexto.',
     },
     {
       number: '02',
-      title: 'Métodos y detalle',
-      copy: 'El segundo bloque introduce ritmo, preparación y el lado más artesanal de la experiencia.',
+      title: 'M?todos y detalle',
+      copy: 'El segundo bloque introduce ritmo, preparaci?n y el lado m?s artesanal de la experiencia.',
     },
     {
       number: '03',
       title: 'Reserva y visita',
-      copy: 'El cierre suma la acción final y deja la experiencia lista para convertir.',
+      copy: 'El cierre suma la acci?n final y deja la experiencia lista para convertir.',
     },
   ]
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const current = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (current) setActiveStep(Number((current.target as HTMLElement).dataset.step))
-      },
-      { rootMargin: '-28% 0px -40% 0px', threshold: [0.2, 0.45, 0.7] },
-    )
-
-    stepRefs.current.forEach((node) => node && observer.observe(node))
-    return () => observer.disconnect()
-  }, [])
+  const stepMeta = [
+    { number: '01', label: 'Visi?n general' },
+    { number: '02', label: 'Inventario' },
+    { number: '03', label: 'Clientes' },
+    { number: '04', label: 'Financiaci?n' },
+    { number: '05', label: 'Pagos' },
+    { number: '06', label: 'Comprobantes' },
+    { number: '07', label: 'Reportes' },
+    { number: '08', label: 'Cliente' },
+  ] as const
 
   return (
     <main className="min-h-screen bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]">
@@ -165,13 +145,13 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             className="flex flex-col justify-between gap-10"
           >
             <div className="space-y-6">
-              <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Cafe de especialidad · Montevideo</p>
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Caf? de especialidad ? Montevideo</p>
               <h1 className="max-w-3xl text-[clamp(4rem,11vw,9rem)] leading-[0.8] font-normal tracking-[-0.075em] text-balance">
-                Cafe de origen,
+                Caf? de origen,
                 <em className="block font-light">preparado sin apuro.</em>
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-[#302218]/74 sm:text-xl">
-                Una experiencia digital calida, pensada para convertir la curiosidad de una busqueda local en una visita, una reserva o una consulta.
+                Una experiencia digital c?lida, pensada para convertir la curiosidad de una b?squeda local en una visita, una reserva o una consulta.
               </p>
             </div>
 
@@ -195,7 +175,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#24170e]/45 via-transparent to-[#24170e]/12" />
             <div className="absolute left-5 right-5 top-5 flex items-start justify-between gap-4 text-[#fff7e8] sm:left-7 sm:right-7 sm:top-7">
               <div className="max-w-xs">
-                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-70">Recorre el sistema</div>
+                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-70">Recorr? el sistema</div>
                 <div className="mt-2 text-2xl leading-tight font-semibold italic">La historia cambia con tu scroll.</div>
               </div>
               <div className="rounded-full border border-white/20 bg-black/20 px-4 py-2 font-mono text-[9px] tracking-[0.16em] uppercase backdrop-blur-md">
@@ -213,142 +193,141 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
         </div>
       </section>
 
-      <section ref={relatoRef} id="relato" className="bg-[#2b1c13] text-[#fff7e8]">
-        <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-16 lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-12 lg:py-0">
-          <div className="hidden lg:block lg:py-12">
-            <div className="lg:sticky lg:top-8 space-y-5">
-              <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.14em] uppercase text-[#d9ad7f]">
-                <span>Del grano a la mesa</span>
-                <span>0{activeStep + 1} / 03</span>
-              </div>
-              <div className="relative overflow-hidden rounded-[3rem_0.6rem_3rem_0.6rem] border border-white/10 bg-[#24170e] shadow-[0_30px_80px_rgba(0,0,0,0.2)]">
-                <div className="relative aspect-[0.98]">
+      <section id="relato" className="bg-[#2b1c13] text-[#fff7e8]">
+        <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-16 lg:px-12 lg:py-16">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[9px] tracking-[0.16em] text-[#d9ad7f] uppercase">Scroll storytelling</p>
+            <h2 className="mt-4 text-[clamp(2.6rem,6vw,4.8rem)] leading-[0.86] font-normal tracking-[-0.06em] text-balance">
+              La web parece quieta, pero se arma con tu scroll.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/68 sm:text-lg">
+              La escena principal se mantiene estable para que todo se lea como una sola pieza. A medida que avanz?s, cambian el foco, el estado y la historia,
+              sin superponer bloques que rompan el ritmo.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[0.92fr_0.58fr] lg:items-start">
+            <div className="lg:sticky lg:top-8">
+              <div className="relative overflow-hidden rounded-[3rem_0.7rem_3rem_0.7rem] border border-white/10 bg-[#24170e] shadow-[0_36px_90px_rgba(0,0,0,0.28)]">
+                <div className="relative aspect-[0.96] sm:aspect-[1.02]">
                   <Image
                     src={project.image}
-                    alt="Escena principal de Bruma Cafe"
+                    alt="Bruma Cafe en vista principal"
                     fill
-                    sizes="(max-width:1024px) 100vw, 52vw"
-                    className="object-cover object-[68%_center]"
+                    priority
+                    sizes="(max-width:1024px) 100vw, 56vw"
+                    className="object-cover object-[66%_center]"
                   />
-                  <div className={cn('absolute inset-0 bg-gradient-to-t', scenes[activeStep].tone)} />
-                  <motion.div className="absolute inset-x-5 top-5 rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md" style={reduceMotion ? undefined : { opacity: originOpacity }}>
-                    <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
-                      <span>{scenes[activeStep].kicker}</span>
-                      <span>Escena activa</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#24170e]/55 via-[#24170e]/14 to-transparent" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_24%,rgba(255,255,255,0.14),transparent_34%),radial-gradient(circle_at_68%_28%,rgba(211,107,67,0.14),transparent_28%)]" />
+
+                  <div className="absolute inset-x-4 top-4 rounded-[1.35rem_0.35rem_1.35rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md sm:inset-x-6 sm:top-6 sm:p-5">
+                    <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
+                      <span>Bruma Cafe</span>
+                      <span>Scroll guiado</span>
                     </div>
-                    <p className="mt-2 max-w-md text-3xl leading-[0.92] font-semibold italic text-white">{scenes[activeStep].title}</p>
+                    <p className="mt-2 max-w-md text-2xl leading-[0.94] font-semibold italic text-white sm:text-3xl">
+                      Una historia fija que se va completando por capas.
+                    </p>
                     <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/12">
-                      <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${activeStep === 0 ? 0.34 : activeStep === 1 ? 0.67 : 1})` }} />
+                      <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${reduceMotion ? 1 : 0.72})` }} />
                     </div>
-                  </motion.div>
-                  <motion.div className="absolute left-5 top-1/2 w-[42%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: originOpacity, x: 0, y: '-50%' }}>
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">{scenes[0].label}</div>
-                    <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[0].title}</div>
+                  </div>
+
+                  <div className="absolute left-4 top-1/2 hidden w-[40%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md md:block">
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">01 / Carta</div>
+                    <p className="mt-2 text-lg leading-tight font-semibold">{assembleItems[0].title}</p>
                     <p className="mt-2 text-sm leading-relaxed text-[#302218]/72">{assembleItems[0].copy}</p>
-                  </motion.div>
-                  <motion.div className="absolute right-5 top-[46%] w-[38%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/90 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: methodOpacity }}>
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[1].label}</div>
-                    <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[1].title}</div>
+                  </div>
+
+                  <div className="absolute right-4 top-[46%] hidden w-[34%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/92 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md md:block">
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">02 / M?todo</div>
+                    <p className="mt-2 text-lg leading-tight font-semibold">{assembleItems[1].title}</p>
                     <p className="mt-2 text-sm leading-relaxed text-white/72">{assembleItems[1].copy}</p>
-                  </motion.div>
-                  <motion.div className="absolute inset-x-8 bottom-8 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: visitOpacity }}>
-                    <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">
-                      <span>{scenes[2].label}</span>
-                      <span>CTA final</span>
+                  </div>
+
+                  <div className="absolute inset-x-4 bottom-4 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-5">
+                    <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">
+                      <span>03 / Visita</span>
+                      <span>Reserva integrada</span>
                     </div>
                     <div className="mt-3 grid gap-3 sm:grid-cols-2">
                       <div className="rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f1e3ca] p-3">
                         <p className="text-sm font-semibold leading-snug">{assembleItems[2].title}</p>
                         <p className="mt-2 text-sm leading-relaxed text-[#302218]/70">{assembleItems[2].copy}</p>
                       </div>
-                      <div className="flex items-center justify-between rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f1e3ca] p-3">
+                      <div className="flex items-center justify-between rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f7ece0] p-3">
                         <div>
-                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Reserva</div>
-                          <p className="mt-1 text-sm font-semibold">La experiencia termina lista para convertir</p>
+                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Acci?n final</div>
+                          <p className="mt-1 text-sm font-semibold">La experiencia cierra lista para convertir</p>
                         </div>
                         <ArrowUpRight className="size-5 shrink-0" />
                       </div>
                     </div>
-                  </motion.div>
-                  <motion.div className="absolute inset-x-5 bottom-5 hidden h-1 overflow-hidden rounded-full bg-white/15 lg:block">
-                    <motion.div className="h-full origin-left bg-[#d36b43]" style={{ scaleX: buildProgress }} />
-                  </motion.div>
+                  </div>
+
+                  <div className="absolute inset-x-5 bottom-5 hidden h-1 overflow-hidden rounded-full bg-white/15 lg:block">
+                    <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${reduceMotion ? 1 : 0.86})` }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="carta" className="space-y-4">
+              {scenes.map((scene, index) => (
+                <motion.article
+                  key={scene.kicker}
+                  initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-18% 0px -12% 0px' }}
+                  transition={{ duration: 0.55, ease: EASE, delay: index * 0.04 }}
+                  className="group rounded-[2rem_0.45rem_2rem_0.45rem] border border-white/10 bg-white/6 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:-translate-y-0.5 sm:p-6"
+                >
+                  <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
+                    <span>{scene.kicker}</span>
+                    <span>{stepMeta[index].label}</span>
+                  </div>
+                  <h3 className="mt-4 max-w-xl text-3xl leading-[0.94] font-semibold tracking-[-0.04em] text-balance sm:text-4xl">
+                    <em>{scene.title}</em>
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/68 sm:text-[1.05rem]">{scene.copy}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {[assembleItems[index], assembleItems[Math.min(index + 1, assembleItems.length - 1)]].map((item, itemIndex) => (
+                      <span
+                        key={`${item.number}-${itemIndex}`}
+                        className={cn(
+                          'rounded-full border px-3 py-1 font-mono text-[9px] tracking-[0.14em] uppercase',
+                          index === 0 && 'border-[#d9ad7f]/25 bg-[#f1e3ca]/8 text-[#f5e4cf]',
+                          index === 1 && 'border-[#d36b43]/30 bg-[#d36b43]/10 text-[#ffd9c8]',
+                          index >= 2 && 'border-white/15 bg-white/6 text-white/78',
+                        )}
+                      >
+                        {item.title}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
+              ))}
+
+              <div className="grid gap-3 rounded-[2rem_0.45rem_2rem_0.45rem] border border-white/10 bg-[#f1e3ca] p-5 text-[#302218] shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:grid-cols-[1.2fr_0.8fr] sm:items-center sm:p-6">
+                <div>
+                  <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Cierre</div>
+                  <p className="mt-2 text-2xl leading-tight font-semibold">
+                    Un sistema que acompa?a el recorrido sin interrumpirlo.
+                  </p>
+                </div>
+                <div className="rounded-[1.3rem_0.35rem_1.3rem_0.35rem] border border-[#302218]/12 bg-white/55 p-4">
+                  <p className="text-sm leading-relaxed text-[#302218]/80">
+                    Del primer vistazo a la reserva final, la experiencia se entiende como una sola pieza, con el contenido apareciendo en el orden justo.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div id="carta" className="space-y-6 pb-12 pt-0 lg:py-[12vh]">
-            <div className="sticky top-4 z-20 -mx-5 mb-8 overflow-hidden border-y border-white/10 bg-[#24170e] sm:-mx-8 lg:hidden">
-              <div className="relative aspect-[0.92]">
-                <Image
-                  src={project.image}
-                  alt="Escena principal de Bruma Cafe"
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-[68%_center]"
-                />
-                <div className={cn('absolute inset-0 bg-gradient-to-t', scenes[activeStep].tone)} />
-                <div className="absolute inset-x-4 top-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md">
-                  <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
-                    <span>{scenes[activeStep].kicker}</span>
-                    <span>Construcción</span>
-                  </div>
-                  <p className="mt-2 text-2xl leading-[0.95] font-semibold italic text-white">{scenes[activeStep].title}</p>
-                  <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/12">
-                    <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${(activeStep + 1) / scenes.length})` }} />
-                  </div>
-                </div>
-                <div className="absolute inset-x-4 bottom-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
-                  <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[activeStep].label}</div>
-                  <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scenes[activeStep].copy}</p>
-                </div>
-              </div>
-            </div>
-
-            {scenes.map((scene, index) => {
-              return (
-                <motion.article
-                  key={scene.kicker}
-                  ref={(node) => {
-                    stepRefs.current[index] = node
-                  }}
-                  data-step={index}
-                  initial={false}
-                  className="min-h-[64svh] border-t border-white/12 py-10 first:border-0 first:pt-4 sm:min-h-[60svh] sm:py-14 lg:flex lg:flex-col lg:justify-center"
-                >
-                  <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
-                    <span>{scene.kicker}</span>
-                    <span>0{index + 1}</span>
-                  </div>
-                  <h2 className="mt-5 max-w-2xl text-5xl leading-[0.9] font-normal tracking-[-0.05em] text-balance sm:text-7xl">
-                    <em>{scene.title}</em>
-                  </h2>
-                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#fff7e8]/72 sm:text-xl">{scene.copy}</p>
-                  <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                    {assembleItems.slice(index, index + 2).map((item) => (
-                      <div
-                        key={item.number}
-                        className={cn(
-                          'rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 p-4 shadow-[0_18px_50px_rgba(0,0,0,0.16)]',
-                          item.number === '01' && 'bg-[#f1e3ca] text-[#302218]',
-                          item.number === '02' && 'bg-[#f7ece0] text-[#302218]',
-                          item.number === '03' && 'bg-white/8 text-[#fff7e8]',
-                        )}
-                      >
-                        <div className={cn('font-mono text-[9px] tracking-[0.16em] uppercase', item.number === '03' ? 'text-[#d9ad7f]' : 'text-[#8a5a3b]')}>
-                          {item.number}
-                        </div>
-                        <h3 className="mt-2 text-2xl leading-[0.95] font-semibold italic">{item.title}</h3>
-                        <p className={cn('mt-2 text-sm leading-relaxed', item.number === '03' ? 'text-[#fff7e8]/72' : 'text-[#302218]/72')}>
-                          {item.copy}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </motion.article>
-              )
-            })}
+          <div className="mt-10 flex items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/70">
+            <BackToProjects />
+            <span className="font-mono text-[9px] tracking-[0.13em] uppercase">Demo conceptual por MR14</span>
           </div>
         </div>
       </section>
@@ -367,7 +346,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <h2 className="max-w-5xl text-5xl leading-[0.86] font-normal tracking-[-0.055em] sm:text-8xl">
               Tu mesa puede estar <em>esperando.</em>
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consulta horarios, encontranos y reservá antes de venir.</p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consulta horarios, encontranos y reserv? antes de venir.</p>
             <Link href="/#contact" className="group mt-8 inline-flex items-center gap-5 border-b border-[#302218] pb-2 text-xl font-semibold italic">
               Quiero una experiencia asi <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
@@ -381,7 +360,6 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     </main>
   )
 }
-
 function LineaNorteLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   return (
