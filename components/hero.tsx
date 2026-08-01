@@ -3,6 +3,7 @@
 import { motion } from 'motion/react'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
+import Link from 'next/link'
 
 export function Hero() {
   return (
@@ -10,7 +11,7 @@ export function Hero() {
       <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-[1400px] grid-rows-[auto_1fr_auto] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
         <div className="flex flex-col justify-between border-foreground p-5 sm:p-8 lg:border-r lg:p-12">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-xs uppercase tracking-[0.18em]">
-            Desarrollador independiente · Uruguay · 2026
+            Desarrollador web independiente · Uruguay · 2026
           </motion.p>
 
           <h1 className="my-12 text-[clamp(4rem,16vw,10rem)] leading-[0.76] font-semibold tracking-[-0.085em] uppercase lg:my-0">
@@ -21,7 +22,7 @@ export function Hero() {
 
           <div className="grid gap-6 border-t border-foreground pt-5 sm:grid-cols-2">
             <p className="max-w-sm text-lg leading-snug font-medium sm:text-xl">
-              Diseño y desarrollo sitios que se sienten propios, no prestados de una plantilla.
+              Diseño y desarrollo sitios web y sistemas a medida para negocios en Uruguay.
             </p>
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground sm:justify-self-end">
               Estrategia, identidad visual y código en una sola mesa. Sin capas de agencia. Sin soluciones de catálogo.
@@ -44,10 +45,10 @@ export function Hero() {
         </div>
 
         <div className="col-span-full grid border-t border-foreground sm:grid-cols-2">
-          <a href="#case-study" className="flex min-h-20 items-center justify-between border-foreground px-5 text-lg font-semibold transition-colors hover:bg-foreground hover:text-background sm:border-r sm:px-8">
+          <Link href="/trabajo-destacado" className="flex min-h-20 items-center justify-between border-foreground px-5 text-lg font-semibold transition-colors hover:bg-foreground hover:text-background sm:border-r sm:px-8">
             Ver trabajo destacado <ArrowDownRight />
-          </a>
-          <a href="#contact" className="flex min-h-20 items-center justify-between border-t border-foreground bg-primary px-5 text-lg font-semibold text-primary-foreground transition-colors hover:bg-foreground sm:border-t-0 sm:px-8">
+          </Link>
+          <a href="#contact" className="primary-action flex min-h-20 items-center justify-between border-t border-foreground bg-primary px-5 text-lg font-semibold text-primary-foreground sm:border-t-0 sm:px-8">
             Contarme tu idea <ArrowUpRight />
           </a>
         </div>

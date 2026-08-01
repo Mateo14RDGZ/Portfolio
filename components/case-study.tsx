@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { track } from '@vercel/analytics'
 import {
   motion,
@@ -467,8 +468,8 @@ export function CaseStudy() {
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">Puedo desarrollar una solución adaptada a la forma en la que trabajás, desde una herramienta interna hasta una aplicación completa.</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <a href="#contact" onClick={() => track('case_study_cta_click', { action: 'contact' })} className="group flex min-h-14 items-center justify-between gap-8 bg-primary px-5 font-semibold text-primary-foreground transition-colors hover:bg-foreground hover:text-background">Contame tu idea <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></a>
-              <a href="#call-booking" onClick={() => track('booking_started', { source: 'case_study' })} className="group flex min-h-14 items-center justify-between gap-8 border border-foreground px-5 font-semibold transition-colors hover:bg-foreground hover:text-background"><span className="flex items-center gap-2"><CalendarDays className="size-5" />Agendar una reunión</span><ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></a>
+              <Link href="/#contact" onClick={() => track('case_study_cta_click', { action: 'contact' })} className="primary-action group flex min-h-14 items-center justify-between gap-8 bg-primary px-5 font-semibold text-primary-foreground">Contame tu idea <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></Link>
+              <Link href="/#call-booking" onClick={() => track('booking_started', { source: 'case_study' })} className="group flex min-h-14 items-center justify-between gap-8 border border-foreground px-5 font-semibold transition-colors hover:bg-foreground hover:text-background"><span className="flex items-center gap-2"><CalendarDays className="size-5" />Agendar una reunión</span><ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></Link>
             </div>
           </div>
         </Reveal>

@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/sonner'
 import { GoogleAnalytics } from '@/components/google-analytics'
 import { PwaRegistration } from '@/components/pwa-registration'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
 import './globals.css'
 
 const geistSans = Geist({
@@ -27,25 +28,27 @@ const maziusDisplay = localFont({
   display: 'swap',
 })
 
-const siteUrl = 'https://portfolio-mrdgz14.vercel.app'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
-    template: '%s — Mateo Rodríguez',
+    default: 'Desarrollador web en Uruguay | Mateo Rodríguez',
+    template: '%s | Mateo Rodríguez',
   },
-  description:
-    'Diseño y desarrollo sitios web rápidos, claros y a medida para negocios. Trabajo remoto desde Uruguay con estrategia, diseño y código en un mismo proceso.',
+  description: SITE_DESCRIPTION,
   keywords: [
+    'desarrollador Uruguay',
+    'desarrollador web Uruguay',
+    'desarrollo web Uruguay',
+    'programador web Uruguay',
     'desarrollador web freelance',
-    'desarrollador full-stack',
+    'desarrollador full-stack Uruguay',
     'desarrollador Next.js',
     'sitios web para pequeños negocios',
-    'desarrollo web',
+    'sistemas a medida Uruguay',
+    'tiendas online Uruguay',
     'diseño web profesional',
   ],
-  authors: [{ name: 'Mateo Rodríguez', url: siteUrl }],
+  authors: [{ name: 'Mateo Rodríguez', url: SITE_URL }],
   creator: 'Mateo Rodríguez',
   alternates: { canonical: '/' },
   manifest: '/manifest.webmanifest',
@@ -54,26 +57,24 @@ export const metadata: Metadata = {
     : undefined,
   openGraph: {
     type: 'website',
-    url: siteUrl,
-    siteName: 'Mateo Rodríguez / MR14',
-    title: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
-    description:
-      'Sitios web rápidos, claros y a medida para negocios. Estrategia, diseño y desarrollo desde Uruguay.',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: 'Desarrollador web en Uruguay | Mateo Rodríguez',
+    description: SITE_DESCRIPTION,
     locale: 'es_UY',
     images: [
       {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Mateo Rodríguez, diseño y desarrollo web · MR14',
+        alt: 'Mateo Rodríguez, desarrollador web en Uruguay · MR14',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mateo Rodríguez — Diseño y desarrollo web en Uruguay',
-    description:
-      'Sitios web rápidos, claros y a medida para negocios. Estrategia, diseño y desarrollo desde Uruguay.',
+    title: 'Desarrollador web en Uruguay | Mateo Rodríguez',
+    description: SITE_DESCRIPTION,
     images: ['/opengraph-image'],
   },
   robots: {

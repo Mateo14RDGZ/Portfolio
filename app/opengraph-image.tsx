@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Mateo Rodríguez, diseño y desarrollo web · MR14'
+export const alt = 'Mateo Rodríguez, desarrollador web en Uruguay · MR14'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -28,10 +28,10 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: 86, lineHeight: 0.92, fontWeight: 750, letterSpacing: '-0.055em', maxWidth: 900 }}>
-            Diseño y desarrollo web con criterio.
+            Desarrollador web en Uruguay.
           </div>
           <div style={{ marginTop: 36, fontSize: 25, color: '#5d4963' }}>
-            Uruguay · Trabajo remoto
+            Sitios web · Tiendas online · Sistemas a medida
           </div>
         </div>
       </div>

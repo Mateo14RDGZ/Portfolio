@@ -1,7 +1,7 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { About } from '@/components/about'
-import { CaseStudy } from '@/components/case-study'
+import { CaseStudyPreview } from '@/components/case-study-preview'
 import { Services } from '@/components/services'
 import { Projects } from '@/components/projects'
 import { Technologies } from '@/components/technologies'
@@ -12,8 +12,9 @@ import { PageTransition } from '@/components/page-transition'
 import { QualityPanel } from '@/components/quality-panel'
 import { Faq } from '@/components/faq'
 import { FAQ_ITEMS } from '@/lib/faq-data'
+import { SITE_URL } from '@/lib/site'
 
-const siteUrl = 'https://portfolio-mrdgz14.vercel.app/'
+const siteUrl = `${SITE_URL}/`
 
 const siteSchema = {
   '@context': 'https://schema.org',
@@ -22,7 +23,7 @@ const siteSchema = {
       '@type': 'WebSite',
       '@id': `${siteUrl}#website`,
       url: siteUrl,
-      name: 'Mateo Rodríguez / MR14',
+      name: 'Mateo Rodríguez · Desarrollador web en Uruguay',
       inLanguage: 'es-UY',
       publisher: { '@id': `${siteUrl}#organization` },
     },
@@ -40,7 +41,7 @@ const siteSchema = {
       name: 'Mateo Rodríguez',
       url: siteUrl,
       email: 'mailto:mrdgz14dev@gmail.com',
-      jobTitle: 'Desarrollador web full-stack',
+      jobTitle: 'Desarrollador web full-stack en Uruguay',
       worksFor: { '@id': `${siteUrl}#organization` },
       knowsAbout: [
         'Next.js',
@@ -54,10 +55,10 @@ const siteSchema = {
     {
       '@type': 'ProfessionalService',
       '@id': `${siteUrl}#service`,
-      name: 'Mateo Rodríguez — Diseño y desarrollo web',
+      name: 'Mateo Rodríguez · Desarrollador web en Uruguay',
       url: siteUrl,
       description:
-        'Servicio de diseño y desarrollo web full-stack para negocios, prestado de forma remota desde Uruguay.',
+        'Diseño y desarrollo de sitios web, tiendas online y sistemas a medida para negocios en Uruguay.',
       areaServed: {
         '@type': 'Country',
         name: 'Uruguay',
@@ -84,7 +85,7 @@ export default function HomePage() {
     <PageTransition>
       <a
         href="#about"
-        className="bg-primary text-primary-foreground sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[110] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm"
+        className="primary-action bg-primary text-primary-foreground sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[110] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm"
       >
         Ir al contenido
       </a>
@@ -93,7 +94,7 @@ export default function HomePage() {
 
       <main>
         <Hero />
-        <CaseStudy />
+        <CaseStudyPreview />
         <About />
         <Services />
         <Projects />

@@ -82,7 +82,7 @@ export default function PrivacyPage() {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">¿Alguna duda?</p>
             <p className="mt-2 text-2xl font-semibold">Hablemos directamente.</p>
           </div>
-          <a href="mailto:mrdgz14dev@gmail.com" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-5 font-semibold text-primary-foreground">
+          <a href="mailto:mrdgz14dev@gmail.com" className="primary-action inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-5 font-semibold text-primary-foreground">
             <Mail className="size-4" /> mrdgz14dev@gmail.com
           </a>
         </div>

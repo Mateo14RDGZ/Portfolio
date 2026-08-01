@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Mateo Rodríguez — MR14',
     short_name: 'MR14',
-    description: 'Portfolio de diseño y desarrollo web de Mateo Rodríguez.',
+    description: 'Desarrollador web full-stack en Uruguay: sitios web, tiendas online y sistemas a medida.',
     start_url: '/',
     scope: '/',
     display: 'standalone',

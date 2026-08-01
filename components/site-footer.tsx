@@ -3,11 +3,11 @@ import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
 
 const LINKS = [
-  { label: 'Perfil', href: '#about' },
-  { label: 'Servicios', href: '#services' },
-  { label: 'Habilidades', href: '#work' },
-  { label: 'Método', href: '#process' },
-  { label: 'Preguntas frecuentes', href: '#faq' },
+  { label: 'Perfil', href: '/#about' },
+  { label: 'Servicios', href: '/#services' },
+  { label: 'Habilidades', href: '/#work' },
+  { label: 'Método', href: '/#process' },
+  { label: 'Preguntas frecuentes', href: '/#faq' },
 ]
 
 export function SiteFooter() {
@@ -15,23 +15,23 @@ export function SiteFooter() {
     <footer className="bg-accent text-foreground">
       <div className="mx-auto max-w-[1400px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="grid items-center gap-8 border-b border-foreground pb-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 lg:pb-14">
-          <a href="#top" className="group mx-auto flex w-fit items-center gap-5 lg:mx-0" aria-label="Volver al inicio">
+          <Link href="/" className="group mx-auto flex w-fit items-center gap-5 lg:mx-0" aria-label="Volver al inicio">
             <LogoMark animateIntro className="size-32 sm:size-48 lg:size-56" />
             <span className="hidden font-mono text-xs uppercase tracking-[0.2em] sm:block">
               Identidad<br />MR14
             </span>
-          </a>
+          </Link>
 
           <div className="text-center lg:text-left">
             <p className="max-w-3xl text-[clamp(2.5rem,6vw,6rem)] leading-[0.86] font-semibold tracking-[-0.065em] text-balance">
               Una buena web debería sentirse inevitable.
             </p>
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className="mt-7 inline-flex min-h-14 items-center gap-3 rounded-full bg-foreground px-6 font-semibold text-background transition-transform hover:-translate-y-1"
             >
               Construyamos la tuya <ArrowUpRight className="size-5" />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -40,9 +40,9 @@ export function SiteFooter() {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/75">Navegación</p>
             <nav className="mt-3 flex flex-col items-center sm:items-start" aria-label="Pie de página">
               {LINKS.map((link) => (
-                <a key={link.href} href={link.href} className="py-1.5 text-lg font-medium hover:underline hover:underline-offset-4">
+                <Link key={link.href} href={link.href} className="py-1.5 text-lg font-medium hover:underline hover:underline-offset-4">
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
