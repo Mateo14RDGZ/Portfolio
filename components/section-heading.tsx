@@ -8,6 +8,7 @@ type SectionHeadingProps = {
   align?: 'left' | 'center'
   className?: string
   id?: string
+  as?: 'h1' | 'h2'
 }
 
 /** Consistent eyebrow + headline + copy block used at the top of every section. */
@@ -18,7 +19,9 @@ export function SectionHeading({
   align = 'left',
   className,
   id,
+  as = 'h2',
 }: SectionHeadingProps) {
+  const Heading = as
   return (
     <StaggerGroup
       className={cn(
@@ -33,9 +36,9 @@ export function SectionHeading({
         </span>
       </RevealItem>
       <RevealItem>
-        <h2 id={id} className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
+        <Heading id={id} className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
           {title}
-        </h2>
+        </Heading>
       </RevealItem>
       {description ? (
         <RevealItem>

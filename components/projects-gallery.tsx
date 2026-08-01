@@ -7,6 +7,7 @@ import { ArrowUpRight, BadgeCheck, Layers3 } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import { CONCEPT_PROJECTS } from '@/lib/project-data'
 import { EASE } from '@/lib/motion'
+import { cn } from '@/lib/utils'
 import { Reveal, RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 
@@ -21,7 +22,8 @@ export function ProjectsGallery() {
           title="Proyectos"
           description="Un sistema empresarial real y tres ejercicios conceptuales completos para mostrar cómo abordo negocios, públicos y objetivos diferentes."
           id="projects-title"
-          className="border-background/45 [&_h2]:text-background [&_p]:text-background/68 [&_span]:text-primary"
+          as="h1"
+          className="border-background/45 [&_h1]:text-background [&_h2]:text-background [&_p]:text-background/68 [&_span]:text-primary"
         />
 
         <Reveal className="mt-10 sm:mt-16">
@@ -65,18 +67,27 @@ export function ProjectsGallery() {
           <StaggerGroup className="mt-8 grid gap-4 lg:grid-cols-3" gap={0.08}>
             {CONCEPT_PROJECTS.map((project, index) => (
               <RevealItem key={project.slug}>
-                <motion.article whileHover={reduceMotion ? undefined : { y: -5 }} transition={{ duration: 0.4, ease: EASE }} className="group flex h-full flex-col overflow-hidden rounded-[2rem_0.55rem_2rem_0.55rem] border border-background/25 bg-background/[0.045]">
-                  <Link href={`/proyectos/${project.slug}`} className="relative aspect-[1.25] overflow-hidden" aria-label={`Ver landing conceptual ${project.name}`}>
-                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]" />
-                    <span className="absolute top-4 left-4 rounded-full border border-white/35 bg-black/45 px-3 py-2 font-mono text-[8px] tracking-[0.14em] text-white uppercase backdrop-blur-md">Proyecto conceptual</span>
+                <motion.article
+                  whileHover={reduceMotion ? undefined : { y: -5 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className={cn(
+                    'group flex h-full flex-col overflow-hidden border',
+                    project.slug === 'bruma-cafe' && 'rounded-[2.7rem_0.45rem_2.7rem_0.45rem] border-[#f1e3ca]/35 bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]',
+                    project.slug === 'linea-norte' && 'rounded-none border-[#e7e3dc]/45 bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]',
+                    project.slug === 'aura-dental' && 'rounded-[2.7rem] border-[#cbdcd7] bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif]',
+                  )}
+                >
+                  <Link href={`/proyectos/${project.slug}`} className={cn('relative overflow-hidden', project.slug === 'bruma-cafe' && 'aspect-[1.12]', project.slug === 'linea-norte' && 'aspect-square', project.slug === 'aura-dental' && 'mx-4 mt-4 aspect-[1.18] rounded-[2rem] sm:mx-5 sm:mt-5')} aria-label={`Ver landing conceptual ${project.name}`}>
+                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className={cn('object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]', project.slug === 'linea-norte' && 'grayscale group-hover:grayscale-0')} />
+                    <span className={cn('absolute top-4 left-4 px-3 py-2 text-[8px] tracking-[0.14em] uppercase', project.slug === 'bruma-cafe' && 'rounded-full border border-white/30 bg-[#302218]/75 text-[#fff7e8] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'linea-norte' && 'bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'aura-dental' && 'rounded-full bg-[#edf2ec]/90 text-[#17332f] [font-family:var(--font-mazius-display),Georgia,serif]')}>Proyecto conceptual</span>
                   </Link>
-                  <div className="flex flex-1 flex-col p-6 sm:p-7">
-                    <p className="font-mono text-[9px] tracking-[0.15em] text-primary uppercase">0{index + 2} / {project.category.split(' · ')[0]}</p>
-                    <h3 className="mt-4 text-3xl font-semibold tracking-[-0.045em]">{project.name}</h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-background/62">{project.description}</p>
-                    <div className="mt-6 flex items-center justify-between border-t border-background/20 pt-5">
-                      <span className="flex items-center gap-2 font-mono text-[9px] tracking-[0.12em] uppercase text-background/55"><Layers3 className="size-3.5 text-primary" /> Landing completa</span>
-                      <Link href={`/proyectos/${project.slug}`} onClick={() => track('projects_click', { project: project.slug })} className="grid size-11 place-items-center rounded-full border border-background/35 transition-colors hover:bg-primary hover:text-primary-foreground" aria-label={`Abrir ${project.name}`}><ArrowUpRight className="size-4" /></Link>
+                  <div className={cn('flex flex-1 flex-col', project.slug === 'bruma-cafe' && 'p-6 sm:p-7', project.slug === 'linea-norte' && 'p-5 sm:p-6', project.slug === 'aura-dental' && 'p-6 sm:p-7')}>
+                    <p className={cn('text-[9px] tracking-[0.15em] uppercase', project.slug === 'bruma-cafe' && 'text-[#8a5a3b] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'linea-norte' && 'text-[#9a5d3b] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'aura-dental' && 'text-[#5b8580] [font-family:var(--font-mazius-display),Georgia,serif]')}>0{index + 2} / {project.category.split(' · ')[0]}</p>
+                    <h3 className={cn('mt-4 text-3xl tracking-[-0.05em]', project.slug === 'bruma-cafe' && 'font-semibold italic', project.slug === 'linea-norte' && 'font-semibold uppercase', project.slug === 'aura-dental' && 'font-bold')}>{project.name}</h3>
+                    <p className={cn('mt-3 flex-1 text-sm leading-relaxed', project.slug === 'bruma-cafe' && 'text-[#302218]/70', project.slug === 'linea-norte' && 'text-[#242522]/62', project.slug === 'aura-dental' && 'text-[#17332f]/64')}>{project.description}</p>
+                    <div className={cn('mt-6 flex items-center justify-between pt-5', project.slug === 'bruma-cafe' && 'border-t border-[#302218]/18', project.slug === 'linea-norte' && 'border-t border-[#242522]', project.slug === 'aura-dental' && 'border-t border-[#17332f]/15')}>
+                      <span className={cn('flex items-center gap-2 text-[9px] tracking-[0.12em] uppercase', project.slug === 'bruma-cafe' && 'text-[#302218]/58 [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'linea-norte' && 'text-[#242522]/55 [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'aura-dental' && 'text-[#17332f]/55 [font-family:var(--font-mazius-display),Georgia,serif]')}><Layers3 className={cn('size-3.5', project.slug === 'bruma-cafe' && 'text-[#b75632]', project.slug === 'linea-norte' && 'text-[#9a5d3b]', project.slug === 'aura-dental' && 'text-[#5b8580]')} /> Landing completa</span>
+                      <Link href={`/proyectos/${project.slug}`} onClick={() => track('projects_click', { project: project.slug })} className={cn('grid size-11 place-items-center transition-colors', project.slug === 'bruma-cafe' && 'rounded-full border border-[#302218]/35 hover:bg-[#b75632] hover:text-[#fff7e8]', project.slug === 'linea-norte' && 'border border-[#242522] hover:bg-[#242522] hover:text-[#e7e3dc]', project.slug === 'aura-dental' && 'rounded-full bg-[#5b8580] text-white hover:bg-[#17332f]')} aria-label={`Abrir ${project.name}`}><ArrowUpRight className="size-4" /></Link>
                     </div>
                   </div>
                 </motion.article>
