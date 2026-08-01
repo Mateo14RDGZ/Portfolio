@@ -122,7 +122,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <span className="grid size-10 place-items-center rounded-full bg-[#b75632] text-[#fff7e8]">
               <Coffee className="size-5" />
             </span>
-            Bruma Cafe
+            Cimarrón Café
           </Link>
           <nav className="hidden gap-8 font-mono text-[10px] tracking-[0.14em] uppercase md:flex">
             <a href="#relato">La experiencia</a>
@@ -212,7 +212,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                 <div className="relative aspect-[0.96] sm:aspect-[1.02]">
                   <Image
                     src={project.image}
-                    alt="Bruma Cafe en vista principal"
+                    alt="Cimarrón Café en vista principal"
                     fill
                     priority
                     sizes="(max-width:1024px) 100vw, 56vw"
@@ -223,7 +223,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
 
                   <div className="absolute inset-x-4 top-4 rounded-[1.35rem_0.35rem_1.35rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md sm:inset-x-6 sm:top-6 sm:p-5">
                     <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
-                      <span>Bruma Cafe</span>
+                      <span>Cimarrón Café</span>
                       <span>Scroll guiado</span>
                     </div>
                     <p className="mt-2 max-w-md text-2xl leading-[0.94] font-semibold italic text-white sm:text-3xl">
