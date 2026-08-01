@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Fraunces, Geist, Geist_Mono, Nunito_Sans, Space_Grotesk } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/sonner'
 import { GoogleAnalytics } from '@/components/google-analytics'
@@ -17,6 +17,24 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
+  display: 'swap',
+})
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
+
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  variable: '--font-nunito-sans',
   display: 'swap',
 })
 
@@ -110,7 +128,7 @@ export default function RootLayout({
   return (
     <html
       lang="es-UY"
-      className={`bg-background ${geistSans.variable} ${geistMono.variable} ${maziusDisplay.variable}`}
+      className={`bg-background ${geistSans.variable} ${geistMono.variable} ${maziusDisplay.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${nunitoSans.variable}`}
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-sans antialiased">

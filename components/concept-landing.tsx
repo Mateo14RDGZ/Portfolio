@@ -55,11 +55,11 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
   const positions = ['72% 48%', '88% 43%', '56% 68%']
 
   return (
-    <main className="min-h-screen bg-[#f1e3ca] text-[#302218]">
+    <main className="min-h-screen bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]">
       <ConceptNotice />
       <header className="border-b border-[#302218]/25">
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:h-24 sm:px-8 lg:px-12">
-          <Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em]"><span className="grid size-10 place-items-center rounded-full bg-[#b75632] text-[#fff7e8]"><Coffee className="size-5" /></span>Bruma Café</Link>
+          <Link href="#inicio" className="flex items-center gap-3 text-2xl font-semibold italic tracking-[-0.045em]"><span className="grid size-10 place-items-center rounded-full bg-[#b75632] text-[#fff7e8]"><Coffee className="size-5" /></span>Bruma Café</Link>
           <nav className="hidden gap-8 font-mono text-[10px] tracking-[0.14em] uppercase md:flex"><a href="#relato">La experiencia</a><a href="#carta">La carta</a><a href="#visitanos">Visitanos</a></nav>
           <a href="#visitanos" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#302218] px-5 text-sm font-semibold text-[#f1e3ca] sm:flex">Reservar <ArrowUpRight className="size-4" /></a>
           <Menu className="sm:hidden" aria-hidden="true" />
@@ -72,8 +72,8 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
         <motion.div initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE }} className="relative mx-auto flex min-h-[calc(100svh-7rem)] max-w-[1440px] flex-col justify-between px-5 py-8 text-[#fff7e8] sm:px-8 sm:py-12 lg:px-12">
           <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Café de especialidad · Montevideo</p>
           <div className="max-w-4xl py-20">
-            <p className="mb-5 text-sm font-medium text-[#e9c9a5]">Una pausa que empieza antes de llegar.</p>
-            <h1 className="text-[clamp(4.1rem,11vw,10rem)] leading-[0.78] font-semibold tracking-[-0.085em] text-balance">Café de origen, preparado sin apuro.</h1>
+            <p className="mb-5 text-lg italic text-[#e9c9a5]">Una pausa que empieza antes de llegar.</p>
+            <h1 className="text-[clamp(4.1rem,11vw,10rem)] leading-[0.78] font-normal tracking-[-0.07em] text-balance">Café de origen, <em className="font-light">preparado sin apuro.</em></h1>
           </div>
           <a href="#relato" className="flex items-center gap-3 font-mono text-[10px] tracking-[0.16em] uppercase">Seguí la historia <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" /></a>
         </motion.div>
@@ -95,8 +95,8 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             {project.services.map((service, index) => (
               <motion.article key={service.number} ref={(node) => { stepRefs.current[index] = node }} data-step={index} initial={reduceMotion ? false : { opacity: 0.35 }} whileInView={{ opacity: 1 }} viewport={{ amount: 0.55 }} className="flex min-h-[62svh] flex-col justify-center border-t border-[#fff7e8]/20 py-14 first:border-0">
                 <span className="font-mono text-[10px] tracking-[0.16em] text-[#d36b43] uppercase">Capítulo {service.number}</span>
-                <h2 className="mt-6 text-5xl leading-[0.88] font-semibold tracking-[-0.06em] sm:text-7xl">{service.title}</h2>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#fff7e8]/68">{service.copy}</p>
+                <h2 className="mt-6 text-5xl leading-[0.88] font-normal tracking-[-0.045em] sm:text-7xl"><em>{service.title}</em></h2>
+                <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#fff7e8]/68">{service.copy}</p>
                 <div className="mt-9 flex flex-wrap gap-2">{project.details.slice(index, index + 2).map((detail) => <span key={detail} className="rounded-full border border-[#fff7e8]/25 px-4 py-2 font-mono text-[9px] tracking-[0.12em] uppercase">{detail}</span>)}</div>
               </motion.article>
             ))}
@@ -105,9 +105,9 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
       </section>
 
       <section id="visitanos" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto grid max-w-[1344px] gap-10 rounded-[3rem_0.7rem_3rem_0.7rem] bg-[#d5c39f] p-6 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end lg:p-16">
-          <div><Clock3 className="size-8 text-[#b75632]" /><h2 className="mt-7 max-w-4xl text-5xl leading-[0.86] font-semibold tracking-[-0.07em] sm:text-7xl">Tu mesa puede estar esperando.</h2><p className="mt-5 max-w-xl leading-relaxed opacity-70">Consultá horarios, encontranos y reservá antes de venir.</p></div>
-          <Link href="/#contact" className="flex min-h-14 w-full items-center justify-between rounded-full bg-[#302218] px-6 font-semibold text-[#fff7e8] lg:w-auto lg:min-w-64">Quiero una web así <ArrowUpRight className="size-5" /></Link>
+        <div className="mx-auto grid max-w-[1344px] gap-10 border-y border-[#302218] py-10 sm:py-16 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-16">
+          <div className="grid size-32 place-items-center rounded-full border border-[#302218] text-center font-mono text-[9px] tracking-[0.13em] uppercase sm:size-44"><Clock3 className="size-7 text-[#b75632]" /><span>Una pausa<br />bien hecha</span></div>
+          <div><h2 className="max-w-5xl text-5xl leading-[0.86] font-normal tracking-[-0.055em] sm:text-8xl">Tu mesa puede estar <em>esperando.</em></h2><p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consultá horarios, encontranos y reservá antes de venir.</p><Link href="/#contact" className="group mt-8 inline-flex items-center gap-5 border-b border-[#302218] pb-2 text-xl font-semibold italic">Quiero una experiencia así <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></Link></div>
         </div>
         <div className="mx-auto mt-8 flex max-w-[1344px] justify-between gap-5 border-t border-[#302218]/25 pt-6 text-sm"><BackToProjects /><span className="hidden font-mono text-[9px] tracking-[0.13em] uppercase opacity-55 sm:block">Demo conceptual por MR14</span></div>
       </section>
@@ -118,7 +118,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
 function LineaNorteLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   return (
-    <main className="min-h-screen bg-[#e7e3dc] text-[#242522]">
+    <main className="min-h-screen bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]">
       <ConceptNotice dark />
       <header className="border-b border-[#242522]">
         <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12">
@@ -127,14 +127,18 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
         </div>
       </header>
 
-      <section id="inicio" className="relative min-h-[calc(100svh-7rem)] overflow-hidden border-b border-[#242522]">
-        <motion.div initial={reduceMotion ? false : { clipPath: 'inset(0 100% 0 0)' }} animate={{ clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: 1.15, ease: EASE }} className="absolute inset-0">
-          <Image src={project.image} alt={project.imageAlt} fill priority sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-[#181913]/25" />
-        </motion.div>
-        <div className="relative mx-auto grid min-h-[calc(100svh-7rem)] max-w-[1440px] grid-rows-[1fr_auto] px-5 py-7 text-[#f6f2e9] sm:px-8 sm:py-10 lg:px-12">
-          <div className="flex items-start justify-between font-mono text-[9px] tracking-[0.16em] uppercase"><span>Estudio conceptual · Uruguay</span><span>35° S / 56° O</span></div>
-          <motion.h1 initial={reduceMotion ? false : { opacity: 0, y: 45 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.45, ease: EASE }} className="max-w-6xl text-[clamp(4rem,12vw,11rem)] leading-[0.75] font-semibold tracking-[-0.09em] uppercase">Espacios pensados desde el lugar.</motion.h1>
+      <section id="inicio" className="border-b border-[#242522]">
+        <div className="mx-auto grid min-h-[calc(100svh-7rem)] max-w-[1440px] lg:grid-cols-[0.78fr_1.22fr]">
+          <motion.div initial={reduceMotion ? false : { opacity: 0, x: -35 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: EASE }} className="flex flex-col justify-between border-[#242522] p-5 sm:p-8 lg:border-r lg:p-12">
+            <div className="flex justify-between font-mono text-[9px] tracking-[0.16em] uppercase"><span>Estudio conceptual</span><span>UY / 01</span></div>
+            <h1 className="my-16 text-[clamp(3.8rem,7.4vw,8rem)] leading-[0.79] font-medium tracking-[-0.085em] uppercase">Espacios<br /><span className="text-[#9a5d3b]">pensados</span><br />desde el<br />lugar.</h1>
+            <p className="max-w-sm text-sm leading-relaxed opacity-60">Arquitectura, interiorismo y dirección reunidos bajo una misma línea de trabajo.</p>
+          </motion.div>
+          <motion.div initial={reduceMotion ? false : { clipPath: 'inset(0 100% 0 0)' }} animate={{ clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: 1.05, delay: 0.15, ease: EASE }} className="relative min-h-[28rem] overflow-hidden lg:min-h-0">
+            <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 61vw" className="object-cover" />
+            <div className="absolute top-0 bottom-0 left-[18%] w-px bg-white/50" /><div className="absolute top-0 bottom-0 left-[64%] w-px bg-white/50" />
+            <span className="absolute right-5 bottom-5 bg-[#e7e3dc] px-4 py-3 font-mono text-[9px] tracking-[0.14em] uppercase">Costa / Vivienda 01</span>
+          </motion.div>
         </div>
       </section>
 
@@ -174,7 +178,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
     { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar función y estética.' },
   ]
   return (
-    <main className="min-h-screen overflow-hidden bg-[#edf2ec] text-[#17332f]">
+    <main className="min-h-screen overflow-hidden bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
       <ConceptNotice />
       <header className="relative z-20">
         <div className="mx-auto flex h-20 max-w-[1380px] items-center justify-between px-5 sm:h-24 sm:px-8">
@@ -188,7 +192,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <motion.div initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: EASE }}>
             <span className="inline-flex items-center gap-2 rounded-full bg-[#cbdcd7] px-4 py-2 text-xs font-semibold"><span className="size-2 rounded-full bg-[#5b8580]" /> Odontología cercana</span>
-            <h1 className="mt-7 text-[clamp(4rem,9vw,8.5rem)] leading-[0.8] font-semibold tracking-[-0.085em] text-balance">Cuidar tu sonrisa puede sentirse simple.</h1>
+            <h1 className="mt-7 text-[clamp(4rem,9vw,8.5rem)] leading-[0.85] font-extrabold tracking-[-0.065em] text-balance">Cuidar tu sonrisa puede sentirse <span className="text-[#5b8580]">simple.</span></h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-[#17332f]/68">Un espacio pensado para explicar cada paso, escuchar lo que necesitás y acompañarte con tranquilidad.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row"><a href="#agenda" className="flex min-h-14 items-center justify-between rounded-full bg-[#5b8580] px-6 font-semibold text-white sm:min-w-52">Agendar consulta <ArrowUpRight className="size-5" /></a><a href="#tratamientos" className="flex min-h-14 items-center justify-between rounded-full border border-[#17332f]/30 px-6 font-semibold sm:min-w-52">Ver tratamientos <ChevronRight className="size-5" /></a></div>
           </motion.div>
