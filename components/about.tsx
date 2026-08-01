@@ -68,9 +68,9 @@ export function About() {
                 Actualmente
               </span>
               <p className="text-2xl leading-snug font-medium tracking-tight text-balance sm:text-3xl">
-                &ldquo;La mayoría de los sitios de pequeños negocios fallan por motivos
-                simples: son lentos, confusos y no ofrecen un siguiente paso claro.
-                Esas son las tres primeras cosas que soluciono.&rdquo;
+                &ldquo;Muchos sitios explican poco y convierten menos de lo que podrían.
+                Yo empiezo por ordenar el mensaje, simplificar la experiencia y dejar
+                claro el próximo paso.&rdquo;
               </p>
               <div className="border-border flex items-center justify-between border-t pt-6">
                 <div className="flex flex-col">
