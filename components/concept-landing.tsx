@@ -674,3 +674,4 @@ export function ConceptLanding({ project }: { project: ConceptProject }) {
   if (project.slug === 'linea-norte') return <LineaNorteLanding project={project} />
   return <div style={style}><AuraDentalLanding project={project} /></div>
 }
+
