@@ -301,9 +301,39 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
           </div>
 
           <div id="carta" className="space-y-6 pb-12 pt-0 lg:py-[12vh]">
-            {scenes.map((scene, index) => {
-              const service = project.services[index]
+            <div className="sticky top-4 z-20 -mx-5 mb-8 overflow-hidden border-y border-white/10 bg-[#24170e] sm:-mx-8 lg:hidden">
+              <div className="relative aspect-[0.92]">
+                <Image
+                  src={project.image}
+                  alt="Escena principal de Bruma Cafe"
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-[68%_center]"
+                />
+                <div className={cn('absolute inset-0 bg-gradient-to-t', scenes[activeStep].tone)} />
+                <div className="absolute inset-x-4 top-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md">
+                  <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
+                    <span>{scenes[activeStep].kicker}</span>
+                    <span>Construcción</span>
+                  </div>
+                  <p className="mt-2 text-2xl leading-[0.95] font-semibold italic text-white">{scenes[activeStep].title}</p>
+                </div>
+                <div className="absolute inset-x-4 bottom-4 grid gap-2">
+                  <div className="rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[activeStep].label}</div>
+                    <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scenes[activeStep].copy}</p>
+                  </div>
+                  <div className="h-1 overflow-hidden rounded-full bg-white/15">
+                    <div
+                      className="h-full origin-left bg-[#d36b43] transition-transform duration-500 ease-out"
+                      style={{ transform: `scaleX(${(activeStep + 1) / scenes.length})` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            {scenes.map((scene, index) => {
               return (
                 <motion.article
                   key={scene.kicker}
@@ -315,7 +345,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ amount: 0.55 }}
                   transition={{ duration: 0.7, ease: EASE }}
-                  className="min-h-[78svh] border-t border-white/12 py-10 first:border-0 first:pt-4 sm:min-h-[66svh] sm:py-14 lg:flex lg:flex-col lg:justify-center"
+                  className="min-h-[72svh] border-t border-white/12 py-10 first:border-0 first:pt-4 sm:min-h-[66svh] sm:py-14 lg:flex lg:flex-col lg:justify-center"
                 >
                   <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
                     <span>{scene.kicker}</span>
@@ -350,35 +380,6 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                       </motion.div>
                     ))}
                   </div>
-                  <motion.div
-                    className="mt-8 overflow-hidden rounded-[2rem_0.45rem_2rem_0.45rem] border border-white/10 bg-black/20 lg:hidden"
-                    initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ amount: 0.35, once: false }}
-                    transition={{ duration: 0.6, ease: EASE }}
-                  >
-                    <div className="relative aspect-[0.84]">
-                      <Image
-                        src={project.image}
-                        alt={`Escena ${index + 1} de Bruma Cafe`}
-                        fill
-                        sizes="100vw"
-                        className="object-cover object-[68%_center]"
-                      />
-                      <div className={cn('absolute inset-0 bg-gradient-to-t', scene.tone)} />
-                      <div className="absolute inset-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/22 p-4 backdrop-blur-md">
-                        <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">{scene.label}</div>
-                        <p className="mt-2 max-w-xs text-2xl leading-[0.95] font-semibold italic text-white">{service.title}</p>
-                      </div>
-                      <div className="absolute right-4 bottom-4 left-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
-                        <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
-                          <span>Armado en scroll</span>
-                          <span>0{index + 1}</span>
-                        </div>
-                        <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scene.copy}</p>
-                      </div>
-                    </div>
-                  </motion.div>
                 </motion.article>
               )
             })}
