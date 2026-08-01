@@ -367,11 +367,11 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
       <ConceptNotice dark />
       <header className="border-b border-[#242522]">
         <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12">
-          <Link href="#inicio" className="text-xl font-semibold tracking-[-0.05em] uppercase sm:text-2xl">
+          <Link href="#inicio" className="text-xl font-semibold tracking-[-0.05em] uppercase sm:text-2xl [font-family:var(--font-geist-sans),Arial,sans-serif]">
             Linea-Norte
           </Link>
           <div className="flex items-center gap-7 lg:justify-between">
-            <span className="hidden font-mono text-[9px] tracking-[0.16em] uppercase md:block">Arquitectura / Interiorismo / Dirección</span>
+            <span className="hidden text-[9px] tracking-[0.2em] uppercase md:block [font-family:var(--font-geist-sans),Arial,sans-serif]">Arquitectura / Interiorismo / Dirección</span>
             <Menu className="size-6" />
           </div>
         </div>
@@ -385,7 +385,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
             transition={{ duration: 0.8, ease: EASE }}
             className="flex flex-col justify-between border-[#242522] p-5 sm:p-8 lg:border-r lg:p-12"
           >
-            <div className="flex justify-between font-mono text-[9px] tracking-[0.16em] uppercase">
+            <div className="flex justify-between text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">
               <span>Estudio conceptual</span>
               <span>UY / 01</span>
             </div>
@@ -409,7 +409,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
             <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 61vw" className="object-cover" />
             <div className="absolute top-0 bottom-0 left-[18%] w-px bg-white/50" />
             <div className="absolute top-0 bottom-0 left-[64%] w-px bg-white/50" />
-            <span className="absolute right-5 bottom-5 bg-[#e7e3dc] px-4 py-3 font-mono text-[9px] tracking-[0.14em] uppercase">Costa / Vivienda 01</span>
+            <span className="absolute right-5 bottom-5 bg-[#e7e3dc] px-4 py-3 text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Costa / Vivienda 01</span>
           </motion.div>
         </div>
       </section>
@@ -417,7 +417,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
       <section className="border-b border-[#242522]">
         <div className="mx-auto grid max-w-[1440px] sm:grid-cols-4">
           {project.details.map((detail, index) => (
-            <div key={detail} className="flex min-h-24 items-center justify-between border-b border-[#242522] px-5 py-5 font-mono text-[9px] tracking-[0.14em] uppercase last:border-b-0 sm:min-h-32 sm:border-r sm:border-b-0 sm:px-6 sm:last:border-r-0">
+            <div key={detail} className="flex min-h-24 items-center justify-between border-b border-[#242522] px-5 py-5 text-[9px] tracking-[0.2em] uppercase last:border-b-0 sm:min-h-32 sm:border-r sm:border-b-0 sm:px-6 sm:last:border-r-0 [font-family:var(--font-geist-sans),Arial,sans-serif]">
               <span className="text-[#9a5d3b]">0{index + 1}</span>
               <span>{detail}</span>
             </div>
@@ -428,7 +428,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
       <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-28 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div className="lg:sticky lg:top-8 lg:self-start">
-            <p className="font-mono text-[9px] tracking-[0.16em] text-[#9a5d3b] uppercase">Una practica integrada</p>
+            <p className="text-[9px] tracking-[0.2em] text-[#9a5d3b] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Una practica integrada</p>
             <h2 className="mt-5 text-5xl leading-[0.88] font-semibold tracking-[-0.065em] sm:text-7xl">Una linea clara, de la idea a la obra.</h2>
           </div>
           <div className="border-t border-[#242522]">
@@ -441,7 +441,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
                 transition={{ duration: 0.65, ease: EASE }}
                 className="group grid gap-5 border-b border-[#242522] py-8 sm:grid-cols-[5rem_1fr_auto] sm:items-center sm:py-11"
               >
-                <span className="font-mono text-[10px] text-[#9a5d3b]">{service.number}</span>
+                <span className="text-[10px] text-[#9a5d3b] [font-family:var(--font-geist-sans),Arial,sans-serif]">{service.number}</span>
                 <div>
                   <h3 className="text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">{service.title}</h3>
                   <p className="mt-3 max-w-xl leading-relaxed opacity-60">{service.copy}</p>
@@ -458,16 +458,16 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
           <Image src={project.image} alt="Detalle material de una residencia conceptual" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover object-left grayscale transition duration-700 hover:grayscale-0" />
         </div>
         <div className="flex flex-col justify-between p-6 sm:p-12 lg:p-16">
-          <span className="font-mono text-[9px] tracking-[0.16em] uppercase">Principio 01</span>
+          <span className="text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Principio 01</span>
           <blockquote className="my-16 text-4xl leading-[0.94] font-medium tracking-[-0.05em] sm:text-6xl">“La arquitectura empieza cuando el lugar deja de ser fondo y pasa a tomar decisiones.”</blockquote>
-          <span className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-55">Material / Luz / Tiempo</span>
+          <span className="text-[9px] tracking-[0.2em] uppercase opacity-55 [font-family:var(--font-geist-sans),Arial,sans-serif]">Material / Luz / Tiempo</span>
         </div>
       </section>
 
       <section className="bg-[#242522] px-5 py-16 text-[#e7e3dc] sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto grid max-w-[1344px] gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="font-mono text-[9px] tracking-[0.16em] text-[#c88762] uppercase">Nueva obra</p>
+            <p className="text-[9px] tracking-[0.2em] text-[#c88762] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Nueva obra</p>
             <h2 className="mt-6 max-w-5xl text-5xl leading-[0.84] font-semibold tracking-[-0.075em] sm:text-8xl">Construyamos desde una idea clara.</h2>
           </div>
           <Link href="/#contact" className="flex min-h-14 w-full items-center justify-between border border-[#e7e3dc] px-5 font-semibold lg:w-auto lg:min-w-64">
@@ -476,7 +476,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
         </div>
         <div className="mx-auto mt-14 flex max-w-[1344px] items-center justify-between border-t border-[#e7e3dc]/25 pt-6">
           <BackToProjects />
-          <span className="font-mono text-[9px] tracking-[0.13em] uppercase opacity-50">LN / 2026</span>
+          <span className="text-[9px] tracking-[0.2em] uppercase opacity-50 [font-family:var(--font-geist-sans),Arial,sans-serif]">LN / 2026</span>
         </div>
       </section>
     </main>
@@ -486,9 +486,9 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
 function AuraDentalLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   const benefits = [
-    { icon: ShieldCheck, title: 'Informacion clara', copy: 'Sabes que se va a hacer y por que antes de empezar.' },
-    { icon: CalendarDays, title: 'Agenda sencilla', copy: 'Eliges el momento que mejor se adapta a tu semana.' },
-    { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar funcion y estetica.' },
+    { icon: ShieldCheck, title: 'Informaci?n clara', copy: 'Sab?s qu? se va a hacer y por qu? antes de empezar.' },
+    { icon: CalendarDays, title: 'Agenda sencilla', copy: 'Eleg?s el momento que mejor se adapta a tu semana.' },
+    { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar funci?n y est?tica.' },
   ]
 
   return (
@@ -496,15 +496,15 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
       <ConceptNotice />
       <header className="relative z-20">
         <div className="mx-auto flex h-20 max-w-[1380px] items-center justify-between px-5 sm:h-24 sm:px-8">
-          <Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em]">
+          <Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
             <span className="grid size-10 place-items-center rounded-full bg-[#5b8580] text-white">
               <Sparkles className="size-5" />
             </span>
             Aura Dental
           </Link>
-          <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+          <nav className="hidden items-center gap-7 text-sm font-medium md:flex [font-family:var(--font-nunito-sans),Arial,sans-serif]">
             <a href="#tratamientos">Tratamientos</a>
-            <a href="#experiencia">Como te cuidamos</a>
+            <a href="#experiencia">C?mo te cuidamos</a>
             <a href="#agenda">Agenda</a>
           </nav>
           <a href="#agenda" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#17332f] px-5 text-sm font-semibold text-white sm:flex">
@@ -517,7 +517,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
       <section id="inicio" className="mx-auto max-w-[1380px] px-5 pt-4 pb-14 sm:px-8 sm:pt-8 sm:pb-24">
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <motion.div initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: EASE }}>
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#cbdcd7] px-4 py-2 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#cbdcd7] px-4 py-2 text-xs font-semibold [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">
               <span className="size-2 rounded-full bg-[#5b8580]" /> Odontologia cercana
             </span>
             <h1 className="mt-7 text-[clamp(4rem,9vw,8.5rem)] leading-[0.85] font-extrabold tracking-[-0.065em] text-balance">
@@ -544,7 +544,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
               <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 86vw, 42vw" className="object-cover object-left" />
             </div>
             <motion.span animate={reduceMotion ? undefined : { y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: EASE }} className="absolute right-[2%] bottom-[18%] rounded-[1.25rem_0.35rem_1.25rem_0.35rem] bg-white p-4 shadow-xl">
-              <span className="block font-mono text-[8px] tracking-[0.13em] uppercase opacity-50">Proxima hora</span>
+              <span className="block font-mono text-[8px] tracking-[0.13em] uppercase opacity-50">Pr?xima hora</span>
               <span className="mt-1 block font-semibold">Agenda online</span>
             </motion.span>
           </div>
@@ -555,7 +555,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
         <div className="mx-auto max-w-[1320px]">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-mono text-[9px] tracking-[0.16em] text-[#5b8580] uppercase">Tratamientos</p>
+              <p className="text-[9px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Tratamientos</p>
               <h2 className="mt-4 text-5xl leading-[0.9] font-semibold tracking-[-0.06em] sm:text-7xl">Elige con informacion.</h2>
             </div>
             <p className="max-w-md leading-relaxed text-[#17332f]/62">Cada tratamiento se presenta con un objetivo claro, sin tecnicismos innecesarios.</p>
@@ -571,7 +571,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
                 className={cn('group flex min-h-[22rem] flex-col justify-between rounded-[2.5rem_0.65rem_2.5rem_0.65rem] p-6 transition-colors duration-500 sm:p-8', index === 1 ? 'bg-[#5b8580] text-white' : 'border border-[#17332f]/18 bg-[#edf2ec] hover:bg-[#cbdcd7]')}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px]">{service.number}</span>
+                  <span className="[font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif] text-[10px]">{service.number}</span>
                   <span className="grid size-11 place-items-center rounded-full border border-current/25">
                     <ArrowUpRight className="size-4" />
                   </span>
@@ -589,7 +589,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
       <section id="experiencia" className="px-5 py-16 sm:px-8 sm:py-24">
         <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
           <div>
-            <p className="font-mono text-[9px] tracking-[0.16em] text-[#5b8580] uppercase">Tu experiencia</p>
+            <p className="text-[9px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Tu experiencia</p>
             <h2 className="mt-4 text-5xl leading-[0.9] font-semibold tracking-[-0.06em] sm:text-7xl">Todo claro desde el principio.</h2>
           </div>
           <div className="grid gap-3">
@@ -609,7 +609,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
                   <h3 className="text-xl font-semibold">{benefit.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed opacity-62">{benefit.copy}</p>
                 </div>
-                <span className="font-mono text-[9px] text-[#5b8580]">0{index + 1}</span>
+                <span className="[font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif] text-[9px] text-[#5b8580]">0{index + 1}</span>
               </motion.article>
             ))}
           </div>
@@ -632,7 +632,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
           </div>
           <div className="mt-14 flex items-center justify-between border-t border-white/20 pt-6">
             <BackToProjects />
-            <span className="hidden font-mono text-[9px] tracking-[0.13em] uppercase text-white/45 sm:block">Aura / Demo MR14</span>
+            <span className="hidden text-[9px] tracking-[0.2em] uppercase text-white/45 sm:block [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Aura / Demo MR14</span>
           </div>
         </div>
       </section>
