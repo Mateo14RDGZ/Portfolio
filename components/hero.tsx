@@ -7,14 +7,14 @@ import Link from 'next/link'
 
 export function Hero() {
   return (
-    <section id="top" className="min-h-[100svh] border-b border-foreground pt-[4.5rem] sm:pt-24">
-      <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] max-w-[1400px] grid-rows-[auto_1fr_auto] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
+    <section id="top" className="border-b border-foreground pt-[4.5rem] sm:min-h-[100svh] sm:pt-24">
+      <div className="mx-auto grid max-w-[1400px] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
         <div className="flex flex-col justify-between border-foreground p-5 sm:p-8 lg:border-r lg:p-12">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-xs uppercase tracking-[0.18em]">
             Desarrollador web independiente · Uruguay · 2026
           </motion.p>
 
-          <h1 className="my-12 text-[clamp(4rem,16vw,10rem)] leading-[0.76] font-semibold tracking-[-0.085em] uppercase lg:my-0">
+          <h1 className="my-10 text-[clamp(3.65rem,16vw,10rem)] leading-[0.78] font-semibold tracking-[-0.08em] uppercase min-[390px]:my-12 lg:my-0">
             <span className="block">Cada</span>
             <span className="block text-primary">detalle</span>
             <span className="block">importa.</span>
@@ -30,9 +30,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative grid min-h-[45vh] place-items-center overflow-hidden border-t border-foreground bg-accent p-8 lg:min-h-0 lg:border-t-0">
+        <div className="relative grid min-h-[22rem] place-items-center overflow-hidden border-t border-foreground bg-accent p-6 min-[390px]:min-h-[25rem] min-[390px]:p-8 lg:min-h-0 lg:border-t-0">
           <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em]">Identidad / MR14</span>
-          <div className="relative aspect-square w-[min(92%,36rem)]">
+          <div className="relative aspect-square w-[min(78vw,22rem)] sm:w-[min(92%,36rem)]">
             <LogoMark
               animateIntro
               loopIntro={false}
@@ -45,10 +45,10 @@ export function Hero() {
         </div>
 
         <div className="col-span-full grid border-t border-foreground sm:grid-cols-2">
-          <Link href="/trabajo-destacado" className="flex min-h-20 items-center justify-between border-foreground px-5 text-lg font-semibold transition-colors hover:bg-foreground hover:text-background sm:border-r sm:px-8">
-            Ver trabajo destacado <ArrowDownRight />
+          <Link href="/proyectos" className="flex min-h-[4.5rem] items-center justify-between border-foreground px-5 text-base font-semibold transition-colors hover:bg-foreground hover:text-background sm:min-h-20 sm:border-r sm:px-8 sm:text-lg">
+            Ver proyectos <ArrowDownRight />
           </Link>
-          <a href="#contact" className="primary-action flex min-h-20 items-center justify-between border-t border-foreground bg-primary px-5 text-lg font-semibold text-primary-foreground sm:border-t-0 sm:px-8">
+          <a href="#contact" className="primary-action flex min-h-[4.5rem] items-center justify-between border-t border-foreground bg-primary px-5 text-base font-semibold text-primary-foreground sm:min-h-20 sm:border-t-0 sm:px-8 sm:text-lg">
             Contarme tu idea <ArrowUpRight />
           </a>
         </div>

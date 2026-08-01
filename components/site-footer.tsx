@@ -3,6 +3,7 @@ import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
 
 const LINKS = [
+  { label: 'Proyectos', href: '/proyectos' },
   { label: 'Perfil', href: '/#about' },
   { label: 'Servicios', href: '/#services' },
   { label: 'Habilidades', href: '/#work' },

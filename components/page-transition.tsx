@@ -34,7 +34,7 @@ export function PageTransition({
               : false
           }
           animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
-          transition={{ duration: 0.72, ease: EASE }}
+          transition={{ duration: reduceMotion ? 0.01 : 0.48, ease: EASE }}
         >
           {children}
         </motion.div>

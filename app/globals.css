@@ -90,6 +90,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     overflow-x: clip;
   }
   body {
@@ -132,6 +134,18 @@
 }
 
 @media (max-width: 639px) {
+  :root {
+    --mobile-gutter: clamp(1rem, 5.2vw, 1.35rem);
+  }
+
+  body {
+    overscroll-behavior-x: none;
+  }
+
+  :where(a, button, input, textarea, select) {
+    touch-action: manipulation;
+  }
+
   .glass {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -139,6 +153,21 @@
 
   .cal-embed-shell iframe {
     min-height: 780px !important;
+  }
+
+  .mobile-safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .primary-action,
+  .primary-action:active {
+    transform: none;
+  }
+
+  .primary-action {
+    transition-duration: 160ms;
   }
 }
 

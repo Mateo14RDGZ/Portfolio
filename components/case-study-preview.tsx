@@ -22,7 +22,7 @@ export function CaseStudyPreview() {
     <section
       id="case-study"
       aria-labelledby="case-study-preview-title"
-      className="relative scroll-mt-20 overflow-hidden bg-foreground py-14 text-background sm:py-20"
+      className="relative scroll-mt-20 overflow-hidden bg-foreground py-12 text-background sm:py-20"
     >
       <div aria-hidden="true" className="absolute top-0 right-0 h-1.5 w-1/3 bg-primary" />
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
@@ -33,7 +33,7 @@ export function CaseStudyPreview() {
             </p>
             <h2
               id="case-study-preview-title"
-              className="mt-5 text-[clamp(3.3rem,7vw,6.4rem)] leading-[0.86] font-semibold tracking-[-0.065em] text-balance"
+              className="mt-5 text-[clamp(3rem,14vw,6.4rem)] leading-[0.88] font-semibold tracking-[-0.06em] text-balance"
             >
               Trabajo destacado
             </h2>
@@ -59,7 +59,7 @@ export function CaseStudyPreview() {
             <Link
               href="/trabajo-destacado"
               onClick={() => track('case_study_opened', { source: 'home_preview' })}
-              className="primary-action group mt-8 inline-flex min-h-14 min-w-64 items-center justify-between gap-8 bg-primary px-5 font-semibold text-primary-foreground"
+              className="primary-action group mt-8 flex min-h-14 w-full items-center justify-between gap-5 bg-primary px-5 font-semibold text-primary-foreground sm:inline-flex sm:w-auto sm:min-w-64 sm:gap-8"
             >
               Explorar el caso completo
               <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -78,9 +78,9 @@ export function CaseStudyPreview() {
                 transition={{ duration: 0.45, ease: EASE }}
                 className="relative"
               >
-                <div aria-hidden="true" className="absolute -inset-3 rounded-[3rem_0.8rem_3rem_0.8rem] bg-accent transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1 sm:-inset-5" />
-                <div className="relative overflow-hidden rounded-[2.5rem_0.7rem_2.5rem_0.7rem] border border-background/25 bg-background shadow-[0_28px_90px_rgba(8,3,12,0.38)]">
-                  <div className="relative aspect-[1.18] sm:aspect-[1.65]">
+                <div aria-hidden="true" className="absolute -inset-2 rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1 sm:-inset-5 sm:rounded-[3rem_0.8rem_3rem_0.8rem]" />
+                <div className="relative overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-background/25 bg-background shadow-[0_18px_48px_rgba(8,3,12,0.3)] sm:rounded-[2.5rem_0.7rem_2.5rem_0.7rem] sm:shadow-[0_28px_90px_rgba(8,3,12,0.38)]">
+                  <div className="relative aspect-[1.32] sm:aspect-[1.65]">
                     <Image
                       src="/case-study/dashboard.webp"
                       alt="Dashboard administrativo del sistema de gestión para automotora con datos ficticios"
@@ -114,4 +114,3 @@ export function CaseStudyPreview() {
     </section>
   )
 }
-

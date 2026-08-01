@@ -154,11 +154,11 @@ function ScreenFrame({
   return (
     <figure
       className={cn(
-        'relative overflow-hidden rounded-[2.4rem_0.7rem_2.4rem_0.7rem] border border-background/25 bg-[#f8fafc] shadow-[0_28px_80px_rgba(12,5,18,0.34)]',
+        'relative overflow-hidden rounded-[1.5rem_0.45rem_1.5rem_0.45rem] border border-background/25 bg-[#f8fafc] shadow-[0_16px_42px_rgba(12,5,18,0.28)] sm:rounded-[2.4rem_0.7rem_2.4rem_0.7rem] sm:shadow-[0_28px_80px_rgba(12,5,18,0.34)]',
         className,
       )}
     >
-      <div className="flex h-9 items-center gap-1.5 border-b border-foreground/15 bg-background px-4" aria-hidden="true">
+      <div className="flex h-8 items-center gap-1.5 border-b border-foreground/15 bg-background px-3 sm:h-9 sm:px-4" aria-hidden="true">
         <span className="size-2 rounded-full bg-primary" />
         <span className="size-2 rounded-full bg-accent" />
         <span className="size-2 rounded-full bg-secondary" />
@@ -175,7 +175,7 @@ function ScreenFrame({
         />
       </div>
       {annotate ? (
-        <figcaption className="absolute right-3 bottom-3 left-3 flex flex-wrap gap-1.5 sm:right-5 sm:bottom-5 sm:left-5">
+        <figcaption className="relative flex flex-wrap gap-1.5 border-t border-foreground/15 bg-background p-3 sm:absolute sm:right-5 sm:bottom-5 sm:left-5 sm:border-0 sm:bg-transparent sm:p-0">
           {stage.annotations.map((annotation, index) => (
             <span
               key={annotation}
@@ -317,16 +317,16 @@ function MobileStory() {
   return (
     <div className="lg:hidden">
       {STORY_STAGES.map((stage, index) => (
-        <Reveal key={stage.number} className="border-t border-background/25 py-12 first:border-t-0 first:pt-4">
+        <Reveal key={stage.number} className="border-t border-background/25 py-10 first:border-t-0 first:pt-3 min-[430px]:py-12">
           <article id={`mobile-case-stage-${stage.number}`}>
             <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.17em] uppercase">
               <span className="text-primary">{stage.number}</span>
               <span className="h-px flex-1 bg-background/25" />
               <span className="text-background/45">{stage.bridge}</span>
             </div>
-            <h3 className="mt-6 text-3xl leading-[0.98] font-semibold text-balance min-[390px]:text-4xl">{stage.title}</h3>
+            <h3 className="mt-5 text-[2rem] leading-[0.98] font-semibold text-balance min-[390px]:text-4xl">{stage.title}</h3>
             <p className="mt-4 text-sm leading-relaxed text-background/68 min-[390px]:text-base">{stage.copy}</p>
-            <ScreenFrame stage={stage} priority={index === 0} className="mt-7" />
+            <ScreenFrame stage={stage} priority={index === 0} className="mt-6" />
           </article>
         </Reveal>
       ))}
@@ -336,7 +336,7 @@ function MobileStory() {
 
 export function CaseStudy() {
   return (
-    <section id="case-study" aria-labelledby="case-study-title" className="relative scroll-mt-20 bg-foreground py-16 text-background sm:py-24">
+    <section id="case-study" aria-labelledby="case-study-title" className="relative scroll-mt-20 bg-foreground py-12 text-background sm:py-24">
       <div aria-hidden="true" className="absolute top-0 right-0 h-1.5 w-1/3 bg-primary" />
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
         <SectionHeading
@@ -347,20 +347,20 @@ export function CaseStudy() {
           className="border-background/45 [&_h2]:text-background [&_p]:text-background/68 [&_span]:text-primary"
         />
 
-        <Reveal className="mt-10 sm:mt-14">
+        <Reveal className="mt-8 sm:mt-14">
           <div className="grid gap-6 border-t border-background/25 pt-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)] lg:gap-16">
             <div>
               <p className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase sm:text-xs">Sistema de Gestión para Automotora</p>
-              <h3 className="mt-4 max-w-4xl text-4xl leading-[0.94] font-semibold tracking-[-0.045em] text-balance sm:text-6xl lg:text-7xl">Una operación completa, conectada.</h3>
+              <h3 className="mt-4 max-w-4xl text-[2.35rem] leading-[0.94] font-semibold tracking-[-0.045em] text-balance min-[390px]:text-4xl sm:text-6xl lg:text-7xl">Una operación completa, conectada.</h3>
             </div>
             <p className="self-end text-base leading-relaxed text-background/70 sm:text-lg">Aplicación web desarrollada a medida para centralizar vehículos, clientes, financiaciones, pagos, comprobantes y reportes en una única plataforma.</p>
           </div>
         </Reveal>
 
-        <Reveal className="relative mt-10 sm:mt-14">
-          <div aria-hidden="true" className="absolute -inset-3 rounded-[3rem_0.8rem_3rem_0.8rem] bg-accent sm:-inset-5" />
-          <div className="relative overflow-hidden rounded-[2.5rem_0.7rem_2.5rem_0.7rem] border border-foreground/35 bg-background shadow-[0_34px_100px_rgba(8,3,12,0.38)]">
-            <div className="relative aspect-[1.08] sm:aspect-[1.55] lg:aspect-[1.78]">
+        <Reveal className="relative mt-8 sm:mt-14">
+          <div aria-hidden="true" className="absolute -inset-2 rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent sm:-inset-5 sm:rounded-[3rem_0.8rem_3rem_0.8rem]" />
+          <div className="relative overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-foreground/35 bg-background shadow-[0_20px_58px_rgba(8,3,12,0.32)] sm:rounded-[2.5rem_0.7rem_2.5rem_0.7rem] sm:shadow-[0_34px_100px_rgba(8,3,12,0.38)]">
+            <div className="relative aspect-[1.2] sm:aspect-[1.55] lg:aspect-[1.78]">
               <Image
                 src="/case-study/dashboard.webp"
                 alt="Composición del dashboard administrativo de la versión demostrativa"
@@ -382,25 +382,35 @@ export function CaseStudy() {
           </div>
         </Reveal>
 
-        <StaggerGroup className="mt-8 grid grid-cols-2 border-y border-background/25 sm:grid-cols-5" gap={0.05}>
+        <StaggerGroup className="mt-6 grid grid-cols-2 gap-2 sm:mt-8 sm:grid-cols-5 sm:gap-0 sm:border-y sm:border-background/25" gap={0.035}>
           {introFacts.map((fact, index) => (
-            <RevealItem key={fact} className={cn('flex min-h-20 items-center border-background/20 px-3 py-4 font-mono text-[9px] tracking-[0.13em] uppercase sm:px-4', index < introFacts.length - 1 ? 'border-r' : '', index === introFacts.length - 1 ? 'col-span-2 border-t sm:col-span-1 sm:border-t-0' : '')}>
-              <span><span className="mr-2 text-primary">0{index + 1}</span>{fact}</span>
+            <RevealItem
+              key={fact}
+              className={cn(
+                'flex min-h-[4.5rem] items-center rounded-[1rem_0.3rem_1rem_0.3rem] border border-background/20 bg-background/[0.045] px-3.5 py-3 font-mono text-[8px] leading-relaxed tracking-[0.11em] uppercase sm:min-h-20 sm:rounded-none sm:border-y-0 sm:border-l-0 sm:bg-transparent sm:px-4 sm:py-4 sm:text-[9px] sm:tracking-[0.13em]',
+                index < introFacts.length - 1 ? 'sm:border-r' : 'sm:border-r-0',
+                index === introFacts.length - 1 ? 'col-span-2 sm:col-span-1' : '',
+              )}
+            >
+              <span className="flex items-start gap-2.5">
+                <span className="shrink-0 text-primary">0{index + 1}</span>
+                <span>{fact}</span>
+              </span>
             </RevealItem>
           ))}
         </StaggerGroup>
 
-        <Reveal className="mt-10 flex items-center justify-center gap-3 text-background/55 sm:mt-12">
+        <Reveal className="mt-8 flex items-center justify-center gap-3 text-background/55 sm:mt-12">
           <span className="font-mono text-[10px] tracking-[0.2em] uppercase">Recorré el sistema</span>
           <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: EASE }}><ArrowDown className="size-4" aria-hidden="true" /></motion.span>
         </Reveal>
 
-        <div className="mt-8 sm:mt-14">
+        <div className="mt-6 sm:mt-14">
           <DesktopStory />
           <MobileStory />
         </div>
 
-        <div className="border-t border-background/25 pt-16 sm:pt-24">
+        <div className="border-t border-background/25 pt-12 sm:pt-24">
           <Reveal>
             <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
               <div>
@@ -408,7 +418,7 @@ export function CaseStudy() {
                 <h3 className="mt-5 text-4xl leading-[0.96] font-semibold text-balance sm:text-6xl">Una operación completa, conectada.</h3>
                 <p className="mt-5 max-w-xl leading-relaxed text-background/68">Un sistema que conecta toda la operación, desde el ingreso del vehículo hasta el último pago.</p>
               </div>
-              <div className="relative min-h-[22rem] sm:min-h-[32rem]">
+              <div className="relative min-h-[18rem] min-[390px]:min-h-[21rem] sm:min-h-[32rem]">
                 <ScreenFrame stage={STORY_STAGES[0]} annotate={false} className="absolute top-0 right-0 w-[88%]" />
                 <ScreenFrame stage={STORY_STAGES[4]} annotate={false} className="absolute bottom-0 left-0 w-[56%]" />
                 <div className="absolute right-[3%] bottom-0 w-[23%] min-w-24 overflow-hidden rounded-[2rem] border-[6px] border-foreground bg-background shadow-2xl">
@@ -419,19 +429,30 @@ export function CaseStudy() {
           </Reveal>
         </div>
 
-        <div className="mt-16 grid gap-10 border-t border-background/25 pt-10 sm:mt-24 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        <div className="mt-12 grid gap-8 border-t border-background/25 pt-9 sm:mt-24 sm:gap-10 sm:pt-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
           <Reveal>
             <p className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase">Arquitectura verificada</p>
             <h3 className="mt-5 text-4xl font-semibold sm:text-5xl">Tecnología por capas.</h3>
             <p className="mt-4 max-w-md leading-relaxed text-background/65">La interfaz, la API, los datos y la seguridad están separados para que cada parte cumpla una función clara.</p>
           </Reveal>
-          <StaggerGroup className="border-t border-background/25" gap={0.05}>
+          <StaggerGroup className="overflow-hidden rounded-[1.35rem_0.4rem_1.35rem_0.4rem] border border-background/20 bg-background/[0.035] sm:rounded-none sm:border-x-0 sm:border-b-0 sm:bg-transparent" gap={0.05}>
             {TECHNOLOGY_GROUPS.map((group, index) => (
               <RevealItem key={group.label}>
-                <div className="grid gap-3 border-b border-background/25 py-5 sm:grid-cols-[9rem_1fr] sm:items-start">
-                  <p className="font-mono text-[10px] tracking-[0.16em] text-primary uppercase">0{index + 1} / {group.label}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-background/76 sm:text-base">
-                    {group.items.map((item) => <span key={item}>{item}</span>)}
+                <div className="grid gap-4 border-b border-background/20 p-4 last:border-b-0 sm:grid-cols-[9rem_1fr] sm:items-start sm:border-background/25 sm:px-0 sm:py-5">
+                  <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-primary uppercase">
+                    <span>0{index + 1}</span>
+                    <span className="h-px w-5 bg-primary/55 sm:hidden" aria-hidden="true" />
+                    <span>{group.label}</span>
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-xs text-background/80 sm:gap-x-4 sm:gap-y-2 sm:text-base sm:text-background/76">
+                    {group.items.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-background/20 bg-background/[0.055] px-3 py-2 leading-none sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:leading-normal"
+                      >
+                        {item}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </RevealItem>
@@ -439,7 +460,7 @@ export function CaseStudy() {
           </StaggerGroup>
         </div>
 
-        <div className="mt-16 border-t border-background/25 pt-10 sm:mt-24">
+        <div className="mt-12 border-t border-background/25 pt-9 sm:mt-24 sm:pt-10">
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
             <Reveal>
               <p className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase">Alcance funcional</p>
@@ -460,11 +481,11 @@ export function CaseStudy() {
           <p className="rounded-[1.6rem_0.45rem_1.6rem_0.45rem] border border-background/25 bg-background/[0.05] p-5 text-sm leading-relaxed text-background/68 sm:p-6">Por motivos de confidencialidad, las imágenes corresponden a una versión demostrativa con datos ficticios y no representan información real del cliente.</p>
         </Reveal>
 
-        <Reveal className="mt-16 overflow-hidden rounded-[3rem_0.75rem_3rem_0.75rem] bg-accent p-6 text-foreground sm:mt-24 sm:p-10 lg:p-14">
+        <Reveal className="mt-12 overflow-hidden rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent p-5 text-foreground min-[390px]:p-6 sm:mt-24 sm:rounded-[3rem_0.75rem_3rem_0.75rem] sm:p-10 lg:p-14">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <MonitorSmartphone className="size-8 text-primary" aria-hidden="true" />
-              <h3 className="mt-8 max-w-3xl text-4xl leading-[0.95] font-semibold text-balance sm:text-6xl">¿Necesitás un sistema para tu negocio?</h3>
+              <h3 className="mt-6 max-w-3xl text-[2.15rem] leading-[0.95] font-semibold text-balance min-[390px]:text-4xl sm:mt-8 sm:text-6xl">¿Necesitás un sistema para tu negocio?</h3>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">Puedo desarrollar una solución adaptada a la forma en la que trabajás, desde una herramienta interna hasta una aplicación completa.</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

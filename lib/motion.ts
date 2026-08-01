@@ -9,7 +9,7 @@ export const smooth: Transition = {
 }
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: smooth },
 }
 

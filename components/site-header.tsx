@@ -1,21 +1,23 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { LogoMark } from '@/components/logo-mark'
 import { useLogoIntro } from '@/components/page-transition'
+import { EASE } from '@/lib/motion'
 
 const LINKS = [
+  { label: 'Proyectos', href: '/proyectos' },
   { label: 'Perfil', href: '/#about' },
   { label: 'Servicios', href: '/#services' },
-  { label: 'Habilidades', href: '/#work' },
   { label: 'Método', href: '/#process' },
 ]
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const reduceMotion = useReducedMotion()
   const logoIntro = useLogoIntro()
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const mobileNavRef = useRef<HTMLElement>(null)
@@ -66,11 +68,11 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
       <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-stretch px-3 sm:h-24 sm:px-6">
-        <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 border-r border-foreground pr-4 sm:gap-4 sm:pr-8">
-          <span className={`size-14 shrink-0 transition-opacity duration-150 sm:size-20 ${logoIntro === 'done' ? 'opacity-100' : 'opacity-0'}`}>
+        <Link href="/" className="flex min-w-0 flex-1 items-center gap-2.5 border-r border-foreground pr-3 sm:gap-4 sm:pr-8">
+          <span className={`size-12 shrink-0 transition-opacity duration-150 min-[380px]:size-14 sm:size-20 ${logoIntro === 'done' ? 'opacity-100' : 'opacity-0'}`}>
             <LogoMark animateIntro className="size-full" />
           </span>
-          <span className="truncate text-sm font-semibold uppercase tracking-[-0.02em] sm:text-lg">Mateo Rodríguez</span>
+          <span className="truncate text-[0.78rem] font-semibold uppercase tracking-[-0.02em] min-[380px]:text-sm sm:text-lg">Mateo Rodríguez</span>
         </Link>
 
         <nav aria-label="Principal" className="hidden items-stretch lg:flex">
@@ -92,15 +94,15 @@ export function SiteHeader() {
 
       <AnimatePresence>
         {open && (
-          <motion.nav ref={mobileNavRef} id="mobile-navigation" initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.45 }} aria-label="Móvil" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-24">
-            <div className="flex flex-1 flex-col justify-center px-5">
+          <motion.nav ref={mobileNavRef} id="mobile-navigation" initial={reduceMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }} animate={reduceMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }} exit={reduceMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: reduceMotion ? 0.01 : 0.32, ease: EASE }} aria-label="Móvil" className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 flex flex-col bg-primary text-primary-foreground sm:top-24">
+            <div className="flex flex-1 flex-col justify-center px-5 py-5">
               {LINKS.map((link, index) => (
-                <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between border-t border-primary-foreground/40 py-5 text-[clamp(2rem,12vw,4.5rem)] leading-none tracking-[-0.06em]">
+                <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="flex min-h-16 items-center justify-between border-t border-primary-foreground/40 py-3 text-[clamp(1.9rem,10vw,4.5rem)] leading-none tracking-[-0.06em]">
                   {link.label}<span className="font-mono text-xs tracking-normal">0{index + 1}</span>
                 </Link>
               ))}
             </div>
-            <Link href="/#contact" onClick={() => setOpen(false)} className="flex min-h-20 items-center justify-between border-t border-primary-foreground px-5 text-xl font-semibold">
+            <Link href="/#contact" onClick={() => setOpen(false)} className="mobile-safe-bottom flex min-h-20 items-center justify-between border-t border-primary-foreground px-5 pt-4 text-lg font-semibold">
               Iniciar una conversación <ArrowUpRight />
             </Link>
           </motion.nav>
