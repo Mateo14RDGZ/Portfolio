@@ -60,17 +60,17 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     {
       kicker: '01 / Origen',
       label: 'Carta como punto de partida',
-      title: 'Caf? de origen, preparado sin apuro.',
+      title: 'Café de origen, preparado sin apuro.',
       copy:
-        'La experiencia arranca mostrando de d?nde viene la propuesta. La carta se presenta breve, clara y con foco en lo que importa: elegir r?pido sin perder el car?cter del lugar.',
+        'La experiencia arranca mostrando de dónde viene la propuesta. La carta se presenta breve, clara y con foco en lo que importa: elegir rápido sin perder el carácter del lugar.',
       tone: 'from-[#24170e]/78 via-[#24170e]/22 to-transparent',
     },
     {
-      kicker: '02 / M?todo',
-      label: 'Cada preparaci?n tiene su momento',
-      title: 'M?todos visibles, sin ruido.',
+      kicker: '02 / Método',
+      label: 'Cada preparación tiene su momento',
+      title: 'Métodos visibles, sin ruido.',
       copy:
-        'El recorrido baja al detalle de la preparaci?n. La narrativa acompa?a m?todos, especialidades y peque?as decisiones que ayudan a sentir el ritmo de la cafeter?a antes de llegar.',
+        'El recorrido baja al detalle de la preparación. La narrativa acompaña métodos, especialidades y pequeñas decisiones que ayudan a sentir el ritmo de la cafetería antes de llegar.',
       tone: 'from-[#2c1a0d]/74 via-[#2c1a0d]/24 to-transparent',
     },
     {
@@ -91,8 +91,8 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     },
     {
       number: '02',
-      title: 'M?todos y detalle',
-      copy: 'El segundo bloque introduce ritmo, preparaci?n y el lado m?s artesanal de la experiencia.',
+      title: 'Métodos y detalle',
+      copy: 'El segundo bloque introduce ritmo, preparación y el lado más artesanal de la experiencia.',
     },
     {
       number: '03',
@@ -145,13 +145,13 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             className="flex flex-col justify-between gap-10"
           >
             <div className="space-y-6">
-              <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Caf? de especialidad ? Montevideo</p>
-              <h1 className="max-w-3xl text-[clamp(4rem,11vw,9rem)] leading-[0.8] font-normal tracking-[-0.075em] text-balance">
-                Caf? de origen,
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Café de especialidad · Montevideo</p>
+              <h1 className="max-w-3xl text-[clamp(3.5rem,12vw,9rem)] leading-[0.8] font-normal tracking-[-0.075em] text-balance">
+                Café de origen,
                 <em className="block font-light">preparado sin apuro.</em>
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-[#302218]/74 sm:text-xl">
-                Una experiencia digital c?lida, pensada para convertir la curiosidad de una b?squeda local en una visita, una reserva o una consulta.
+                Una experiencia digital cálida, pensada para convertir la curiosidad de una búsqueda local en una visita, una reserva o una consulta.
               </p>
             </div>
 
@@ -241,7 +241,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                   </div>
 
                   <div className="absolute right-4 top-[46%] hidden w-[34%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/92 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md md:block">
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">02 / M?todo</div>
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">02 / Método</div>
                     <p className="mt-2 text-lg leading-tight font-semibold">{assembleItems[1].title}</p>
                     <p className="mt-2 text-sm leading-relaxed text-white/72">{assembleItems[1].copy}</p>
                   </div>
@@ -258,7 +258,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                       </div>
                       <div className="flex items-center justify-between rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f7ece0] p-3">
                         <div>
-                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Acci?n final</div>
+                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Acción final</div>
                           <p className="mt-1 text-sm font-semibold">La experiencia cierra lista para convertir</p>
                         </div>
                         <ArrowUpRight className="size-5 shrink-0" />
@@ -346,9 +346,9 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <h2 className="max-w-5xl text-5xl leading-[0.86] font-normal tracking-[-0.055em] sm:text-8xl">
               Tu mesa puede estar <em>esperando.</em>
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consult? horarios, encontranos y reserv? antes de venir.</p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consultá horarios, encontranos y reservá antes de venir.</p>
             <Link href="/#contact" className="group mt-8 inline-flex items-center gap-5 border-b border-[#302218] pb-2 text-xl font-semibold italic">
-              Quiero una experiencia as? <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              Quiero una experiencia así <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </div>
         </div>
@@ -371,7 +371,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
             Linea-Norte
           </Link>
           <div className="flex items-center gap-7 lg:justify-between">
-            <span className="hidden font-mono text-[9px] tracking-[0.16em] uppercase md:block">Arquitectura / Interiorismo / Direccion</span>
+            <span className="hidden font-mono text-[9px] tracking-[0.16em] uppercase md:block">Arquitectura / Interiorismo / Dirección</span>
             <Menu className="size-6" />
           </div>
         </div>
