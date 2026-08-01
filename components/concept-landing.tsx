@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from 'lucide-react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import type { ConceptProject } from '@/lib/project-data'
 import { EASE } from '@/lib/motion'
@@ -58,6 +58,16 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   const [activeStep, setActiveStep] = useState(0)
   const stepRefs = useRef<Array<HTMLElement | null>>([])
+  const relatoRef = useRef<HTMLElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: relatoRef,
+    offset: ['start start', 'end end'],
+  })
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 24 })
+  const buildProgress = useTransform(smoothProgress, [0, 0.34, 0.67, 1], [0, 0.4, 0.75, 1])
+  const originOpacity = useTransform(smoothProgress, [0, 0.06, 0.22, 1], [1, 1, 1, 1])
+  const methodOpacity = useTransform(smoothProgress, [0.12, 0.28, 0.44, 1], [0, 0, 1, 1])
+  const visitOpacity = useTransform(smoothProgress, [0.46, 0.66, 0.82, 1], [0, 0, 1, 1])
 
   const scenes: StoryScene[] = [
     {
@@ -106,27 +116,6 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
       copy: 'El cierre suma la acción final y deja la experiencia lista para convertir.',
     },
   ]
-
-  const canvasMotion = {
-    image: {
-      opacity: 1,
-      scale: 1,
-    },
-    origin: {
-      x: activeStep === 0 ? 0 : -12,
-      y: activeStep === 0 ? 0 : -8,
-      opacity: 1,
-    },
-    method: {
-      x: activeStep < 1 ? 24 : 0,
-      y: activeStep < 1 ? 18 : 0,
-      opacity: activeStep < 1 ? 0 : 1,
-    },
-    visit: {
-      y: activeStep < 2 ? 30 : 0,
-      opacity: activeStep < 2 ? 0 : 1,
-    },
-  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -224,7 +213,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
         </div>
       </section>
 
-      <section id="relato" className="bg-[#2b1c13] text-[#fff7e8]">
+      <section ref={relatoRef} id="relato" className="bg-[#2b1c13] text-[#fff7e8]">
         <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-16 lg:grid lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-12 lg:py-0">
           <div className="hidden lg:block lg:py-12">
             <div className="lg:sticky lg:top-8 space-y-5">
@@ -242,38 +231,27 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                     className="object-cover object-[68%_center]"
                   />
                   <div className={cn('absolute inset-0 bg-gradient-to-t', scenes[activeStep].tone)} />
-                  <div className="absolute inset-x-5 top-5 rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md">
+                  <motion.div className="absolute inset-x-5 top-5 rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md" style={reduceMotion ? undefined : { opacity: originOpacity }}>
                     <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
                       <span>{scenes[activeStep].kicker}</span>
                       <span>Escena activa</span>
                     </div>
-                    <p className="mt-2 max-w-md text-3xl leading-[0.92] font-semibold italic text-white">
-                      {scenes[activeStep].title}
-                    </p>
-                  </div>
-                  <motion.div
-                    className="absolute left-5 top-1/2 w-[42%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
-                    animate={reduceMotion ? undefined : canvasMotion.origin}
-                    transition={{ duration: 0.7, ease: EASE }}
-                  >
+                    <p className="mt-2 max-w-md text-3xl leading-[0.92] font-semibold italic text-white">{scenes[activeStep].title}</p>
+                    <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/12">
+                      <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${activeStep === 0 ? 0.34 : activeStep === 1 ? 0.67 : 1})` }} />
+                    </div>
+                  </motion.div>
+                  <motion.div className="absolute left-5 top-1/2 w-[42%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: originOpacity, x: 0, y: '-50%' }}>
                     <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">{scenes[0].label}</div>
                     <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[0].title}</div>
                     <p className="mt-2 text-sm leading-relaxed text-[#302218]/72">{assembleItems[0].copy}</p>
                   </motion.div>
-                  <motion.div
-                    className="absolute right-5 top-[46%] w-[38%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/90 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
-                    animate={reduceMotion ? undefined : canvasMotion.method}
-                    transition={{ duration: 0.7, ease: EASE }}
-                  >
+                  <motion.div className="absolute right-5 top-[46%] w-[38%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/90 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: methodOpacity }}>
                     <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[1].label}</div>
                     <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[1].title}</div>
                     <p className="mt-2 text-sm leading-relaxed text-white/72">{assembleItems[1].copy}</p>
                   </motion.div>
-                  <motion.div
-                    className="absolute inset-x-8 bottom-8 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
-                    animate={reduceMotion ? undefined : canvasMotion.visit}
-                    transition={{ duration: 0.75, ease: EASE }}
-                  >
+                  <motion.div className="absolute inset-x-8 bottom-8 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md" style={reduceMotion ? undefined : { opacity: visitOpacity }}>
                     <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">
                       <span>{scenes[2].label}</span>
                       <span>CTA final</span>
@@ -293,7 +271,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                     </div>
                   </motion.div>
                   <motion.div className="absolute inset-x-5 bottom-5 hidden h-1 overflow-hidden rounded-full bg-white/15 lg:block">
-                    <motion.div className="h-full origin-left bg-[#d36b43]" animate={{ scaleX: (activeStep + 1) / scenes.length }} transition={{ duration: 0.6, ease: EASE }} />
+                    <motion.div className="h-full origin-left bg-[#d36b43]" style={{ scaleX: buildProgress }} />
                   </motion.div>
                 </div>
               </div>
@@ -317,18 +295,13 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                     <span>Construcción</span>
                   </div>
                   <p className="mt-2 text-2xl leading-[0.95] font-semibold italic text-white">{scenes[activeStep].title}</p>
+                  <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/12">
+                    <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${(activeStep + 1) / scenes.length})` }} />
+                  </div>
                 </div>
-                <div className="absolute inset-x-4 bottom-4 grid gap-2">
-                  <div className="rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[activeStep].label}</div>
-                    <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scenes[activeStep].copy}</p>
-                  </div>
-                  <div className="h-1 overflow-hidden rounded-full bg-white/15">
-                    <div
-                      className="h-full origin-left bg-[#d36b43] transition-transform duration-500 ease-out"
-                      style={{ transform: `scaleX(${(activeStep + 1) / scenes.length})` }}
-                    />
-                  </div>
+                <div className="absolute inset-x-4 bottom-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
+                  <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[activeStep].label}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scenes[activeStep].copy}</p>
                 </div>
               </div>
             </div>
@@ -341,11 +314,8 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                     stepRefs.current[index] = node
                   }}
                   data-step={index}
-                  initial={reduceMotion ? false : { opacity: 0.2, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ amount: 0.55 }}
-                  transition={{ duration: 0.7, ease: EASE }}
-                  className="min-h-[72svh] border-t border-white/12 py-10 first:border-0 first:pt-4 sm:min-h-[66svh] sm:py-14 lg:flex lg:flex-col lg:justify-center"
+                  initial={false}
+                  className="min-h-[64svh] border-t border-white/12 py-10 first:border-0 first:pt-4 sm:min-h-[60svh] sm:py-14 lg:flex lg:flex-col lg:justify-center"
                 >
                   <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
                     <span>{scene.kicker}</span>
@@ -357,12 +327,8 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                   <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#fff7e8]/72 sm:text-xl">{scene.copy}</p>
                   <div className="mt-7 grid gap-3 sm:grid-cols-2">
                     {assembleItems.slice(index, index + 2).map((item) => (
-                      <motion.div
+                      <div
                         key={item.number}
-                        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ amount: 0.45 }}
-                        transition={{ duration: 0.6, ease: EASE, delay: index * 0.06 }}
                         className={cn(
                           'rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 p-4 shadow-[0_18px_50px_rgba(0,0,0,0.16)]',
                           item.number === '01' && 'bg-[#f1e3ca] text-[#302218]',
@@ -377,7 +343,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                         <p className={cn('mt-2 text-sm leading-relaxed', item.number === '03' ? 'text-[#fff7e8]/72' : 'text-[#302218]/72')}>
                           {item.copy}
                         </p>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </motion.article>
