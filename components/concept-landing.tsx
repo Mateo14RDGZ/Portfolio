@@ -21,13 +21,16 @@ import type { ConceptProject } from '@/lib/project-data'
 import { EASE } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 
-function ConceptNotice({ dark = false }: { dark?: boolean }) {
+function ConceptNotice({ tone, family }: { tone: 'bruma' | 'linea' | 'aura'; family: string }) {
   return (
     <div
       className={cn(
-        'relative z-50 px-4 py-2.5 text-center font-mono text-[9px] tracking-[0.14em] uppercase',
-        dark ? 'bg-[#161713] text-[#eeeae2]' : 'bg-[#291532] text-[#eef2df]',
+        'relative z-50 px-4 py-2.5 text-center text-[9px] tracking-[0.14em] uppercase',
+        tone === 'bruma' && 'bg-[#2b1c13] text-[#f5e4cf]',
+        tone === 'linea' && 'bg-[#161713] text-[#eeeae2]',
+        tone === 'aura' && 'border-b border-[#17332f]/15 bg-[#cbdcd7] text-[#17332f]',
       )}
+      style={{ fontFamily: family }}
     >
       Proyecto conceptual · Marca y contenido ficticios ·{' '}
       <Link href="/proyectos" className="underline underline-offset-4">
@@ -78,7 +81,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
       label: 'Reservar se siente natural',
       title: 'La reserva aparece justo a tiempo.',
       copy:
-        'Cuando la historia avanza, la llamada a la acci?n deja de ser un bot?n suelto y se integra al relato. Horarios, ubicaci?n y reserva se muestran como una extensi?n l?gica de la experiencia.',
+        'Cuando la historia avanza, la llamada a la acción deja de ser un botón suelto y se integra al relato. Horarios, ubicación y reserva se muestran como una extensión lógica de la experiencia.',
       tone: 'from-[#1f130b]/80 via-[#1f130b]/26 to-transparent',
     },
   ]
@@ -87,7 +90,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     {
       number: '01',
       title: 'Carta breve y directa',
-      copy: 'El primer bloque arma la propuesta: lo justo para elegir r?pido y con contexto.',
+      copy: 'El primer bloque arma la propuesta: lo justo para elegir rápido y con contexto.',
     },
     {
       number: '02',
@@ -97,24 +100,19 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     {
       number: '03',
       title: 'Reserva y visita',
-      copy: 'El cierre suma la acci?n final y deja la experiencia lista para convertir.',
+      copy: 'El cierre suma la acción final y deja la experiencia lista para convertir.',
     },
   ]
 
   const stepMeta = [
-    { number: '01', label: 'Visi?n general' },
-    { number: '02', label: 'Inventario' },
-    { number: '03', label: 'Clientes' },
-    { number: '04', label: 'Financiaci?n' },
-    { number: '05', label: 'Pagos' },
-    { number: '06', label: 'Comprobantes' },
-    { number: '07', label: 'Reportes' },
-    { number: '08', label: 'Cliente' },
+    { number: '01', label: 'Carta' },
+    { number: '02', label: 'Método' },
+    { number: '03', label: 'Visita' },
   ] as const
 
   return (
-    <main className="min-h-screen bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]">
-      <ConceptNotice />
+    <main className="min-h-screen bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif] [&_.font-mono]:[font-family:var(--font-fraunces),Georgia,serif]">
+      <ConceptNotice tone="bruma" family="var(--font-fraunces), Georgia, serif" />
 
       <header className="border-b border-[#302218]/25">
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:h-24 sm:px-8 lg:px-12">
@@ -175,7 +173,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#24170e]/45 via-transparent to-[#24170e]/12" />
             <div className="absolute left-5 right-5 top-5 flex items-start justify-between gap-4 text-[#fff7e8] sm:left-7 sm:right-7 sm:top-7">
               <div className="max-w-xs">
-                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-70">Recorr? el sistema</div>
+                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-70">Recorré el sistema</div>
                 <div className="mt-2 text-2xl leading-tight font-semibold italic">La historia cambia con tu scroll.</div>
               </div>
               <div className="rounded-full border border-white/20 bg-black/20 px-4 py-2 font-mono text-[9px] tracking-[0.16em] uppercase backdrop-blur-md">
@@ -201,7 +199,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
               La web parece quieta, pero se arma con tu scroll.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-white/68 sm:text-lg">
-              La escena principal se mantiene estable para que todo se lea como una sola pieza. A medida que avanz?s, cambian el foco, el estado y la historia,
+              La escena principal se mantiene estable para que todo se lea como una sola pieza. A medida que avanzás, cambian el foco, el estado y la historia,
               sin superponer bloques que rompan el ritmo.
             </p>
           </div>
@@ -313,7 +311,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                 <div>
                   <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Cierre</div>
                   <p className="mt-2 text-2xl leading-tight font-semibold">
-                    Un sistema que acompa?a el recorrido sin interrumpirlo.
+                    Un sistema que acompaña el recorrido sin interrumpirlo.
                   </p>
                 </div>
                 <div className="rounded-[1.3rem_0.35rem_1.3rem_0.35rem] border border-[#302218]/12 bg-white/55 p-4">
@@ -364,7 +362,7 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   return (
     <main className="min-h-screen bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]">
-      <ConceptNotice dark />
+      <ConceptNotice tone="linea" family="var(--font-space-grotesk), Arial, sans-serif" />
       <header className="border-b border-[#242522]">
         <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12">
           <Link href="#inicio" className="text-xl font-semibold tracking-[-0.05em] uppercase sm:text-2xl [font-family:var(--font-geist-sans),Arial,sans-serif]">
@@ -486,14 +484,14 @@ function LineaNorteLanding({ project }: { project: ConceptProject }) {
 function AuraDentalLanding({ project }: { project: ConceptProject }) {
   const reduceMotion = useReducedMotion()
   const benefits = [
-    { icon: ShieldCheck, title: 'Informaci?n clara', copy: 'Sab?s qu? se va a hacer y por qu? antes de empezar.' },
-    { icon: CalendarDays, title: 'Agenda sencilla', copy: 'Eleg?s el momento que mejor se adapta a tu semana.' },
-    { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar funci?n y est?tica.' },
+    { icon: ShieldCheck, title: 'Información clara', copy: 'Sabés qué se va a hacer y por qué antes de empezar.' },
+    { icon: CalendarDays, title: 'Agenda sencilla', copy: 'Elegís el momento que mejor se adapta a tu semana.' },
+    { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar función y estética.' },
   ]
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
-      <ConceptNotice />
+    <main className="min-h-screen overflow-hidden bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif] [&_.font-mono]:[font-family:var(--font-mazius-display),Georgia,serif]">
+      <ConceptNotice tone="aura" family="var(--font-mazius-display), Georgia, serif" />
       <header className="relative z-20">
         <div className="mx-auto flex h-20 max-w-[1380px] items-center justify-between px-5 sm:h-24 sm:px-8">
           <Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
@@ -504,7 +502,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
           </Link>
           <nav className="hidden items-center gap-7 text-sm font-medium md:flex [font-family:var(--font-nunito-sans),Arial,sans-serif]">
             <a href="#tratamientos">Tratamientos</a>
-            <a href="#experiencia">C?mo te cuidamos</a>
+            <a href="#experiencia">Cómo te cuidamos</a>
             <a href="#agenda">Agenda</a>
           </nav>
           <a href="#agenda" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#17332f] px-5 text-sm font-semibold text-white sm:flex">
@@ -544,14 +542,15 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
               <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 86vw, 42vw" className="object-cover object-left" />
             </div>
             <motion.span animate={reduceMotion ? undefined : { y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: EASE }} className="absolute right-[2%] bottom-[18%] rounded-[1.25rem_0.35rem_1.25rem_0.35rem] bg-white p-4 shadow-xl">
-              <span className="block font-mono text-[8px] tracking-[0.13em] uppercase opacity-50">Pr?xima hora</span>
+              <span className="block font-mono text-[8px] tracking-[0.13em] uppercase opacity-50">Próxima hora</span>
               <span className="mt-1 block font-semibold">Agenda online</span>
             </motion.span>
           </div>
         </div>
       </section>
 
-      <section id="tratamientos" className="bg-white/65 px-5 py-16 sm:px-8 sm:py-24">
+      <section id="tratamientos" className="relative bg-white/65 px-5 py-16 sm:px-8 sm:py-24">
+        <div aria-hidden="true" className="absolute top-14 right-[6%] hidden size-32 rounded-full border border-[#5b8580]/15 lg:block" />
         <div className="mx-auto max-w-[1320px]">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -560,7 +559,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
             </div>
             <p className="max-w-md leading-relaxed text-[#17332f]/62">Cada tratamiento se presenta con un objetivo claro, sin tecnicismos innecesarios.</p>
           </div>
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          <div className="mt-12 border-t border-[#17332f]/18">
             {project.services.map((service, index) => (
               <motion.article
                 key={service.number}
@@ -568,18 +567,16 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
-                className={cn('group flex min-h-[22rem] flex-col justify-between rounded-[2.5rem_0.65rem_2.5rem_0.65rem] p-6 transition-colors duration-500 sm:p-8', index === 1 ? 'bg-[#5b8580] text-white' : 'border border-[#17332f]/18 bg-[#edf2ec] hover:bg-[#cbdcd7]')}
+                className={cn('group grid gap-5 border-b border-[#17332f]/18 py-8 transition-colors duration-500 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-8 sm:py-11', index === 1 ? 'text-[#5b8580]' : 'hover:text-[#5b8580]')}
               >
-                <div className="flex items-center justify-between">
-                  <span className="[font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif] text-[10px]">{service.number}</span>
-                  <span className="grid size-11 place-items-center rounded-full border border-current/25">
-                    <ArrowUpRight className="size-4" />
-                  </span>
-                </div>
+                <span className="grid size-14 place-items-center rounded-full border border-current/25 text-lg [font-family:var(--font-mazius-display),Georgia,serif]">{service.number}</span>
                 <div>
-                  <h3 className="text-3xl font-semibold tracking-[-0.045em]">{service.title}</h3>
-                  <p className="mt-4 leading-relaxed opacity-68">{service.copy}</p>
+                  <h3 className="text-3xl font-bold tracking-[-0.05em] text-[#17332f] sm:text-4xl">{service.title}</h3>
+                  <p className="mt-3 max-w-xl leading-relaxed text-[#17332f]/64">{service.copy}</p>
                 </div>
+                <span className="grid size-11 place-items-center rounded-full border border-current/25 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-1">
+                  <ArrowUpRight className="size-4" />
+                </span>
               </motion.article>
             ))}
           </div>
@@ -592,7 +589,7 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
             <p className="text-[9px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Tu experiencia</p>
             <h2 className="mt-4 text-5xl leading-[0.9] font-semibold tracking-[-0.06em] sm:text-7xl">Todo claro desde el principio.</h2>
           </div>
-          <div className="grid gap-3">
+          <div className="relative grid gap-0 border-l border-[#5b8580]/35 pl-6 sm:pl-10">
             {benefits.map((benefit, index) => (
               <motion.article
                 key={benefit.title}
@@ -600,8 +597,9 @@ function AuraDentalLanding({ project }: { project: ConceptProject }) {
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: index * 0.09, ease: EASE }}
-                className="grid gap-5 rounded-[1.75rem_0.45rem_1.75rem_0.45rem] border border-[#17332f]/18 bg-white/45 p-5 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:p-6"
+                className="relative grid gap-4 border-b border-[#17332f]/15 py-6 last:border-b-0 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:py-8"
               >
+                <span aria-hidden="true" className="absolute -left-[2.08rem] top-9 size-3 rounded-full border-2 border-[#edf2ec] bg-[#5b8580] sm:-left-[2.58rem]" />
                 <span className="grid size-12 place-items-center rounded-full bg-[#cbdcd7]">
                   <benefit.icon className="size-5" />
                 </span>
