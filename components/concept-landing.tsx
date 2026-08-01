@@ -107,6 +107,27 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
     },
   ]
 
+  const canvasMotion = {
+    image: {
+      opacity: 1,
+      scale: 1,
+    },
+    origin: {
+      x: activeStep === 0 ? 0 : -12,
+      y: activeStep === 0 ? 0 : -8,
+      opacity: 1,
+    },
+    method: {
+      x: activeStep < 1 ? 24 : 0,
+      y: activeStep < 1 ? 18 : 0,
+      opacity: activeStep < 1 ? 0 : 1,
+    },
+    visit: {
+      y: activeStep < 2 ? 30 : 0,
+      opacity: activeStep < 2 ? 0 : 1,
+    },
+  }
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -230,22 +251,50 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                       {scenes[activeStep].title}
                     </p>
                   </div>
-                  <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4">
-                    <div className="max-w-sm rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 bg-black/24 p-4 text-[#fff7e8] backdrop-blur-md">
-                      <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[activeStep].label}</div>
-                      <p className="mt-2 text-sm leading-relaxed text-white/78">{scenes[activeStep].copy}</p>
+                  <motion.div
+                    className="absolute left-5 top-1/2 w-[42%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
+                    animate={reduceMotion ? undefined : canvasMotion.origin}
+                    transition={{ duration: 0.7, ease: EASE }}
+                  >
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">{scenes[0].label}</div>
+                    <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[0].title}</div>
+                    <p className="mt-2 text-sm leading-relaxed text-[#302218]/72">{assembleItems[0].copy}</p>
+                  </motion.div>
+                  <motion.div
+                    className="absolute right-5 top-[46%] w-[38%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/90 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
+                    animate={reduceMotion ? undefined : canvasMotion.method}
+                    transition={{ duration: 0.7, ease: EASE }}
+                  >
+                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{scenes[1].label}</div>
+                    <div className="mt-2 text-lg font-semibold leading-tight">{assembleItems[1].title}</div>
+                    <p className="mt-2 text-sm leading-relaxed text-white/72">{assembleItems[1].copy}</p>
+                  </motion.div>
+                  <motion.div
+                    className="absolute inset-x-8 bottom-8 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-md"
+                    animate={reduceMotion ? undefined : canvasMotion.visit}
+                    transition={{ duration: 0.75, ease: EASE }}
+                  >
+                    <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">
+                      <span>{scenes[2].label}</span>
+                      <span>CTA final</span>
                     </div>
-                    <motion.div
-                      className="hidden h-1 w-24 overflow-hidden rounded-full bg-white/15 lg:block"
-                      animate={{ opacity: 1 }}
-                    >
-                      <motion.div
-                        className="h-full origin-left bg-[#d36b43]"
-                        animate={{ scaleX: (activeStep + 1) / scenes.length }}
-                        transition={{ duration: 0.6, ease: EASE }}
-                      />
-                    </motion.div>
-                  </div>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f1e3ca] p-3">
+                        <p className="text-sm font-semibold leading-snug">{assembleItems[2].title}</p>
+                        <p className="mt-2 text-sm leading-relaxed text-[#302218]/70">{assembleItems[2].copy}</p>
+                      </div>
+                      <div className="flex items-center justify-between rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f1e3ca] p-3">
+                        <div>
+                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Reserva</div>
+                          <p className="mt-1 text-sm font-semibold">La experiencia termina lista para convertir</p>
+                        </div>
+                        <ArrowUpRight className="size-5 shrink-0" />
+                      </div>
+                    </div>
+                  </motion.div>
+                  <motion.div className="absolute inset-x-5 bottom-5 hidden h-1 overflow-hidden rounded-full bg-white/15 lg:block">
+                    <motion.div className="h-full origin-left bg-[#d36b43]" animate={{ scaleX: (activeStep + 1) / scenes.length }} transition={{ duration: 0.6, ease: EASE }} />
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -278,11 +327,27 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                   <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#fff7e8]/72 sm:text-xl">{scene.copy}</p>
                   <div className="mt-7 grid gap-3 sm:grid-cols-2">
                     {assembleItems.slice(index, index + 2).map((item) => (
-                      <div key={item.number} className="rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 bg-white/6 p-4">
-                        <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">{item.number}</div>
+                      <motion.div
+                        key={item.number}
+                        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ amount: 0.45 }}
+                        transition={{ duration: 0.6, ease: EASE, delay: index * 0.06 }}
+                        className={cn(
+                          'rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-white/10 p-4 shadow-[0_18px_50px_rgba(0,0,0,0.16)]',
+                          item.number === '01' && 'bg-[#f1e3ca] text-[#302218]',
+                          item.number === '02' && 'bg-[#f7ece0] text-[#302218]',
+                          item.number === '03' && 'bg-white/8 text-[#fff7e8]',
+                        )}
+                      >
+                        <div className={cn('font-mono text-[9px] tracking-[0.16em] uppercase', item.number === '03' ? 'text-[#d9ad7f]' : 'text-[#8a5a3b]')}>
+                          {item.number}
+                        </div>
                         <h3 className="mt-2 text-2xl leading-[0.95] font-semibold italic">{item.title}</h3>
-                        <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/72">{item.copy}</p>
-                      </div>
+                        <p className={cn('mt-2 text-sm leading-relaxed', item.number === '03' ? 'text-[#fff7e8]/72' : 'text-[#302218]/72')}>
+                          {item.copy}
+                        </p>
+                      </motion.div>
                     ))}
                   </div>
                   <motion.div
@@ -292,7 +357,7 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                     viewport={{ amount: 0.35, once: false }}
                     transition={{ duration: 0.6, ease: EASE }}
                   >
-                    <div className="relative aspect-[0.9]">
+                    <div className="relative aspect-[0.84]">
                       <Image
                         src={project.image}
                         alt={`Escena ${index + 1} de Bruma Cafe`}
@@ -306,7 +371,11 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
                         <p className="mt-2 max-w-xs text-2xl leading-[0.95] font-semibold italic text-white">{service.title}</p>
                       </div>
                       <div className="absolute right-4 bottom-4 left-4 rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md">
-                        <p className="text-sm leading-relaxed text-[#fff7e8]/78">{scene.copy}</p>
+                        <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
+                          <span>Armado en scroll</span>
+                          <span>0{index + 1}</span>
+                        </div>
+                        <p className="mt-2 text-sm leading-relaxed text-[#fff7e8]/78">{scene.copy}</p>
                       </div>
                     </div>
                   </motion.div>
