@@ -346,9 +346,9 @@ function BrumaLanding({ project }: { project: ConceptProject }) {
             <h2 className="max-w-5xl text-5xl leading-[0.86] font-normal tracking-[-0.055em] sm:text-8xl">
               Tu mesa puede estar <em>esperando.</em>
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consulta horarios, encontranos y reserv? antes de venir.</p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consult? horarios, encontranos y reserv? antes de venir.</p>
             <Link href="/#contact" className="group mt-8 inline-flex items-center gap-5 border-b border-[#302218] pb-2 text-xl font-semibold italic">
-              Quiero una experiencia asi <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              Quiero una experiencia as? <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </div>
         </div>
