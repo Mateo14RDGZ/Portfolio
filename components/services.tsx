@@ -151,7 +151,7 @@ export function Services() {
                       {plan.designedFor}
                     </span>
                     <h3 className="text-2xl font-bold tracking-tight">
-                      {plan.name}
+                      Plan {plan.name}
                     </h3>
                     <p className={cn('font-semibold leading-relaxed text-pretty', plan.featured ? 'text-primary-foreground/90' : 'text-muted-foreground')}>
                       {plan.positioning}
