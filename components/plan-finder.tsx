@@ -304,7 +304,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
               <span>{Math.round(progress)}%</span>
             </div>
             <div className="mt-3 h-1 overflow-hidden rounded-full bg-foreground/10">
-              <motion.div className="h-full bg-primary" animate={{ width: `${progress}%` }} transition={{ duration: 0.45, ease: EASE }} />
+              <motion.div className="h-full origin-left bg-primary" initial={false} animate={{ scaleX: progress / 100 }} transition={{ duration: 0.45, ease: EASE }} />
             </div>
           </div>
         </div>
