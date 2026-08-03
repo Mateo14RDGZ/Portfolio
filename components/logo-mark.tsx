@@ -149,16 +149,16 @@ export function LogoMark({
         <motion.g
           aria-hidden="true"
           initial={{ opacity: 1 }}
-          animate={loopIntro ? { opacity: [1, 1, 0, 0, 1, 1] } : { opacity: 0 }}
+          animate={loopIntro ? { opacity: [1, 1, 0, 0, 0, 1] } : { opacity: [1, 1, 0] }}
           transition={
             loopIntro
               ? {
                   duration: LOOP_DURATION,
-                  times: [0, DRAW_END / LOOP_DURATION, (DRAW_END + 0.18) / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
+                  times: [0, (DRAW_END - 0.04) / LOOP_DURATION, DRAW_END / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
                   repeat: Infinity,
-                  ease: DRAW_EASE,
+                  ease: 'linear',
                 }
-              : { delay: DRAW_END, duration: 0.18, ease: DRAW_EASE }
+              : { duration: DRAW_END, times: [0, 0.98, 1], ease: 'linear' }
           }
         >
           {LOGO_STROKES.map((path) => (
@@ -199,16 +199,16 @@ export function LogoMark({
       {shouldDraw ? (
         <motion.g
           initial={{ opacity: 0 }}
-          animate={loopIntro ? { opacity: [0, 0, 1, 1, 0, 0] } : { opacity: 1 }}
+          animate={loopIntro ? { opacity: [0, 0, 1, 1, 0, 0] } : { opacity: [0, 0, 1] }}
           transition={
             loopIntro
               ? {
                   duration: LOOP_DURATION,
-                  times: [0, DRAW_END / LOOP_DURATION, (DRAW_END + 0.18) / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
+                  times: [0, (DRAW_END - 0.04) / LOOP_DURATION, DRAW_END / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
                   repeat: Infinity,
-                  ease: DRAW_EASE,
+                  ease: 'linear',
                 }
-              : { delay: DRAW_END, duration: 0.2, ease: DRAW_EASE }
+              : { duration: DRAW_END, times: [0, 0.98, 1], ease: 'linear' }
           }
         >
           <LogoImage />
