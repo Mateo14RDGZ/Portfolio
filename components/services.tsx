@@ -101,25 +101,21 @@ function PlanBack({ plan }: { plan: Plan }) {
 }
 
 export function Services() {
-  const pointerStart = useRef<Record<string, { x: number; y: number; rotationX: number; rotationY: number; currentX: number; currentY: number }>>({})
+  const pointerStart = useRef<Record<string, { x: number; y: number; angle: number }>>({})
   const cardRefs = useRef<Partial<Record<Plan['name'], HTMLDivElement>>>({})
-  const settledRotation = useRef<Partial<Record<Plan['name'], { x: number; y: number }>>>({})
+  const settledAngle = useRef<Partial<Record<Plan['name'], number>>>({})
 
-  function setCardRotation(plan: Plan['name'], rotationX: number, rotationY: number) {
+  function setCardAngle(plan: Plan['name'], angle: number) {
     const card = cardRefs.current[plan]
-    card?.style.setProperty('--plan-tilt-x', `${rotationX}deg`)
-    card?.style.setProperty('--plan-flip-angle', `${rotationY}deg`)
+    card?.style.setProperty('--plan-flip-angle', `${angle}deg`)
   }
 
   function beginPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
-    const rotation = settledRotation.current[plan] ?? { x: 0, y: 0 }
+    const angle = settledAngle.current[plan] ?? 0
     pointerStart.current[plan] = {
       x: event.clientX,
       y: event.clientY,
-      rotationX: rotation.x,
-      rotationY: rotation.y,
-      currentX: rotation.x,
-      currentY: rotation.y,
+      angle,
     }
     event.currentTarget.classList.add('plan-flip-card--dragging')
   }
@@ -130,13 +126,11 @@ export function Services() {
 
     const horizontalDistance = event.clientX - start.x
     const verticalDistance = event.clientY - start.y
-    // A full-width gesture is approximately one full turn. Both axes remain
-    // continuous, so a second gesture keeps spinning from the previous angle.
-    const rotationY = start.rotationY + horizontalDistance * 0.9
-    const rotationX = start.rotationX - verticalDistance * 0.9
-    start.currentX = rotationX
-    start.currentY = rotationY
-    setCardRotation(plan, rotationX, rotationY)
+    if (Math.abs(verticalDistance) > Math.abs(horizontalDistance)) return
+
+    // The card follows the finger, but is limited to its two carousel faces.
+    const angle = Math.max(-180, Math.min(180, start.angle + horizontalDistance * 0.9))
+    setCardAngle(plan, angle)
   }
 
   function finishPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
@@ -147,10 +141,15 @@ export function Services() {
 
     const horizontalDistance = event.clientX - start.x
     const verticalDistance = event.clientY - start.y
-    const finalRotationY = start.rotationY + horizontalDistance * 0.9
-    const finalRotationX = start.rotationX - verticalDistance * 0.9
-    settledRotation.current[plan] = { x: finalRotationX, y: finalRotationY }
-    setCardRotation(plan, finalRotationX, finalRotationY)
+    if (Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) {
+      setCardAngle(plan, start.angle)
+      return
+    }
+
+    const releaseAngle = Math.max(-180, Math.min(180, start.angle + horizontalDistance * 0.9))
+    const finalAngle = Math.abs(releaseAngle) >= 90 ? (releaseAngle < 0 ? -180 : 180) : 0
+    settledAngle.current[plan] = finalAngle
+    setCardAngle(plan, finalAngle)
   }
 
   return (
@@ -179,10 +178,7 @@ export function Services() {
                       const start = pointerStart.current[plan.name]
                       delete pointerStart.current[plan.name]
                       event.currentTarget.classList.remove('plan-flip-card--dragging')
-                      if (start) {
-                        settledRotation.current[plan.name] = { x: start.currentX, y: start.currentY }
-                        setCardRotation(plan.name, start.currentX, start.currentY)
-                      }
+                      if (start) setCardAngle(plan.name, start.angle)
                     }}
                   >
                     <article className="plan-flip-inner relative h-full">
@@ -213,7 +209,7 @@ export function Services() {
                     </article>
                   </div>
                   <p className="mt-3 text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] text-foreground/65 uppercase lg:hidden">
-                    Deslizá en cualquier dirección para girar
+                    Deslizá para ver más información
                   </p>
                 </div>
               </RevealItem>
