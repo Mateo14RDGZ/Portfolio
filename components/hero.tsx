@@ -4,11 +4,8 @@ import { motion } from 'motion/react'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
 import Link from 'next/link'
-import { useCompactMotion } from '@/lib/motion'
 
 export function Hero() {
-  const compactMotion = useCompactMotion()
-
   return (
     <section id="top" className="border-b border-foreground pt-[4.5rem] sm:min-h-[100svh] sm:pt-24">
       <div className="mx-auto grid max-w-[1400px] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
@@ -37,7 +34,7 @@ export function Hero() {
           <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em]">Identidad / MR14</span>
           <div className="relative aspect-square w-[min(78vw,22rem)] sm:w-[min(92%,36rem)]">
             <LogoMark
-              animateIntro={!compactMotion}
+              animateIntro
               loopIntro={false}
               interactive={false}
               className="size-full"
