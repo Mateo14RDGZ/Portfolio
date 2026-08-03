@@ -60,7 +60,7 @@ export function ProjectsGallery() {
                 <p className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">Laboratorio visual / 02—04</p>
                 <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">Proyectos conceptuales</h2>
               </div>
-              <p className="max-w-2xl text-sm leading-relaxed text-background/62 sm:justify-self-end sm:text-base">Marcas ficticias creadas desde cero para explorar estrategia, identidad, contenido y desarrollo. No representan trabajos encargados por clientes.</p>
+              <p className="max-w-2xl text-sm leading-relaxed text-background/62 sm:justify-self-end sm:text-base">Proyectos conceptuales desarrollados para explorar estrategia, identidad, contenido y experiencias digitales adaptadas a negocios y públicos diferentes.</p>
             </div>
           </Reveal>
 
