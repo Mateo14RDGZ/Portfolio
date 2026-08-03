@@ -64,7 +64,7 @@ const PLAN_CUES: Record<Plan['name'], string[]> = {
 
 function PlanBack({ plan }: { plan: Plan }) {
   const Icon = plan.icon
-  const highlights = plan.groups?.flatMap((group) => group.features).slice(0, 3) ?? plan.features.slice(0, 3)
+  const highlights = plan.groups?.flatMap((group) => group.features) ?? plan.features
   const decisionCues = PLAN_CUES[plan.name]
   const corners = plan.name === 'CLASSIC' ? 'rounded-[3rem_0.75rem_0.75rem_0.75rem]' : plan.name === 'GOLD' ? 'rounded-[0.75rem_3rem_0.75rem_0.75rem]' : 'rounded-[0.75rem_0.75rem_3rem_0.75rem]'
 
@@ -86,14 +86,14 @@ function PlanBack({ plan }: { plan: Plan }) {
             {decisionCues.map((cue) => <li key={cue} className="flex gap-2 text-xs font-semibold leading-relaxed"><Check className="mt-0.5 size-3.5 shrink-0" strokeWidth={3} />{cue}</li>)}
           </ul>
         </div>
-        <div className="mt-auto pt-5">
+        <div className="mt-6 pt-1">
           <div className="flex items-center justify-between gap-4 font-mono text-[0.63rem] font-bold tracking-[0.15em] uppercase opacity-70">
             <span>Incluye</span><span>{highlights.length} puntos clave</span>
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             {highlights.map((item) => <span key={item} className="border border-current/35 px-2.5 py-1.5 text-[0.68rem] font-bold leading-tight">{item}</span>)}
           </div>
-          <p className="mt-5 border-t border-current/30 pt-3 font-mono text-[0.58rem] font-bold tracking-[0.15em] uppercase opacity-65">Mové el cursor para volver</p>
+          <p className="mt-5 hidden border-t border-current/30 pt-3 font-mono text-[0.58rem] font-bold tracking-[0.15em] uppercase opacity-65 lg:block">Mové el cursor para volver</p>
         </div>
       </div>
     </div>
