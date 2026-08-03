@@ -8,7 +8,7 @@ import Link from 'next/link'
 export function Hero() {
   return (
     <section id="top" className="border-b border-foreground pt-[4.5rem] sm:min-h-[100svh] sm:pt-24">
-      <div className="mx-auto grid max-w-[1400px] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
+      <div className="mx-auto grid grid-cols-1 max-w-[1400px] sm:min-h-[calc(100svh-6rem)] lg:grid-cols-[1fr_0.7fr] lg:grid-rows-[1fr_auto]">
         <div className="flex flex-col justify-between border-foreground p-5 sm:p-8 lg:border-r lg:p-12">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-xs uppercase tracking-[0.18em]">
             Desarrollador web independiente · Uruguay · 2026

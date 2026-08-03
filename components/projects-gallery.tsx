@@ -34,7 +34,7 @@ export function ProjectsGallery() {
 
         <Reveal className="mt-10 sm:mt-16">
           <article className="overflow-hidden rounded-[2rem_0.55rem_2rem_0.55rem] border border-background/25 bg-background/[0.045] sm:rounded-[3rem_0.75rem_3rem_0.75rem]">
-            <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
               <Link href="/trabajo-destacado" className="group relative min-h-[20rem] overflow-hidden sm:min-h-[32rem]" aria-label="Ver caso de estudio del sistema de gestión para automotora">
                 <Image src="/case-study/dashboard.webp" alt="Dashboard del sistema de gestión para automotora con datos ficticios" fill priority sizes="(max-width:1024px) 100vw, 62vw" className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/65 via-transparent to-transparent" />
@@ -70,7 +70,7 @@ export function ProjectsGallery() {
             </div>
           </Reveal>
 
-          <StaggerGroup className="mt-8 grid items-stretch gap-4 lg:grid-cols-3" gap={compactMotion ? 0 : 0.08}>
+          <StaggerGroup className="mt-8 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3" gap={compactMotion ? 0 : 0.08}>
             {CONCEPT_PROJECTS.map((project, index) => (
               <RevealItem key={project.slug} className="h-full min-w-0" variants={compactMotion ? stationaryCard : undefined}>
                 <motion.article

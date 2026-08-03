@@ -26,7 +26,7 @@ export function CaseStudyPreview() {
     >
       <div aria-hidden="true" className="absolute top-0 right-0 h-1.5 w-1/3 bg-primary" />
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-        <div className="grid items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
           <Reveal>
             <p className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase sm:text-xs">
               Caso de estudio / 01
