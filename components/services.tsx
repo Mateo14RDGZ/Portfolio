@@ -102,22 +102,56 @@ function PlanBack({ plan }: { plan: Plan }) {
 
 export function Services() {
   const [flippedPlan, setFlippedPlan] = useState<Plan['name'] | null>(null)
-  const pointerStart = useRef<Record<string, { x: number; y: number }>>({})
+  const pointerStart = useRef<Record<string, { x: number; y: number; angle: number }>>({})
+  const cardRefs = useRef<Partial<Record<Plan['name'], HTMLDivElement>>>({})
+  const settledAngle = useRef<Partial<Record<Plan['name'], number>>>({})
+
+  function setCardAngle(plan: Plan['name'], angle: number) {
+    cardRefs.current[plan]?.style.setProperty('--plan-flip-angle', `${angle}deg`)
+  }
 
   function beginPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
-    pointerStart.current[plan] = { x: event.clientX, y: event.clientY }
+    const angle = settledAngle.current[plan] ?? 0
+    pointerStart.current[plan] = { x: event.clientX, y: event.clientY, angle }
+    event.currentTarget.classList.add('plan-flip-card--dragging')
+  }
+
+  function movePlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
+    const start = pointerStart.current[plan]
+    if (!start) return
+
+    const horizontalDistance = event.clientX - start.x
+    const verticalDistance = event.clientY - start.y
+    if (Math.abs(verticalDistance) > Math.abs(horizontalDistance) && Math.abs(verticalDistance) > 10) return
+
+    const angle = Math.max(-180, Math.min(180, start.angle + (horizontalDistance / 150) * 180))
+    setCardAngle(plan, angle)
   }
 
   function finishPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
     const start = pointerStart.current[plan]
     delete pointerStart.current[plan]
+    event.currentTarget.classList.remove('plan-flip-card--dragging')
     if (!start) return
 
     const horizontalDistance = event.clientX - start.x
     const verticalDistance = event.clientY - start.y
-    if (Math.abs(horizontalDistance) < 42 || Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) return
+    if (Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) {
+      setCardAngle(plan, start.angle)
+      return
+    }
 
-    setFlippedPlan((current) => current === plan ? null : plan)
+    const releaseAngle = Math.max(-180, Math.min(180, start.angle + (horizontalDistance / 150) * 180))
+    const finalAngle = Math.abs(releaseAngle) >= 90 ? (releaseAngle < 0 ? -180 : 180) : 0
+
+    if (finalAngle !== 0 && flippedPlan && flippedPlan !== plan) {
+      settledAngle.current[flippedPlan] = 0
+      setCardAngle(flippedPlan, 0)
+    }
+
+    settledAngle.current[plan] = finalAngle
+    setCardAngle(plan, finalAngle)
+    setFlippedPlan(finalAngle === 0 ? null : plan)
   }
 
   return (
@@ -138,9 +172,16 @@ export function Services() {
                 <div className="flex h-full flex-col">
                   <div
                     className={cn('plan-flip-card h-full', flippedPlan === plan.name && 'plan-flip-card--flipped')}
+                    ref={(node) => { cardRefs.current[plan.name] = node ?? undefined }}
                     onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
+                    onPointerMove={(event) => movePlanSwipe(event, plan.name)}
                     onPointerUp={(event) => finishPlanSwipe(event, plan.name)}
-                    onPointerCancel={() => { delete pointerStart.current[plan.name] }}
+                    onPointerCancel={(event) => {
+                      const start = pointerStart.current[plan.name]
+                      delete pointerStart.current[plan.name]
+                      event.currentTarget.classList.remove('plan-flip-card--dragging')
+                      if (start) setCardAngle(plan.name, start.angle)
+                    }}
                   >
                     <article className="plan-flip-inner relative h-full">
                     <div className={cn(
