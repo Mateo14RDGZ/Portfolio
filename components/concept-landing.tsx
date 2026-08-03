@@ -111,7 +111,7 @@ function OmbuLanding() {
         <div className="mx-auto grid grid-cols-1 max-w-[1220px] gap-12 lg:grid-cols-[0.85fr_0.62fr_0.53fr] lg:items-end">
           <Reveal><p className="text-[11px] tracking-[0.18em] uppercase text-[#766953]">El origen</p><h2 className="mt-5 max-w-md text-[clamp(3.2rem,6vw,5.4rem)] leading-[0.84] tracking-[-0.075em]">El café cuenta de dónde viene.</h2></Reveal>
           <Reveal delay={0.08}><p className="max-w-xl text-xl leading-relaxed text-[#4e493e]">Elegimos lotes de origen definido y los preparamos de la forma que mejor expresa su perfil. Sin una lista infinita, sin nombres complicados.</p><div className="mt-10 grid grid-cols-3 gap-3 border-t border-[#23201b]/15 pt-5 text-sm"><span><b className="block text-2xl font-normal">01</b>cosecha</span><span><b className="block text-2xl font-normal">02</b>tueste</span><span><b className="block text-2xl font-normal">03</b>taza</span></div></Reveal>
-          <Reveal delay={0.14} className="relative aspect-[0.85] overflow-hidden rounded-[1.4rem_0.3rem] bg-[#343027] max-lg:hidden"><Image src="/concepts/ombu-hero.webp" alt="Detalle de la barra de café de Ombú" fill sizes="20vw" className="object-cover object-[15%_75%]" /></Reveal>
+          <Reveal delay={0.14} className="relative aspect-[0.85] overflow-hidden rounded-[1.4rem_0.3rem] bg-[#343027] max-lg:hidden"><Image src="/concepts/ombu-hero.webp" alt="Detalle de la barra de café de Ombú" fill sizes="20vw" className="object-cover object-[82%_48%]" /></Reveal>
         </div>
       </section>
 
