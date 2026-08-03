@@ -84,8 +84,8 @@ export function WhyMe() {
             </RevealItem>
           ))}
 
-          {/* Closing cell that keeps the grid visually complete */}
-          <RevealItem className="h-full">
+          {/* Closing cell spans the remainder of the last row (7 benefits + this cell = 8, not a multiple of 3) */}
+          <RevealItem className="h-full lg:col-span-2">
             <div className="bg-card flex h-full flex-col justify-center gap-3 p-6 min-[380px]:p-7 sm:p-8">
               <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
                 Y una cosa más

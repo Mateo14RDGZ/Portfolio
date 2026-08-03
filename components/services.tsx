@@ -69,9 +69,9 @@ function PlanBack({ plan }: { plan: Plan }) {
   const corners = plan.name === 'CLASSIC' ? 'rounded-[3rem_0.75rem_0.75rem_0.75rem]' : plan.name === 'GOLD' ? 'rounded-[0.75rem_3rem_0.75rem_0.75rem]' : 'rounded-[0.75rem_0.75rem_3rem_0.75rem]'
 
   return (
-    <div aria-hidden="true" className={cn('plan-flip-face plan-flip-back', corners, `plan-flip-back-${plan.name.toLowerCase()}`)}>
+    <div className={cn('plan-flip-face plan-flip-back', corners, `plan-flip-back-${plan.name.toLowerCase()}`)}>
       <div className="flex h-full flex-col p-6 min-[380px]:p-7 sm:p-8">
-        <div>
+        <div aria-hidden="true">
           <div className="flex items-start justify-between gap-4">
             <span className="grid size-12 place-items-center border border-current bg-white/10"><Icon className="size-5" /></span>
             <span className="font-mono text-[0.6rem] font-bold tracking-[0.16em] uppercase opacity-65">Alcance / MR14</span>
@@ -80,20 +80,23 @@ function PlanBack({ plan }: { plan: Plan }) {
           <h3 className="mt-2 text-3xl font-bold tracking-tight">{plan.designedFor}</h3>
           <p className="mt-3 max-w-sm text-sm font-semibold leading-relaxed opacity-85">{plan.positioning}</p>
         </div>
-        <div className="mt-6 border-y border-current/30 py-4">
+        <div aria-hidden="true" className="mt-6 border-y border-current/30 py-4">
           <p className="font-mono text-[0.63rem] font-bold tracking-[0.15em] uppercase opacity-70">Este plan tiene sentido si...</p>
           <ul className="mt-3 grid gap-2">
             {decisionCues.map((cue) => <li key={cue} className="flex gap-2 text-xs font-semibold leading-relaxed"><Check className="mt-0.5 size-3.5 shrink-0" strokeWidth={3} />{cue}</li>)}
           </ul>
         </div>
         <div className="mt-6 pt-1">
-          <div className="flex items-center justify-between gap-4 font-mono text-[0.63rem] font-bold tracking-[0.15em] uppercase opacity-70">
+          <div aria-hidden="true" className="flex items-center justify-between gap-4 font-mono text-[0.63rem] font-bold tracking-[0.15em] uppercase opacity-70">
             <span>Incluye</span><span>{highlights.length} puntos clave</span>
           </div>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div aria-hidden="true" className="mt-3 flex flex-wrap gap-2">
             {highlights.map((item) => <span key={item} className="border border-current/35 px-2.5 py-1.5 text-[0.68rem] font-bold leading-tight">{item}</span>)}
           </div>
-          <p className="mt-5 hidden border-t border-current/30 pt-3 font-mono text-[0.58rem] font-bold tracking-[0.15em] uppercase opacity-65 lg:block">Mové el cursor para volver</p>
+          <Button variant="outline" className="group/cta relative mt-5 h-12 w-full rounded-full border-current bg-transparent text-sm font-bold text-inherit hover:bg-black/10" nativeButton={false} render={<a href="#contact" onClick={() => track('plan_information_click', { plan: plan.name })} aria-label={`Solicitar información sobre el plan ${plan.name}`} />}>
+            Solicitar información <ArrowUpRight data-icon="inline-end" className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+          </Button>
+          <p aria-hidden="true" className="mt-3 hidden text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] uppercase opacity-65 lg:block">Mové el cursor para volver</p>
         </div>
       </div>
     </div>
@@ -201,9 +204,6 @@ export function Services() {
                         {plan.groups ? plan.groups.map((group) => <div key={group.title} className="border-t border-foreground/30 pt-4 first:border-t-0 first:pt-0"><h4 className="mb-3 font-mono text-[0.68rem] font-bold uppercase tracking-[0.14em] text-foreground/75">{group.title}</h4><ul className="flex flex-col gap-3">{group.features.map((feature) => <PlanFeature key={feature} feature={feature} featured={plan.featured} />)}</ul></div>) : <ul className="flex flex-col gap-3.5">{plan.features.map((feature) => <PlanFeature key={feature} feature={feature} featured={plan.featured} />)}</ul>}
                         {plan.note ? <p className="mt-auto border-t border-foreground/30 pt-4 text-xs font-semibold leading-relaxed text-foreground/75">{plan.note}</p> : null}
                       </div>
-                      <Button variant="outline" className={cn('group/cta relative mt-6 h-12 w-full rounded-full text-sm font-bold', plan.featured && 'border-foreground bg-foreground text-background shadow-[0_10px_30px_rgba(41,21,50,0.2)] hover:border-background hover:bg-background hover:text-foreground focus-visible:ring-background/70')} nativeButton={false} render={<a href="#contact" onClick={() => track('plan_information_click', { plan: plan.name })} aria-label={`Solicitar información sobre el plan ${plan.name}`} />}>
-                        Solicitar información <ArrowUpRight data-icon="inline-end" className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-                      </Button>
                     </div>
                     <PlanBack plan={plan} />
                     </article>
