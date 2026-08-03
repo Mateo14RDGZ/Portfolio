@@ -5,6 +5,7 @@ import {
   validateContact,
   type ContactState,
 } from '@/lib/contact-schema'
+import { SITE_URL } from '@/lib/site'
 
 const CONTACT_TO_EMAIL = 'contacto@mateordgz.dev'
 const RATE_LIMIT_WINDOW_MS = 60_000
@@ -84,7 +85,7 @@ function createContactEmail(input: {
                     <td style="padding:26px 32px;background:#291532;color:#f7f8ef;">
                       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                         <tr>
-                          <td style="font-size:22px;font-weight:800;letter-spacing:-0.04em;">MƦ14</td>
+                          <td><img src="${SITE_URL}/mr14-logo-email-white.png" width="38" height="40" alt="MR14" style="display:block;border:0;" /></td>
                           <td align="right" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#dfe8c8;">Nueva consulta</td>
                         </tr>
                       </table>
