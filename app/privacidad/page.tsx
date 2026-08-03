@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const SECTIONS = [
   {
     title: 'Responsable',
-    copy: 'Mateo Rodríguez es responsable del tratamiento de los datos recibidos mediante este sitio. Podés escribir a mrdgz14dev@gmail.com para cualquier consulta relacionada con tu privacidad.',
+    copy: 'Mateo Rodríguez es responsable del tratamiento de los datos recibidos mediante este sitio. Podés escribir a contacto@mateordgz.dev para cualquier consulta relacionada con tu privacidad.',
   },
   {
     title: 'Datos recopilados',
@@ -82,8 +82,8 @@ export default function PrivacyPage() {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">¿Alguna duda?</p>
             <p className="mt-2 text-2xl font-semibold">Hablemos directamente.</p>
           </div>
-          <a href="mailto:mrdgz14dev@gmail.com" className="primary-action inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-5 font-semibold text-primary-foreground">
-            <Mail className="size-4" /> mrdgz14dev@gmail.com
+          <a href="mailto:contacto@mateordgz.dev" className="primary-action inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-5 font-semibold text-primary-foreground">
+            <Mail className="size-4" /> contacto@mateordgz.dev
           </a>
         </div>
       </div>

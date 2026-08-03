@@ -43,7 +43,7 @@ const siteSchema = {
       '@id': `${siteUrl}#person`,
       name: 'Mateo Rodríguez',
       url: siteUrl,
-      email: 'mailto:mrdgz14dev@gmail.com',
+      email: 'mailto:contacto@mateordgz.dev',
       jobTitle: 'Desarrollador web full-stack en Uruguay',
       worksFor: { '@id': `${siteUrl}#organization` },
       knowsAbout: [

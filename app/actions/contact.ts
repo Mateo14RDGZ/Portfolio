@@ -6,7 +6,7 @@ import {
   type ContactState,
 } from '@/lib/contact-schema'
 
-const CONTACT_TO_EMAIL = 'mrdgz14dev@gmail.com'
+const CONTACT_TO_EMAIL = 'contacto@mateordgz.dev'
 const RATE_LIMIT_WINDOW_MS = 60_000
 const RATE_LIMIT_MAX_REQUESTS = 3
 const contactAttempts = new Map<string, { count: number; resetAt: number }>()

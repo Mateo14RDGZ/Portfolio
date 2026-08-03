@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils'
 import { CallBooking } from '@/components/call-booking'
 import { PlanFinder, type RecommendedPlan } from '@/components/plan-finder'
 
-const EMAIL = 'mrdgz14dev@gmail.com'
+const EMAIL = 'contacto@mateordgz.dev'
 
 const PLANS = ['CLASSIC', 'GOLD', 'BLACK', 'Aún no lo sé']
 

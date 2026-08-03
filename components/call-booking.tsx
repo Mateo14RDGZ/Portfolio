@@ -75,7 +75,7 @@ function MissingCalendarLink() {
         Mientras termino de conectar los horarios, podés solicitar tu reunión directamente por correo.
       </p>
       <a
-        href="mailto:mrdgz14dev@gmail.com?subject=Quiero%20agendar%20una%20reuni%C3%B3n"
+        href="mailto:contacto@mateordgz.dev?subject=Quiero%20agendar%20una%20reuni%C3%B3n"
         className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-foreground px-5 font-semibold text-background transition-transform hover:-translate-y-0.5"
       >
         <Mail className="size-4" /> Solicitar una reunión
