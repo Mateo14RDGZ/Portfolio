@@ -2,7 +2,7 @@ export const FAQ_ITEMS = [
   {
     question: '¿Cómo se realizan los pagos?',
     answer:
-      'Trabajo con un anticipo del 50% para reservar el proyecto y el 50% restante antes de la publicación. En desarrollos grandes, el pago puede dividirse por etapas definidas en la propuesta.',
+      'Trabajo con un anticipo del 50% para reservar el proyecto y el 50% restante antes de la publicación. En desarrollos grandes, el pago puede dividirse por etapas definidas en la propuesta. También podés pagar con Mercado Pago, en la cantidad de cuotas que tu tarjeta habilite a través de la plataforma, con el interés que corresponda a esa financiación.',
   },
   {
     question: '¿Cuánto tarda un sitio web?',
