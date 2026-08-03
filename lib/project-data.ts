@@ -22,14 +22,14 @@ export type ConceptProject = {
 
 export const CONCEPT_PROJECTS: ConceptProject[] = [
   {
-    slug: 'bruma-cafe',
-    name: 'Bruma Café',
+    slug: 'ombu-cafe',
+    name: 'Ombú Café de Especialidad',
     category: 'Hospitalidad · Proyecto conceptual',
     statement: 'Café de origen, preparado sin apuro.',
     description:
       'Una experiencia digital cálida para una cafetería de especialidad que necesita convertir búsquedas locales en visitas, reservas y consultas.',
     objective: 'Reservas, menú y presencia local',
-    image: '/concepts/bruma-cafe.webp',
+    image: '/concepts/ombu-hero.webp',
     imageAlt: 'Barista preparando café filtrado en una cafetería conceptual',
     theme: { page: '#f0e5d1', ink: '#302218', accent: '#b75632', soft: '#d5c39f' },
     nav: ['Carta', 'Origen', 'Visitanos'],
@@ -43,14 +43,14 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
     closingCopy: 'Consultá horarios, encontranos y reservá antes de venir.',
   },
   {
-    slug: 'linea-norte',
-    name: 'Línea Norte',
+    slug: 'aster-automoviles',
+    name: 'Aster Automóviles Eléctricos',
     category: 'Movilidad eléctrica · Proyecto conceptual',
     statement: 'La próxima decisión se siente hoy.',
     description:
       'Una experiencia digital para un concesionario premium que necesita mostrar unidades, explicar tecnología y acompañar cada decisión de compra.',
     objective: 'Unidades, financiación y pruebas de manejo',
-    image: '/concepts/linea-hero.webp',
+    image: '/concepts/aster-hero.webp',
     imageAlt: 'SUV eléctrico conceptual en un showroom premium',
     theme: { page: '#080a14', ink: '#eff3ff', accent: '#8cf1ff', soft: '#111936' },
     nav: ['Unidades', 'Tecnología', 'Comprar'],
@@ -64,14 +64,14 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
     closingCopy: 'Contanos el lugar, la escala y la forma en la que querés vivirlo.',
   },
   {
-    slug: 'aura-dental',
-    name: 'Nexo Movimiento',
+    slug: 'cimbra-estudio',
+    name: 'Cimbra Estudio de Movimiento',
     category: 'Bienestar · Proyecto conceptual',
     statement: 'Tu cuerpo sabe el camino.',
     description:
       'Una landing modular para un estudio de movimiento que necesita organizar clases, reservas y una práctica clara para cada persona.',
     objective: 'Clases, reservas y práctica',
-    image: '/concepts/nexo-hero.webp',
+    image: '/concepts/cimbra-hero.webp',
     imageAlt: 'Estudio de movimiento y Pilates contemporáneo',
     theme: { page: '#f8f9f6', ink: '#14212e', accent: '#2364e6', soft: '#d9eeea' },
     nav: ['Clases', 'Estudio', 'Agenda'],
