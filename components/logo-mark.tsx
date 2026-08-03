@@ -22,6 +22,8 @@ type LogoStroke = {
 
 const DRAW_EASE = [0.65, 0, 0.35, 1] as const
 const LOGO_IMAGE = '/mr14-logo-vector.svg'
+const DRAW_END = 2.12
+const SHINE_START = 2.14
 const SHINE_END = 2.72
 const STATIC_HOLD_DURATION = 6
 const FADE_DURATION = 0.18
@@ -31,38 +33,51 @@ const FADE_OUT_AT = (SHINE_END + STATIC_HOLD_DURATION) / LOOP_DURATION
 const HIDDEN_AT = (SHINE_END + STATIC_HOLD_DURATION + FADE_DURATION) / LOOP_DURATION
 
 /**
- * These centre lines only drive the reveal mask. The visible artwork is always
- * the approved vector master, including the final settled frame, so the
- * animation cannot alter the logo's proportions or intersections.
+ * These are construction strokes, not a mask over the artwork. Revealing a
+ * compound filled SVG through a wide mask leaves isolated fragments visible
+ * mid-animation. Drawing the strokes directly keeps every frame clean; the
+ * approved vector master crossfades in only once the construction is complete.
  */
 const LOGO_STROKES: readonly LogoStroke[] = [
   {
     d: 'M 170 130 C 304 25 500 32 625 145 C 730 245 745 420 645 555',
-    revealWidth: 90,
+    revealWidth: 29,
     delay: 0,
     duration: 1.2,
   },
   {
     d: 'M 95 240 C 35 420 91 600 225 672 C 365 745 525 710 635 600',
-    revealWidth: 90,
+    revealWidth: 29,
     delay: 0.18,
     duration: 1.08,
   },
   {
-    d: 'M 126 535 L 126 190 L 264 382 L 384 240 L 384 700 M 120 130 L 320 325',
-    revealWidth: 130,
+    d: 'M 126 535 L 126 190 L 264 382 L 384 240 L 384 700',
+    revealWidth: 34,
     delay: 0.46,
     duration: 0.96,
   },
   {
-    d: 'M 370 235 L 535 235 C 650 235 650 420 520 420 L 435 420 L 720 640 M 395 385 L 535 530',
-    revealWidth: 130,
+    d: 'M 120 130 L 320 325',
+    revealWidth: 26,
+    delay: 0.38,
+    duration: 0.72,
+  },
+  {
+    d: 'M 370 235 L 535 235 C 650 235 650 420 520 420 L 435 420 L 720 640',
+    revealWidth: 34,
     delay: 0.92,
     duration: 0.92,
   },
   {
+    d: 'M 395 385 L 535 530',
+    revealWidth: 26,
+    delay: 1.1,
+    duration: 0.58,
+  },
+  {
     d: 'M 432 650 L 432 515 L 400 555 M 531 650 L 531 515 L 455 605 L 570 605',
-    revealWidth: 90,
+    revealWidth: 20,
     delay: 1.42,
     duration: 0.62,
   },
@@ -95,7 +110,6 @@ export function LogoMark({
   const instanceId = useId().replace(/:/g, '')
   const shineId = `mr14-shine-${instanceId}`
   const shineMaskId = `mr14-shine-mask-${instanceId}`
-  const drawMaskId = `mr14-draw-mask-${instanceId}`
 
   return (
     <motion.svg
@@ -130,70 +144,77 @@ export function LogoMark({
         >
           <LogoImage />
         </mask>
-        {shouldDraw ? (
-          <mask id={drawMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="768" height="768">
-            <rect width="768" height="768" fill="black" />
-            <g fill="none" stroke="white" strokeLinecap="butt" strokeLinejoin="round">
-              {LOGO_STROKES.map((path) => (
-                <motion.path
-                  key={path.d}
-                  d={path.d}
-                  strokeWidth={path.revealWidth}
-                  pathLength={1}
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: loopIntro ? [0, 0, 1, 1, 0, 0] : [0, 0, 1] }}
-                  transition={
-                    loopIntro
-                      ? {
-                          duration: LOOP_DURATION,
-                          times: [
-                            0,
-                            path.delay / LOOP_DURATION,
-                            (path.delay + path.duration) / LOOP_DURATION,
-                            0.994,
-                            0.995,
-                            1,
-                          ],
-                          repeat: Infinity,
-                          ease: DRAW_EASE,
-                        }
-                      : {
-                          duration: SHINE_END,
-                          times: [
-                            0,
-                            path.delay / SHINE_END,
-                            (path.delay + path.duration) / SHINE_END,
-                          ],
-                          ease: DRAW_EASE,
-                        }
-                  }
-                />
-              ))}
-            </g>
-          </mask>
-        ) : null}
       </defs>
 
       {shouldDraw ? (
         <motion.g
+          aria-hidden="true"
           initial={{ opacity: 1 }}
-          animate={loopIntro ? { opacity: [1, 1, 0, 0] } : { opacity: 1 }}
+          animate={loopIntro ? { opacity: [1, 1, 0, 0, 1, 1] } : { opacity: 0 }}
           transition={
             loopIntro
               ? {
                   duration: LOOP_DURATION,
-                  times: [0, FADE_OUT_AT, HIDDEN_AT, 1],
+                  times: [0, DRAW_END / LOOP_DURATION, (DRAW_END + 0.18) / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
                   repeat: Infinity,
                   ease: DRAW_EASE,
                 }
-              : undefined
+              : { delay: DRAW_END, duration: 0.18, ease: DRAW_EASE }
           }
         >
-          <LogoImage mask={`url(#${drawMaskId})`} />
+          {LOGO_STROKES.map((path) => (
+            <motion.path
+              key={path.d}
+              d={path.d}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={path.revealWidth}
+              strokeLinecap="butt"
+              strokeLinejoin="round"
+              pathLength={1}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: loopIntro ? [0, 0, 1, 1, 0] : 1 }}
+              transition={
+                loopIntro
+                  ? {
+                      duration: LOOP_DURATION,
+                      times: [
+                        0,
+                        path.delay / LOOP_DURATION,
+                        (path.delay + path.duration) / LOOP_DURATION,
+                        FADE_OUT_AT,
+                        1,
+                      ],
+                      repeat: Infinity,
+                      ease: DRAW_EASE,
+                    }
+                  : { delay: path.delay, duration: path.duration, ease: DRAW_EASE }
+              }
+            />
+          ))}
         </motion.g>
       ) : (
         <LogoImage />
       )}
+
+      {shouldDraw ? (
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={loopIntro ? { opacity: [0, 0, 1, 1, 0, 0] } : { opacity: 1 }}
+          transition={
+            loopIntro
+              ? {
+                  duration: LOOP_DURATION,
+                  times: [0, DRAW_END / LOOP_DURATION, (DRAW_END + 0.18) / LOOP_DURATION, FADE_OUT_AT, HIDDEN_AT, 1],
+                  repeat: Infinity,
+                  ease: DRAW_EASE,
+                }
+              : { delay: DRAW_END, duration: 0.2, ease: DRAW_EASE }
+          }
+        >
+          <LogoImage />
+        </motion.g>
+      ) : null}
 
       {shouldDraw ? (
         <motion.rect
@@ -219,13 +240,13 @@ export function LogoMark({
             loopIntro
               ? {
                   duration: LOOP_DURATION,
-                  times: [0, 2.08 / LOOP_DURATION, 2.4 / LOOP_DURATION, 2.72 / LOOP_DURATION, 1],
+                  times: [0, SHINE_START / LOOP_DURATION, 2.42 / LOOP_DURATION, SHINE_END / LOOP_DURATION, 1],
                   repeat: Infinity,
                   ease: DRAW_EASE,
                 }
               : {
                   duration: SHINE_END,
-                  times: [0, 2.08 / SHINE_END, 2.4 / SHINE_END, 1],
+                  times: [0, SHINE_START / SHINE_END, 2.42 / SHINE_END, 1],
                   ease: DRAW_EASE,
                 }
           }
