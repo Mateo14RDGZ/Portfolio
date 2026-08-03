@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, type Variants } from 'motion/react'
+import { motion, type Variants, useReducedMotion } from 'motion/react'
 import type { ElementType, ReactNode } from 'react'
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion'
+import { compactFadeUp, fadeUp, stagger, useCompactMotion, viewportOnce } from '@/lib/motion'
 
 type RevealProps = {
   children: ReactNode
@@ -22,12 +22,15 @@ export function Reveal({
   as = 'div',
 }: RevealProps) {
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div
+  const reduceMotion = useReducedMotion()
+  const compactMotion = useCompactMotion()
+  const resolvedVariants = compactMotion && variants === fadeUp ? compactFadeUp : variants
 
   return (
     <MotionTag
       className={className}
-      variants={variants}
-      initial="hidden"
+      variants={resolvedVariants}
+      initial={reduceMotion ? false : 'hidden'}
       whileInView="visible"
       viewport={viewportOnce}
       transition={{ delay }}
@@ -54,11 +57,13 @@ export function StaggerGroup({
   gap = 0.09,
   delay = 0,
 }: StaggerGroupProps) {
+  const reduceMotion = useReducedMotion()
+  const compactMotion = useCompactMotion()
   return (
     <motion.div
       className={className}
-      variants={stagger(gap, delay)}
-      initial="hidden"
+      variants={stagger(compactMotion ? Math.min(gap, 0.06) : gap, delay)}
+      initial={reduceMotion ? false : 'hidden'}
       whileInView="visible"
       viewport={viewportOnce}
     >

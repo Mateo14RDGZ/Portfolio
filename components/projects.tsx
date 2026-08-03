@@ -11,7 +11,7 @@ import {
   Smartphone,
 } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
-import { EASE } from '@/lib/motion'
+import { EASE, motionTokens, useCompactMotion } from '@/lib/motion'
 import { track } from '@vercel/analytics'
 
 const SKILLS = [
@@ -67,15 +67,16 @@ const SKILLS = [
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } },
+  visible: { transition: { staggerChildren: motionTokens.stagger.normal, delayChildren: 0.06 } },
 }
 
 const card = {
-  hidden: { opacity: 0, y: 36 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.72, ease: EASE } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: motionTokens.duration.normal, ease: EASE } },
 }
 
 export function Projects() {
+  const compactMotion = useCompactMotion()
   return (
     <section id="work" className="scroll-mt-24 overflow-hidden bg-foreground py-16 text-background sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
@@ -90,7 +91,7 @@ export function Projects() {
           variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-70px' }}
+          viewport={{ once: true, margin: '-40px', amount: 0.12 }}
           className="mt-9 grid gap-3 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3"
         >
           {SKILLS.map((skill) => (
@@ -104,7 +105,7 @@ export function Projects() {
                 aria-hidden
                 className={`absolute -top-24 -right-24 size-64 rounded-full ${skill.accent} opacity-0 blur-3xl`}
                 variants={{ hover: { opacity: 0.2, scale: 1.15 } }}
-                transition={{ duration: 0.55, ease: EASE }}
+                transition={{ duration: compactMotion ? 0.35 : 0.5, ease: EASE }}
               />
 
               <motion.div
@@ -113,13 +114,13 @@ export function Projects() {
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: EASE }}
+                transition={{ duration: compactMotion ? 0.45 : 0.65, ease: EASE }}
               />
 
               <motion.div
                 className="relative flex w-full flex-col justify-between"
                 variants={{ hover: { y: -6 } }}
-                transition={{ duration: 0.45, ease: EASE }}
+                transition={{ duration: 0.38, ease: EASE }}
               >
                 <div className="flex items-start justify-between">
                   <motion.span

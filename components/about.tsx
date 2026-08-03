@@ -1,10 +1,10 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { Code2, Gauge, MessagesSquare } from 'lucide-react'
 import { Reveal, RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
-import { fadeUp, scaleIn, slideLeft } from '@/lib/motion'
+import { fadeUp, scaleIn, slideLeft, useCompactMotion } from '@/lib/motion'
 
 const PILLARS = [
   {
@@ -25,6 +25,10 @@ const PILLARS = [
 ]
 
 export function About() {
+  const reduceMotion = useReducedMotion()
+  const compactMotion = useCompactMotion()
+  const floatCard = !reduceMotion && !compactMotion
+
   return (
     <section id="about" className="relative mx-auto my-6 max-w-6xl scroll-mt-24 rounded-[2.5rem_0.5rem_2.5rem_0.5rem] bg-card px-5 py-16 sm:my-10 sm:px-10 sm:py-20">
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
@@ -59,8 +63,8 @@ export function About() {
         {/* Floating portrait / signature card */}
         <Reveal variants={scaleIn} className="lg:pl-12 lg:pt-0">
           <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+            animate={floatCard ? { y: [0, -8, 0] } : { y: 0 }}
+            transition={floatCard ? { duration: 10, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.01 }}
             className="relative overflow-hidden rounded-[4rem_1rem_4rem_1rem] border border-foreground bg-primary p-6 text-primary-foreground min-[380px]:p-7 sm:p-10 [&_.text-muted-foreground]:text-primary-foreground/70"
           >
             <div className="relative flex flex-col gap-6 sm:gap-8">

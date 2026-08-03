@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'motion/react'
 import { SectionHeading } from '@/components/section-heading'
-import { viewportOnce, EASE } from '@/lib/motion'
+import { viewportOnce, EASE, useCompactMotion } from '@/lib/motion'
 
 const STEPS = [
   {
@@ -33,6 +33,7 @@ const STEPS = [
 ]
 
 export function Process() {
+  const compactMotion = useCompactMotion()
   const containerRef = useRef<HTMLOListElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -55,15 +56,15 @@ export function Process() {
 
       <ol ref={containerRef} className="relative mt-9 flex flex-col gap-0 border-t border-foreground sm:mt-12 sm:pl-0">
         {/* Rail */}
-        <motion.div aria-hidden style={{ scaleX: scaleY }} className="absolute top-0 left-0 h-1 w-full origin-left bg-primary" />
+        <motion.div aria-hidden style={{ scaleX: compactMotion ? 1 : scaleY }} className="absolute top-0 left-0 h-1 w-full origin-left bg-primary" />
 
         {STEPS.map((step, i) => (
           <motion.li
             key={step.title}
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 0, x: compactMotion ? 12 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={viewportOnce}
-            transition={{ duration: 0.65, ease: EASE, delay: i * 0.04 }}
+            transition={{ duration: compactMotion ? 0.4 : 0.52, ease: EASE, delay: compactMotion ? 0 : i * 0.04 }}
             className="group relative grid border-b border-foreground py-7 sm:grid-cols-[10rem_1fr] sm:py-9"
           >
             {/* Node */}

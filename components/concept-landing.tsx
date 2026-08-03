@@ -39,14 +39,14 @@ function useLineaAssembly(root: React.RefObject<HTMLElement | null>, reducedMoti
 
       // The architectural scroll sequence belongs to desktop only. On touch
       // devices the reading flow remains immediate and natural.
-      mediaQueries.add('(min-width: 768px)', () => {
+      mediaQueries.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
         media.forEach((element, index) => {
           const direction = index % 2 === 0 ? 1 : -1
           gsap.fromTo(element, { scale: 1.08, yPercent: -5 * direction }, {
             scale: 1,
             yPercent: 5 * direction,
             ease: 'none',
-            scrollTrigger: { trigger: element.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.55 },
+            scrollTrigger: { trigger: element.parentElement, start: 'top 92%', end: 'bottom 8%', scrub: 0.3 },
           })
         })
 
@@ -54,7 +54,7 @@ function useLineaAssembly(root: React.RefObject<HTMLElement | null>, reducedMoti
           gsap.fromTo(panel, { clipPath: 'inset(7% 4% 7% 4%)' }, {
             clipPath: 'inset(0% 0% 0% 0%)',
             ease: 'none',
-            scrollTrigger: { trigger: panel, start: 'top 86%', end: 'center 54%', scrub: 0.45 },
+            scrollTrigger: { trigger: panel, start: 'top 88%', end: 'center 58%', scrub: 0.3 },
           })
         })
 
@@ -70,19 +70,15 @@ function useLineaAssembly(root: React.RefObject<HTMLElement | null>, reducedMoti
         })
       })
 
-      mediaQueries.add('(max-width: 767px)', () => {
-        reveals.forEach((element) => {
-          gsap.fromTo(element, { autoAlpha: 0, y: 14 }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.38,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: element, start: 'top 90%', once: true },
-          })
-        })
-      })
+      // On touch screens the content is deliberately rendered in its final
+      // position. This avoids late reveals competing with native scrolling.
 
-      return () => mediaQueries.revert()
+      const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh())
+
+      return () => {
+        window.cancelAnimationFrame(refreshFrame)
+        mediaQueries.revert()
+      }
     }, root)
 
     return () => context.revert()

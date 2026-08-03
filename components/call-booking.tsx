@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { CalendarCheck2, Clock3, Globe2, Mail, Phone } from 'lucide-react'
-import { EASE } from '@/lib/motion'
+import { EASE, useCompactMotion } from '@/lib/motion'
 import { track } from '@vercel/analytics'
 
 const CAL_NAMESPACE = 'mr14-project-call'
@@ -87,6 +87,8 @@ function MissingCalendarLink() {
 export function CallBooking() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [shouldLoad, setShouldLoad] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const compactMotion = useCompactMotion()
 
   useEffect(() => {
     const element = sectionRef.current
@@ -144,10 +146,10 @@ export function CallBooking() {
     <motion.div
       ref={sectionRef}
       id="call-booking"
-      initial={{ opacity: 0, y: 28 }}
+      initial={reduceMotion ? false : { opacity: 0, y: compactMotion ? 14 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.08 }}
-      transition={{ duration: 0.75, ease: EASE }}
+      transition={{ duration: compactMotion ? 0.42 : 0.56, ease: EASE }}
       className="-mx-2 mt-14 min-w-0 scroll-mt-24 overflow-hidden rounded-[2.25rem_0.5rem_2.25rem_0.5rem] bg-accent p-2 text-foreground shadow-[0_30px_90px_rgba(0,0,0,0.22)] min-[430px]:mx-0 sm:mt-20 sm:scroll-mt-28 sm:rounded-[3rem_0.75rem_3rem_0.75rem] sm:p-7 lg:p-9"
     >
       <div className="grid gap-6 px-3 pt-5 pb-6 min-[380px]:px-4 sm:gap-7 sm:px-3 sm:pt-3 sm:pb-7 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
