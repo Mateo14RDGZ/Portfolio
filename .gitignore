@@ -14,3 +14,7 @@ node_modules
 .next/
 *.tsbuildinfo
 .DS_Store
+
+# Duplicate multi-agent skill copies (Claude Code reads .claude/skills)
+.agents/
+agent/
