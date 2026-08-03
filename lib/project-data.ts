@@ -50,7 +50,7 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
     description:
       'Una experiencia digital para un concesionario premium que necesita mostrar unidades, explicar tecnología y acompañar cada decisión de compra.',
     objective: 'Unidades, financiación y pruebas de manejo',
-    image: '/concepts/aster-hero.webp',
+    image: '/concepts/aster-vehicle-norte-s1.webp',
     imageAlt: 'SUV eléctrico conceptual en un showroom premium',
     theme: { page: '#080a14', ink: '#eff3ff', accent: '#8cf1ff', soft: '#111936' },
     nav: ['Unidades', 'Tecnología', 'Comprar'],

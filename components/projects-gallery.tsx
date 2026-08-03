@@ -64,24 +64,24 @@ export function ProjectsGallery() {
             </div>
           </Reveal>
 
-          <StaggerGroup className="mt-8 grid gap-4 lg:grid-cols-3" gap={0.08}>
+          <StaggerGroup className="mt-8 grid items-stretch gap-4 lg:grid-cols-3" gap={0.08}>
             {CONCEPT_PROJECTS.map((project, index) => (
-              <RevealItem key={project.slug}>
+              <RevealItem key={project.slug} className="h-full">
                 <motion.article
                   whileHover={reduceMotion ? undefined : { y: -5 }}
                   transition={{ duration: 0.4, ease: EASE }}
                   className={cn(
-                    'group flex h-full flex-col overflow-hidden border',
+                    'group flex h-full min-h-[34rem] flex-col overflow-hidden border sm:min-h-[36rem]',
                     project.slug === 'ombu-cafe' && 'rounded-[2.7rem_0.45rem_2.7rem_0.45rem] border-[#f1e3ca]/35 bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]',
                     project.slug === 'aster-automoviles' && 'rounded-none border-[#e7e3dc]/45 bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]',
                     project.slug === 'cimbra-estudio' && 'rounded-[2.7rem] border-[#cbdcd7] bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif]',
                   )}
                 >
-                  <Link href={`/proyectos/${project.slug}`} className={cn('relative overflow-hidden', project.slug === 'ombu-cafe' && 'aspect-[1.12]', project.slug === 'aster-automoviles' && 'aspect-square', project.slug === 'cimbra-estudio' && 'mx-4 mt-4 aspect-[1.18] rounded-[2rem] sm:mx-5 sm:mt-5')} aria-label={`Ver landing conceptual ${project.name}`}>
-                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className={cn('object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]', project.slug === 'aster-automoviles' && 'grayscale group-hover:grayscale-0')} />
+                  <Link href={`/proyectos/${project.slug}`} className={cn('relative mx-4 mt-4 aspect-[1.18] overflow-hidden sm:mx-5 sm:mt-5', project.slug === 'ombu-cafe' && 'rounded-[2rem_0.3rem_2rem_0.3rem]', project.slug === 'aster-automoviles' && 'rounded-none', project.slug === 'cimbra-estudio' && 'rounded-[2rem]')} aria-label={`Ver landing conceptual ${project.name}`}>
+                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]" />
                     <span className={cn('absolute top-4 left-4 px-3 py-2 text-[8px] tracking-[0.14em] uppercase', project.slug === 'ombu-cafe' && 'rounded-full border border-white/30 bg-[#302218]/75 text-[#fff7e8] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'aster-automoviles' && 'bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'cimbra-estudio' && 'rounded-full bg-[#edf2ec]/90 text-[#17332f] [font-family:var(--font-mazius-display),Georgia,serif]')}>Proyecto conceptual</span>
                   </Link>
-                  <div className={cn('flex flex-1 flex-col', project.slug === 'ombu-cafe' && 'p-6 sm:p-7', project.slug === 'aster-automoviles' && 'p-5 sm:p-6', project.slug === 'cimbra-estudio' && 'p-6 sm:p-7')}>
+                  <div className="flex flex-1 flex-col p-6 sm:p-7">
                     <p className={cn('text-[9px] tracking-[0.15em] uppercase', project.slug === 'ombu-cafe' && 'text-[#8a5a3b] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'aster-automoviles' && 'text-[#9a5d3b] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'cimbra-estudio' && 'text-[#5b8580] [font-family:var(--font-mazius-display),Georgia,serif]')}>0{index + 2} / {project.category.split(' · ')[0]}</p>
                     <h3 className={cn('mt-4 text-3xl tracking-[-0.05em]', project.slug === 'ombu-cafe' && 'font-semibold italic', project.slug === 'aster-automoviles' && 'font-semibold uppercase', project.slug === 'cimbra-estudio' && 'font-bold')}>{project.name}</h3>
                     <p className={cn('mt-3 flex-1 text-sm leading-relaxed', project.slug === 'ombu-cafe' && 'text-[#302218]/70', project.slug === 'aster-automoviles' && 'text-[#242522]/62', project.slug === 'cimbra-estudio' && 'text-[#17332f]/64')}>{project.description}</p>
