@@ -4,15 +4,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { track } from '@vercel/analytics'
 import { ArrowUpRight, BadgeCheck, Layers3 } from 'lucide-react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion, type Variants, useReducedMotion } from 'motion/react'
 import { CONCEPT_PROJECTS } from '@/lib/project-data'
-import { EASE } from '@/lib/motion'
+import { EASE, useCompactMotion } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import { Reveal, RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 
+const stationaryCard: Variants = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
+}
+
 export function ProjectsGallery() {
   const reduceMotion = useReducedMotion()
+  const compactMotion = useCompactMotion()
 
   return (
     <section className="bg-foreground py-12 text-background sm:py-24" aria-labelledby="projects-title">
@@ -64,11 +70,11 @@ export function ProjectsGallery() {
             </div>
           </Reveal>
 
-          <StaggerGroup className="mt-8 grid items-stretch gap-4 lg:grid-cols-3" gap={0.08}>
+          <StaggerGroup className="mt-8 grid items-stretch gap-4 lg:grid-cols-3" gap={compactMotion ? 0 : 0.08}>
             {CONCEPT_PROJECTS.map((project, index) => (
-              <RevealItem key={project.slug} className="h-full">
+              <RevealItem key={project.slug} className="h-full" variants={compactMotion ? stationaryCard : undefined}>
                 <motion.article
-                  whileHover={reduceMotion ? undefined : { y: -5 }}
+                  whileHover={reduceMotion || compactMotion ? undefined : { y: -5 }}
                   transition={{ duration: 0.4, ease: EASE }}
                   className={cn(
                     'group flex h-full min-w-0 flex-col overflow-hidden border lg:min-h-[36rem]',
@@ -78,7 +84,7 @@ export function ProjectsGallery() {
                   )}
                 >
                   <Link href={`/proyectos/${project.slug}`} className={cn('relative mx-4 mt-4 aspect-[1.25] overflow-hidden sm:mx-5 sm:mt-5 sm:aspect-[1.18]', project.slug === 'ombu-cafe' && 'rounded-[2rem_0.3rem_2rem_0.3rem]', project.slug === 'aster-automoviles' && 'rounded-none', project.slug === 'cimbra-estudio' && 'rounded-[2rem]')} aria-label={`Ver landing conceptual ${project.name}`}>
-                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]" />
+                    <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out md:group-hover:scale-[1.025] motion-reduce:transition-none" />
                     <span className={cn('absolute top-4 left-4 px-3 py-2 text-[8px] tracking-[0.14em] uppercase', project.slug === 'ombu-cafe' && 'rounded-full border border-white/30 bg-[#302218]/75 text-[#fff7e8] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'aster-automoviles' && 'bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'cimbra-estudio' && 'rounded-full bg-[#edf2ec]/90 text-[#17332f] [font-family:var(--font-mazius-display),Georgia,serif]')}>Proyecto conceptual</span>
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-7">
