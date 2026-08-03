@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ArrowUpRight, Building2, Check, Globe, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -101,18 +101,26 @@ function PlanBack({ plan }: { plan: Plan }) {
 }
 
 export function Services() {
-  const [flippedPlan, setFlippedPlan] = useState<Plan['name'] | null>(null)
-  const pointerStart = useRef<Record<string, { x: number; y: number; angle: number }>>({})
+  const pointerStart = useRef<Record<string, { x: number; y: number; rotationX: number; rotationY: number; currentX: number; currentY: number }>>({})
   const cardRefs = useRef<Partial<Record<Plan['name'], HTMLDivElement>>>({})
-  const settledAngle = useRef<Partial<Record<Plan['name'], number>>>({})
+  const settledRotation = useRef<Partial<Record<Plan['name'], { x: number; y: number }>>>({})
 
-  function setCardAngle(plan: Plan['name'], angle: number) {
-    cardRefs.current[plan]?.style.setProperty('--plan-flip-angle', `${angle}deg`)
+  function setCardRotation(plan: Plan['name'], rotationX: number, rotationY: number) {
+    const card = cardRefs.current[plan]
+    card?.style.setProperty('--plan-tilt-x', `${rotationX}deg`)
+    card?.style.setProperty('--plan-flip-angle', `${rotationY}deg`)
   }
 
   function beginPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
-    const angle = settledAngle.current[plan] ?? 0
-    pointerStart.current[plan] = { x: event.clientX, y: event.clientY, angle }
+    const rotation = settledRotation.current[plan] ?? { x: 0, y: 0 }
+    pointerStart.current[plan] = {
+      x: event.clientX,
+      y: event.clientY,
+      rotationX: rotation.x,
+      rotationY: rotation.y,
+      currentX: rotation.x,
+      currentY: rotation.y,
+    }
     event.currentTarget.classList.add('plan-flip-card--dragging')
   }
 
@@ -122,10 +130,13 @@ export function Services() {
 
     const horizontalDistance = event.clientX - start.x
     const verticalDistance = event.clientY - start.y
-    if (Math.abs(verticalDistance) > Math.abs(horizontalDistance) && Math.abs(verticalDistance) > 10) return
-
-    const angle = Math.max(-180, Math.min(180, start.angle + (horizontalDistance / 150) * 180))
-    setCardAngle(plan, angle)
+    // A full-width gesture is approximately one full turn. Both axes remain
+    // continuous, so a second gesture keeps spinning from the previous angle.
+    const rotationY = start.rotationY + horizontalDistance * 0.9
+    const rotationX = start.rotationX - verticalDistance * 0.9
+    start.currentX = rotationX
+    start.currentY = rotationY
+    setCardRotation(plan, rotationX, rotationY)
   }
 
   function finishPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
@@ -136,22 +147,10 @@ export function Services() {
 
     const horizontalDistance = event.clientX - start.x
     const verticalDistance = event.clientY - start.y
-    if (Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) {
-      setCardAngle(plan, start.angle)
-      return
-    }
-
-    const releaseAngle = Math.max(-180, Math.min(180, start.angle + (horizontalDistance / 150) * 180))
-    const finalAngle = Math.abs(releaseAngle) >= 90 ? (releaseAngle < 0 ? -180 : 180) : 0
-
-    if (finalAngle !== 0 && flippedPlan && flippedPlan !== plan) {
-      settledAngle.current[flippedPlan] = 0
-      setCardAngle(flippedPlan, 0)
-    }
-
-    settledAngle.current[plan] = finalAngle
-    setCardAngle(plan, finalAngle)
-    setFlippedPlan(finalAngle === 0 ? null : plan)
+    const finalRotationY = start.rotationY + horizontalDistance * 0.9
+    const finalRotationX = start.rotationX - verticalDistance * 0.9
+    settledRotation.current[plan] = { x: finalRotationX, y: finalRotationY }
+    setCardRotation(plan, finalRotationX, finalRotationY)
   }
 
   return (
@@ -171,7 +170,7 @@ export function Services() {
               <RevealItem key={plan.name} className="h-full">
                 <div className="flex h-full flex-col">
                   <div
-                    className={cn('plan-flip-card h-full', flippedPlan === plan.name && 'plan-flip-card--flipped')}
+                    className="plan-flip-card h-full"
                     ref={(node) => { cardRefs.current[plan.name] = node ?? undefined }}
                     onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
                     onPointerMove={(event) => movePlanSwipe(event, plan.name)}
@@ -180,7 +179,10 @@ export function Services() {
                       const start = pointerStart.current[plan.name]
                       delete pointerStart.current[plan.name]
                       event.currentTarget.classList.remove('plan-flip-card--dragging')
-                      if (start) setCardAngle(plan.name, start.angle)
+                      if (start) {
+                        settledRotation.current[plan.name] = { x: start.currentX, y: start.currentY }
+                        setCardRotation(plan.name, start.currentX, start.currentY)
+                      }
                     }}
                   >
                     <article className="plan-flip-inner relative h-full">
@@ -211,7 +213,7 @@ export function Services() {
                     </article>
                   </div>
                   <p className="mt-3 text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] text-foreground/65 uppercase lg:hidden">
-                    {flippedPlan === plan.name ? 'Deslizá para volver' : 'Deslizá para más información'}
+                    Deslizá en cualquier dirección para girar
                   </p>
                 </div>
               </RevealItem>

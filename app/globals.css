@@ -132,7 +132,7 @@
 
 @media (hover: none), (pointer: coarse) {
   .plan-flip-card {
-    touch-action: pan-y;
+    touch-action: none;
   }
 
   .plan-flip-card--dragging .plan-flip-inner {
@@ -181,7 +181,7 @@
 }
 
 .plan-flip-inner {
-  transform: translate3d(0, 0, 0) rotateY(var(--plan-flip-angle, 0deg));
+  transform: translate3d(0, 0, 0) rotateX(var(--plan-tilt-x, 0deg)) rotateY(var(--plan-flip-angle, 0deg));
   transform-style: preserve-3d;
   transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
