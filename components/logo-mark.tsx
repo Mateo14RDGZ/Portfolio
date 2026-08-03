@@ -33,53 +33,52 @@ const FADE_OUT_AT = (SHINE_END + STATIC_HOLD_DURATION) / LOOP_DURATION
 const HIDDEN_AT = (SHINE_END + STATIC_HOLD_DURATION + FADE_DURATION) / LOOP_DURATION
 
 /**
- * These are construction strokes, not a mask over the artwork. Revealing a
- * compound filled SVG through a wide mask leaves isolated fragments visible
- * mid-animation. Drawing the strokes directly keeps every frame clean; the
- * approved vector master crossfades in only once the construction is complete.
+ * Centre lines are deliberately grouped by the logo's actual visual strokes.
+ * They provide a clean construction sequence; the approved SVG takes over at
+ * the end so every settled frame remains pixel-perfect.
  */
 const LOGO_STROKES: readonly LogoStroke[] = [
   {
-    d: 'M 170 130 C 304 25 500 32 625 145 C 730 245 745 420 645 555',
+    d: 'M 188 126 C 307 42 493 43 616 151 C 716 240 733 417 658 535',
     revealWidth: 29,
     delay: 0,
     duration: 1.2,
   },
   {
-    d: 'M 95 240 C 35 420 91 600 225 672 C 365 745 525 710 635 600',
+    d: 'M 83 267 C 35 420 95 599 221 670 C 365 746 526 710 615 607',
     revealWidth: 29,
-    delay: 0.18,
-    duration: 1.08,
+    delay: 0.2,
+    duration: 1.1,
   },
   {
-    d: 'M 126 535 L 126 190 L 264 382 L 384 240 L 384 700',
+    d: 'M 126 522 L 126 210 L 264 382 L 384 267 L 384 671',
     revealWidth: 34,
     delay: 0.46,
-    duration: 0.96,
+    duration: 0.98,
   },
   {
-    d: 'M 120 130 L 320 325',
+    d: 'M 151 150 L 290 290',
     revealWidth: 26,
-    delay: 0.38,
-    duration: 0.72,
+    delay: 0.42,
+    duration: 0.7,
   },
   {
-    d: 'M 370 235 L 535 235 C 650 235 650 420 520 420 L 435 420 L 720 640',
+    d: 'M 390 252 L 525 252 C 638 252 638 394 520 394 L 437 394 L 694 603',
     revealWidth: 34,
-    delay: 0.92,
+    delay: 0.94,
     duration: 0.92,
   },
   {
-    d: 'M 395 385 L 535 530',
+    d: 'M 413 404 L 501 494',
     revealWidth: 26,
-    delay: 1.1,
-    duration: 0.58,
+    delay: 1.72,
+    duration: 0.28,
   },
   {
-    d: 'M 432 650 L 432 515 L 400 555 M 531 650 L 531 515 L 455 605 L 570 605',
+    d: 'M 439 628 L 439 535 L 420 543 M 531 628 L 531 535 L 480 601 L 549 601',
     revealWidth: 20,
     delay: 1.42,
-    duration: 0.62,
+    duration: 0.6,
   },
 ] as const
 
