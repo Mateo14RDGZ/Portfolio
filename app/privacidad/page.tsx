@@ -36,7 +36,7 @@ const SECTIONS = [
   },
   {
     title: 'Analítica y cookies',
-    copy: 'Este sitio utiliza Vercel Web Analytics para conocer métricas agregadas de uso y mejorar la experiencia. No se emplean cookies publicitarias ni se venden datos personales.',
+    copy: 'Este sitio utiliza Google Analytics 4 y Vercel Web Analytics para entender de forma agregada cómo se navega el portfolio y mejorar la experiencia. Google Analytics puede usar cookies de medición; no se emplean cookies publicitarias ni se venden datos personales.',
   },
 ]
 
