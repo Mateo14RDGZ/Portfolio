@@ -367,7 +367,7 @@ export function PlanFinder({ onComplete, onReset, onViewForm }: PlanFinderProps)
                         aria-pressed={active}
                         onClick={() => isFeatureStep ? toggleFeature(option.value) : selectSingle(option.value)}
                         className={cn(
-                          'group min-h-24 rounded-[1.5rem_0.35rem_1.5rem_0.35rem] border p-4 text-left outline-none transition-all duration-300 focus-visible:ring-3 focus-visible:ring-ring',
+                          'group min-h-24 rounded-[1.5rem_0.35rem_1.5rem_0.35rem] border p-4 text-left outline-none transition-[color,background-color,border-color,box-shadow,transform] duration-300 focus-visible:ring-3 focus-visible:ring-ring',
                           active
                             ? 'border-primary bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,93,58,0.2)]'
                             : 'border-foreground/25 bg-card hover:-translate-y-1 hover:border-primary',

@@ -260,7 +260,7 @@ export function Contact() {
                             aria-pressed={active}
                             onClick={() => setPlan(active ? '' : option)}
                             className={cn(
-                              'min-h-12 border px-3 py-2 text-sm font-semibold transition-all duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
+                              'min-h-12 border px-3 py-2 text-sm font-semibold transition-[color,background-color,border-color,box-shadow,transform] duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
                               active
                                 ? 'border-primary bg-primary text-primary-foreground shadow-[0_6px_0_rgba(41,21,50,0.18)]'
                                 : 'border-foreground/25 bg-card/35 text-foreground/72 hover:border-primary hover:bg-secondary/45 hover:text-foreground',

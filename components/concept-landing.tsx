@@ -32,23 +32,57 @@ function useLineaAssembly(root: React.RefObject<HTMLElement | null>, reducedMoti
     if (!root.current || reducedMotion) return
 
     const context = gsap.context(() => {
-      const compact = window.matchMedia('(max-width: 767px)').matches
       const media = gsap.utils.toArray<HTMLElement>('[data-parallax-media]')
       const panels = gsap.utils.toArray<HTMLElement>('[data-parallax-panel]')
       const reveals = gsap.utils.toArray<HTMLElement>('[data-scroll-reveal]')
+      const mediaQueries = gsap.matchMedia()
 
-      media.forEach((element, index) => {
-        const direction = index % 2 === 0 ? 1 : -1
-        gsap.fromTo(element, { scale: compact ? 1.08 : 1.16, yPercent: compact ? -3 * direction : -8 * direction }, { scale: 1, yPercent: compact ? 3 * direction : 8 * direction, ease: 'none', scrollTrigger: { trigger: element.parentElement, start: 'top bottom', end: 'bottom top', scrub: compact ? 0.45 : 0.8 } })
+      // The architectural scroll sequence belongs to desktop only. On touch
+      // devices the reading flow remains immediate and natural.
+      mediaQueries.add('(min-width: 768px)', () => {
+        media.forEach((element, index) => {
+          const direction = index % 2 === 0 ? 1 : -1
+          gsap.fromTo(element, { scale: 1.08, yPercent: -5 * direction }, {
+            scale: 1,
+            yPercent: 5 * direction,
+            ease: 'none',
+            scrollTrigger: { trigger: element.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.55 },
+          })
+        })
+
+        panels.forEach((panel) => {
+          gsap.fromTo(panel, { clipPath: 'inset(7% 4% 7% 4%)' }, {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            ease: 'none',
+            scrollTrigger: { trigger: panel, start: 'top 86%', end: 'center 54%', scrub: 0.45 },
+          })
+        })
+
+        reveals.forEach((element) => {
+          gsap.fromTo(element, { autoAlpha: 0, y: 22, x: -10 }, {
+            autoAlpha: 1,
+            y: 0,
+            x: 0,
+            duration: 0.56,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: element, start: 'top 82%', once: true },
+          })
+        })
       })
 
-      panels.forEach((panel) => {
-        gsap.fromTo(panel, { clipPath: compact ? 'inset(9% 4% 9% 4%)' : 'inset(13% 8% 13% 8%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: panel, start: 'top 88%', end: 'center 48%', scrub: compact ? 0.45 : 0.7 } })
+      mediaQueries.add('(max-width: 767px)', () => {
+        reveals.forEach((element) => {
+          gsap.fromTo(element, { autoAlpha: 0, y: 14 }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.38,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: element, start: 'top 90%', once: true },
+          })
+        })
       })
 
-      reveals.forEach((element) => {
-        gsap.fromTo(element, { opacity: 0, y: compact ? 16 : 30, x: compact ? 0 : -14 }, { opacity: 1, y: 0, x: 0, duration: 0.75, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 84%', once: true } })
-      })
+      return () => mediaQueries.revert()
     }, root)
 
     return () => context.revert()

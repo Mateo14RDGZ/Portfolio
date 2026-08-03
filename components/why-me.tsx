@@ -70,7 +70,7 @@ export function WhyMe() {
           {BENEFITS.map((benefit) => (
             <RevealItem key={benefit.title} className="h-full">
               <div className="group bg-background hover:bg-card flex h-full flex-col gap-4 p-6 min-[380px]:p-7 sm:p-8 transition-colors duration-500">
-                <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground grid size-11 place-items-center rounded-2xl transition-all duration-500 group-hover:scale-110">
+                <span className="bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground grid size-11 place-items-center rounded-2xl transition-[color,background-color,transform] duration-300 group-hover:scale-105">
                   <benefit.icon className="size-5" />
                 </span>
                 <h3 className="text-lg font-medium tracking-tight">

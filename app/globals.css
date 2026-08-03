@@ -88,7 +88,8 @@
     @apply border-border outline-ring/50;
   }
   html {
-    scroll-behavior: smooth;
+    /* Native anchor jumps stay predictable alongside ScrollTrigger scenes. */
+    scroll-behavior: auto;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
