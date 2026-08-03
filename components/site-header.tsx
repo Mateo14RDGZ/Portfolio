@@ -5,7 +5,6 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { LogoMark } from '@/components/logo-mark'
-import { useLogoIntro } from '@/components/page-transition'
 import { EASE } from '@/lib/motion'
 
 const LINKS = [
@@ -18,7 +17,6 @@ const LINKS = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const reduceMotion = useReducedMotion()
-  const logoIntro = useLogoIntro()
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const mobileNavRef = useRef<HTMLElement>(null)
 
@@ -69,9 +67,8 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
       <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-stretch px-3 sm:h-24 sm:px-6">
         <Link href="/" className="flex min-w-0 flex-1 items-center gap-2.5 border-r border-foreground pr-3 sm:gap-4 sm:pr-8">
-          <span className={`size-12 shrink-0 transition-opacity duration-150 min-[380px]:size-14 sm:size-20 ${logoIntro === 'done' ? 'opacity-100' : 'opacity-0'}`}>
-            {/* The fixed header must never expose an in-progress draw mask. */}
-            <LogoMark className="size-full" />
+          <span className="size-12 shrink-0 min-[380px]:size-14 sm:size-20">
+            <LogoMark animateIntro loopIntro className="size-full" />
           </span>
           <span className="truncate text-[0.78rem] font-semibold uppercase tracking-[-0.02em] min-[380px]:text-sm sm:text-lg">Mateo Rodríguez</span>
         </Link>
