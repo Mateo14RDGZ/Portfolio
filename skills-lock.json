@@ -1,11 +1,257 @@
 {
   "version": 1,
   "skills": {
+    "agent-md-refactor": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/agent-md-refactor/SKILL.md",
+      "computedHash": "51c53259bba830ebad6741b2ab69d213d5a4d02835f7f27925a0e4e93515fc22"
+    },
+    "api-endpoint-creator": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/api-endpoint-creator/SKILL.md",
+      "computedHash": "33af6d17359ec67e502332ba6203c11e007937c90f7bf8bd29810e89cdaa6e44"
+    },
+    "article-writing": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/article-writing/SKILL.md",
+      "computedHash": "9de76045d56b41f649ca39880e167a5a2814d8075dfe08b0440ecd6d5d8f3585"
+    },
+    "backend-api-design": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/backend-api-design/SKILL.md",
+      "computedHash": "c4f760cc2400e1ca6b36fcf523c1fb733d7e4ccdceebd5b07033382d1665a8f2"
+    },
+    "backend-to-frontend-handoff-docs": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/backend-to-frontend-handoff-docs/SKILL.md",
+      "computedHash": "d8c8af8cf6219c60b8cfc6da908dbe70e8aa7c387cef13bb490118ac493b5efd"
+    },
+    "brainstorm": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/brainstorm/SKILL.md",
+      "computedHash": "77a0a04e3d71c076282e601865633fde44b89cb14209821cd03b376009bd50c2"
+    },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "225b53fce53d627d3a1e94bfea84060ccdbf11a58a2d5cf11eefef89d598020e"
+    },
+    "browser-qa": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/browser-qa/SKILL.md",
+      "computedHash": "5852ba8dacd7ee8743b1a3ef51c91ef37fb5dcb351b3a508e0317390ab9d459e"
+    },
+    "c4-architecture": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/c4-architecture/SKILL.md",
+      "computedHash": "f35f57420c35f2e8413e1e22934ca3950cae8286499f6fbe978cff604c35cfcd"
+    },
+    "caveman": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman/SKILL.md",
+      "computedHash": "59e1fe0d3eeb4189ee5c467efde567672e5cacb41f157c477a6152ca907d44ea"
+    },
+    "ci-cd-patterns": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ci-cd-patterns/SKILL.md",
+      "computedHash": "5bb0ecd7fc445be50a2d91fd66f0ab94a5bcfa84adfd86e24fe23d22c5b064a1"
+    },
+    "codex": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/codex/SKILL.md",
+      "computedHash": "4b7e8695807b567a7a7d467ab15b3da330aa0a847827067d79c654c540a72fe9"
+    },
+    "command-creator": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/command-creator/SKILL.md",
+      "computedHash": "b58ae6c69fa86fe48c4745db460fc190c7661ab0371d1e719d7272a36630880c"
+    },
+    "commit-work": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/commit-work/SKILL.md",
+      "computedHash": "88cec816d028de357ae7ede3ace36a2bc235a225e3e7d2bb18cdb5190ab6c482"
+    },
+    "competitive-teardown": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/competitive-teardown/SKILL.md",
+      "computedHash": "19ee686b51a29f23ab698eebf5604dad933545d751a82a0b843787f716cd2279"
+    },
+    "content-engine": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/content-engine/SKILL.md",
+      "computedHash": "a2ec2e279cd02e4313ed71a9aa89291a91a6b7abfa001f49df717f9b82a14eef"
+    },
+    "crafting-effective-readmes": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/crafting-effective-readmes/SKILL.md",
+      "computedHash": "c931a8c22160e8925400778fcb2266b5d1df762f3052edba65f72479f79f2d6c"
+    },
+    "daily-meeting-update": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/daily-meeting-update/SKILL.md",
+      "computedHash": "605476190149d3ef518d0e787788ceba47600dc9d63b96b120edba80edcf7998"
+    },
+    "database-patterns": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/database-patterns/SKILL.md",
+      "computedHash": "8a8ae11023e636fcac504e399150e9d1a057fd95fd3c2ec47416c1d832919c1c"
+    },
+    "database-schema-designer": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/database-schema-designer/SKILL.md",
+      "computedHash": "6a26ca15216bb4bfee66ebf813edcb1e31a8002f3f641f16f550df814b522217"
+    },
+    "database-table-creator": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/database-table-creator/SKILL.md",
+      "computedHash": "ab0c9e62ecdaac56b1ddaab61f5c8281f390d5d4733b937334edcf94f2796a80"
+    },
+    "datadog-cli": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/datadog-cli/SKILL.md",
+      "computedHash": "adb5cff0dd3344e09c7b7b3fe4dc2d1f3c3b4c56a03fce55626e9ac0cec626f1"
+    },
+    "deep-research": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/deep-research/SKILL.md",
+      "computedHash": "267141c7bd7149d3df85eda4d33017701473234749dde18480a4b35d7b8fa476"
+    },
+    "dependency-updater": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/dependency-updater/SKILL.md",
+      "computedHash": "dc7f34bfa7a1371852fa6f640e14364c52f11fa8303d301ceeb2920623e92157"
+    },
+    "design-intelligence": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-intelligence/SKILL.md",
+      "computedHash": "a0397716fbd571cc10ce32e47270ad43aa37ea1e9443eee7946acbe42fa7736a"
+    },
+    "design-system-starter": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/design-system-starter/SKILL.md",
+      "computedHash": "926f0a57017277d6c016f6067b40204c86826af0d9f7f9f7e7712857e4f4783b"
+    },
+    "design-workflow": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-workflow/SKILL.md",
+      "computedHash": "61deaa633456a9a1db4fc498a502f671793f542f18e664aada73826ecd50e0d4"
+    },
+    "difficult-workplace-conversations": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/difficult-workplace-conversations/SKILL.md",
+      "computedHash": "08b4833493e79d09c048d388d837bb7b4bde0fc545f656ff22539f3a4aa0c40a"
+    },
+    "dispatching-parallel-agents": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
+      "computedHash": "b011107f17188e0b2898bb1856b5bac8b49537cc86e737c82126558a235bd62a"
+    },
+    "domain-name-brainstormer": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/domain-name-brainstormer/SKILL.md",
+      "computedHash": "7da52fd4952154e23b74081bd863468689f08da566a5c73095f93fb48c1f9234"
+    },
+    "draw-io": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/draw-io/SKILL.md",
+      "computedHash": "ff19cab2266a29cbfd39defe0ced1999e9eaeddb1a23dc4fb418f9665646abd7"
+    },
+    "excalidraw": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/excalidraw/SKILL.md",
+      "computedHash": "5bbd88e287582f106beb1db21c64e48ba70e4a9bedf7690b80fa6c418f3add71"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "computedHash": "78a07800ee99a5861ae10be59d79fad085fdca10444e8aaeb2691597e357cff8"
+    },
+    "feedback-mastery": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/feedback-mastery/SKILL.md",
+      "computedHash": "d21080a65800d23edac34b85fcbff6db8a95f86c72695ee2c597fed101ec905b"
+    },
+    "finishing-a-development-branch": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/finishing-a-development-branch/SKILL.md",
+      "computedHash": "a2afe045ea677114a89854f296ae57f8d34eb84864daa7b08ea9434acded724d"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
+    "frontend-to-backend-requirements": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-to-backend-requirements/SKILL.md",
+      "computedHash": "77cacde5178740272b622df1aaafb388821a555c7b591ca194084091195a73c4"
+    },
+    "game-changing-features": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/game-changing-features/SKILL.md",
+      "computedHash": "aa6f4b25f60cbad65bd0826f09e0eded14e588da06172995277511e9a86ee2d7"
+    },
+    "gemini": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/gemini/SKILL.md",
+      "computedHash": "1ec196277a61cbb436fc4946f9d81383439390efd6f82f6370c0570d0dafb9fa"
+    },
+    "gepetto": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/gepetto/SKILL.md",
+      "computedHash": "ba7fd99fce9cb2ae4e1b8b670b977c035e62d6d5a0c3dda3e22ae3cb04c7ea05"
+    },
+    "humanizer": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/humanizer/SKILL.md",
+      "computedHash": "34a38e6acc60d4529612d41ffe740bca0060d3c5e89e2a0d24ae795f67157fbb"
+    },
+    "idea-validation": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/idea-validation/SKILL.md",
+      "computedHash": "9abb481d1ea95cb856abce898b0ec7ada9a2a8c260190de027f00bf6df472abe"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
@@ -13,17 +259,431 @@
       "skillPath": ".agents/skills/impeccable/SKILL.md",
       "computedHash": "f2fd14c726a3de5dda7a8e471a01c75986454c2c9fd42fa5bc6231b9d12ed899"
     },
+    "investor-materials": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/investor-materials/SKILL.md",
+      "computedHash": "c5630430edf6879751aaf992316351f34934215acac84af81f4aa28d85754a1a"
+    },
+    "investor-outreach": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/investor-outreach/SKILL.md",
+      "computedHash": "78e05fed04d28475b35a811472caab16928759300616c52d92e82151fd402bfb"
+    },
+    "jira": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/jira/SKILL.md",
+      "computedHash": "be408703bd1bdebbdd1631c36ab030b7fd19606ca2d8550fadb0079fe88befd9"
+    },
+    "js-security-audit": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/js-security-audit/SKILL.md",
+      "computedHash": "634d4435d58187655881ed6499772c1333427a8b096fa8418259023069fae8bd"
+    },
+    "kotlin-best-practices": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/kotlin-best-practices/SKILL.md",
+      "computedHash": "f8cb5ca760c91c24115bafbeef4d1b757d06510837c38d65e461c4ee31398e17"
+    },
+    "lesson-learned": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/lesson-learned/SKILL.md",
+      "computedHash": "2bdf72af18ccc97c8c5580f252769610d2c0d814c36433ea7dd3f25c822ff6b7"
+    },
+    "market-research": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/market-research/SKILL.md",
+      "computedHash": "b1e82bf99159f4a6aa729ac1e70c3e56944e75b3e514cc0d82850d7d7ac1cedd"
+    },
+    "marp-slide": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/marp-slide/SKILL.md",
+      "computedHash": "034f16b36b39726dd46b91686230ca2a5c753535fdb0d16b6a5bcb2a93a73df0"
+    },
+    "meme-factory": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/meme-factory/SKILL.md",
+      "computedHash": "2ad2c38e35d721515aea849b751e5222bb3996933055abd0085beb4fa486e2fa"
+    },
+    "mermaid-diagrams": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/mermaid-diagrams/SKILL.md",
+      "computedHash": "6d36e69adad781f106a2fb4b19ebc22bf0c211babdc0d1ae5822fa65abb48bd8"
+    },
+    "mui": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/mui/SKILL.md",
+      "computedHash": "42c7b1620ab65d1cb1d3bcbf931320757113f921bc6bf9f8883d0c402b9445a3"
+    },
+    "naming-analyzer": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/naming-analyzer/SKILL.md",
+      "computedHash": "bf61ae4fe1e1fa8710d0cddce471b0a271219f3a3bd8b6286f62def6b4f8b366"
+    },
+    "openapi-to-typescript": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/openapi-to-typescript/SKILL.md",
+      "computedHash": "525b39ee84d8fbc835d1dea710fb36b40fd4834441a4d18d75a8dafe985eeacd"
+    },
+    "ops-investigate-alert": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ops-investigate-alert/SKILL.md",
+      "computedHash": "dd9f3747e3242357be0bf460e6036065863f3df12711f4a57172a7c1283c1096"
+    },
+    "ops-oncall-log": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ops-oncall-log/SKILL.md",
+      "computedHash": "65078cbcc2fe5e064630fa808d7dcc6249aa38745b3d59a777f04be45459449f"
+    },
+    "perplexity": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/perplexity/SKILL.md",
+      "computedHash": "a8c31732045ef978362c29b27c13ba6ee11b93d522a0019f08dd8568a08d7de6"
+    },
+    "planetscale-autonomous-execution-mode": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "13-autonomous-execution-mode/SKILL.md",
+      "computedHash": "e6fc45f8b836cc6199d562fa73ce484b16bc7bbf52860e169d1bb58de09f9814"
+    },
+    "planetscale-best-practices-matrix": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "12-best-practices-matrix/SKILL.md",
+      "computedHash": "9c1b40b319458e6e91cd5ee46c4b1ead29a0aefe0832b9421a17b7e16dc434d6"
+    },
+    "planetscale-change-gates-and-approval-contract": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "11-change-gates-and-approval-contract/SKILL.md",
+      "computedHash": "bf51e32c50b9d870d815b9a1ca5ea1ef5d3d48f6e8a412323257136f82babb9f"
+    },
+    "planetscale-codebase-sqlcommenter-instrumentation": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "08-codebase-sqlcommenter-instrumentation/SKILL.md",
+      "computedHash": "753a6935b7f9c811cdd4abb250c035c9b7efa592c0855286015d8d599f16c89a"
+    },
+    "planetscale-customer-report-template": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "10-customer-report-template/SKILL.md",
+      "computedHash": "d157c66ae0ae319119389059b6135adf358cfebaa8d3a7c4ce10ddcf632c49ef"
+    },
+    "planetscale-mcp-agent-operating-model": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "09-mcp-agent-operating-model/SKILL.md",
+      "computedHash": "762a505bbd4517870459aad2aad30b9aca55664943f50cc614359327b0d27a56"
+    },
+    "planetscale-postgres-safety-review": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "03-postgres-safety-review/SKILL.md",
+      "computedHash": "c362081f6ff9d43a303b0673db9268ce58edaa0979661120fce9d0cc4b2e9d81"
+    },
+    "planetscale-pscale-cli-automation": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "14-pscale-cli-automation/SKILL.md",
+      "computedHash": "53583b0c63586e17b68d43c1bcc965b5a3fa767417755bab18d8abfeee6632df"
+    },
+    "planetscale-query-insights-and-tags": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "04-query-insights-and-tags/SKILL.md",
+      "computedHash": "946f7a9cccea108f3ce3089f79056d709d91688c4c2e4d9232c8222b15ecf445"
+    },
+    "planetscale-readonly-inventory": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "01-readonly-inventory/SKILL.md",
+      "computedHash": "441457c2c954439ebf7a892665f3796152c315bc645e5bc174ec98b351b5d54e"
+    },
+    "planetscale-safe-orchestrator": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "00-safe-orchestrator/SKILL.md",
+      "computedHash": "4ad283ceb65378f5251731c86e31adfa3482aea4fba4ffea7d1eb5353925498b"
+    },
+    "planetscale-schema-recommendations-agent-loop": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "07-schema-recommendations-agent-loop/SKILL.md",
+      "computedHash": "4cd4ea40b191829035a97ec16e360f24f12658ba636c67916703343621ed7eeb"
+    },
+    "planetscale-traffic-control-recommendations": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "05-traffic-control-recommendations/SKILL.md",
+      "computedHash": "fff12793d07b4631f2a4e8ade0886326e91b9b19cd7f27bbf49348d2b2801ad1"
+    },
+    "planetscale-vitess-safety-review": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "02-vitess-safety-review/SKILL.md",
+      "computedHash": "c6ba6a9c6256c11950bbf91abcdd7186ebc34a19caacb430aa598d2a767de3a2"
+    },
+    "planetscale-webhook-automation-recommendations": {
+      "source": "planetscale/skills",
+      "sourceType": "github",
+      "skillPath": "06-webhook-automation-recommendations/SKILL.md",
+      "computedHash": "cc3f236badc36d6ae29c97b5aa2b0f334bd736a3f434de652ffa5968446dcbeb"
+    },
+    "plugin-forge": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/plugin-forge/SKILL.md",
+      "computedHash": "39a07b89f1ca72fda7bf38aff702b20e4503be7ebe0ba6ac5b2d1eee77d4d3e0"
+    },
+    "ponytail": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "210fa0831f649ce9f8a305f7b7c8cf2a0dd09ac4dd53067109941b96e7811d4e"
+    },
+    "professional-communication": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/professional-communication/SKILL.md",
+      "computedHash": "4ecfeba923ab6dea1ac6e4a3d05a1a7f23b2af3dce690f4aad8167ae92b14397"
+    },
+    "python-api-endpoint-creator": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/python-api-endpoint-creator/SKILL.md",
+      "computedHash": "ebd436069f7909ef101f655cca65c97873c363880bcb0438f1162d5eaa739854"
+    },
+    "python-best-practices": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/python-best-practices/SKILL.md",
+      "computedHash": "cd97251ea3ad0913e0b98f7754bb0d2122566442a731b20aaa26402cb595d61a"
+    },
+    "python-testing-strategies": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/python-testing-strategies/SKILL.md",
+      "computedHash": "68d21a5369285b5527e0ad6bbd2238c7c192ce90ea5314cb7e046e4cb32b32e6"
+    },
+    "qa-test-planner": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/qa-test-planner/SKILL.md",
+      "computedHash": "c7a27e535b0a21a9ed22578ca0e37a00a00f43b775efe791a2d4be849ce8ffa9"
+    },
+    "react-dev": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/react-dev/SKILL.md",
+      "computedHash": "4ce3a30e2ad46fdb79f01e0e44701f961c055da7f25f9418af0283a7ad54b791"
+    },
+    "react-useeffect": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/react-useeffect/SKILL.md",
+      "computedHash": "8c24990b50f431a570f3ad1f60632dee154431861547103047f6ce80092ca734"
+    },
+    "receiving-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/receiving-code-review/SKILL.md",
+      "computedHash": "59361179fc9225173e0c145ffd9bafbf9fdbf8b43ce3dc308497a0b4f83a6063"
+    },
+    "reducing-entropy": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/reducing-entropy/SKILL.md",
+      "computedHash": "b13a84c41dc386c758a3eec600314ad2753989bd556bc2628519277ae3739fe5"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "computedHash": "2304d2073c62eab163e04de40fe775e3d87c69c0df40cd4dc953fdb8e3205b81"
+    },
+    "requirements-clarity": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/requirements-clarity/SKILL.md",
+      "computedHash": "27ab2b19ebb31ff719c2e19d1ae3c4122f37d964a447b180bfb838d7b2198a02"
+    },
+    "security-checklist": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/security-checklist/SKILL.md",
+      "computedHash": "b141c89eecc83e4ad6e1365dddf1745529da6debcd702a98b2427781c4666211"
+    },
+    "service-debugging": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/service-debugging/SKILL.md",
+      "computedHash": "581e08782890bd72a2382ffb6721207a0d9dbd92e6acda6d4e22a08699768a38"
+    },
+    "session-handoff": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/session-handoff/SKILL.md",
+      "computedHash": "8a73adac79d965a57dc5e898a498c479b749a8fad5ba03b08aa033ad9b710437"
+    },
+    "ship-learn-next": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/ship-learn-next/SKILL.md",
+      "computedHash": "f3c467866ff7db31add63d1cc90b8b86cea8aa64f22a2afbc0fdc1f72e777874"
+    },
+    "skill-judge": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/skill-judge/SKILL.md",
+      "computedHash": "ff132ba281d460d3cf7814601e304f24e795a606a8e20e78f1bd103258bc735c"
+    },
+    "startup-pipeline": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/startup-pipeline/SKILL.md",
+      "computedHash": "c2f84dfbd4314976732ac7037710966a0e15facee9ddb9be04aab0a678d736e2"
+    },
+    "subagent-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/subagent-driven-development/SKILL.md",
+      "computedHash": "f32739563160d3612fe2febd0dad4a9cc8a6d1ea7dfcda59f245b3a4b968f7cf"
+    },
+    "systematic-debugging": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/systematic-debugging/SKILL.md",
+      "computedHash": "a2750dfbaed1690da73b120254892c4f926b4576cb82eb16fc877783941fe39b"
+    },
+    "terraform-best-practices": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/terraform-best-practices/SKILL.md",
+      "computedHash": "6aa85f99c07d0b8cc771f6886cee71f7d667db9246ddc9b3ea8a957cf16e3a3e"
+    },
+    "terraform-module-creator": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/terraform-module-creator/SKILL.md",
+      "computedHash": "c426010f1b72c3fc999fb23ddbc501651ce764223df6abdf2a0516912a8cb15d"
+    },
+    "terraform-review": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/terraform-review/SKILL.md",
+      "computedHash": "124b6e7ae4f9677eaba97a5ecbfc7e31df8a29539b11aad98a1c788baae36c71"
+    },
+    "terraform-security-audit": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/terraform-security-audit/SKILL.md",
+      "computedHash": "8c64ea94f633b808505316a3def4268d38c5c20bb5b8e6854d7ec628e72e3a0b"
+    },
+    "terraform-service-scaffold": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/terraform-service-scaffold/SKILL.md",
+      "computedHash": "b5d776ea81bb0ae6ea70e12768f111df00a93f4f95b08bc0f10900141b09db9a"
+    },
+    "terrashark": {
+      "source": "LukasNiessen/terrashark",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "7afd1dcce462427ce1228375ae11c08092c6773ac1df794e15df9afba414f6bd"
+    },
+    "test-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/test-driven-development/SKILL.md",
+      "computedHash": "a4126a9c5f17be3c228aa9e5755898ade283448b86099f56f40852e8c14532be"
+    },
+    "testing-strategies": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/testing-strategies/SKILL.md",
+      "computedHash": "33960075322326215e20b81de1460776f1650c3b9dbb890da10aec955b02bc42"
+    },
+    "token-optimizer": {
+      "source": "alexgreensh/token-optimizer",
+      "sourceType": "github",
+      "skillPath": "skills/token-optimizer/SKILL.md",
+      "computedHash": "922b7867b12a4ddcb7e29083f4e7ebdd809fe764d4de4da159b602650080cb93"
+    },
     "ui-ux-pro-max": {
-      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "source": "spartan-stratos/spartan-ai-toolkit",
       "sourceType": "github",
       "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
-      "computedHash": "ae6989c5c68a8a0cebbc2504e44f933dddd50d17974f295dc2fa5a80cb3d63ed"
+      "computedHash": "867f206c25270d45823c1ed3ef10f04fb8e4553587bff6f7081c9c9ab2e14f38"
+    },
+    "using-git-worktrees": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/using-git-worktrees/SKILL.md",
+      "computedHash": "48c8a1040e378e0cb7208107294e3afa9067b9370c3f33b49a443eb6b7528b0d"
+    },
+    "using-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/using-superpowers/SKILL.md",
+      "computedHash": "a77a803b7fc1a19c87605cf7a5ef318c5adc233de10b9ebeecb2ee2609f5454e"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "computedHash": "b529822bdac4b197b180fe12225cff86b930b65910435103c10622df7f041651"
     },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
+    },
+    "web-to-markdown": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/web-to-markdown/SKILL.md",
+      "computedHash": "bb00770209da2d362b3db0e0f31eecf4cea30019d977a36a5f062eac2d216058"
+    },
+    "web-to-prd": {
+      "source": "spartan-stratos/spartan-ai-toolkit",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/web-to-prd/SKILL.md",
+      "computedHash": "14f8273b3b9bfabb835846f702d063ebe9f010e879887d15541fad021a097c3c"
+    },
+    "writing-clearly-and-concisely": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/writing-clearly-and-concisely/SKILL.md",
+      "computedHash": "136a0413255aa82d800459c775eabf041620b2e9cbf2d713b739bf1b87a3db3a"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "a8a8b0d07b744173079b25d26c6a189a0b5e7ddd80444ce92055b974dab7352b"
+    },
+    "writing-skills": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-skills/SKILL.md",
+      "computedHash": "19a1223c9c174f1b4daf807417f13d53886cdc79feeb05c978129a17592f51d7"
     }
   }
 }
