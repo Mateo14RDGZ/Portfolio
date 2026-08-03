@@ -93,10 +93,15 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* overflow-x: hidden is the fallback for browsers without overflow: clip
+       support (older iOS Safari); clip wins where it's understood. */
+    overflow-x: hidden;
     overflow-x: clip;
   }
   body {
-    @apply bg-background text-foreground min-w-0 overflow-x-clip;
+    @apply bg-background text-foreground min-w-0;
+    overflow-x: hidden;
+    overflow-x: clip;
     background-image: radial-gradient(rgb(41 21 50 / 11%) 0.7px, transparent 0.7px);
     background-size: 6px 6px;
   }
