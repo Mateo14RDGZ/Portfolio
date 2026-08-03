@@ -157,15 +157,21 @@ export function Contact() {
           <Reveal variants={scaleIn} delay={0.1}>
             <motion.div
               ref={formCardRef}
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -3 }}
               transition={{ duration: 0.4 }}
-              className="border border-background/50 bg-background p-5 text-foreground min-[380px]:p-6 sm:p-9"
+              className="relative overflow-hidden rounded-[2.75rem_0.55rem_2.75rem_0.55rem] border border-background/50 bg-background p-5 text-foreground shadow-[0_28px_70px_rgba(0,0,0,0.22)] min-[380px]:p-6 sm:p-9"
             >
-              <div className="mb-6 flex gap-3 rounded-[1.25rem_0.35rem_1.25rem_0.35rem] border border-foreground/20 bg-secondary/55 p-4 sm:p-5">
+              <div aria-hidden className="absolute top-0 right-0 h-1.5 w-2/5 bg-primary" />
+              <div className="mb-8 border-b border-foreground/20 pb-5 sm:mb-9 sm:pb-6">
+                <p className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">Consulta inicial / sin costo</p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-[-0.045em] sm:text-3xl">Contame qué necesitás.</h3>
+              </div>
+              <div className="mb-7 grid gap-3 border-l-2 border-primary bg-secondary/35 p-4 sm:mb-8 sm:grid-cols-[auto_1fr] sm:items-start sm:p-5">
                 <Info className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
-                <p className="text-sm font-medium leading-relaxed text-foreground/80">
-                  Te respondo en menos de 24 horas. Primero conversamos sobre tu idea y después te envío una propuesta con alcance, plazo y presupuesto. No tenés que pagar nada para consultar.
-                </p>
+                <div>
+                  <p className="text-sm font-semibold">Te respondo en menos de 24 horas.</p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground/72">Primero conversamos sobre tu idea y después te envío una propuesta con alcance, plazo y presupuesto. Consultar no tiene costo.</p>
+                </div>
               </div>
               <form
                 ref={formRef}
@@ -195,7 +201,7 @@ export function Contact() {
                         required
                         minLength={2}
                         maxLength={80}
-                        className="h-11 rounded-xl"
+                        className="h-12 rounded-none border-foreground/30 bg-card/65 px-4 shadow-none placeholder:text-muted-foreground/80 focus-visible:border-primary"
                         aria-invalid={!!state.errors.name || undefined}
                         aria-describedby={
                           state.errors.name ? 'name-error' : undefined
@@ -218,7 +224,7 @@ export function Contact() {
                         placeholder="tu@negocio.com"
                         required
                         maxLength={254}
-                        className="h-11 rounded-xl"
+                        className="h-12 rounded-none border-foreground/30 bg-card/65 px-4 shadow-none placeholder:text-muted-foreground/80 focus-visible:border-primary"
                         aria-invalid={!!state.errors.email || undefined}
                         aria-describedby={
                           state.errors.email ? 'email-error' : undefined
@@ -243,7 +249,7 @@ export function Contact() {
                       role="group"
                       aria-label="Qué plan te interesa"
                       aria-describedby={state.errors.plan ? 'plan-error' : undefined}
-                      className="flex flex-wrap gap-2"
+                      className="grid grid-cols-2 gap-2 sm:grid-cols-4"
                     >
                       {PLANS.map((option) => {
                         const active = plan === option
@@ -254,10 +260,10 @@ export function Contact() {
                             aria-pressed={active}
                             onClick={() => setPlan(active ? '' : option)}
                             className={cn(
-                              'min-h-12 border px-4 py-2 text-sm transition-all duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
+                              'min-h-12 border px-3 py-2 text-sm font-semibold transition-all duration-300 outline-none focus-visible:ring-[3px] focus-visible:ring-ring',
                               active
-                                ? 'border-primary bg-primary text-primary-foreground'
-                                : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground',
+                                ? 'border-primary bg-primary text-primary-foreground shadow-[0_6px_0_rgba(41,21,50,0.18)]'
+                                : 'border-foreground/25 bg-card/35 text-foreground/72 hover:border-primary hover:bg-secondary/45 hover:text-foreground',
                             )}
                           >
                             {option}
@@ -284,7 +290,7 @@ export function Contact() {
                       required
                       minLength={10}
                       maxLength={4000}
-                      className="resize-none rounded-xl"
+                      className="min-h-36 resize-none rounded-none border-foreground/30 bg-card/65 p-4 shadow-none placeholder:text-muted-foreground/80 focus-visible:border-primary"
                       aria-invalid={!!state.errors.message || undefined}
                       aria-describedby={
                         state.errors.message ? 'message-error' : 'message-hint'
@@ -305,7 +311,7 @@ export function Contact() {
                   <Button
                     type="submit"
                     disabled={pending}
-                    className="group h-13 w-full rounded-none text-base font-medium"
+                    className="primary-action group h-14 w-full rounded-[1.15rem_0.25rem_1.15rem_0.25rem] border border-primary bg-primary text-base font-semibold text-primary-foreground shadow-[0_8px_0_rgba(41,21,50,0.18)]"
                   >
                     {pending ? (
                       <>
@@ -327,7 +333,7 @@ export function Contact() {
                     )}
                   </Button>
 
-                  <p className="text-center text-xs leading-relaxed text-muted-foreground">
+                  <p className="border-t border-foreground/15 pt-5 text-center text-xs leading-relaxed text-muted-foreground">
                     Al enviar el formulario aceptás el tratamiento de tus datos
                     según la <a href="/privacidad" className="underline underline-offset-2 hover:text-foreground">política de privacidad</a>.
                   </p>
