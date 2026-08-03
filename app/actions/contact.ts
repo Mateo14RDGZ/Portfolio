@@ -40,6 +40,105 @@ function escapeHtml(value: string) {
   })[character] ?? character)
 }
 
+function createContactEmail(input: {
+  name: string
+  email: string
+  plan: string
+  message: string
+}) {
+  const safeName = escapeHtml(input.name)
+  const safeEmail = escapeHtml(input.email)
+  const safePlan = escapeHtml(input.plan || 'Aún sin definir')
+  const safeMessage = escapeHtml(input.message).replace(/\n/g, '<br />')
+  const replyUrl = `mailto:${encodeURIComponent(input.email)}?subject=${encodeURIComponent('Sobre tu consulta desde MR14')}`
+  const firstName = input.name.split(' ')[0] || input.name
+
+  return {
+    subject: `Nueva consulta web · ${input.plan || 'Sin plan seleccionado'} · ${firstName}`,
+    text: [
+      'MR14 — Nueva consulta desde el portfolio',
+      '',
+      `Nombre: ${input.name}`,
+      `Correo: ${input.email}`,
+      `Plan: ${input.plan || 'Aún sin definir'}`,
+      '',
+      'Detalles del proyecto:',
+      input.message,
+      '',
+      'Respondé directamente a este correo para continuar la conversación.',
+    ].join('\n'),
+    html: `
+      <!doctype html>
+      <html lang="es">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body style="margin:0;padding:0;background:#dfe8c8;color:#291532;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;">
+          <span style="display:none!important;font-size:1px;color:#dfe8c8;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">Nueva consulta de ${safeName} desde mateordgz.dev.</span>
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;margin:0;padding:32px 16px;background:#dfe8c8;">
+            <tr>
+              <td align="center">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;border:1px solid #291532;background:#f7f8ef;">
+                  <tr>
+                    <td style="padding:26px 32px;background:#291532;color:#f7f8ef;">
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                          <td style="font-size:22px;font-weight:800;letter-spacing:-0.04em;">MƦ14</td>
+                          <td align="right" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#dfe8c8;">Nueva consulta</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:34px 32px 12px;">
+                      <p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ff5d3a;">Formulario de contacto</p>
+                      <h1 style="margin:0;color:#291532;font-size:30px;line-height:1.16;letter-spacing:-.035em;">${safeName} quiere conversar.</h1>
+                      <p style="margin:16px 0 0;color:#5d4963;font-size:16px;line-height:1.55;">Tenés toda la información de la consulta organizada para poder responder rápido y con contexto.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:22px 32px;">
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-top:1px solid #b7c29b;border-bottom:1px solid #b7c29b;">
+                        <tr>
+                          <td style="width:50%;padding:17px 14px 17px 0;vertical-align:top;border-right:1px solid #b7c29b;">
+                            <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5d4963;">Contacto</p>
+                            <a href="mailto:${encodeURIComponent(input.email)}" style="color:#291532;font-size:15px;font-weight:700;text-decoration:none;word-break:break-word;">${safeEmail}</a>
+                          </td>
+                          <td style="width:50%;padding:17px 0 17px 18px;vertical-align:top;">
+                            <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5d4963;">Interés inicial</p>
+                            <p style="margin:0;color:#291532;font-size:15px;font-weight:700;">${safePlan}</p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:4px 32px 28px;">
+                      <p style="margin:0 0 10px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5d4963;">Detalles del proyecto</p>
+                      <div style="padding:22px 22px 24px;background:#e8edda;border:1px solid #b7c29b;color:#291532;font-size:16px;line-height:1.65;">${safeMessage}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0 32px 34px;">
+                      <a href="${replyUrl}" style="display:inline-block;padding:14px 20px;background:#ff5d3a;color:#291532;font-size:15px;font-weight:800;text-decoration:none;">Responder a ${safeName}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:20px 32px;background:#eef2df;border-top:1px solid #b7c29b;">
+                      <p style="margin:0;color:#5d4963;font-size:12px;line-height:1.5;">Consulta recibida desde <a href="https://www.mateordgz.dev" style="color:#291532;font-weight:700;text-decoration:underline;">mateordgz.dev</a> · Uruguay · Trabajo remoto</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+  }
+}
+
 /** Validates the request and forwards it to the portfolio inbox through Resend. */
 export async function submitContact(
   _prev: ContactState,
@@ -88,10 +187,7 @@ export async function submitContact(
     }
   }
 
-  const safeName = escapeHtml(input.name)
-  const safeEmail = escapeHtml(input.email)
-  const safePlan = escapeHtml(input.plan || 'No especificado')
-  const safeMessage = escapeHtml(input.message).replace(/\n/g, '<br />')
+  const email = createContactEmail(input)
 
   try {
     const response = await fetch('https://api.resend.com/emails', {
@@ -104,23 +200,9 @@ export async function submitContact(
         from: process.env.CONTACT_FROM_EMAIL || 'MR14 Portfolio <onboarding@resend.dev>',
         to: [CONTACT_TO_EMAIL],
         reply_to: input.email,
-        subject: `Nueva consulta web · ${input.plan || 'Sin plan seleccionado'}`,
-        text: [
-          `Nombre: ${input.name}`,
-          `Email: ${input.email}`,
-          `Plan: ${input.plan || 'No especificado'}`,
-          '',
-          input.message,
-        ].join('\n'),
-        html: `
-          <div style="font-family:Arial,sans-serif;line-height:1.6;color:#171218;max-width:640px">
-            <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6b6570">Nueva consulta desde MR14</p>
-            <h1 style="font-size:28px;margin:0 0 24px">${safeName} quiere conversar</h1>
-            <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-            <p><strong>Plan:</strong> ${safePlan}</p>
-            <div style="margin-top:24px;padding:20px;background:#f1f4e5;border-left:4px solid #ff5d3a">${safeMessage}</div>
-          </div>
-        `,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
       }),
       cache: 'no-store',
     })
