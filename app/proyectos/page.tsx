@@ -16,7 +16,7 @@ export default function ProjectsPage() {
   return (
     <PageTransition animatePage>
       <SiteHeader />
-      <main id="top" aria-labelledby="projects-title" className="pt-[4.5rem] sm:pt-24"><ProjectsGallery /></main>
+      <main id="top" aria-labelledby="projects-title" className="pt-20 sm:pt-24"><ProjectsGallery /></main>
       <SiteFooter />
     </PageTransition>
   )

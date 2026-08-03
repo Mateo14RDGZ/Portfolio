@@ -64,7 +64,7 @@ export function SiteHeader() {
   }, [open])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background/95">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground bg-background sm:bg-background/95">
       <div className="mx-auto flex h-[4.5rem] max-w-[1400px] items-stretch px-3 sm:h-24 sm:px-6">
         <Link href="/" className="flex min-w-0 flex-1 items-center gap-2.5 border-r border-foreground pr-3 sm:gap-4 sm:pr-8">
           <span className="size-12 shrink-0 min-[380px]:size-14 sm:size-20">
