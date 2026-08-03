@@ -2,40 +2,31 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  ChevronRight,
-  Clock3,
-  Coffee,
-  Menu,
-  ShieldCheck,
-  Sparkles,
-} from 'lucide-react'
-import { motion, useReducedMotion } from 'motion/react'
-import type { CSSProperties } from 'react'
+import { ArrowDown, ArrowLeft, ArrowUpRight, CalendarDays, Coffee, Menu, Sparkles } from 'lucide-react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLayoutEffect, useRef } from 'react'
+import { useReducedMotion } from 'motion/react'
 import type { ConceptProject } from '@/lib/project-data'
-import { EASE } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 
-function ConceptNotice({ tone, family }: { tone: 'bruma' | 'linea' | 'aura'; family: string }) {
+gsap.registerPlugin(ScrollTrigger)
+
+type Tone = 'bruma' | 'linea' | 'aura'
+
+function ConceptNotice({ tone, family }: { tone: Tone; family: string }) {
   return (
     <div
+      style={{ fontFamily: family }}
       className={cn(
-        'relative z-50 px-4 py-2.5 text-center text-[9px] tracking-[0.14em] uppercase',
-        tone === 'bruma' && 'bg-[#2b1c13] text-[#f5e4cf]',
+        'relative z-30 px-4 py-2.5 text-center text-[9px] tracking-[0.16em] uppercase',
+        tone === 'bruma' && 'bg-[#291a12] text-[#f5e4cf]',
         tone === 'linea' && 'bg-[#161713] text-[#eeeae2]',
         tone === 'aura' && 'border-b border-[#17332f]/15 bg-[#cbdcd7] text-[#17332f]',
       )}
-      style={{ fontFamily: family }}
     >
       Proyecto conceptual · Marca y contenido ficticios ·{' '}
-      <Link href="/proyectos" className="underline underline-offset-4">
-        Volver a proyectos
-      </Link>
+      <Link href="/proyectos" className="underline underline-offset-4">Volver a proyectos</Link>
     </div>
   )
 }
@@ -48,606 +39,204 @@ function BackToProjects({ className }: { className?: string }) {
   )
 }
 
-type StoryScene = {
-  kicker: string
-  label: string
-  title: string
-  copy: string
-  tone: string
+/**
+ * Every landing owns its layout, but shares a light scroll engine. It only
+ * writes transforms/clip-paths and gets reverted on unmount to avoid leaks.
+ */
+function useScrollAssembly(root: React.RefObject<HTMLElement | null>, reducedMotion: boolean | null) {
+  useLayoutEffect(() => {
+    if (!root.current || reducedMotion) return
+
+    const context = gsap.context(() => {
+      const compact = window.matchMedia('(max-width: 767px)').matches
+      const media = gsap.utils.toArray<HTMLElement>('[data-parallax-media]')
+      const panels = gsap.utils.toArray<HTMLElement>('[data-parallax-panel]')
+      const reveals = gsap.utils.toArray<HTMLElement>('[data-scroll-reveal]')
+
+      media.forEach((element, index) => {
+        const direction = index % 2 === 0 ? 1 : -1
+        gsap.fromTo(
+          element,
+          { scale: compact ? 1.08 : 1.16, yPercent: compact ? -3 * direction : -8 * direction },
+          {
+            scale: 1,
+            yPercent: compact ? 3 * direction : 8 * direction,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: element.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: compact ? 0.45 : 0.8,
+            },
+          },
+        )
+      })
+
+      panels.forEach((panel) => {
+        gsap.fromTo(
+          panel,
+          { clipPath: compact ? 'inset(9% 4% 9% 4%)' : 'inset(13% 8% 13% 8%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top 88%',
+              end: 'center 48%',
+              scrub: compact ? 0.45 : 0.7,
+            },
+          },
+        )
+      })
+
+      reveals.forEach((element) => {
+        gsap.fromTo(
+          element,
+          { opacity: 0, y: compact ? 20 : 34 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: element, start: 'top 84%', once: true },
+          },
+        )
+      })
+    }, root)
+
+    return () => context.revert()
+  }, [reducedMotion, root])
 }
 
 function BrumaLanding({ project }: { project: ConceptProject }) {
-  const reduceMotion = useReducedMotion()
-
-  const scenes: StoryScene[] = [
-    {
-      kicker: '01 / Origen',
-      label: 'Carta como punto de partida',
-      title: 'Café de origen, preparado sin apuro.',
-      copy:
-        'La experiencia arranca mostrando de dónde viene la propuesta. La carta se presenta breve, clara y con foco en lo que importa: elegir rápido sin perder el carácter del lugar.',
-      tone: 'from-[#24170e]/78 via-[#24170e]/22 to-transparent',
-    },
-    {
-      kicker: '02 / Método',
-      label: 'Cada preparación tiene su momento',
-      title: 'Métodos visibles, sin ruido.',
-      copy:
-        'El recorrido baja al detalle de la preparación. La narrativa acompaña métodos, especialidades y pequeñas decisiones que ayudan a sentir el ritmo de la cafetería antes de llegar.',
-      tone: 'from-[#2c1a0d]/74 via-[#2c1a0d]/24 to-transparent',
-    },
-    {
-      kicker: '03 / Visita',
-      label: 'Reservar se siente natural',
-      title: 'La reserva aparece justo a tiempo.',
-      copy:
-        'Cuando la historia avanza, la llamada a la acción deja de ser un botón suelto y se integra al relato. Horarios, ubicación y reserva se muestran como una extensión lógica de la experiencia.',
-      tone: 'from-[#1f130b]/80 via-[#1f130b]/26 to-transparent',
-    },
-  ]
-
-  const assembleItems = [
-    {
-      number: '01',
-      title: 'Carta breve y directa',
-      copy: 'El primer bloque arma la propuesta: lo justo para elegir rápido y con contexto.',
-    },
-    {
-      number: '02',
-      title: 'Métodos y detalle',
-      copy: 'El segundo bloque introduce ritmo, preparación y el lado más artesanal de la experiencia.',
-    },
-    {
-      number: '03',
-      title: 'Reserva y visita',
-      copy: 'El cierre suma la acción final y deja la experiencia lista para convertir.',
-    },
-  ]
-
-  const stepMeta = [
-    { number: '01', label: 'Carta' },
-    { number: '02', label: 'Método' },
-    { number: '03', label: 'Visita' },
-  ] as const
+  const root = useRef<HTMLElement>(null)
+  const reducedMotion = useReducedMotion()
+  useScrollAssembly(root, reducedMotion)
 
   return (
-    <main className="min-h-screen bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif] [&_.font-mono]:[font-family:var(--font-fraunces),Georgia,serif]">
+    <main ref={root} className="overflow-hidden bg-[#f1e3ca] text-[#302218] [font-family:var(--font-fraunces),Georgia,serif]">
       <ConceptNotice tone="bruma" family="var(--font-fraunces), Georgia, serif" />
-
-      <header className="border-b border-[#302218]/25">
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:h-24 sm:px-8 lg:px-12">
-          <Link href="#inicio" className="flex items-center gap-3 text-2xl font-semibold italic tracking-[-0.045em]">
-            <span className="grid size-10 place-items-center rounded-full bg-[#b75632] text-[#fff7e8]">
-              <Coffee className="size-5" />
-            </span>
+      <header className="relative z-20 border-b border-[#302218]/20 bg-[#f1e3ca]/94 backdrop-blur-sm">
+        <div className="mx-auto flex h-20 max-w-[1480px] items-center justify-between px-5 sm:h-24 sm:px-8 lg:px-12">
+          <Link href="#inicio" className="flex items-center gap-3 text-2xl font-semibold italic tracking-[-0.05em]">
+            <span className="grid size-10 place-items-center rounded-full bg-[#b75632] text-[#fff7e8]"><Coffee className="size-5" /></span>
             Cimarrón Café
           </Link>
-          <nav className="hidden gap-8 font-mono text-[10px] tracking-[0.14em] uppercase md:flex">
-            <a href="#relato">La experiencia</a>
-            <a href="#carta">La carta</a>
-            <a href="#visitanos">Visitanos</a>
+          <nav className="hidden items-center gap-8 text-[11px] tracking-[0.12em] uppercase md:flex">
+            <a href="#origen">Origen</a><a href="#metodo">Método</a><a href="#visita">Visita</a>
           </nav>
-          <a href="#visitanos" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#302218] px-5 text-sm font-semibold text-[#f1e3ca] sm:flex">
-            Reservar <ArrowUpRight className="size-4" />
-          </a>
+          <a href="#visita" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#302218] px-5 text-sm font-semibold text-[#f1e3ca] sm:flex">Reservar <ArrowUpRight className="size-4" /></a>
           <Menu className="sm:hidden" aria-hidden="true" />
         </div>
       </header>
 
-      <section id="inicio" className="relative overflow-hidden border-b border-[#302218]/15">
-        <div className="mx-auto grid min-h-[calc(100svh-7rem)] max-w-[1440px] gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12 lg:px-12 lg:py-12">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="flex flex-col justify-between gap-10"
-          >
-            <div className="space-y-6">
-              <p className="font-mono text-[10px] tracking-[0.18em] uppercase">Café de especialidad · Montevideo</p>
-              <h1 className="max-w-3xl text-[clamp(3.5rem,12vw,9rem)] leading-[0.8] font-normal tracking-[-0.075em] text-balance">
-                Café de origen,
-                <em className="block font-light">preparado sin apuro.</em>
-              </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-[#302218]/74 sm:text-xl">
-                Una experiencia digital cálida, pensada para convertir la curiosidad de una búsqueda local en una visita, una reserva o una consulta.
-              </p>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-3">
-              {project.details.map((detail, index) => (
-                <div key={detail} className="rounded-[1.4rem_0.35rem_1.4rem_0.35rem] border border-[#302218]/18 bg-white/35 px-4 py-4">
-                  <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">0{index + 1}</div>
-                  <div className="mt-2 text-sm font-semibold leading-snug">{detail}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.figure
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.95, ease: EASE }}
-            className="relative min-h-[30rem] overflow-hidden rounded-[3rem_0.8rem_3rem_0.8rem] border border-[#302218]/15 bg-[#24170e]"
-          >
-            <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 52vw" className="object-cover object-[68%_center]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#24170e]/45 via-transparent to-[#24170e]/12" />
-            <div className="absolute left-5 right-5 top-5 flex items-start justify-between gap-4 text-[#fff7e8] sm:left-7 sm:right-7 sm:top-7">
-              <div className="max-w-xs">
-                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-70">Recorré el sistema</div>
-                <div className="mt-2 text-2xl leading-tight font-semibold italic">La historia cambia con tu scroll.</div>
-              </div>
-              <div className="rounded-full border border-white/20 bg-black/20 px-4 py-2 font-mono text-[9px] tracking-[0.16em] uppercase backdrop-blur-md">
-                Scroll storytelling
-              </div>
-            </div>
-            <div className="absolute right-5 bottom-5 left-5 flex items-end justify-between text-[#fff7e8] sm:right-7 sm:bottom-7 sm:left-7">
-              <div className="max-w-sm rounded-[1.5rem_0.45rem_1.5rem_0.45rem] bg-black/25 p-4 backdrop-blur-md">
-                <div className="font-mono text-[9px] tracking-[0.16em] uppercase opacity-65">Objetivo</div>
-                <p className="mt-2 text-sm leading-relaxed">{project.objective}</p>
-              </div>
-              <ArrowDown className="hidden size-5 animate-bounce motion-reduce:animate-none sm:block" />
-            </div>
-          </motion.figure>
+      <section id="inicio" className="mx-auto grid min-h-[calc(100svh-7rem)] max-w-[1480px] items-end gap-8 px-5 pt-10 pb-8 sm:px-8 sm:pt-14 sm:pb-12 lg:grid-cols-[0.76fr_1.24fr] lg:gap-12 lg:px-12">
+        <div className="relative z-10 pb-3 lg:pb-10">
+          <p className="text-[10px] tracking-[0.18em] uppercase">Café de especialidad · Montevideo</p>
+          <h1 className="mt-7 max-w-3xl text-[clamp(4.1rem,8.8vw,9rem)] leading-[0.78] font-normal tracking-[-0.075em]">Café de origen,<em className="block font-light"> preparado sin apuro.</em></h1>
+          <p className="mt-7 max-w-md text-lg leading-relaxed text-[#302218]/72 sm:text-xl">Una web que avanza como una visita: primero el aroma, después el método y al final, la mesa.</p>
+          <a href="#origen" className="mt-9 inline-flex items-center gap-3 border-b border-[#302218] pb-2 text-lg font-semibold italic">Empezá el recorrido <ArrowDown className="size-4" /></a>
         </div>
-      </section>
-
-      <section id="relato" className="bg-[#2b1c13] text-[#fff7e8]">
-        <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-16 lg:px-12 lg:py-16">
-          <div className="max-w-2xl">
-            <p className="font-mono text-[9px] tracking-[0.16em] text-[#d9ad7f] uppercase">Scroll storytelling</p>
-            <h2 className="mt-4 text-[clamp(2.6rem,6vw,4.8rem)] leading-[0.86] font-normal tracking-[-0.06em] text-balance">
-              La web parece quieta, pero se arma con tu scroll.
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/68 sm:text-lg">
-              La escena principal se mantiene estable para que todo se lea como una sola pieza. A medida que avanzás, cambian el foco, el estado y la historia,
-              sin superponer bloques que rompan el ritmo.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-8 lg:grid-cols-[0.92fr_0.58fr] lg:items-start">
-            <div className="lg:sticky lg:top-8">
-              <div className="relative overflow-hidden rounded-[3rem_0.7rem_3rem_0.7rem] border border-white/10 bg-[#24170e] shadow-[0_36px_90px_rgba(0,0,0,0.28)]">
-                <div className="relative aspect-[0.96] sm:aspect-[1.02]">
-                  <Image
-                    src={project.image}
-                    alt="Cimarrón Café en vista principal"
-                    fill
-                    priority
-                    sizes="(max-width:1024px) 100vw, 56vw"
-                    className="object-cover object-[66%_center]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#24170e]/55 via-[#24170e]/14 to-transparent" />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_24%,rgba(255,255,255,0.14),transparent_34%),radial-gradient(circle_at_68%_28%,rgba(211,107,67,0.14),transparent_28%)]" />
-
-                  <div className="absolute inset-x-4 top-4 rounded-[1.35rem_0.35rem_1.35rem_0.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-md sm:inset-x-6 sm:top-6 sm:p-5">
-                    <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#e9c9a5]">
-                      <span>Cimarrón Café</span>
-                      <span>Scroll guiado</span>
-                    </div>
-                    <p className="mt-2 max-w-md text-2xl leading-[0.94] font-semibold italic text-white sm:text-3xl">
-                      Una historia fija que se va completando por capas.
-                    </p>
-                    <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/12">
-                      <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${reduceMotion ? 1 : 0.72})` }} />
-                    </div>
-                  </div>
-
-                  <div className="absolute left-4 top-1/2 hidden w-[40%] -translate-y-1/2 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#f1e3ca]/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md md:block">
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">01 / Carta</div>
-                    <p className="mt-2 text-lg leading-tight font-semibold">{assembleItems[0].title}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#302218]/72">{assembleItems[0].copy}</p>
-                  </div>
-
-                  <div className="absolute right-4 top-[46%] hidden w-[34%] rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/10 bg-[#302218]/92 p-4 text-[#fff7e8] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md md:block">
-                    <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">02 / Método</div>
-                    <p className="mt-2 text-lg leading-tight font-semibold">{assembleItems[1].title}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/72">{assembleItems[1].copy}</p>
-                  </div>
-
-                  <div className="absolute inset-x-4 bottom-4 rounded-[2rem_0.5rem_2rem_0.5rem] border border-white/12 bg-white/94 p-4 text-[#302218] shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-5">
-                    <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">
-                      <span>03 / Visita</span>
-                      <span>Reserva integrada</span>
-                    </div>
-                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f1e3ca] p-3">
-                        <p className="text-sm font-semibold leading-snug">{assembleItems[2].title}</p>
-                        <p className="mt-2 text-sm leading-relaxed text-[#302218]/70">{assembleItems[2].copy}</p>
-                      </div>
-                      <div className="flex items-center justify-between rounded-[1.2rem_0.35rem_1.2rem_0.35rem] border border-[#302218]/12 bg-[#f7ece0] p-3">
-                        <div>
-                          <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Acción final</div>
-                          <p className="mt-1 text-sm font-semibold">La experiencia cierra lista para convertir</p>
-                        </div>
-                        <ArrowUpRight className="size-5 shrink-0" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute inset-x-5 bottom-5 hidden h-1 overflow-hidden rounded-full bg-white/15 lg:block">
-                    <div className="h-full origin-left bg-[#d36b43]" style={{ transform: `scaleX(${reduceMotion ? 1 : 0.86})` }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="carta" className="space-y-4">
-              {scenes.map((scene, index) => (
-                <motion.article
-                  key={scene.kicker}
-                  initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-18% 0px -12% 0px' }}
-                  transition={{ duration: 0.55, ease: EASE, delay: index * 0.04 }}
-                  className="group rounded-[2rem_0.45rem_2rem_0.45rem] border border-white/10 bg-white/6 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:-translate-y-0.5 sm:p-6"
-                >
-                  <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em] uppercase text-[#d9ad7f]">
-                    <span>{scene.kicker}</span>
-                    <span>{stepMeta[index].label}</span>
-                  </div>
-                  <h3 className="mt-4 max-w-xl text-3xl leading-[0.94] font-semibold tracking-[-0.04em] text-balance sm:text-4xl">
-                    <em>{scene.title}</em>
-                  </h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/68 sm:text-[1.05rem]">{scene.copy}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {[assembleItems[index], assembleItems[Math.min(index + 1, assembleItems.length - 1)]].map((item, itemIndex) => (
-                      <span
-                        key={`${item.number}-${itemIndex}`}
-                        className={cn(
-                          'rounded-full border px-3 py-1 font-mono text-[9px] tracking-[0.14em] uppercase',
-                          index === 0 && 'border-[#d9ad7f]/25 bg-[#f1e3ca]/8 text-[#f5e4cf]',
-                          index === 1 && 'border-[#d36b43]/30 bg-[#d36b43]/10 text-[#ffd9c8]',
-                          index >= 2 && 'border-white/15 bg-white/6 text-white/78',
-                        )}
-                      >
-                        {item.title}
-                      </span>
-                    ))}
-                  </div>
-                </motion.article>
-              ))}
-
-              <div className="grid gap-3 rounded-[2rem_0.45rem_2rem_0.45rem] border border-white/10 bg-[#f1e3ca] p-5 text-[#302218] shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:grid-cols-[1.2fr_0.8fr] sm:items-center sm:p-6">
-                <div>
-                  <div className="font-mono text-[9px] tracking-[0.16em] uppercase text-[#8a5a3b]">Cierre</div>
-                  <p className="mt-2 text-2xl leading-tight font-semibold">
-                    Un sistema que acompaña el recorrido sin interrumpirlo.
-                  </p>
-                </div>
-                <div className="rounded-[1.3rem_0.35rem_1.3rem_0.35rem] border border-[#302218]/12 bg-white/55 p-4">
-                  <p className="text-sm leading-relaxed text-[#302218]/80">
-                    Del primer vistazo a la reserva final, la experiencia se entiende como una sola pieza, con el contenido apareciendo en el orden justo.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 flex items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/70">
-            <BackToProjects />
-            <span className="font-mono text-[9px] tracking-[0.13em] uppercase">Demo conceptual por MR14</span>
+        <div data-parallax-panel className="relative min-h-[30rem] overflow-hidden rounded-[3.5rem_0.45rem_0.45rem_0.45rem] bg-[#25170f] sm:min-h-[40rem] lg:min-h-[calc(100svh-11rem)]">
+          <div data-parallax-media className="absolute -inset-y-[12%] -inset-x-[8%]"><Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 64vw" className="object-cover object-[60%_center]" /></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#25170f]/64 via-transparent to-[#25170f]/14" />
+          <div className="absolute right-5 bottom-5 left-5 flex items-end justify-between text-[#fff7e8] sm:right-8 sm:bottom-8 sm:left-8">
+            <p className="max-w-xs text-2xl leading-[0.9] font-semibold italic">Una pausa que se descubre mientras bajás.</p>
+            <span className="hidden text-[9px] tracking-[0.16em] uppercase sm:block">01 / 03</span>
           </div>
         </div>
       </section>
 
-      <section id="visitanos" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto grid max-w-[1344px] gap-10 border-y border-[#302218] py-10 sm:py-16 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-16">
-          <div className="grid size-32 place-items-center rounded-full border border-[#302218] text-center font-mono text-[9px] tracking-[0.13em] uppercase sm:size-44">
-            <Clock3 className="size-7 text-[#b75632]" />
-            <span>
-              Una pausa
-              <br />
-              bien hecha
-            </span>
+      <section id="origen" className="bg-[#2b1b12] py-16 text-[#f5e4cf] sm:py-28">
+        <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12">
+          <div data-scroll-reveal className="grid gap-8 lg:grid-cols-[0.52fr_1.48fr] lg:items-end">
+            <p className="text-[10px] tracking-[0.2em] text-[#d9ad7f] uppercase">01 / Origen</p>
+            <h2 className="max-w-5xl text-[clamp(3.5rem,7vw,7.6rem)] leading-[0.8] tracking-[-0.07em]">La carta no se muestra: <em className="font-light">se abre.</em></h2>
           </div>
-          <div>
-            <h2 className="max-w-5xl text-5xl leading-[0.86] font-normal tracking-[-0.055em] sm:text-8xl">
-              Tu mesa puede estar <em>esperando.</em>
-            </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">Consultá horarios, encontranos y reservá antes de venir.</p>
-            <Link href="/#contact" className="group mt-8 inline-flex items-center gap-5 border-b border-[#302218] pb-2 text-xl font-semibold italic">
-              Quiero una experiencia así <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+          <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div data-parallax-panel className="relative aspect-[1.12] overflow-hidden rounded-[0.35rem_3.5rem_0.35rem_0.35rem]">
+              <div data-parallax-media className="absolute -inset-[10%]"><Image src={project.image} alt="Detalle conceptual de café filtrado" fill sizes="(max-width:1024px) 100vw, 58vw" className="object-cover object-[32%_center]" /></div>
+            </div>
+            <div data-scroll-reveal className="border-t border-[#f5e4cf]/25 pt-7 lg:border-t-0 lg:border-l lg:pl-10">
+              <p className="max-w-lg text-2xl leading-tight sm:text-3xl">El contenido aparece con el orden natural de una conversación frente a la barra.</p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {project.details.slice(0, 2).map((detail, index) => <div key={detail} className="border-b border-[#f5e4cf]/20 pb-4"><span className="text-[#d9ad7f]">0{index + 1}</span><p className="mt-2 text-lg font-semibold">{detail}</p></div>)}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mx-auto mt-8 flex max-w-[1344px] justify-between gap-5 border-t border-[#302218]/25 pt-6 text-sm">
-          <BackToProjects />
-          <span className="hidden font-mono text-[9px] tracking-[0.13em] uppercase opacity-55 sm:block">Demo conceptual por MR14</span>
+      </section>
+
+      <section id="metodo" className="mx-auto max-w-[1480px] px-5 py-16 sm:px-8 sm:py-28 lg:px-12">
+        <div data-scroll-reveal className="max-w-3xl"><p className="text-[10px] tracking-[0.2em] text-[#8a5a3b] uppercase">02 / Método</p><h2 className="mt-5 text-[clamp(3.4rem,6vw,6.8rem)] leading-[0.82] tracking-[-0.07em]">La preparación toma el centro.</h2></div>
+        <div data-parallax-panel className="relative mt-10 min-h-[52svh] overflow-hidden rounded-[0.4rem_0.4rem_4rem_0.4rem] bg-[#25170f] sm:min-h-[72svh]">
+          <div data-parallax-media className="absolute -inset-y-[12%] -inset-x-[5%]"><Image src={project.image} alt="Barista en preparación de café" fill sizes="100vw" className="object-cover object-[70%_center]" /></div>
+          <div className="absolute right-5 bottom-5 left-5 grid gap-3 sm:right-8 sm:bottom-8 sm:left-auto sm:w-[27rem]">
+            {project.services.map((item) => <article key={item.number} className="border border-white/15 bg-[#2b1b12]/88 p-4 text-[#f5e4cf] backdrop-blur-sm"><span className="text-[9px] tracking-[0.16em] text-[#d9ad7f] uppercase">{item.number}</span><h3 className="mt-2 text-xl font-semibold italic">{item.title}</h3><p className="mt-1 text-sm leading-relaxed text-[#f5e4cf]/70">{item.copy}</p></article>)}
+          </div>
         </div>
+      </section>
+
+      <section id="visita" className="border-t border-[#302218]/20 px-5 py-16 sm:px-8 sm:py-28 lg:px-12">
+        <div data-scroll-reveal className="mx-auto grid max-w-[1320px] gap-8 lg:grid-cols-[auto_1fr] lg:items-end lg:gap-16">
+          <span className="grid size-28 place-items-center rounded-full border border-[#302218] text-center text-[9px] tracking-[0.15em] uppercase">03<br />Visita</span>
+          <div><h2 className="max-w-5xl text-[clamp(3.6rem,7vw,7.5rem)] leading-[0.8] tracking-[-0.075em]">{project.closingTitle}</h2><p className="mt-6 max-w-xl text-lg leading-relaxed text-[#302218]/70">{project.closingCopy}</p><Link href="/#contact" className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#b75632] px-6 py-4 font-semibold text-[#fff7e8]">Quiero una web así <ArrowUpRight className="size-5" /></Link></div>
+        </div>
+        <div className="mx-auto mt-12 max-w-[1320px] border-t border-[#302218]/20 pt-5"><BackToProjects /></div>
       </section>
     </main>
   )
 }
+
 function LineaNorteLanding({ project }: { project: ConceptProject }) {
-  const reduceMotion = useReducedMotion()
+  const root = useRef<HTMLElement>(null)
+  const reducedMotion = useReducedMotion()
+  useScrollAssembly(root, reducedMotion)
+
   return (
-    <main className="min-h-screen bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]">
+    <main ref={root} className="overflow-hidden bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]">
       <ConceptNotice tone="linea" family="var(--font-space-grotesk), Arial, sans-serif" />
-      <header className="border-b border-[#242522]">
-        <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12">
-          <Link href="#inicio" className="text-xl font-semibold tracking-[-0.05em] uppercase sm:text-2xl [font-family:var(--font-geist-sans),Arial,sans-serif]">
-            Linea-Norte
-          </Link>
-          <div className="flex items-center gap-7 lg:justify-between">
-            <span className="hidden text-[9px] tracking-[0.2em] uppercase md:block [font-family:var(--font-geist-sans),Arial,sans-serif]">Arquitectura / Interiorismo / Dirección</span>
-            <Menu className="size-6" />
-          </div>
-        </div>
-      </header>
+      <header className="border-b border-[#242522]"><div className="mx-auto grid h-20 max-w-[1480px] grid-cols-[1fr_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-2 lg:px-12"><Link href="#inicio" className="text-xl font-semibold uppercase tracking-[-0.06em] sm:text-2xl">Línea-Norte</Link><div className="flex items-center justify-end gap-8 text-[10px] tracking-[0.18em] uppercase"><span className="hidden md:block">Arquitectura / Interiorismo / Dirección</span><Menu className="size-6" /></div></div></header>
 
-      <section id="inicio" className="border-b border-[#242522]">
-        <div className="mx-auto grid min-h-[calc(100svh-7rem)] max-w-[1440px] lg:grid-cols-[0.78fr_1.22fr]">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, x: -35 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="flex flex-col justify-between border-[#242522] p-5 sm:p-8 lg:border-r lg:p-12"
-          >
-            <div className="flex justify-between text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">
-              <span>Estudio conceptual</span>
-              <span>UY / 01</span>
-            </div>
-            <h1 className="my-16 text-[clamp(3.8rem,7.4vw,8rem)] leading-[0.79] font-medium tracking-[-0.085em] uppercase">
-              Espacios
-              <br />
-              <span className="text-[#9a5d3b]">pensados</span>
-              <br />
-              desde el
-              <br />
-              lugar.
-            </h1>
-            <p className="max-w-sm text-sm leading-relaxed opacity-60">Arquitectura, interiorismo y direccion reunidos bajo una misma linea de trabajo.</p>
-          </motion.div>
-          <motion.div
-            initial={reduceMotion ? false : { clipPath: 'inset(0 100% 0 0)' }}
-            animate={{ clipPath: 'inset(0 0% 0 0)' }}
-            transition={{ duration: 1.05, delay: 0.15, ease: EASE }}
-            className="relative min-h-[28rem] overflow-hidden lg:min-h-0"
-          >
-            <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 61vw" className="object-cover" />
-            <div className="absolute top-0 bottom-0 left-[18%] w-px bg-white/50" />
-            <div className="absolute top-0 bottom-0 left-[64%] w-px bg-white/50" />
-            <span className="absolute right-5 bottom-5 bg-[#e7e3dc] px-4 py-3 text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Costa / Vivienda 01</span>
-          </motion.div>
-        </div>
+      <section id="inicio" className="mx-auto grid max-w-[1480px] border-b border-[#242522] lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="flex min-h-[48svh] flex-col justify-between p-5 sm:p-8 lg:min-h-[calc(100svh-7rem)] lg:border-r lg:border-[#242522] lg:p-12"><div className="flex justify-between text-[9px] tracking-[0.2em] uppercase"><span>Estudio conceptual</span><span>UY / 01</span></div><h1 className="my-12 text-[clamp(4rem,7.5vw,8rem)] leading-[0.77] font-medium tracking-[-0.09em] uppercase">Espacios<br /><span className="text-[#9a5d3b]">pensados</span><br />desde el<br />lugar.</h1><p className="max-w-xs text-sm leading-relaxed text-[#242522]/62">Una página que deja que los materiales y el paisaje lleven el ritmo.</p></div>
+        <div data-parallax-panel className="relative min-h-[30rem] overflow-hidden bg-[#242522] lg:min-h-0"><div data-parallax-media className="absolute -inset-y-[12%] -inset-x-[6%]"><Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 65vw" className="object-cover grayscale" /></div><div className="absolute top-0 bottom-0 left-[23%] w-px bg-white/50" /><div className="absolute top-0 bottom-0 left-[68%] w-px bg-white/50" /><span className="absolute right-5 bottom-5 bg-[#e7e3dc] px-4 py-3 text-[9px] tracking-[0.2em] uppercase">Costa / Vivienda 01</span></div>
       </section>
 
-      <section className="border-b border-[#242522]">
-        <div className="mx-auto grid max-w-[1440px] sm:grid-cols-4">
-          {project.details.map((detail, index) => (
-            <div key={detail} className="flex min-h-24 items-center justify-between border-b border-[#242522] px-5 py-5 text-[9px] tracking-[0.2em] uppercase last:border-b-0 sm:min-h-32 sm:border-r sm:border-b-0 sm:px-6 sm:last:border-r-0 [font-family:var(--font-geist-sans),Arial,sans-serif]">
-              <span className="text-[#9a5d3b]">0{index + 1}</span>
-              <span>{detail}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <section className="border-b border-[#242522]"><div className="mx-auto grid max-w-[1480px] sm:grid-cols-4">{project.details.map((detail, index) => <div key={detail} className="flex min-h-24 items-center justify-between border-b border-[#242522] px-5 text-[9px] tracking-[0.18em] uppercase last:border-b-0 sm:min-h-32 sm:border-r sm:border-b-0 sm:px-7 sm:last:border-r-0"><span className="text-[#9a5d3b]">0{index + 1}</span><span>{detail}</span></div>)}</div></section>
 
-      <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-28 lg:px-12">
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-          <div className="lg:sticky lg:top-8 lg:self-start">
-            <p className="text-[9px] tracking-[0.2em] text-[#9a5d3b] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Una practica integrada</p>
-            <h2 className="mt-5 text-5xl leading-[0.88] font-semibold tracking-[-0.065em] sm:text-7xl">Una linea clara, de la idea a la obra.</h2>
-          </div>
-          <div className="border-t border-[#242522]">
-            {project.services.map((service) => (
-              <motion.article
-                key={service.number}
-                initial={reduceMotion ? false : { x: 30, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true, margin: '-12%' }}
-                transition={{ duration: 0.65, ease: EASE }}
-                className="group grid gap-5 border-b border-[#242522] py-8 sm:grid-cols-[5rem_1fr_auto] sm:items-center sm:py-11"
-              >
-                <span className="text-[10px] text-[#9a5d3b] [font-family:var(--font-geist-sans),Arial,sans-serif]">{service.number}</span>
-                <div>
-                  <h3 className="text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">{service.title}</h3>
-                  <p className="mt-3 max-w-xl leading-relaxed opacity-60">{service.copy}</p>
-                </div>
-                <ArrowRight className="hidden size-7 transition-transform duration-300 group-hover:translate-x-2 sm:block" />
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="mx-auto max-w-[1480px] px-5 py-16 sm:px-8 sm:py-28 lg:px-12"><div className="grid gap-12 lg:grid-cols-[0.6fr_1.4fr]"><div data-scroll-reveal className="lg:sticky lg:top-8 lg:self-start"><p className="text-[10px] tracking-[0.2em] text-[#9a5d3b] uppercase">Obras / Proceso</p><h2 className="mt-5 text-[clamp(3.5rem,5.8vw,6.7rem)] leading-[0.82] font-semibold tracking-[-0.08em]">La imagen crece con el lugar.</h2></div><div className="space-y-12 sm:space-y-20">{project.services.map((service, index) => <article key={service.number} data-scroll-reveal className={cn('grid gap-6 border-t border-[#242522] pt-5', index === 1 && 'lg:ml-[12%]', index === 2 && 'lg:mr-[10%]')}><div className="flex items-baseline justify-between text-[10px] tracking-[0.2em] uppercase"><span className="text-[#9a5d3b]">{service.number}</span><span>Plano / {String(index + 1).padStart(2, '0')}</span></div><div data-parallax-panel className={cn('relative overflow-hidden bg-[#242522]', index === 0 && 'aspect-[1.45]', index === 1 && 'aspect-[1.08]', index === 2 && 'aspect-[1.7]')}><div data-parallax-media className="absolute -inset-y-[14%] -inset-x-[8%]"><Image src={project.image} alt={`Vista conceptual para ${service.title}`} fill sizes="(max-width:1024px) 100vw, 62vw" className={cn('object-cover grayscale', index === 0 && 'object-[56%_center]', index === 1 && 'object-[26%_center]', index === 2 && 'object-[78%_center]')} /></div></div><div className="grid gap-3 sm:grid-cols-[minmax(0,0.65fr)_1fr]"><h3 className="text-3xl font-semibold tracking-[-0.055em] uppercase sm:text-4xl">{service.title}</h3><p className="leading-relaxed text-[#242522]/66">{service.copy}</p></div></article>)}</div></div></section>
 
-      <section className="grid min-h-[70svh] border-y border-[#242522] lg:grid-cols-2">
-        <div className="relative min-h-[24rem] overflow-hidden border-b border-[#242522] lg:border-r lg:border-b-0">
-          <Image src={project.image} alt="Detalle material de una residencia conceptual" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover object-left grayscale transition duration-700 hover:grayscale-0" />
-        </div>
-        <div className="flex flex-col justify-between p-6 sm:p-12 lg:p-16">
-          <span className="text-[9px] tracking-[0.2em] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Principio 01</span>
-          <blockquote className="my-16 text-4xl leading-[0.94] font-medium tracking-[-0.05em] sm:text-6xl">“La arquitectura empieza cuando el lugar deja de ser fondo y pasa a tomar decisiones.”</blockquote>
-          <span className="text-[9px] tracking-[0.2em] uppercase opacity-55 [font-family:var(--font-geist-sans),Arial,sans-serif]">Material / Luz / Tiempo</span>
-        </div>
-      </section>
-
-      <section className="bg-[#242522] px-5 py-16 text-[#e7e3dc] sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto grid max-w-[1344px] gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="text-[9px] tracking-[0.2em] text-[#c88762] uppercase [font-family:var(--font-geist-sans),Arial,sans-serif]">Nueva obra</p>
-            <h2 className="mt-6 max-w-5xl text-5xl leading-[0.84] font-semibold tracking-[-0.075em] sm:text-8xl">Construyamos desde una idea clara.</h2>
-          </div>
-          <Link href="/#contact" className="flex min-h-14 w-full items-center justify-between border border-[#e7e3dc] px-5 font-semibold lg:w-auto lg:min-w-64">
-            Quiero una web asi <ArrowUpRight className="size-5" />
-          </Link>
-        </div>
-        <div className="mx-auto mt-14 flex max-w-[1344px] items-center justify-between border-t border-[#e7e3dc]/25 pt-6">
-          <BackToProjects />
-          <span className="text-[9px] tracking-[0.2em] uppercase opacity-50 [font-family:var(--font-geist-sans),Arial,sans-serif]">LN / 2026</span>
-        </div>
-      </section>
+      <section className="border-y border-[#242522] bg-[#242522] px-5 py-16 text-[#e7e3dc] sm:px-8 sm:py-24 lg:px-12"><div data-scroll-reveal className="mx-auto grid max-w-[1320px] gap-8 lg:grid-cols-[1fr_auto] lg:items-end"><div><p className="text-[10px] tracking-[0.2em] text-[#c88762] uppercase">Nueva obra</p><h2 className="mt-6 max-w-5xl text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.8] font-semibold tracking-[-0.08em]">{project.closingTitle}</h2><p className="mt-6 max-w-xl leading-relaxed text-[#e7e3dc]/65">{project.closingCopy}</p></div><Link href="/#contact" className="flex min-h-14 items-center justify-between border border-[#e7e3dc] px-5 font-semibold lg:min-w-64">Quiero una web así <ArrowUpRight className="size-5" /></Link></div><div className="mx-auto mt-12 max-w-[1320px] border-t border-[#e7e3dc]/25 pt-5"><BackToProjects /></div></section>
     </main>
   )
 }
 
 function AuraDentalLanding({ project }: { project: ConceptProject }) {
-  const reduceMotion = useReducedMotion()
-  const benefits = [
-    { icon: ShieldCheck, title: 'Información clara', copy: 'Sabés qué se va a hacer y por qué antes de empezar.' },
-    { icon: CalendarDays, title: 'Agenda sencilla', copy: 'Elegís el momento que mejor se adapta a tu semana.' },
-    { icon: Sparkles, title: 'Resultados naturales', copy: 'Tratamientos pensados para cuidar función y estética.' },
-  ]
+  const root = useRef<HTMLElement>(null)
+  const reducedMotion = useReducedMotion()
+  useScrollAssembly(root, reducedMotion)
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif] [&_.font-mono]:[font-family:var(--font-mazius-display),Georgia,serif]">
+    <main ref={root} className="overflow-hidden bg-[#edf2ec] text-[#17332f] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
       <ConceptNotice tone="aura" family="var(--font-mazius-display), Georgia, serif" />
-      <header className="relative z-20">
-        <div className="mx-auto flex h-20 max-w-[1380px] items-center justify-between px-5 sm:h-24 sm:px-8">
-          <Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em] [font-family:var(--font-nunito-sans),Arial,sans-serif]">
-            <span className="grid size-10 place-items-center rounded-full bg-[#5b8580] text-white">
-              <Sparkles className="size-5" />
-            </span>
-            Aura Dental
-          </Link>
-          <nav className="hidden items-center gap-7 text-sm font-medium md:flex [font-family:var(--font-nunito-sans),Arial,sans-serif]">
-            <a href="#tratamientos">Tratamientos</a>
-            <a href="#experiencia">Cómo te cuidamos</a>
-            <a href="#agenda">Agenda</a>
-          </nav>
-          <a href="#agenda" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#17332f] px-5 text-sm font-semibold text-white sm:flex">
-            Agendar <CalendarDays className="size-4" />
-          </a>
-          <Menu className="sm:hidden" />
-        </div>
-      </header>
+      <header className="relative z-20"><div className="mx-auto flex h-20 max-w-[1420px] items-center justify-between px-5 sm:h-24 sm:px-8 lg:px-12"><Link href="#inicio" className="flex items-center gap-3 text-xl font-semibold tracking-[-0.04em]"><span className="grid size-10 place-items-center rounded-full bg-[#5b8580] text-white"><Sparkles className="size-5" /></span>Aura Dental</Link><nav className="hidden gap-7 text-sm font-medium md:flex"><a href="#cuidado">El cuidado</a><a href="#tratamientos">Tratamientos</a><a href="#agenda">Agenda</a></nav><a href="#agenda" className="hidden min-h-11 items-center gap-2 rounded-full bg-[#17332f] px-5 text-sm font-semibold text-white sm:flex">Agendar <CalendarDays className="size-4" /></a><Menu className="sm:hidden" /></div></header>
 
-      <section id="inicio" className="mx-auto max-w-[1380px] px-5 pt-4 pb-14 sm:px-8 sm:pt-8 sm:pb-24">
-        <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: EASE }}>
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#cbdcd7] px-4 py-2 text-xs font-semibold [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">
-              <span className="size-2 rounded-full bg-[#5b8580]" /> Odontologia cercana
-            </span>
-            <h1 className="mt-7 text-[clamp(4rem,9vw,8.5rem)] leading-[0.85] font-extrabold tracking-[-0.065em] text-balance">
-              Cuidar tu sonrisa puede sentirse <span className="text-[#5b8580]">simple.</span>
-            </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-[#17332f]/68">
-              Un espacio pensado para explicar cada paso, escuchar lo que necesitas y acompanarte con tranquilidad.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#agenda" className="flex min-h-14 items-center justify-between rounded-full bg-[#5b8580] px-6 font-semibold text-white sm:min-w-52">
-                Agendar consulta <ArrowUpRight className="size-5" />
-              </a>
-              <a href="#tratamientos" className="flex min-h-14 items-center justify-between rounded-full border border-[#17332f]/30 px-6 font-semibold sm:min-w-52">
-                Ver tratamientos <ChevronRight className="size-5" />
-              </a>
-            </div>
-          </motion.div>
-          <div className="relative mx-auto aspect-square w-full max-w-[42rem]">
-            <motion.div aria-hidden="true" className="absolute inset-[3%] rounded-full border border-[#5b8580]/35" animate={reduceMotion ? undefined : { rotate: 360 }} transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}>
-              <span className="absolute top-[8%] right-[12%] size-4 rounded-full bg-[#5b8580]" />
-            </motion.div>
-            <motion.div aria-hidden="true" className="absolute inset-[10%] rounded-full border border-dashed border-[#17332f]/20" animate={reduceMotion ? undefined : { rotate: -360 }} transition={{ duration: 36, repeat: Infinity, ease: 'linear' }} />
-            <div className="absolute inset-[16%] overflow-hidden rounded-[44%_56%_48%_52%/54%_44%_56%_46%] shadow-[0_30px_80px_rgba(23,51,47,0.18)]">
-              <Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 86vw, 42vw" className="object-cover object-left" />
-            </div>
-            <motion.span animate={reduceMotion ? undefined : { y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: EASE }} className="absolute right-[2%] bottom-[18%] rounded-[1.25rem_0.35rem_1.25rem_0.35rem] bg-white p-4 shadow-xl">
-              <span className="block font-mono text-[8px] tracking-[0.13em] uppercase opacity-50">Próxima hora</span>
-              <span className="mt-1 block font-semibold">Agenda online</span>
-            </motion.span>
-          </div>
-        </div>
+      <section id="inicio" className="mx-auto grid max-w-[1420px] items-center gap-8 px-5 pt-8 pb-16 sm:px-8 sm:pt-12 sm:pb-24 lg:grid-cols-[0.84fr_1.16fr] lg:gap-16 lg:px-12"><div data-scroll-reveal><span className="inline-flex items-center gap-2 rounded-full bg-[#cbdcd7] px-4 py-2 text-xs font-semibold [font-family:var(--font-mazius-display),Georgia,serif]"><span className="size-2 rounded-full bg-[#5b8580]" /> Odontología cercana</span><h1 className="mt-7 max-w-3xl text-[clamp(4rem,8.8vw,8.5rem)] leading-[0.84] font-extrabold tracking-[-0.075em]">Cuidar tu sonrisa puede sentirse <span className="text-[#5b8580]">simple.</span></h1><p className="mt-7 max-w-xl text-lg leading-relaxed text-[#17332f]/68">La información se ordena a medida que avanzás: sin ruido, sin sorpresas y a tu ritmo.</p><a href="#cuidado" className="mt-8 inline-flex min-h-14 items-center gap-3 rounded-full bg-[#5b8580] px-6 font-semibold text-white">Conocé el recorrido <ArrowDown className="size-4" /></a></div>
+        <div data-parallax-panel className="relative aspect-square overflow-hidden rounded-[50%_50%_44%_56%/43%_44%_56%_57%] bg-[#cbdcd7]"><div data-parallax-media className="absolute -inset-[12%]"><Image src={project.image} alt={project.imageAlt} fill priority sizes="(max-width:1024px) 100vw, 56vw" className="object-cover object-left" /></div><div className="absolute inset-0 border-[18px] border-[#edf2ec]/70" /><span className="absolute right-[8%] bottom-[12%] rounded-full bg-white px-4 py-3 text-sm font-semibold shadow-[0_20px_45px_rgba(23,51,47,0.15)]">Agenda online</span></div>
       </section>
 
-      <section id="tratamientos" className="relative bg-white/65 px-5 py-16 sm:px-8 sm:py-24">
-        <div aria-hidden="true" className="absolute top-14 right-[6%] hidden size-32 rounded-full border border-[#5b8580]/15 lg:block" />
-        <div className="mx-auto max-w-[1320px]">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[9px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Tratamientos</p>
-              <h2 className="mt-4 text-5xl leading-[0.9] font-semibold tracking-[-0.06em] sm:text-7xl">Elige con informacion.</h2>
-            </div>
-            <p className="max-w-md leading-relaxed text-[#17332f]/62">Cada tratamiento se presenta con un objetivo claro, sin tecnicismos innecesarios.</p>
-          </div>
-          <div className="mt-12 border-t border-[#17332f]/18">
-            {project.services.map((service, index) => (
-              <motion.article
-                key={service.number}
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
-                className={cn('group grid gap-5 border-b border-[#17332f]/18 py-8 transition-colors duration-500 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-8 sm:py-11', index === 1 ? 'text-[#5b8580]' : 'hover:text-[#5b8580]')}
-              >
-                <span className="grid size-14 place-items-center rounded-full border border-current/25 text-lg [font-family:var(--font-mazius-display),Georgia,serif]">{service.number}</span>
-                <div>
-                  <h3 className="text-3xl font-bold tracking-[-0.05em] text-[#17332f] sm:text-4xl">{service.title}</h3>
-                  <p className="mt-3 max-w-xl leading-relaxed text-[#17332f]/64">{service.copy}</p>
-                </div>
-                <span className="grid size-11 place-items-center rounded-full border border-current/25 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-1">
-                  <ArrowUpRight className="size-4" />
-                </span>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section id="cuidado" className="relative bg-white/65 px-5 py-16 sm:px-8 sm:py-28 lg:px-12"><div className="absolute top-14 right-[8%] hidden size-40 rounded-full border border-[#5b8580]/20 lg:block" /><div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.72fr_1.28fr]"><div data-scroll-reveal><p className="text-[10px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),Georgia,serif]">Una experiencia clara</p><h2 className="mt-5 text-[clamp(3.4rem,6vw,6.8rem)] leading-[0.84] font-bold tracking-[-0.07em]">Todo acompaña una decisión tranquila.</h2></div><div className="border-l border-[#5b8580]/30 pl-6 sm:pl-10">{['Antes de la consulta', 'Durante el tratamiento', 'Después del cuidado'].map((step, index) => <article key={step} data-scroll-reveal className="relative border-b border-[#17332f]/12 py-7 last:border-b-0"><span className="absolute -left-[2.05rem] top-10 size-3 rounded-full border-2 border-white bg-[#5b8580] sm:-left-[2.58rem]" /><span className="text-[10px] text-[#5b8580] [font-family:var(--font-mazius-display),Georgia,serif]">0{index + 1}</span><h3 className="mt-2 text-2xl font-bold tracking-[-0.04em]">{step}</h3><p className="mt-2 max-w-xl leading-relaxed text-[#17332f]/64">{index === 0 ? 'Información simple para entender qué necesitás y cómo prepararte.' : index === 1 ? 'Tratamientos explicados con cercanía, en el orden que tiene sentido para vos.' : 'Indicaciones visibles y un canal directo para seguir acompañado.'}</p></article>)}</div></div></section>
 
-      <section id="experiencia" className="px-5 py-16 sm:px-8 sm:py-24">
-        <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
-          <div>
-            <p className="text-[9px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Tu experiencia</p>
-            <h2 className="mt-4 text-5xl leading-[0.9] font-semibold tracking-[-0.06em] sm:text-7xl">Todo claro desde el principio.</h2>
-          </div>
-          <div className="relative grid gap-0 border-l border-[#5b8580]/35 pl-6 sm:pl-10">
-            {benefits.map((benefit, index) => (
-              <motion.article
-                key={benefit.title}
-                initial={reduceMotion ? false : { x: 22, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: index * 0.09, ease: EASE }}
-                className="relative grid gap-4 border-b border-[#17332f]/15 py-6 last:border-b-0 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:py-8"
-              >
-                <span aria-hidden="true" className="absolute -left-[2.08rem] top-9 size-3 rounded-full border-2 border-[#edf2ec] bg-[#5b8580] sm:-left-[2.58rem]" />
-                <span className="grid size-12 place-items-center rounded-full bg-[#cbdcd7]">
-                  <benefit.icon className="size-5" />
-                </span>
-                <div>
-                  <h3 className="text-xl font-semibold">{benefit.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed opacity-62">{benefit.copy}</p>
-                </div>
-                <span className="[font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif] text-[9px] text-[#5b8580]">0{index + 1}</span>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section id="tratamientos" className="mx-auto max-w-[1420px] px-5 py-16 sm:px-8 sm:py-28 lg:px-12"><div data-scroll-reveal className="max-w-3xl"><p className="text-[10px] tracking-[0.2em] text-[#5b8580] uppercase [font-family:var(--font-mazius-display),Georgia,serif]">Tratamientos</p><h2 className="mt-5 text-[clamp(3.5rem,6.5vw,7rem)] leading-[0.84] font-bold tracking-[-0.07em]">Cada servicio aparece a su tiempo.</h2></div><div className="mt-12 space-y-10 sm:space-y-16">{project.services.map((service, index) => <article key={service.number} data-scroll-reveal className={cn('grid gap-6 lg:grid-cols-[0.42fr_0.58fr] lg:items-center', index === 1 && 'lg:pl-[12%]', index === 2 && 'lg:pr-[10%]')}><div data-parallax-panel className={cn('relative overflow-hidden bg-[#cbdcd7]', index === 0 && 'aspect-[1.3] rounded-[55%_45%_50%_50%/45%_55%_45%_55%]', index === 1 && 'aspect-[1.55] rounded-[42%_58%_50%_50%/58%_42%_58%_42%]', index === 2 && 'aspect-square rounded-[50%_50%_38%_62%/60%_44%_56%_40%]')}><div data-parallax-media className="absolute -inset-[12%]"><Image src={project.image} alt={`Atención dental conceptual: ${service.title}`} fill sizes="(max-width:1024px) 100vw, 44vw" className={cn('object-cover', index === 0 && 'object-[28%_center]', index === 1 && 'object-center', index === 2 && 'object-[70%_center]')} /></div></div><div><span className="grid size-12 place-items-center rounded-full border border-[#5b8580]/35 text-[#5b8580] [font-family:var(--font-mazius-display),Georgia,serif]">{service.number}</span><h3 className="mt-5 text-4xl font-bold tracking-[-0.055em]">{service.title}</h3><p className="mt-4 max-w-lg leading-relaxed text-[#17332f]/64">{service.copy}</p></div></article>)}</div></section>
 
-      <section id="agenda" className="px-5 pb-16 sm:px-8 sm:pb-24">
-        <div className="mx-auto overflow-hidden rounded-[3rem_0.75rem_3rem_0.75rem] bg-[#17332f] p-6 text-white sm:p-12 lg:p-16">
-          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <span className="grid size-12 place-items-center rounded-full bg-[#5b8580]">
-                <CalendarDays className="size-5" />
-              </span>
-              <h2 className="mt-8 max-w-4xl text-5xl leading-[0.86] font-semibold tracking-[-0.07em] sm:text-8xl">Tu proxima consulta, sin vueltas.</h2>
-              <p className="mt-6 max-w-xl leading-relaxed text-white/65">Elegí un horario y contanos brevemente qué necesitás.</p>
-            </div>
-            <Link href="/#contact" className="flex min-h-14 w-full items-center justify-between rounded-full bg-[#edf2ec] px-6 font-semibold text-[#17332f] lg:w-auto lg:min-w-64">
-              Quiero una web asi <ArrowUpRight className="size-5" />
-            </Link>
-          </div>
-          <div className="mt-14 flex items-center justify-between border-t border-white/20 pt-6">
-            <BackToProjects />
-            <span className="hidden text-[9px] tracking-[0.2em] uppercase text-white/45 sm:block [font-family:var(--font-mazius-display),var(--font-nunito-sans),Arial,sans-serif]">Aura / Demo MR14</span>
-          </div>
-        </div>
-      </section>
+      <section id="agenda" className="px-5 pb-16 sm:px-8 sm:pb-24 lg:px-12"><div data-scroll-reveal className="mx-auto overflow-hidden rounded-[4rem_4rem_1.2rem_1.2rem] bg-[#17332f] px-6 py-14 text-white sm:px-12 sm:py-20 lg:max-w-[1320px] lg:px-16"><span className="grid size-12 place-items-center rounded-full bg-[#5b8580]"><CalendarDays className="size-5" /></span><h2 className="mt-8 max-w-5xl text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.82] font-bold tracking-[-0.075em]">{project.closingTitle}</h2><p className="mt-6 max-w-xl leading-relaxed text-white/64">{project.closingCopy}</p><Link href="/#contact" className="mt-8 inline-flex min-h-14 items-center gap-3 rounded-full bg-[#edf2ec] px-6 font-semibold text-[#17332f]">Quiero una web así <ArrowUpRight className="size-5" /></Link><div className="mt-12 border-t border-white/20 pt-5"><BackToProjects /></div></div></section>
     </main>
   )
 }
 
 export function ConceptLanding({ project }: { project: ConceptProject }) {
-  const style = {
-    '--concept-page': project.theme.page,
-    '--concept-ink': project.theme.ink,
-    '--concept-accent': project.theme.accent,
-    '--concept-soft': project.theme.soft,
-  } as CSSProperties
-
   if (project.slug === 'bruma-cafe') return <BrumaLanding project={project} />
   if (project.slug === 'linea-norte') return <LineaNorteLanding project={project} />
-  return <div style={style}><AuraDentalLanding project={project} /></div>
+  return <AuraDentalLanding project={project} />
 }
-
