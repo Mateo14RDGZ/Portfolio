@@ -43,7 +43,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'circle-top',
     d: 'M 188 126 C 307 42 493 43 616 151 C 716 240 733 417 658 535',
-    revealWidth: 29,
+    revealWidth: 48,
     delay: 0,
     duration: 1.2,
     clip: { x: 160, y: 40, width: 560, height: 505 },
@@ -51,7 +51,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'circle-bottom',
     d: 'M 83 267 C 35 420 95 599 221 670 C 365 746 526 710 615 607',
-    revealWidth: 29,
+    revealWidth: 48,
     delay: 0.2,
     duration: 1.1,
     clip: { x: 50, y: 255, width: 580, height: 470 },
@@ -59,7 +59,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'm',
     d: 'M 126 522 L 126 210 L 264 382 L 384 267 L 384 671',
-    revealWidth: 34,
+    revealWidth: 56,
     delay: 0.46,
     duration: 0.98,
     clip: { x: 100, y: 190, width: 290, height: 490 },
@@ -67,7 +67,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'diagonal-top',
     d: 'M 151 150 L 290 290',
-    revealWidth: 26,
+    revealWidth: 42,
     delay: 0.42,
     duration: 0.7,
     clip: { x: 120, y: 125, width: 195, height: 190 },
@@ -75,7 +75,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'r',
     d: 'M 390 252 L 525 252 C 638 252 638 394 520 394 L 437 394 L 694 603',
-    revealWidth: 34,
+    revealWidth: 56,
     delay: 0.94,
     duration: 0.92,
     clip: { x: 390, y: 230, width: 315, height: 390 },
@@ -83,7 +83,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'r-inner',
     d: 'M 413 404 L 501 494',
-    revealWidth: 26,
+    revealWidth: 42,
     delay: 1.72,
     duration: 0.28,
     clip: { x: 400, y: 390, width: 120, height: 125 },
@@ -91,7 +91,7 @@ const LOGO_STROKES: readonly LogoStroke[] = [
   {
     id: 'fourteen',
     d: 'M 439 628 L 439 535 L 420 543 M 531 628 L 531 535 L 480 601 L 549 601',
-    revealWidth: 20,
+    revealWidth: 32,
     delay: 1.42,
     duration: 0.6,
     clip: { x: 400, y: 510, width: 175, height: 135 },
