@@ -115,21 +115,21 @@ export function Services() {
           {PLANS.map((plan, index) => (
             <RevealItem key={plan.name} className="h-full">
               <motion.article
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.45, ease: EASE }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.32, ease: EASE }}
                 className={cn(
                   'group relative flex h-full flex-col overflow-hidden border border-foreground p-6 font-semibold min-[380px]:p-7 sm:p-8',
                   index === 0 && 'rounded-[3rem_0.75rem_0.75rem_0.75rem]',
                   index === 1 && 'rounded-[0.75rem_3rem_0.75rem_0.75rem]',
                   index === 2 && 'rounded-[0.75rem_0.75rem_3rem_0.75rem]',
-                  plan.featured
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-background',
+                  plan.name === 'CLASSIC' && 'plan-surface-classic',
+                  plan.name === 'GOLD' && 'plan-surface-gold',
+                  plan.name === 'BLACK' && 'plan-surface-black',
                 )}
               >
-                {/* Hover glow */}
+                <span aria-hidden className="plan-material-hover pointer-events-none absolute inset-x-0 bottom-0 h-28 opacity-0" />
                 {plan.featured ? (
-                  <Badge className="absolute top-6 right-6 rounded-none bg-foreground text-background">
+                  <Badge className="absolute top-6 right-6 rounded-none bg-foreground/90 text-background">
                     Más solicitado
                   </Badge>
                 ) : null}
@@ -159,7 +159,7 @@ export function Services() {
                   </div>
                 </div>
 
-                <div className="relative mt-8 flex flex-1 flex-col gap-6">
+                <div className="relative mt-6 flex flex-col gap-5">
                   {plan.groups ? (
                     plan.groups.map((group) => (
                       <div key={group.title} className="border-t border-foreground/30 pt-4 first:border-t-0 first:pt-0">
@@ -191,9 +191,9 @@ export function Services() {
                 <Button
                   variant="outline"
                   className={cn(
-                    'group/cta relative mt-9 h-12 w-full rounded-full text-sm font-bold',
+                    `group/cta plan-card-cta plan-card-cta-${plan.name.toLowerCase()} relative mt-6 h-12 w-full rounded-full text-sm font-bold`,
                     plan.featured &&
-                      'border-foreground bg-foreground text-background shadow-[0_10px_30px_rgba(41,21,50,0.2)] hover:border-background hover:bg-background hover:text-foreground focus-visible:ring-background/70',
+                      'plan-card-cta-gold border-[#3b2809] bg-[#3b2809] text-[#fff7df] shadow-[0_10px_30px_rgba(74,48,9,0.18)] focus-visible:ring-[#3b2809]/70',
                   )}
                   nativeButton={false}
                   render={

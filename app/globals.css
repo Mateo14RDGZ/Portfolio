@@ -134,6 +134,81 @@
   transform: translateY(0) scale(0.985);
 }
 
+/* Plan materials: restrained surface cues, not animated backgrounds. */
+.plan-surface-classic,
+.plan-option-classic {
+  border-color: #3e2417 !important;
+  background-color: #5a3422 !important;
+  background-image:
+    linear-gradient(118deg, rgb(255 235 204 / 13%), transparent 34%, rgb(20 9 4 / 20%)),
+    repeating-linear-gradient(174deg, transparent 0 11px, rgb(20 9 4 / 16%) 12px 13px, transparent 14px 25px) !important;
+  color: #fff1db !important;
+}
+
+.plan-surface-gold,
+.plan-option-gold {
+  border-color: #7e5916 !important;
+  background-color: #d0a23f !important;
+  background-image: linear-gradient(124deg, #f8e6a7 0%, #d0a23f 45%, #a9781a 100%) !important;
+  color: #2f2006 !important;
+}
+
+.plan-surface-black,
+.plan-option-black {
+  border-color: #101016 !important;
+  background-color: #15151b !important;
+  background-image:
+    radial-gradient(circle at 18% 20%, rgb(255 255 255 / 55%) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 31%, rgb(202 214 255 / 48%) 0 1px, transparent 2px),
+    radial-gradient(circle at 63% 78%, rgb(255 255 255 / 42%) 0 1.2px, transparent 2.5px),
+    linear-gradient(145deg, #252530 0%, #111116 54%, #20202a 100%) !important;
+  color: #f4f2ff !important;
+}
+
+.plan-surface-classic :where(h3, h4, p, li, span),
+.plan-surface-black :where(h3, h4, p, li, span) {
+  color: inherit !important;
+}
+
+.plan-card-cta-classic {
+  border-color: rgb(255 241 219 / 60%) !important;
+  background: rgb(255 241 219 / 10%) !important;
+  color: #fff1db !important;
+}
+
+.plan-card-cta-black {
+  border-color: rgb(244 242 255 / 42%) !important;
+  background: rgb(255 255 255 / 8%) !important;
+  color: #f4f2ff !important;
+}
+
+.plan-material-hover {
+  background: linear-gradient(105deg, transparent 12%, rgb(255 255 255 / 18%) 50%, transparent 88%);
+  transform: translateX(-34%);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .plan-surface-classic:hover .plan-material-hover,
+  .plan-surface-gold:hover .plan-material-hover,
+  .plan-surface-black:hover .plan-material-hover {
+    opacity: 1;
+    transform: translateX(34%);
+  }
+
+  .plan-card-cta-gold:hover {
+    border-color: #2f2006 !important;
+    background: #fff0b6 !important;
+    box-shadow: 0 12px 26px rgb(92 62 6 / 24%);
+    color: #2f2006 !important;
+  }
+
+  .plan-card-cta-classic:hover,
+  .plan-card-cta-black:hover {
+    background: rgb(255 255 255 / 18%) !important;
+  }
+}
+
 @media (max-width: 639px) {
   :root {
     --mobile-gutter: clamp(1rem, 5.2vw, 1.35rem);
