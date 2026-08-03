@@ -9,6 +9,7 @@ const LINKS = [
   { label: 'Habilidades', href: '/#work' },
   { label: 'Método', href: '/#process' },
   { label: 'Preguntas frecuentes', href: '/#faq' },
+  { label: 'Notas', href: '/notas' },
 ]
 
 export function SiteFooter() {
@@ -25,13 +26,13 @@ export function SiteFooter() {
 
           <div className="text-center lg:text-left">
             <p className="max-w-3xl text-[clamp(2.5rem,6vw,6rem)] leading-[0.86] font-semibold tracking-[-0.065em] text-balance">
-              Una buena web debería sentirse inevitable.
+              ¿Necesitás vender, reservar o gestionar mejor tu negocio?
             </p>
             <Link
               href="/#contact"
               className="mt-7 inline-flex min-h-14 items-center gap-3 rounded-full bg-foreground px-6 font-semibold text-background transition-transform hover:-translate-y-1"
             >
-              Construyamos la tuya <ArrowUpRight className="size-5" />
+              Contame qué necesitás <ArrowUpRight className="size-5" />
             </Link>
           </div>
         </div>
@@ -80,6 +81,7 @@ export function SiteFooter() {
               MƦ14
             </Link>
           </p>
+          <Link href="/en" className="text-foreground transition-colors hover:text-primary" aria-label="View the English version of this portfolio">English version</Link>
         </div>
       </div>
     </footer>

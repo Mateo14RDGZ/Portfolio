@@ -7,28 +7,24 @@ import { viewportOnce, EASE, useCompactMotion } from '@/lib/motion'
 
 const STEPS = [
   {
-    title: 'Reunión inicial',
-    copy: 'Una llamada de 25 minutos para entender tu negocio, tus clientes y cómo sería un resultado exitoso.',
+    title: 'Consulta inicial',
+    copy: 'Conversamos sobre tu negocio, tus clientes y el objetivo del proyecto. Es una instancia sin costo para entender si tiene sentido avanzar.',
   },
   {
-    title: 'Planificación',
-    copy: 'Defino el mapa del sitio, el contenido necesario y el alcance técnico; después envío un plan cerrado antes de comenzar el desarrollo.',
+    title: 'Propuesta clara',
+    copy: 'Te envío una propuesta con alcance, plazo y presupuesto. Antes de empezar, sabés exactamente qué incluye el trabajo.',
   },
   {
     title: 'Diseño',
-    copy: 'Vas a ver pronto el diseño real —tipografía, colores y estructura— y lo vamos a perfeccionar juntos antes de comenzar con el código.',
+    copy: 'Vas a ver el diseño real: tipografía, colores, estructura y recorridos. Lo ajustamos antes de comenzar con el código.',
   },
   {
     title: 'Desarrollo',
-    copy: 'Next.js y TypeScript escritos a mano, con diseño responsive desde el primer momento y enlaces semanales de avance.',
+    copy: 'Construyo el sitio o sistema con una versión mobile cuidada desde el principio y avances claros durante el proceso.',
   },
   {
-    title: 'Pruebas',
-    copy: 'Hago comprobaciones en distintos navegadores y dispositivos reales, además de revisiones de accesibilidad y rendimiento. No publico el sitio sin completar las pruebas acordadas.',
-  },
-  {
-    title: 'Lanzamiento',
-    copy: 'Configuro el dominio, la analítica y el SEO. Después te explico todo para que sepas exactamente cómo gestionar tu nuevo sitio.',
+    title: 'Entrega y acompañamiento',
+    copy: 'Completo las pruebas acordadas, publico la web y te explico cómo gestionar lo esencial. También quedo disponible para mantenimiento y mejoras posteriores.',
   },
 ]
 
@@ -50,8 +46,8 @@ export function Process() {
     >
       <SectionHeading
         eyebrow="Proceso"
-        title="Seis pasos. Un proceso claro."
-        description="Siempre vas a saber en qué etapa estamos, qué necesito de vos y qué va a pasar después."
+        title="De la consulta a la entrega, sin sorpresas."
+        description="Trato directo, una propuesta entendible y un proceso ordenado para que sepas qué está pasando en cada etapa."
       />
 
       <ol ref={containerRef} className="relative mt-9 flex flex-col gap-0 border-t border-foreground sm:mt-12 sm:pl-0">

@@ -11,6 +11,8 @@ import { SiteFooter } from '@/components/site-footer'
 import { PageTransition } from '@/components/page-transition'
 import { QualityPanel } from '@/components/quality-panel'
 import { Faq } from '@/components/faq'
+import { WhyMe } from '@/components/why-me'
+import { NotesPreview } from '@/components/notes-preview'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 import { SITE_URL } from '@/lib/site'
 
@@ -96,12 +98,14 @@ export default function HomePage() {
         <Hero />
         <CaseStudyPreview />
         <About />
+        <WhyMe />
         <Services />
         <Projects />
         <Technologies />
         <QualityPanel />
         <Process />
         <Faq />
+        <NotesPreview />
         <Contact />
       </main>
 

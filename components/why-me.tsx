@@ -58,8 +58,9 @@ export function WhyMe() {
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
-          eyebrow="Por qué elegirme"
-          title="Todo lo que promete una agencia, sin intermediarios."
+          eyebrow="Por qué trabajar conmigo"
+          title="Trato directo, decisiones claras y una web que podés seguir mejorando."
+          description="Trabajo de forma cercana: entendemos el objetivo, definimos un plan y mantenemos una comunicación simple durante todo el proyecto."
           align="center"
         />
 
