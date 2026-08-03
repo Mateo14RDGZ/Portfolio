@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'motion/react'
+import { Plus } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { viewportOnce, EASE, useCompactMotion } from '@/lib/motion'
 
@@ -50,7 +51,20 @@ export function Process() {
         description="Trato directo, una propuesta entendible y un proceso ordenado para que sepas qué está pasando en cada etapa."
       />
 
-      <ol ref={containerRef} className="relative mt-9 flex flex-col gap-0 border-t border-foreground sm:mt-12 sm:pl-0">
+      <div className="mt-9 border-t border-foreground sm:hidden">
+        {STEPS.map((step, i) => (
+          <details key={step.title} className="group border-b border-foreground">
+            <summary className="flex min-h-18 cursor-pointer list-none items-center gap-4 py-4 pr-1 font-medium [&::-webkit-details-marker]:hidden">
+              <span className="font-mono text-xs font-semibold text-primary">{String(i + 1).padStart(2, '0')}</span>
+              <span className="flex-1 text-lg tracking-tight">{step.title}</span>
+              <Plus className="size-4 shrink-0 transition-transform duration-300 group-open:rotate-45" />
+            </summary>
+            <p className="max-w-xl pb-5 pl-8 pr-4 leading-relaxed text-muted-foreground">{step.copy}</p>
+          </details>
+        ))}
+      </div>
+
+      <ol ref={containerRef} className="relative mt-12 hidden flex-col gap-0 border-t border-foreground sm:flex sm:pl-0">
         {/* Rail */}
         <motion.div aria-hidden style={{ scaleX: compactMotion ? 1 : scaleY }} className="absolute top-0 left-0 h-1 w-full origin-left bg-primary" />
 

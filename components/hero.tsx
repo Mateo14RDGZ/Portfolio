@@ -28,6 +28,9 @@ export function Hero() {
               Estrategia, identidad visual y código en una sola mesa. Sin capas de agencia. Sin soluciones de catálogo.
             </p>
           </div>
+          <a href="#contact" className="primary-action mt-5 flex min-h-12 items-center justify-between bg-primary px-4 text-sm font-semibold text-primary-foreground sm:hidden">
+            Contame tu idea <ArrowUpRight className="size-4" />
+          </a>
         </div>
 
         <div className="relative grid min-h-[22rem] place-items-center overflow-hidden border-t border-foreground bg-accent p-6 min-[390px]:min-h-[25rem] min-[390px]:p-8 lg:min-h-0 lg:border-t-0">

@@ -13,6 +13,7 @@ import { QualityPanel } from '@/components/quality-panel'
 import { Faq } from '@/components/faq'
 import { WhyMe } from '@/components/why-me'
 import { NotesPreview } from '@/components/notes-preview'
+import { MobileQuickContact } from '@/components/mobile-quick-contact'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 import { SITE_URL } from '@/lib/site'
 
@@ -93,6 +94,7 @@ export default function HomePage() {
       </a>
 
       <SiteHeader />
+      <MobileQuickContact />
 
       <main>
         <Hero />

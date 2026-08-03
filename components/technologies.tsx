@@ -46,7 +46,7 @@ export function Technologies() {
       {/* Infinite scrolling keyword band */}
       <div
         aria-hidden
-        className="relative mt-10 flex overflow-hidden border-y border-border py-4 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] sm:mt-14 sm:py-5"
+        className="relative mt-14 hidden overflow-hidden border-y border-border py-5 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] sm:flex"
       >
         <div className="animate-marquee flex shrink-0 items-center gap-10 pr-10 motion-reduce:animate-none">
           {[...STACK, ...STACK].map((tech, i) => (

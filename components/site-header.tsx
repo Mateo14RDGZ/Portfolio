@@ -100,9 +100,14 @@ export function SiteHeader() {
                 </Link>
               ))}
             </div>
-            <Link href="/#contact" onClick={() => setOpen(false)} className="mobile-safe-bottom flex min-h-20 items-center justify-between border-t border-primary-foreground px-5 pt-4 text-lg font-semibold">
-              Iniciar una conversación <ArrowUpRight />
-            </Link>
+            <div className="mobile-safe-bottom grid grid-cols-2 border-t border-primary-foreground">
+              <Link href="/#call-booking" onClick={() => setOpen(false)} className="flex min-h-20 items-center justify-between gap-2 border-r border-primary-foreground px-5 pt-4 text-sm font-semibold">
+                Agendar llamada <ArrowUpRight className="size-4 shrink-0" />
+              </Link>
+              <Link href="/#contact" onClick={() => setOpen(false)} className="flex min-h-20 items-center justify-between gap-2 px-5 pt-4 text-sm font-semibold">
+                Contame tu idea <ArrowUpRight className="size-4 shrink-0" />
+              </Link>
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>
