@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import { ArrowUpRight, Building2, Check, Globe, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -100,6 +101,25 @@ function PlanBack({ plan }: { plan: Plan }) {
 }
 
 export function Services() {
+  const [flippedPlan, setFlippedPlan] = useState<Plan['name'] | null>(null)
+  const pointerStart = useRef<Record<string, { x: number; y: number }>>({})
+
+  function beginPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
+    pointerStart.current[plan] = { x: event.clientX, y: event.clientY }
+  }
+
+  function finishPlanSwipe(event: React.PointerEvent<HTMLDivElement>, plan: Plan['name']) {
+    const start = pointerStart.current[plan]
+    delete pointerStart.current[plan]
+    if (!start) return
+
+    const horizontalDistance = event.clientX - start.x
+    const verticalDistance = event.clientY - start.y
+    if (Math.abs(horizontalDistance) < 42 || Math.abs(horizontalDistance) <= Math.abs(verticalDistance)) return
+
+    setFlippedPlan((current) => current === plan ? null : plan)
+  }
+
   return (
     <section id="services" className="relative scroll-mt-24 overflow-hidden rounded-t-[3.5rem] bg-accent py-16 sm:rounded-t-[6rem] sm:py-24">
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
@@ -115,8 +135,14 @@ export function Services() {
             const Icon = plan.icon
             return (
               <RevealItem key={plan.name} className="h-full">
-                <div className="plan-flip-card h-full">
-                  <article className="plan-flip-inner relative h-full">
+                <div className="flex h-full flex-col">
+                  <div
+                    className={cn('plan-flip-card h-full', flippedPlan === plan.name && 'plan-flip-card--flipped')}
+                    onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
+                    onPointerUp={(event) => finishPlanSwipe(event, plan.name)}
+                    onPointerCancel={() => { delete pointerStart.current[plan.name] }}
+                  >
+                    <article className="plan-flip-inner relative h-full">
                     <div className={cn(
                       'plan-flip-face plan-flip-front group flex h-full flex-col overflow-hidden border border-foreground bg-background p-6 font-semibold min-[380px]:p-7 sm:p-8',
                       index === 0 && 'rounded-[3rem_0.75rem_0.75rem_0.75rem]',
@@ -141,7 +167,11 @@ export function Services() {
                       </Button>
                     </div>
                     <PlanBack plan={plan} />
-                  </article>
+                    </article>
+                  </div>
+                  <p className="mt-3 text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] text-foreground/65 uppercase lg:hidden">
+                    {flippedPlan === plan.name ? 'Deslizá para volver' : 'Deslizá para más información'}
+                  </p>
                 </div>
               </RevealItem>
             )

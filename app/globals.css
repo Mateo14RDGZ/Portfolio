@@ -130,6 +130,16 @@
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  .plan-flip-card {
+    touch-action: pan-y;
+  }
+
+  .plan-flip-card--flipped .plan-flip-inner {
+    transform: translate3d(0, 0, 0) rotateY(180deg);
+  }
+}
+
 .primary-action:active {
   transform: translateY(0) scale(0.985);
 }
