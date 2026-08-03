@@ -208,7 +208,8 @@ export async function submitContact(
     })
 
     if (!response.ok) {
-      console.error('Resend rejected the contact email:', response.status)
+      const errorBody = await response.text().catch(() => '')
+      console.error('Resend rejected the contact email:', response.status, errorBody)
       return {
         status: 'error',
         message: 'No pude enviar el mensaje en este momento. Volvé a intentarlo o escribime directamente por correo.',
