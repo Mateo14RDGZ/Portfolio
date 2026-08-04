@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/sonner'
 import { GoogleAnalytics } from '@/components/google-analytics'
+import { MetaPixel } from '@/components/meta-pixel'
 import { PwaRegistration } from '@/components/pwa-registration'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -117,6 +118,7 @@ export default function RootLayout({
         {children}
         <PwaRegistration />
         <GoogleAnalytics />
+        <MetaPixel />
         <Toaster position="bottom-right" />
         {process.env.VERCEL === '1' && <Analytics />}
       </body>
