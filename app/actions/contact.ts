@@ -51,7 +51,11 @@ function createContactEmail(input: {
   const safeEmail = escapeHtml(input.email)
   const safePlan = escapeHtml(input.plan || 'Aún sin definir')
   const safeMessage = escapeHtml(input.message).replace(/\n/g, '<br />')
-  const replyUrl = `mailto:${encodeURIComponent(input.email)}?subject=${encodeURIComponent('Sobre tu consulta desde MR14')}`
+  // The address in a mailto: link must stay a literal addr-spec (RFC 6068) -
+  // percent-encoding the "@" (as encodeURIComponent would) makes most mail
+  // clients fail to parse the recipient. Only the query string (subject=...)
+  // gets percent-encoded.
+  const replyUrl = `mailto:${safeEmail}?subject=${encodeURIComponent('Sobre tu consulta desde MR14')}`
   const firstName = input.name.split(' ')[0] || input.name
 
   return {
@@ -104,7 +108,7 @@ function createContactEmail(input: {
                         <tr>
                           <td style="width:50%;padding:17px 14px 17px 0;vertical-align:top;border-right:1px solid #b7c29b;">
                             <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5d4963;">Contacto</p>
-                            <a href="mailto:${encodeURIComponent(input.email)}" style="color:#291532;font-size:15px;font-weight:700;text-decoration:none;word-break:break-word;">${safeEmail}</a>
+                            <a href="mailto:${safeEmail}" style="color:#291532;font-size:15px;font-weight:700;text-decoration:none;word-break:break-word;">${safeEmail}</a>
                           </td>
                           <td style="width:50%;padding:17px 0 17px 18px;vertical-align:top;">
                             <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5d4963;">Interés inicial</p>
