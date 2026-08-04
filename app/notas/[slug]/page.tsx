@@ -23,6 +23,20 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const note = getNote(slug)
   if (!note) notFound()
+
+  const noteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: note.title,
+    description: note.description,
+    datePublished: note.publishedISO,
+    dateModified: note.publishedISO,
+    url: `${SITE_URL}/notas/${note.slug}`,
+    inLanguage: 'es-UY',
+    author: { '@type': 'Person', name: 'Mateo Rodríguez', url: SITE_URL },
+    publisher: { '@type': 'Organization', name: 'MR14', url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon.png` } },
+  }
+
   return (
     <PageTransition animatePage>
       <SiteHeader />
@@ -31,6 +45,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
         <article className="mt-10 border-t border-foreground pt-5"><p className="font-mono text-[10px] tracking-[0.18em] text-primary uppercase">{note.publishedAt} · {note.readingTime}</p><h1 className="mt-5 max-w-3xl text-[clamp(3.3rem,7vw,6.6rem)] leading-[0.84] font-semibold tracking-[-0.075em]">{note.title}</h1><p className="mt-6 max-w-2xl text-xl leading-relaxed text-muted-foreground">{note.description}</p><div className="mt-14 space-y-12">{note.content.map((section) => <section key={section.heading} className="max-w-2xl"><h2 className="text-3xl font-semibold tracking-[-0.045em]">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-lg leading-relaxed text-muted-foreground">{paragraph}</p>)}</section>)}</div><div className="mt-16 border-t border-foreground pt-6"><h2 className="text-3xl font-semibold tracking-[-0.05em]">¿Necesitás vender, reservar o gestionar mejor tu negocio?</h2><Link href="/#contact" className="primary-action mt-6 inline-flex min-h-12 items-center gap-3 bg-primary px-5 font-semibold text-primary-foreground">Contame qué necesitás <ArrowUpRight className="size-4" /></Link></div></article>
       </main>
       <SiteFooter />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(noteSchema) }} />
     </PageTransition>
   )
 }

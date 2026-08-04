@@ -4,6 +4,8 @@ export type Note = {
   description: string
   readingTime: string
   publishedAt: string
+  /** ISO 8601 date for structured data (schema.org datePublished). */
+  publishedISO: string
   content: Array<{ heading: string; paragraphs: string[] }>
 }
 
@@ -14,6 +16,7 @@ export const NOTES: Note[] = [
     description: 'La estructura, la velocidad y los próximos pasos que ayudan a que una visita no se pierda.',
     readingTime: '4 min de lectura',
     publishedAt: 'Agosto de 2026',
+    publishedISO: '2026-08-01',
     content: [
       {
         heading: 'Empezá por una idea clara',
@@ -43,6 +46,7 @@ export const NOTES: Note[] = [
     description: 'Una forma simple de definir qué tipo de desarrollo necesita un negocio antes de pedir presupuesto.',
     readingTime: '5 min de lectura',
     publishedAt: 'Agosto de 2026',
+    publishedISO: '2026-08-08',
     content: [
       {
         heading: 'Cuando alcanza un sitio web',
@@ -70,6 +74,7 @@ export const NOTES: Note[] = [
     description: 'Una lista práctica para llegar al lanzamiento con una web clara, rápida y lista para recibir consultas.',
     readingTime: '3 min de lectura',
     publishedAt: 'Agosto de 2026',
+    publishedISO: '2026-08-15',
     content: [
       {
         heading: 'Contenido y recorridos',

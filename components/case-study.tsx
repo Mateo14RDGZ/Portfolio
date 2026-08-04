@@ -344,7 +344,8 @@ export function CaseStudy() {
           title="Trabajo destacado"
           description="Una aplicación web empresarial completa, desarrollada para acompañar una operación desde el ingreso del vehículo hasta el último pago."
           id="case-study-title"
-          className="border-background/45 [&_h2]:text-background [&_p]:text-background/68 [&_span]:text-primary"
+          as="h1"
+          className="border-background/45 [&_h1]:text-background [&_p]:text-background/68 [&_span]:text-primary"
         />
 
         <Reveal className="mt-8 sm:mt-14">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ConceptLanding } from '@/components/concept-landing'
+import { conceptFontVariables } from '@/lib/concept-fonts'
 import { CONCEPT_PROJECTS, getConceptProject } from '@/lib/project-data'
 import { SITE_URL } from '@/lib/site'
 
@@ -25,5 +26,5 @@ export default async function ConceptProjectPage({ params }: { params: Promise<{
   const { slug } = await params
   const project = getConceptProject(slug)
   if (!project) notFound()
-  return <ConceptLanding project={project} />
+  return <div className={conceptFontVariables}><ConceptLanding project={project} /></div>
 }

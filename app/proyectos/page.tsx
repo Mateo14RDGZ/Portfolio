@@ -3,6 +3,7 @@ import { PageTransition } from '@/components/page-transition'
 import { ProjectsGallery } from '@/components/projects-gallery'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
+import { conceptFontVariables } from '@/lib/concept-fonts'
 import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
   return (
     <PageTransition animatePage>
       <SiteHeader />
-      <main id="top" aria-labelledby="projects-title" className="pt-20 sm:pt-24"><ProjectsGallery /></main>
+      <main id="top" aria-labelledby="projects-title" className={`pt-20 sm:pt-24 ${conceptFontVariables}`}><ProjectsGallery /></main>
       <SiteFooter />
     </PageTransition>
   )

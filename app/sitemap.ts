@@ -35,6 +35,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${SITE_URL}/notas`,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     ...NOTES.map((note) => ({
       url: `${SITE_URL}/notas/${note.slug}`,
       changeFrequency: 'monthly' as const,
