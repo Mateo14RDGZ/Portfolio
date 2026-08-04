@@ -87,6 +87,7 @@ export function CaseStudyPreview() {
                       fill
                       priority
                       sizes="(max-width: 1024px) 94vw, 61vw"
+                      quality={82}
                       className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.012]"
                     />
                     <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/70 to-transparent" />
