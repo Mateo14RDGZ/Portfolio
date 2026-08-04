@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
+import { OptimizedImage } from '@/components/optimized-image'
 import { track } from '@vercel/analytics'
 import {
   motion,
@@ -165,13 +165,14 @@ function ScreenFrame({
         <span className="ml-3 h-1.5 w-20 rounded-full bg-foreground/12" />
       </div>
       <div className={cn('relative bg-[#f8fafc]', stage.compact ? 'mx-auto aspect-[0.58] max-h-[62vh] max-w-sm' : 'aspect-[1.44]')}>
-        <Image
+        <OptimizedImage
           src={stage.src}
           alt={stage.alt}
           fill
           priority={priority}
           sizes={stage.compact ? '(max-width: 1024px) 86vw, 390px' : '(max-width: 1024px) 94vw, 62vw'}
-          className={cn('object-cover', stage.imagePosition ?? 'object-top')}
+          objectPosition={stage.imagePosition ?? 'top'}
+          className="object-cover"
         />
       </div>
       {annotate ? (
@@ -371,7 +372,7 @@ export function CaseStudy() {
               />
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/65 to-transparent" />
               <div className="absolute right-3 bottom-3 w-[27%] min-w-24 overflow-hidden rounded-[1.6rem] border-[5px] border-foreground bg-background shadow-2xl sm:right-6 sm:bottom-6 sm:w-[20%] sm:border-[8px] lg:right-10 lg:bottom-10">
-                <Image src="/case-study/cliente-mobile.webp" alt="Vista móvil demostrativa del cliente" width={382} height={826} sizes="(max-width: 640px) 27vw, 260px" className="h-auto w-full" />
+                <OptimizedImage src="/case-study/cliente-mobile.webp" alt="Vista móvil demostrativa del cliente" width={382} height={826} sizes="(max-width: 640px) 27vw, 260px" className="h-auto w-full" />
               </div>
               <div className="absolute bottom-4 left-4 hidden max-w-[62%] flex-wrap gap-2 sm:flex lg:bottom-8 lg:left-8">
                 {introFacts.map((fact, index) => (
@@ -422,7 +423,7 @@ export function CaseStudy() {
                 <ScreenFrame stage={STORY_STAGES[0]} annotate={false} className="absolute top-0 right-0 w-[88%]" />
                 <ScreenFrame stage={STORY_STAGES[4]} annotate={false} className="absolute bottom-0 left-0 w-[56%]" />
                 <div className="absolute right-[3%] bottom-0 w-[23%] min-w-24 overflow-hidden rounded-[2rem] border-[6px] border-foreground bg-background shadow-2xl">
-                  <Image src="/case-study/cliente-mobile.webp" alt="Vista móvil del cliente dentro de la composición final" width={382} height={826} sizes="220px" className="h-auto w-full" />
+                  <OptimizedImage src="/case-study/cliente-mobile.webp" alt="Vista móvil del cliente dentro de la composición final" width={382} height={826} sizes="220px" className="h-auto w-full" />
                 </div>
               </div>
             </div>
