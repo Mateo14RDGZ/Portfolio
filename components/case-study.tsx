@@ -1,7 +1,7 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { OptimizedImage } from '@/components/optimized-image'
 import { track } from '@vercel/analytics'
 import {
   motion,
@@ -165,14 +165,13 @@ function ScreenFrame({
         <span className="ml-3 h-1.5 w-20 rounded-full bg-foreground/12" />
       </div>
       <div className={cn('relative bg-[#f8fafc]', stage.compact ? 'mx-auto aspect-[0.58] max-h-[62vh] max-w-sm' : 'aspect-[1.44]')}>
-        <OptimizedImage
+        <Image
           src={stage.src}
           alt={stage.alt}
           fill
           priority={priority}
           sizes={stage.compact ? '(max-width: 1024px) 86vw, 390px' : '(max-width: 1024px) 94vw, 62vw'}
-          objectPosition={stage.imagePosition ?? 'top'}
-          className="object-cover"
+          className={cn('object-cover', stage.imagePosition ?? 'object-top')}
         />
       </div>
       {annotate ? (
@@ -362,18 +361,17 @@ export function CaseStudy() {
           <div aria-hidden="true" className="absolute -inset-2 rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent sm:-inset-5 sm:rounded-[3rem_0.8rem_3rem_0.8rem]" />
           <div className="relative overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-foreground/35 bg-background shadow-[0_20px_58px_rgba(8,3,12,0.32)] sm:rounded-[2.5rem_0.7rem_2.5rem_0.7rem] sm:shadow-[0_34px_100px_rgba(8,3,12,0.38)]">
             <div className="relative aspect-[1.2] sm:aspect-[1.55] lg:aspect-[1.78]">
-              <OptimizedImage
+              <Image
                 src="/case-study/dashboard.webp"
                 alt="Composición del dashboard administrativo de la versión demostrativa"
                 fill
                 priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1400px) 94vw, 1320px"
-                objectPosition="top"
-                className="object-cover"
+                className="object-cover object-top"
               />
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/65 to-transparent" />
               <div className="absolute right-3 bottom-3 w-[27%] min-w-24 overflow-hidden rounded-[1.6rem] border-[5px] border-foreground bg-background shadow-2xl sm:right-6 sm:bottom-6 sm:w-[20%] sm:border-[8px] lg:right-10 lg:bottom-10">
-                <OptimizedImage src="/case-study/cliente-mobile.webp" alt="Vista móvil demostrativa del cliente" width={382} height={826} sizes="(max-width: 640px) 27vw, 260px" className="h-auto w-full" />
+                <Image src="/case-study/cliente-mobile.webp" alt="Vista móvil demostrativa del cliente" width={382} height={826} sizes="(max-width: 640px) 27vw, 260px" className="h-auto w-full" />
               </div>
               <div className="absolute bottom-4 left-4 hidden max-w-[62%] flex-wrap gap-2 sm:flex lg:bottom-8 lg:left-8">
                 {introFacts.map((fact, index) => (
@@ -424,7 +422,7 @@ export function CaseStudy() {
                 <ScreenFrame stage={STORY_STAGES[0]} annotate={false} className="absolute top-0 right-0 w-[88%]" />
                 <ScreenFrame stage={STORY_STAGES[4]} annotate={false} className="absolute bottom-0 left-0 w-[56%]" />
                 <div className="absolute right-[3%] bottom-0 w-[23%] min-w-24 overflow-hidden rounded-[2rem] border-[6px] border-foreground bg-background shadow-2xl">
-                  <OptimizedImage src="/case-study/cliente-mobile.webp" alt="Vista móvil del cliente dentro de la composición final" width={382} height={826} sizes="220px" className="h-auto w-full" />
+                  <Image src="/case-study/cliente-mobile.webp" alt="Vista móvil del cliente dentro de la composición final" width={382} height={826} sizes="220px" className="h-auto w-full" />
                 </div>
               </div>
             </div>

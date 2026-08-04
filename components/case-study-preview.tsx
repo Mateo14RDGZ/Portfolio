@@ -1,7 +1,7 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { OptimizedImage } from '@/components/optimized-image'
 import { track } from '@vercel/analytics'
 import { ArrowUpRight, Layers3 } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
@@ -81,19 +81,18 @@ export function CaseStudyPreview() {
                 <div aria-hidden="true" className="absolute -inset-2 rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1 sm:-inset-5 sm:rounded-[3rem_0.8rem_3rem_0.8rem]" />
                 <div className="relative overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-background/25 bg-background shadow-[0_18px_48px_rgba(8,3,12,0.3)] sm:rounded-[2.5rem_0.7rem_2.5rem_0.7rem] sm:shadow-[0_28px_90px_rgba(8,3,12,0.38)]">
                   <div className="relative aspect-[1.32] sm:aspect-[1.65]">
-                    <OptimizedImage
+                    <Image
                       src="/case-study/dashboard.webp"
                       alt="Dashboard administrativo del sistema de gestión para automotora con datos ficticios"
                       fill
                       priority
                       sizes="(max-width: 1024px) 94vw, 61vw"
                       quality={82}
-                      objectPosition="top"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.012]"
+                      className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.012]"
                     />
                     <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/70 to-transparent" />
                     <div className="absolute right-3 bottom-3 w-[24%] min-w-24 overflow-hidden rounded-[1.4rem] border-[5px] border-foreground bg-background shadow-2xl sm:right-6 sm:bottom-6 sm:w-[18%] sm:border-[7px]">
-                      <OptimizedImage
+                      <Image
                         src="/case-study/cliente-mobile.webp"
                         alt="Vista móvil demostrativa del cliente"
                         width={382}

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { OptimizedImage } from '@/components/optimized-image'
+import Image from 'next/image'
 import { track } from '@vercel/analytics'
 import { ArrowUpRight, BadgeCheck, Layers3 } from 'lucide-react'
 import { motion, type Variants, useReducedMotion } from 'motion/react'
@@ -36,7 +36,7 @@ export function ProjectsGallery() {
           <article className="overflow-hidden rounded-[2rem_0.55rem_2rem_0.55rem] border border-background/25 bg-background/[0.045] sm:rounded-[3rem_0.75rem_3rem_0.75rem]">
             <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
               <Link href="/trabajo-destacado" className="group relative min-h-[20rem] overflow-hidden sm:min-h-[32rem]" aria-label="Ver caso de estudio del sistema de gestión para automotora">
-                <OptimizedImage src="/case-study/dashboard.webp" alt="Dashboard del sistema de gestión para automotora con datos ficticios" fill priority quality={82} sizes="(max-width:1024px) 100vw, 62vw" objectPosition="top" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
+                <Image src="/case-study/dashboard.webp" alt="Dashboard del sistema de gestión para automotora con datos ficticios" fill priority quality={82} sizes="(max-width:1024px) 100vw, 62vw" className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/65 via-transparent to-transparent" />
                 <span className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-primary px-3 py-2 font-mono text-[9px] tracking-[0.14em] text-primary-foreground uppercase sm:bottom-7 sm:left-7">
                   <BadgeCheck className="size-3.5" /> Proyecto desarrollado
@@ -84,7 +84,7 @@ export function ProjectsGallery() {
                   )}
                 >
                   <Link href={`/proyectos/${project.slug}`} className={cn('relative mx-4 mt-4 aspect-[1.25] overflow-hidden sm:mx-5 sm:mt-5 sm:aspect-[1.18]', project.slug === 'ombu-cafe' && 'rounded-[2rem_0.3rem_2rem_0.3rem]', project.slug === 'aster-automoviles' && 'rounded-none', project.slug === 'cimbra-estudio' && 'rounded-[2rem]')} aria-label={`Ver landing conceptual ${project.name}`}>
-                    <OptimizedImage src={project.image} alt={project.imageAlt} fill loading="lazy" sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out md:group-hover:scale-[1.025] motion-reduce:transition-none" />
+                    <Image src={project.image} alt={project.imageAlt} fill loading="lazy" sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out md:group-hover:scale-[1.025] motion-reduce:transition-none" />
                     <span className={cn('absolute top-4 left-4 px-3 py-2 text-[8px] tracking-[0.14em] uppercase', project.slug === 'ombu-cafe' && 'rounded-full border border-white/30 bg-[#302218]/75 text-[#fff7e8] [font-family:var(--font-fraunces),Georgia,serif]', project.slug === 'aster-automoviles' && 'bg-[#e7e3dc] text-[#242522] [font-family:var(--font-space-grotesk),Arial,sans-serif]', project.slug === 'cimbra-estudio' && 'rounded-full bg-[#edf2ec]/90 text-[#17332f] [font-family:var(--font-mazius-display),Georgia,serif]')}>Proyecto conceptual</span>
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-7">
