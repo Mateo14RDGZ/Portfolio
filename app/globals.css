@@ -186,19 +186,13 @@
 }
 
 .plan-flip-inner {
-  display: grid;
   transform: translate3d(0, 0, 0) rotateY(var(--plan-flip-angle, 0deg));
   transform-style: preserve-3d;
   transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
-/* Front and back share one grid cell instead of the back being absolutely
-   positioned over the front's box. This lets the card's height grow to fit
-   whichever face has more content (the BLACK plan's back face is the
-   tallest), instead of clipping the shorter, front-sized box. */
 .plan-flip-face {
-  grid-area: 1 / 1;
   min-width: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -208,10 +202,16 @@
   transform: translateZ(1px);
 }
 
+/* Sized off the front face so the card stays compact at rest. If a back
+   face has more content than that (BLACK's two feature groups), it
+   scrolls internally on flip instead of clipping it or stretching every
+   card - front or back - to the tallest face on the page. */
 .plan-flip-back {
-  position: relative;
+  position: absolute;
+  inset: 0;
   transform: rotateY(180deg) translateZ(1px);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   isolation: isolate;
 }
 
