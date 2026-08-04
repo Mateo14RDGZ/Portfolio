@@ -139,6 +139,54 @@
   transform: translateY(0) scale(0.985);
 }
 
+.plan-flip-card {
+  perspective: 1400px;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .plan-flip-card {
+    touch-action: pan-y;
+  }
+
+  .plan-flip-card--dragging .plan-flip-inner {
+    transition-duration: 0ms;
+  }
+}
+
+.plan-flip-inner {
+  transform: translate3d(0, 0, 0) rotateY(var(--plan-flip-angle, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.plan-flip-face {
+  min-width: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.plan-flip-front {
+  transform: translateZ(1px);
+}
+
+/* Sized off the front face, which always holds the full feature list and
+   therefore the taller content. The back face is deliberately shorter
+   (three fit-check bullets, no duplicated feature list) so it always
+   fits within that height with no internal scroll or clipping. */
+.plan-flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .plan-flip-card:hover .plan-flip-inner,
+  .plan-flip-card:focus-within .plan-flip-inner {
+    transform: translate3d(0, 0, 0) rotateY(180deg);
+  }
+}
+
 /* The selector keeps its material, while cards reveal it only on deliberate hover. */
 .plan-option-classic {
   border-color: #3e2417 !important;
@@ -241,6 +289,15 @@
   .primary-action:hover,
   .primary-action:active {
     transform: none;
+  }
+
+  .plan-flip-inner {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .plan-flip-back {
+    display: none;
   }
 }
 
