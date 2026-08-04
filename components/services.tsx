@@ -72,7 +72,7 @@ function PlanFront({ plan, index }: { plan: Plan; index: number }) {
   const Icon = plan.icon
   return (
     <div className={cn(
-      'plan-flip-face plan-flip-front group relative flex flex-col overflow-hidden border border-foreground bg-background p-6 font-semibold min-[380px]:p-7 sm:p-8',
+      'plan-flip-face plan-flip-front group relative flex h-full flex-col overflow-hidden border border-foreground bg-background p-6 font-semibold min-[380px]:p-7 sm:p-8',
       CORNERS[index],
       index === 1 && 'bg-primary text-primary-foreground',
     )}>
