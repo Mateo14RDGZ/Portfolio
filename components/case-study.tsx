@@ -362,13 +362,14 @@ export function CaseStudy() {
           <div aria-hidden="true" className="absolute -inset-2 rounded-[2rem_0.55rem_2rem_0.55rem] bg-accent sm:-inset-5 sm:rounded-[3rem_0.8rem_3rem_0.8rem]" />
           <div className="relative overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-foreground/35 bg-background shadow-[0_20px_58px_rgba(8,3,12,0.32)] sm:rounded-[2.5rem_0.7rem_2.5rem_0.7rem] sm:shadow-[0_34px_100px_rgba(8,3,12,0.38)]">
             <div className="relative aspect-[1.2] sm:aspect-[1.55] lg:aspect-[1.78]">
-              <Image
+              <OptimizedImage
                 src="/case-study/dashboard.webp"
                 alt="Composición del dashboard administrativo de la versión demostrativa"
                 fill
                 priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1400px) 94vw, 1320px"
-                className="object-cover object-top"
+                objectPosition="top"
+                className="object-cover"
               />
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/65 to-transparent" />
               <div className="absolute right-3 bottom-3 w-[27%] min-w-24 overflow-hidden rounded-[1.6rem] border-[5px] border-foreground bg-background shadow-2xl sm:right-6 sm:bottom-6 sm:w-[20%] sm:border-[8px] lg:right-10 lg:bottom-10">
