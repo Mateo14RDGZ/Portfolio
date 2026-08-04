@@ -21,6 +21,11 @@ const nextConfig = {
         destination: '/proyectos/bruma-cafe',
         permanent: true,
       },
+      {
+        source: '/proyectos/aster-automoviles',
+        destination: '/proyectos/astra',
+        permanent: true,
+      },
     ]
   },
 }

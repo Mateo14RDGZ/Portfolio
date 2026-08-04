@@ -1,24 +1,12 @@
-import { Fraunces, Nunito_Sans, Space_Grotesk } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 
-// Only used on /proyectos and /proyectos/[slug] (the concept landings and
-// their gallery cards) - loaded here instead of the root layout so these
-// fonts aren't fetched on every other page.
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-})
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
-  display: 'swap',
-})
-
+// Only used on /proyectos/[slug] for the legacy Cimbra landing (the last
+// project still on the shared concept-landing.tsx template) - loaded here
+// instead of the root layout so it isn't fetched on every other page.
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
   variable: '--font-nunito-sans',
   display: 'swap',
 })
 
-export const conceptFontVariables = `${fraunces.variable} ${spaceGrotesk.variable} ${nunitoSans.variable}`
+export const conceptFontVariables = nunitoSans.variable

@@ -18,11 +18,11 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
     imageAlt: 'Taza de café de especialidad sobre una barra de piedra, luz natural',
   },
   {
-    slug: 'aster-automoviles',
-    name: 'Aster Automóviles Eléctricos',
-    category: 'Movilidad eléctrica · Proyecto conceptual',
+    slug: 'astra',
+    name: 'Astra',
+    category: 'Movilidad eléctrica · Caso de diseño',
     description:
-      'Una experiencia digital para un concesionario premium que necesita mostrar unidades, explicar tecnología y acompañar cada decisión de compra.',
+      'Un showroom espacial para una marca de autos eléctricos premium, donde la ficha técnica se explora como si estuviera flotando frente a vos.',
     image: '/concepts/aster-vehicle-norte-s1.webp',
     imageAlt: 'SUV eléctrico conceptual en un showroom premium',
   },

@@ -8,11 +8,14 @@ import { SITE_URL, SITE_NAME } from '@/lib/site'
 
 // Each case study is its own dynamic import (not ssr:false - this is
 // primary, SEO-critical content) so visiting one never ships another's JS
-// or fonts. Aster/Cimbra haven't been migrated to their own case-study
-// folder yet, so they still render through the legacy ConceptLanding
-// component/font module for now.
+// or fonts. Cimbra hasn't been migrated to its own case-study folder yet,
+// so it still renders through the legacy ConceptLanding component/font
+// module for now.
 const BrumaLanding = dynamic(() =>
   import('@/components/case-studies/bruma/bruma-landing').then((m) => m.BrumaLanding),
+)
+const AstraLanding = dynamic(() =>
+  import('@/components/case-studies/astra/astra-landing').then((m) => m.AstraLanding),
 )
 
 export function generateStaticParams() {
@@ -52,6 +55,8 @@ export default async function ConceptProjectPage({ params }: { params: Promise<{
     <>
       {slug === 'bruma-cafe' ? (
         <BrumaLanding />
+      ) : slug === 'astra' ? (
+        <AstraLanding />
       ) : (
         <div className={conceptFontVariables}>
           <ConceptLanding project={project} />

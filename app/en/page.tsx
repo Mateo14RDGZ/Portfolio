@@ -56,7 +56,7 @@ const FAQS = [
 
 const FEATURED_CONCEPTS: Record<string, string> = {
   'bruma-cafe': 'An editorial, Scandinavian-minimal design case study for a specialty coffee shop.',
-  'aster-automoviles': 'A premium EV dealership experience for browsing units and comparing financing.',
+  'astra': 'A spatial showroom design case study for a premium electric vehicle brand.',
   'cimbra-estudio': 'A modular studio landing for managing classes, bookings and membership plans.',
 }
 
