@@ -135,16 +135,6 @@
   }
 }
 
-@media (hover: none), (pointer: coarse) {
-  .plan-flip-card {
-    touch-action: pan-y;
-  }
-
-  .plan-flip-card--dragging .plan-flip-inner {
-    transition-duration: 0ms;
-  }
-}
-
 .primary-action:active {
   transform: translateY(0) scale(0.985);
 }
@@ -179,129 +169,6 @@
     linear-gradient(145deg, #242633 0%, #090a0f 52%, #1b1d2a 100%) !important;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 13%), inset 0 -15px 28px rgb(0 0 0 / 42%) !important;
   color: #f4f2ff !important;
-}
-
-.plan-flip-card {
-  perspective: 1400px;
-}
-
-.plan-flip-inner {
-  transform: translate3d(0, 0, 0) rotateY(var(--plan-flip-angle, 0deg));
-  transform-style: preserve-3d;
-  transition: transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.plan-flip-face {
-  min-width: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.plan-flip-front {
-  transform: translateZ(1px);
-}
-
-/* Sized off the front face so the card stays compact at rest. If a back
-   face has more content than that (BLACK's two feature groups), it
-   scrolls internally on flip instead of clipping it or stretching every
-   card - front or back - to the tallest face on the page. */
-.plan-flip-back {
-  position: absolute;
-  inset: 0;
-  transform: rotateY(180deg) translateZ(1px);
-  overflow-x: hidden;
-  overflow-y: auto;
-  isolation: isolate;
-}
-
-.plan-flip-back::before,
-.plan-flip-back::after {
-  position: absolute;
-  content: '';
-  pointer-events: none;
-}
-
-.plan-flip-back-classic {
-  border: 1px solid #3e2417;
-  background-color: #5a3422;
-  background-image:
-    linear-gradient(118deg, rgb(255 235 204 / 13%), transparent 34%, rgb(20 9 4 / 20%)),
-    repeating-linear-gradient(174deg, transparent 0 11px, rgb(20 9 4 / 16%) 12px 13px, transparent 14px 25px);
-  color: #fff1db;
-}
-
-.plan-flip-back-gold {
-  border: 1px solid #764407;
-  background-color: #c99329;
-  background-image:
-    linear-gradient(112deg, rgb(255 248 201 / 74%) 0%, transparent 26%),
-    linear-gradient(132deg, #faeaa4 0%, #d5a53b 30%, #935b10 58%, #f0cf73 82%, #ac6c16 100%);
-  box-shadow: inset 0 1px 0 rgb(255 255 232 / 72%), inset 0 -24px 42px rgb(75 39 3 / 22%);
-  color: #261500;
-}
-
-.plan-flip-back-black {
-  border: 1px solid #080910;
-  background-color: #0c0d14;
-  background-image:
-    radial-gradient(ellipse at 14% 17%, rgb(255 255 255 / 72%) 0 1.3px, transparent 3px),
-    radial-gradient(ellipse at 78% 28%, rgb(190 211 255 / 66%) 0 1.3px, transparent 3px),
-    radial-gradient(ellipse at 62% 77%, rgb(255 255 255 / 58%) 0 1.6px, transparent 3.4px),
-    radial-gradient(ellipse at 88% 71%, rgb(155 177 255 / 44%) 0 1px, transparent 2.7px),
-    radial-gradient(ellipse at 28% 61%, rgb(255 255 255 / 42%) 0 1px, transparent 2.7px),
-    linear-gradient(145deg, #292c3d 0%, #090a0f 52%, #1c1f30 100%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 14%), inset 0 -24px 42px rgb(0 0 0 / 54%);
-  color: #f4f2ff;
-}
-
-.plan-flip-back-gold::before {
-  inset: -20% -45%;
-  z-index: -1;
-  background: linear-gradient(105deg, transparent 35%, rgb(255 251 206 / 54%) 50%, transparent 65%);
-  transform: rotate(8deg);
-}
-
-.plan-flip-back-black::before {
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(135deg, transparent 48%, rgb(240 246 255 / 15%) 49% 50%, transparent 51%) 14% 16% / 38px 38px,
-    linear-gradient(45deg, transparent 48%, rgb(240 246 255 / 12%) 49% 50%, transparent 51%) 84% 77% / 54px 54px;
-  opacity: 1;
-}
-
-.plan-flip-back-black::after {
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse at 17% 23%, rgb(223 236 255 / 26%) 0 2px, transparent 3px),
-    radial-gradient(ellipse at 81% 36%, rgb(240 245 255 / 21%) 0 2px, transparent 3px),
-    radial-gradient(ellipse at 46% 82%, rgb(175 197 255 / 19%) 0 2.5px, transparent 4px),
-    linear-gradient(122deg, transparent 38%, rgb(176 197 255 / 9%) 49%, transparent 61%);
-  mix-blend-mode: screen;
-}
-
-.plan-flip-back > div {
-  position: relative;
-  z-index: 1;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .plan-flip-card:hover .plan-flip-inner,
-  .plan-flip-card:focus-within .plan-flip-inner {
-    transform: translate3d(0, 0, 0) rotateY(180deg);
-  }
-
-  .plan-flip-card:hover .plan-flip-back-gold,
-  .plan-flip-card:focus-within .plan-flip-back-gold {
-    box-shadow: inset 0 1px 0 rgb(255 255 232 / 72%), inset 0 -24px 42px rgb(75 39 3 / 22%), 0 22px 46px rgb(146 91 7 / 26%);
-  }
-
-  .plan-flip-card:hover .plan-flip-back-black,
-  .plan-flip-card:focus-within .plan-flip-back-black {
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 14%), inset 0 -24px 42px rgb(0 0 0 / 54%), 0 22px 48px rgb(9 10 17 / 44%);
-  }
 }
 
 @media (max-width: 639px) {
@@ -374,15 +241,6 @@
   .primary-action:hover,
   .primary-action:active {
     transform: none;
-  }
-
-  .plan-flip-inner {
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .plan-flip-back {
-    display: none;
   }
 }
 
