@@ -70,33 +70,33 @@ function PlanBack({ plan }: { plan: Plan }) {
 
   return (
     <div className={cn('plan-flip-face plan-flip-back', corners, `plan-flip-back-${plan.name.toLowerCase()}`)}>
-      <div className="flex h-full flex-col p-5 min-[380px]:p-6 sm:p-6 lg:p-5">
+      <div className="flex h-full flex-col p-5 min-[380px]:p-6 sm:p-6 lg:p-3">
         <div aria-hidden="true">
-          <div className="flex items-start justify-between gap-3 sm:gap-4">
-            <span className="grid size-10 place-items-center border border-current bg-white/10 sm:size-12"><Icon className="size-4 sm:size-5" /></span>
-            <span className="font-mono text-[0.55rem] font-bold tracking-[0.16em] uppercase opacity-65 sm:text-[0.6rem]">Alcance / MR14</span>
+          <div className="flex items-start justify-between gap-3 sm:gap-4 lg:gap-2">
+            <span className="grid size-10 place-items-center border border-current bg-white/10 shrink-0 sm:size-12 lg:size-9"><Icon className="size-4 sm:size-5 lg:size-3.5" /></span>
+            <span className="font-mono text-[0.55rem] font-bold tracking-[0.16em] uppercase opacity-65 sm:text-[0.6rem] lg:text-[0.5rem]">Alcance / MR14</span>
           </div>
-          <p className="mt-4 font-mono text-[0.65rem] font-bold tracking-[0.16em] uppercase opacity-75 sm:mt-6">Plan {plan.name}</p>
-          <h3 className="mt-1.5 text-2xl font-bold tracking-tight sm:mt-2 sm:text-3xl lg:text-2xl">{plan.designedFor}</h3>
-          <p className="mt-2 max-w-sm text-xs font-semibold leading-relaxed opacity-85 sm:mt-3 sm:text-sm">{plan.positioning}</p>
+          <p className="mt-3 font-mono text-[0.65rem] font-bold tracking-[0.16em] uppercase opacity-75 sm:mt-6 lg:mt-2">Plan {plan.name}</p>
+          <h3 className="mt-1.5 text-2xl font-bold tracking-tight sm:mt-2 sm:text-3xl lg:text-lg lg:mt-1">{plan.designedFor}</h3>
+          <p className="mt-2 max-w-sm text-xs font-semibold leading-relaxed opacity-85 sm:mt-3 sm:text-sm lg:text-[0.65rem] lg:mt-1 lg:leading-tight">{plan.positioning}</p>
         </div>
-        <div aria-hidden="true" className="mt-4 border-y border-current/30 py-3 sm:mt-6 sm:py-4">
-          <p className="font-mono text-[0.6rem] font-bold tracking-[0.15em] uppercase opacity-70 sm:text-[0.63rem]">Este plan tiene sentido si...</p>
-          <ul className="mt-2 grid gap-1.5 sm:mt-3 sm:gap-2">
-            {decisionCues.map((cue) => <li key={cue} className="flex gap-2 text-[0.7rem] font-semibold leading-tight sm:text-xs"><Check className="mt-0.5 size-3 shrink-0 sm:size-3.5" strokeWidth={3} />{cue}</li>)}
+        <div aria-hidden="true" className="mt-3 border-y border-current/30 py-2 sm:mt-6 sm:py-4 lg:mt-2 lg:py-2">
+          <p className="font-mono text-[0.6rem] font-bold tracking-[0.15em] uppercase opacity-70 sm:text-[0.63rem] lg:text-[0.5rem]">Este plan tiene sentido si...</p>
+          <ul className="mt-1.5 grid gap-1 sm:mt-3 sm:gap-2 lg:mt-1 lg:gap-0.5">
+            {decisionCues.map((cue) => <li key={cue} className="flex gap-2 text-[0.7rem] font-semibold leading-tight sm:text-xs lg:text-[0.6rem]"><Check className="mt-0.5 size-3 shrink-0 sm:size-3.5 lg:size-2.5" strokeWidth={3} />{cue}</li>)}
           </ul>
         </div>
-        <div className="mt-4 pt-0.5 sm:mt-6 lg:mt-3">
-          <div aria-hidden="true" className="flex items-center justify-between gap-3 font-mono text-[0.6rem] font-bold tracking-[0.15em] uppercase opacity-70 sm:gap-4">
-            <span>Incluye</span><span>{highlights.length} puntos clave</span>
+        <div className="mt-3 pt-0.5 sm:mt-6 lg:mt-2 flex-1 flex flex-col min-h-0">
+          <div aria-hidden="true" className="flex items-center justify-between gap-2 font-mono text-[0.6rem] font-bold tracking-[0.15em] uppercase opacity-70 sm:gap-4 lg:text-[0.5rem]">
+            <span>Incluye</span><span>{highlights.length} puntos</span>
           </div>
-          <div aria-hidden="true" className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2 lg:grid lg:grid-cols-2 lg:gap-1.5">
-            {highlights.map((item) => <span key={item} className="border border-current/35 px-2 py-1 text-[0.63rem] font-bold leading-tight sm:px-2.5 sm:py-1.5 sm:text-[0.68rem] lg:px-2 lg:py-1">{item}</span>)}
+          <div aria-hidden="true" className="mt-1.5 flex flex-wrap gap-1 sm:mt-3 sm:gap-2 lg:gap-1 overflow-y-auto lg:flex-1 lg:mt-1">
+            {highlights.map((item) => <span key={item} className="border border-current/35 px-2 py-1 text-[0.63rem] font-bold leading-tight shrink-0 sm:px-2.5 sm:py-1.5 sm:text-[0.68rem] lg:px-1.5 lg:py-0.5 lg:text-[0.55rem]">{item}</span>)}
           </div>
-          <Button variant="outline" className="group/cta relative mt-3 h-10 w-full rounded-full border-current bg-transparent text-xs font-bold text-inherit hover:bg-black/10 sm:mt-5 sm:h-12 sm:text-sm" nativeButton={false} render={<a href="#contact" onClick={() => track('plan_information_click', { plan: plan.name })} aria-label={`Solicitar información sobre el plan ${plan.name}`} />}>
-            Solicitar información <ArrowUpRight data-icon="inline-end" className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+          <Button variant="outline" className="group/cta relative mt-2 h-9 w-full rounded-full border-current bg-transparent text-[0.7rem] font-bold text-inherit hover:bg-black/10 sm:mt-5 sm:h-12 sm:text-sm lg:mt-2 lg:h-8 lg:text-[0.65rem]" nativeButton={false} render={<a href="#contact" onClick={() => track('plan_information_click', { plan: plan.name })} aria-label={`Solicitar información sobre el plan ${plan.name}`} />}>
+            Solicitar <ArrowUpRight data-icon="inline-end" className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
           </Button>
-          <p aria-hidden="true" className="mt-2 hidden text-center font-mono text-[0.55rem] font-bold tracking-[0.15em] uppercase opacity-65 lg:block">Mové el cursor para volver</p>
+          <p aria-hidden="true" className="mt-1 hidden text-center font-mono text-[0.48rem] font-bold tracking-[0.15em] uppercase opacity-65 lg:block">Mové para volver</p>
         </div>
       </div>
     </div>

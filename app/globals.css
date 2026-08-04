@@ -210,14 +210,9 @@
   position: absolute;
   inset: 0;
   transform: rotateY(180deg) translateZ(1px);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   isolation: isolate;
-}
-
-@media (max-width: 639px) {
-  .plan-flip-back {
-    overflow-y: auto;
-  }
 }
 
 .plan-flip-back::before,
