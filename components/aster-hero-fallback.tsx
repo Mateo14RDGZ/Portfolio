@@ -7,5 +7,5 @@ import Image from 'next/image'
  * pulling the 3D bundle into every page that renders the concept gallery.
  */
 export function AsterHeroFallback() {
-  return <Image src="/concepts/aster-hero.webp" alt="SUV eléctrico en un showroom de Aster Automóviles Eléctricos" fill priority sizes="(max-width:1023px) 100vw, 62vw" className="object-cover" />
+  return <Image src="/concepts/aster-hero.webp" alt="Vehículo eléctrico en un showroom de Aster Automóviles Eléctricos" fill priority sizes="(max-width:1023px) 100vw, 62vw" className="object-cover" />
 }
