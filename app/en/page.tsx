@@ -104,7 +104,7 @@ export default function EnglishPage() {
           <Link href="/trabajo-destacado" className="group relative mt-10 block overflow-hidden border border-foreground">
             <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
               <div className="relative min-h-[18rem] overflow-hidden sm:min-h-[26rem]">
-                <Image src="/case-study/dashboard.webp" alt="Dashboard of a management system for a car dealership, sample data" fill sizes="(max-width:1024px) 100vw, 62vw" className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
+                <Image src="/case-study/dashboard.webp" alt="Dashboard of a management system for a car dealership, sample data" fill priority quality={82} sizes="(max-width:1024px) 100vw, 62vw" className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
               </div>
               <div className="flex flex-col justify-between bg-card p-6 sm:p-10">
                 <div>
@@ -120,7 +120,7 @@ export default function EnglishPage() {
             {CONCEPT_PROJECTS.map((project) => (
               <Link key={project.slug} href={`/proyectos/${project.slug}`} className="group block border border-foreground bg-card">
                 <div className="relative aspect-[1.2] overflow-hidden border-b border-foreground">
-                  <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  <Image src={project.image} alt={project.imageAlt} fill loading="lazy" sizes="(max-width:1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
                 </div>
                 <div className="p-5">
                   <p className="font-mono text-[10px] tracking-[0.14em] text-primary uppercase">Concept project</p>
