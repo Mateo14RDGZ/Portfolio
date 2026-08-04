@@ -1,6 +1,6 @@
 'use client'
 
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ArrowUpRight, Building2, Check, Globe, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -170,39 +170,6 @@ export function Services() {
   const pointerStart = useRef<Record<string, { x: number; y: number; angle: number }>>({})
   const cardRefs = useRef<Partial<Record<Plan['name'], HTMLDivElement>>>({})
   const settledAngle = useRef<Partial<Record<Plan['name'], number>>>({})
-  const [cardHeight, setCardHeight] = useState<number>()
-
-  // Front faces hold the full feature list, so their natural content height
-  // (scrollHeight, unaffected by any height we apply here) is what sets a
-  // single shared height for all three cards - locked before paint so it
-  // never changes on flip, only recomputed when the viewport actually does.
-  useLayoutEffect(() => {
-    function measure() {
-      if (!window.matchMedia('(min-width: 1024px)').matches) {
-        setCardHeight(undefined)
-        return
-      }
-      const fronts = Object.values(cardRefs.current)
-        .map((card) => card?.querySelector<HTMLElement>('.plan-flip-front'))
-        .filter((el): el is HTMLElement => Boolean(el))
-      const max = Math.max(0, ...fronts.map((el) => el.scrollHeight))
-      if (max > 0) setCardHeight(max)
-    }
-
-    measure()
-    let frame = 0
-    function scheduleMeasure() {
-      cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(measure)
-    }
-    window.addEventListener('resize', scheduleMeasure)
-    document.fonts?.ready?.then(measure)
-
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('resize', scheduleMeasure)
-    }
-  }, [])
 
   function setCardAngle(plan: Plan['name'], angle: number) {
     const card = cardRefs.current[plan]
@@ -257,13 +224,12 @@ export function Services() {
           align="center"
         />
 
-        <StaggerGroup className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3" gap={0.13}>
+        <StaggerGroup className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3 lg:items-stretch" gap={0.13}>
           {PLANS.map((plan, index) => (
             <RevealItem key={plan.name} className="h-full">
               <div className="flex h-full flex-col">
                 <div
-                  className="plan-flip-card"
-                  style={cardHeight ? { height: `${cardHeight}px` } : undefined}
+                  className="plan-flip-card h-full"
                   ref={(node) => { cardRefs.current[plan.name] = node ?? undefined }}
                   onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
                   onPointerMove={(event) => movePlanSwipe(event, plan.name)}
@@ -275,7 +241,7 @@ export function Services() {
                     if (start) setCardAngle(plan.name, start.angle)
                   }}
                 >
-                  <article className="plan-flip-inner relative h-full">
+                  <article className="plan-flip-inner h-full">
                     <PlanFront plan={plan} index={index} />
                     <PlanBack plan={plan} index={index} />
                   </article>
