@@ -55,7 +55,7 @@ const FAQS = [
 ]
 
 const FEATURED_CONCEPTS: Record<string, string> = {
-  'ombu-cafe': 'A specialty coffee shop landing built to turn local searches into visits and bookings.',
+  'bruma-cafe': 'An editorial, Scandinavian-minimal design case study for a specialty coffee shop.',
   'aster-automoviles': 'A premium EV dealership experience for browsing units and comparing financing.',
   'cimbra-estudio': 'A modular studio landing for managing classes, bookings and membership plans.',
 }

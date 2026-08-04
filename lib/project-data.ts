@@ -9,13 +9,13 @@ export type ConceptProject = {
 
 export const CONCEPT_PROJECTS: ConceptProject[] = [
   {
-    slug: 'ombu-cafe',
-    name: 'Ombú Café de Especialidad',
-    category: 'Hospitalidad · Proyecto conceptual',
+    slug: 'bruma-cafe',
+    name: 'Bruma Café',
+    category: 'Hospitalidad · Caso de diseño',
     description:
-      'Una experiencia digital cálida para una cafetería de especialidad que necesita convertir búsquedas locales en visitas, reservas y consultas.',
+      'Una identidad editorial y minimalista, inspirada en el diseño nórdico, para una cafetería de especialidad que necesita transmitir calma y calidad antes de la primera visita.',
     image: '/concepts/ombu-hero.webp',
-    imageAlt: 'Barista preparando café filtrado en una cafetería conceptual',
+    imageAlt: 'Taza de café de especialidad sobre una barra de piedra, luz natural',
   },
   {
     slug: 'aster-automoviles',

@@ -3,14 +3,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  ArrowLeft,
   ArrowUpRight,
   CalendarDays,
   CarFront,
   Check,
-  ChevronDown,
-  Coffee,
-  MapPin,
   Menu,
   MoveRight,
   Phone,
@@ -21,18 +17,11 @@ import {
 import { motion, useReducedMotion } from 'motion/react'
 import type { ReactNode } from 'react'
 import type { ConceptProject } from '@/lib/project-data'
+import { ConceptNotice } from '@/components/case-studies/shared/concept-notice'
+import { ProjectBack } from '@/components/case-studies/shared/project-back'
 import { cn } from '@/lib/utils'
 
 const easing = [0.16, 1, 0.3, 1] as const
-
-function ConceptNotice({ className }: { className: string }) {
-  return (
-    <div className={cn('relative z-30 px-5 py-3 text-center text-[10px] font-medium tracking-[0.13em] uppercase', className)}>
-      Proyecto conceptual. Marca y contenido ficticios.{' '}
-      <Link href="/proyectos" className="underline underline-offset-4">Volver a proyectos</Link>
-    </div>
-  )
-}
 
 function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const reducedMotion = useReducedMotion()
@@ -46,96 +35,6 @@ function Reveal({ children, delay = 0, className }: { children: ReactNode; delay
     >
       {children}
     </motion.div>
-  )
-}
-
-function ProjectBack({ className }: { className?: string }) {
-  return <Link href="/proyectos" className={cn('inline-flex min-h-11 items-center gap-2 text-sm font-semibold transition-transform duration-300 hover:translate-x-1', className)}><ArrowLeft className="size-4" /> Volver a proyectos</Link>
-}
-
-function OmbuLanding() {
-  const menu = [
-    ['Espresso de la casa', 'Cacao, nuez y caramelo', '$ 150', false],
-    ['Filtro de temporada', 'Notas florales y cítricas', '$ 190', true],
-    ['Flat white', 'Doble espresso y leche texturada', '$ 180', false],
-    ['Tostada de pan madre', 'Manteca batida y conserva', '$ 240', false],
-  ] as const
-  const stats = [
-    ['+12', 'orígenes distintos por año'],
-    ['600', 'tazas servidas cada semana'],
-    ['4.9', 'valoración de la vecindad'],
-  ]
-  const testimonials = [
-    ['“El lugar donde empezamos los sábados.”', 'Lucía y Santiago, vecinos'],
-    ['“El filtro de temporada cambió mi forma de tomar café.”', 'Rodrigo, cliente habitual'],
-    ['“Pido el flat white y me quedo una hora trabajando.”', 'Marina, freelance'],
-  ]
-  const faqs = [
-    ['¿Puedo reservar?', 'Sí. Para grupos de cuatro personas o más, escribinos y coordinamos el horario.'],
-    ['¿La carta cambia?', 'El café de filtro rota con las cosechas. La carta está actualizada antes de abrir.'],
-    ['¿Hay opciones vegetales?', 'Trabajamos con alternativas vegetales para bebidas y una selección breve de pastelería.'],
-  ]
-
-  return (
-    <main className="overflow-x-clip bg-[#edf0df] text-[#23201b] [font-family:var(--font-fraunces),Georgia,serif]">
-      <ConceptNotice className="bg-[#29261f] text-[#edf0df]" />
-      <header className="border-b border-[#23201b]/15 bg-[#edf0df]">
-        <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <Link href="#inicio" className="flex items-center gap-3 text-[1.7rem] leading-none tracking-[-0.06em]"><span className="grid size-9 place-items-center rounded-full border border-[#23201b]/35"><Coffee className="size-4" /></span>Ombú Café</Link>
-          <nav className="hidden gap-8 text-sm md:flex"><a href="#carta">Carta</a><a href="#origen">El café</a><a href="#visita">Visitanos</a></nav>
-          <a href="#visita" className="hidden border-b border-[#23201b] pb-1 text-sm sm:block">Reservar mesa</a><Menu className="size-6 md:hidden" aria-hidden="true" />
-        </div>
-      </header>
-
-      <section id="inicio" className="mx-auto grid grid-cols-1 max-w-[1440px] lg:grid-cols-[0.82fr_1.18fr]">
-        <div className="flex min-h-[550px] flex-col justify-between px-5 py-10 sm:px-8 sm:py-14 lg:min-h-[calc(100dvh-118px)] lg:px-12">
-          <Reveal><p className="text-[11px] tracking-[0.18em] uppercase text-[#605a4c]">Café de especialidad, Montevideo</p></Reveal>
-          <Reveal delay={0.06}><h1 className="max-w-xl text-[clamp(4.4rem,8vw,8.6rem)] leading-[0.78] tracking-[-0.085em]">Preparado<br />sin <em className="font-light">apuro.</em></h1></Reveal>
-          <Reveal delay={0.12} className="max-w-sm"><p className="text-lg leading-relaxed text-[#4e493e]">Una pausa breve, una taza bien hecha y una carta que acompaña cada momento del día.</p><a href="#carta" className="mt-7 inline-flex items-center gap-3 text-base font-semibold">Conocer la carta <MoveRight className="size-4" /></a></Reveal>
-        </div>
-        <figure className="relative min-h-[420px] overflow-hidden bg-[#343027] lg:min-h-0"><Image src="/concepts/ombu-hero.webp" alt="Taza de café de especialidad sobre una barra de piedra" fill priority sizes="(max-width:1023px) 100vw, 62vw" className="object-cover" /><figcaption className="absolute right-5 bottom-5 left-5 flex justify-between border-t border-white/35 pt-3 text-sm text-white"><span>La primera taza del día.</span><span>08:30 - 18:00</span></figcaption></figure>
-      </section>
-
-      <section className="border-y border-dashed border-[#23201b]/40 bg-[#e3ddc4] px-5 py-5 sm:px-8 lg:px-12">
-        <Reveal className="mx-auto flex max-w-[1220px] flex-wrap items-center justify-center gap-x-2 gap-y-1 font-mono text-[11px] tracking-[0.03em] text-[#4e493e] sm:justify-between">
-          {stats.map(([value, label], index) => (
-            <span key={label} className="flex items-center gap-2">
-              {index > 0 && <span aria-hidden="true" className="text-[#8a5a3b]">✳</span>}
-              <b className="[font-family:var(--font-fraunces),Georgia,serif] text-base text-[#23201b] italic">{value}</b> {label}
-            </span>
-          ))}
-        </Reveal>
-      </section>
-
-      <section id="origen" className="border-b border-[#23201b]/15 px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto grid grid-cols-1 max-w-[1220px] gap-12 lg:grid-cols-[0.85fr_0.62fr_0.53fr] lg:items-end">
-          <Reveal><p className="text-[11px] tracking-[0.18em] uppercase text-[#766953]">El origen</p><h2 className="mt-5 max-w-md text-[clamp(3.2rem,6vw,5.4rem)] leading-[0.84] tracking-[-0.075em]">El café cuenta de dónde viene.</h2></Reveal>
-          <Reveal delay={0.08}><p className="max-w-xl text-xl leading-relaxed text-[#4e493e]">Elegimos lotes de origen definido y los preparamos de la forma que mejor expresa su perfil. Sin una lista infinita, sin nombres complicados.</p><div className="mt-10 grid grid-cols-3 gap-3 border-t border-[#23201b]/15 pt-5 text-sm"><span><b className="block text-2xl font-normal">01</b>cosecha</span><span><b className="block text-2xl font-normal">02</b>tueste</span><span><b className="block text-2xl font-normal">03</b>taza</span></div></Reveal>
-          <Reveal delay={0.14} className="relative aspect-[0.85] overflow-hidden rounded-[1.4rem_0.3rem] bg-[#343027] max-lg:hidden"><Image src="/concepts/ombu-hero.webp" alt="Detalle de la barra de café de Ombú" fill loading="lazy" sizes="20vw" className="object-cover object-[82%_48%]" /></Reveal>
-        </div>
-      </section>
-
-      <section id="carta" className="bg-[#c9c2a4] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto max-w-[1220px]"><Reveal><h2 className="max-w-2xl text-[clamp(3.4rem,6vw,6.5rem)] leading-[0.82] tracking-[-0.075em]">La carta de todos los días.</h2></Reveal><div className="mt-12 grid grid-cols-1 gap-x-12 border-t border-[#23201b]/25 sm:grid-cols-2">{menu.map(([name, description, price, featured], index) => <Reveal key={name} delay={index * 0.04} className="grid grid-cols-[1fr_auto] gap-x-4 border-b border-[#23201b]/25 py-6"><div><h3 className="flex flex-wrap items-center gap-2.5 text-2xl italic">{name}{featured && <span className="rounded-full bg-[#b75632] px-2.5 py-1 text-[10px] leading-none font-sans tracking-[0.1em] text-[#fff7e8] uppercase not-italic">Recomendado</span>}</h3><p className="mt-2 text-sm text-[#4e493e]">{description}</p></div><span className="text-sm">{price}</span></Reveal>)}</div><p className="mt-7 text-sm text-[#4e493e]">También hay pastelería de estación y alternativas vegetales. Preguntá qué salió hoy.</p></div>
-      </section>
-
-      <section className="mx-auto grid grid-cols-1 max-w-[1440px] gap-7 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.12fr_0.88fr] lg:px-12"><Reveal className="relative aspect-[1.1] overflow-hidden bg-[#453c30] sm:aspect-[1.5]"><Image src="/concepts/ombu-cafe-editorial.webp" alt="Barista preparando café en una barra de Ombú Café" fill loading="lazy" sizes="(max-width:1023px) 100vw, 55vw" className="object-cover" /></Reveal><Reveal delay={0.08} className="flex flex-col justify-center py-4 lg:px-12"><h2 className="text-[clamp(3.1rem,5vw,5.8rem)] leading-[0.84] tracking-[-0.075em]">Una rutina que se vuelve ritual.</h2><p className="mt-6 max-w-md text-lg leading-relaxed text-[#4e493e]">Barra, mesa o ventana. La experiencia está pensada para que puedas quedarte el rato que precisás.</p></Reveal></section>
-
-      <section className="border-y border-[#23201b]/15 bg-[#c9c2a4] px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto max-w-[760px] space-y-12">
-          {testimonials.map(([quote, name], index) => (
-            <Reveal key={name} delay={index * 0.06} className={cn('border-t border-[#23201b]/25 pt-6', index % 2 === 1 && 'ml-auto max-w-[90%] text-right')}>
-              <p className="text-[clamp(1.4rem,3.2vw,2rem)] leading-snug italic">{quote}</p>
-              <span className="mt-4 block text-sm text-[#605a4c]">— {name}</span>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-[#23201b]/15 px-5 py-20 sm:px-8 sm:py-28 lg:px-12"><div className="mx-auto grid grid-cols-1 max-w-[1220px] gap-12 lg:grid-cols-[0.75fr_1.25fr]"><Reveal><h2 className="text-[clamp(3rem,5vw,5.7rem)] leading-[0.85] tracking-[-0.075em]">Preguntas que aparecen antes de venir.</h2></Reveal><div>{faqs.map(([question, answer]) => <details key={question} className="group border-t border-[#23201b]/20 py-5 last:border-b"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-xl"><span>{question}</span><ChevronDown className="size-5 transition-transform duration-300 group-open:rotate-180" /></summary><p className="max-w-xl pt-4 leading-relaxed text-[#4e493e]">{answer}</p></details>)}</div></div></section>
-
-      <section id="visita" className="bg-[#29261f] px-5 py-20 text-[#edf0df] sm:px-8 sm:py-28 lg:px-12"><div className="mx-auto grid grid-cols-1 max-w-[1220px] gap-10 lg:grid-cols-[1fr_auto] lg:items-end"><Reveal><p className="text-[11px] tracking-[0.18em] uppercase text-[#c9c2a4]">Ombú Café de Especialidad</p><h2 className="mt-5 max-w-3xl text-[clamp(3.7rem,6.6vw,7.2rem)] leading-[0.8] tracking-[-0.08em]">Pasá cuando necesites una pausa.</h2></Reveal><Reveal delay={0.08} className="space-y-3 text-base text-[#edf0df]/75"><p className="flex gap-3"><MapPin className="mt-0.5 size-4" />Ciudad Vieja, Montevideo</p><p>Lunes a sábado, 08:30 - 18:00</p><Link href="/#contact" className="mt-6 inline-flex min-h-12 items-center gap-3 border border-[#edf0df]/45 px-5 text-[#edf0df]">Quiero una web así <ArrowUpRight className="size-4" /></Link></Reveal></div><div className="mx-auto mt-14 max-w-[1220px] border-t border-[#edf0df]/20 pt-5"><ProjectBack /></div></section>
-    </main>
   )
 }
 
@@ -202,7 +101,6 @@ function CimbraLanding() {
 }
 
 export function ConceptLanding({ project }: { project: ConceptProject }) {
-  if (project.slug === 'ombu-cafe') return <OmbuLanding />
   if (project.slug === 'aster-automoviles') return <AsterLanding />
   return <CimbraLanding />
 }
