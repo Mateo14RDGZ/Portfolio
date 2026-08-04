@@ -13,7 +13,7 @@ declare global {
 // A Meta Pixel ID is public by design - it's visible in every page's HTML
 // once the pixel loads. The environment variable lets it be overridden per
 // deployment without exposing any secret.
-const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1105012992999205'
+const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || '1776448393706274'
 
 /** Loads the Meta Pixel after interaction and records client-side route changes in the App Router. */
 export function MetaPixel() {
