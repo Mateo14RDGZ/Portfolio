@@ -187,6 +187,12 @@
       "skillPath": "skills/draw-io/SKILL.md",
       "computedHash": "ff19cab2266a29cbfd39defe0ced1999e9eaeddb1a23dc4fb418f9665646abd7"
     },
+    "emil-design-eng": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "computedHash": "41b0a4dc1a27164fe297845a6c6850a39e9242c42c9be999967fcee9df2c5974"
+    },
     "excalidraw": {
       "source": "softaworks/agent-toolkit",
       "sourceType": "github",
