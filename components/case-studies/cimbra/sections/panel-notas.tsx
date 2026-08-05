@@ -12,7 +12,7 @@ import { cta, notas } from '@/components/case-studies/cimbra/data'
 export function CimbraPanelNotas() {
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="flex items-center gap-2 text-[#FF6B4A]">
+      <div className="flex items-center gap-2 text-[#C22300]">
         <Pin className="size-3.5" />
         <p className="text-[11px] font-semibold tracking-[0.14em] uppercase">Nota fijada del equipo</p>
       </div>
@@ -21,6 +21,10 @@ export function CimbraPanelNotas() {
         <h2 className="text-lg font-bold" style={{ fontFamily: 'var(--font-cimbra-display)' }}>
           {notas.contexto.title}
         </h2>
+        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[#1C222B]/65">
+          <span className="flex size-4 items-center justify-center rounded-full bg-[#1C222B] text-[8px] font-bold text-white">{notas.contexto.autor}</span>
+          {notas.contexto.autor} · {notas.contexto.fecha}
+        </p>
         <div className="mt-3 flex flex-col gap-3">
           {notas.contexto.body.map((paragraph) => (
             <p key={paragraph} className="text-sm leading-relaxed text-[#1C222B]/70">
@@ -34,6 +38,10 @@ export function CimbraPanelNotas() {
         <h3 className="text-base font-bold" style={{ fontFamily: 'var(--font-cimbra-display)' }}>
           {notas.investigacion.title}
         </h3>
+        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[#1C222B]/65">
+          <span className="flex size-4 items-center justify-center rounded-full bg-[#1C222B] text-[8px] font-bold text-white">{notas.investigacion.autor}</span>
+          {notas.investigacion.autor} · {notas.investigacion.fecha}
+        </p>
         <p className="mt-3 text-sm leading-relaxed text-[#1C222B]/70">{notas.investigacion.body}</p>
         <ul className="mt-4 flex flex-col gap-2.5 border-t border-[#1C222B]/8 pt-4">
           {notas.investigacion.findings.map((finding) => (
@@ -48,10 +56,14 @@ export function CimbraPanelNotas() {
         <h3 className="text-base font-bold" style={{ fontFamily: 'var(--font-cimbra-display)' }}>
           {notas.resultado.title}
         </h3>
+        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[#1C222B]/65">
+          <span className="flex size-4 items-center justify-center rounded-full bg-[#1C222B] text-[8px] font-bold text-white">{notas.resultado.autor}</span>
+          {notas.resultado.autor} · {notas.resultado.fecha}
+        </p>
         <p className="mt-3 text-sm leading-relaxed text-[#1C222B]/70">{notas.resultado.body}</p>
         <div className="mt-4 flex flex-wrap gap-1.5 border-t border-[#1C222B]/8 pt-4">
           {notas.tecnologias.map((tech) => (
-            <span key={tech} className="rounded-[8px] bg-[#1C222B]/6 px-2.5 py-1 text-[11px] font-medium text-[#1C222B]/60">
+            <span key={tech} className="rounded-[8px] bg-[#1C222B]/6 px-2.5 py-1 text-[11px] font-medium text-[#1C222B]/70">
               {tech}
             </span>
           ))}

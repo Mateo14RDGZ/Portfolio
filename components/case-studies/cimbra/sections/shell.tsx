@@ -4,7 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from 'react'
 import { Tabs } from '@base-ui/react/tabs'
 import { History, Home, Palette, Search, SlidersHorizontal, StickyNote, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { navItems, type PanelValue } from '@/components/case-studies/cimbra/data'
+import { clasesIniciales, navItems, staffActivo, type Clase, type PanelValue } from '@/components/case-studies/cimbra/data'
 import { CimbraCommandPalette } from '@/components/case-studies/cimbra/sections/command-palette'
 import { CimbraQuickActions } from '@/components/case-studies/cimbra/sections/quick-actions'
 import { CimbraPanelInicio } from '@/components/case-studies/cimbra/sections/panel-inicio'
@@ -61,7 +61,14 @@ export function CimbraShell() {
   const [tab, setTab] = useState<PanelValue>('inicio')
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [actionsOpen, setActionsOpen] = useState(false)
+  const [createOpen, setCreateOpen] = useState(false)
+  const [clases, setClases] = useState<Clase[]>(clasesIniciales)
   const orientation = useTabsOrientation()
+
+  function goCreateClase() {
+    setTab('inicio')
+    setCreateOpen(true)
+  }
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -114,14 +121,24 @@ export function CimbraShell() {
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className={cn('mt-auto flex items-center justify-between rounded-[14px] bg-[#ECEFF3] px-3.5 py-2.5 text-sm text-[#1C222B]/60', RAISED)}
+          className={cn('mt-auto flex items-center justify-between rounded-[14px] bg-[#ECEFF3] px-3.5 py-2.5 text-sm text-[#1C222B]/70', RAISED)}
         >
           <span className="flex items-center gap-2">
             <Search className="size-4" />
             Buscar
           </span>
-          <kbd className="rounded-[6px] border border-[#1C222B]/15 bg-white/60 px-1.5 py-0.5 text-[10px] font-semibold text-[#1C222B]/50">⌘K</kbd>
+          <kbd className="rounded-[6px] border border-[#1C222B]/15 bg-white/60 px-1.5 py-0.5 text-[10px] font-semibold text-[#1C222B]/65">⌘K</kbd>
         </button>
+
+        <div className="mt-3 flex items-center gap-2.5 border-t border-[#1C222B]/8 px-1 pt-3">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#1C222B] text-[11px] font-bold text-white">
+            {staffActivo.iniciales}
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-xs font-semibold text-[#1C222B]">{staffActivo.nombre}</p>
+            <p className="truncate text-[11px] text-[#1C222B]/65">{staffActivo.rol}</p>
+          </div>
+        </div>
       </aside>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -130,7 +147,7 @@ export function CimbraShell() {
           <div className="lg:hidden">
             <Brand compact />
           </div>
-          <p className="hidden text-sm font-medium text-[#1C222B]/50 lg:block">
+          <p className="hidden text-sm font-medium text-[#1C222B]/65 lg:block">
             {navItems.find((item) => item.value === tab)?.label}
           </p>
           <button
@@ -146,7 +163,13 @@ export function CimbraShell() {
         {/* Panels */}
         <main id="cimbra-panel" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-6 pb-28 lg:px-10 lg:pt-10 lg:pb-10">
           <Tabs.Panel value="inicio" keepMounted className="data-[hidden]:hidden">
-            <CimbraPanelInicio onNavigate={setTab} />
+            <CimbraPanelInicio
+              onNavigate={setTab}
+              createOpen={createOpen}
+              onCreateOpenChange={setCreateOpen}
+              clases={clases}
+              onClasesChange={setClases}
+            />
           </Tabs.Panel>
           <Tabs.Panel value="sistema" keepMounted className="data-[hidden]:hidden">
             <CimbraPanelSistema />
@@ -173,7 +196,7 @@ export function CimbraShell() {
                 <Tabs.Tab
                   key={item.value}
                   value={item.value}
-                  className="flex flex-1 flex-col items-center gap-1 py-2.5 text-[10px] font-medium tracking-[0.02em] text-[#1C222B]/50 data-[active]:text-[#C22300]"
+                  className="flex flex-1 flex-col items-center gap-1 py-2.5 text-[10px] font-medium tracking-[0.02em] text-[#1C222B]/65 data-[active]:text-[#C22300]"
                 >
                   <NavIcon Icon={Icon} />
                   {item.label}
@@ -184,7 +207,7 @@ export function CimbraShell() {
           <button
             type="button"
             onClick={() => setActionsOpen(true)}
-            className="flex flex-col items-center gap-1 px-4 py-2.5 text-[10px] font-medium tracking-[0.02em] text-[#1C222B]/50"
+            className="flex flex-col items-center gap-1 px-4 py-2.5 text-[10px] font-medium tracking-[0.02em] text-[#1C222B]/65"
           >
             <SlidersHorizontal className="size-[18px]" />
             Acciones
@@ -192,8 +215,21 @@ export function CimbraShell() {
         </div>
       </nav>
 
-      <CimbraCommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} onNavigate={setTab} />
-      <CimbraQuickActions open={actionsOpen} onOpenChange={setActionsOpen} onNavigate={setTab} onSearch={() => setPaletteOpen(true)} />
+      <CimbraCommandPalette
+        open={paletteOpen}
+        onOpenChange={setPaletteOpen}
+        onNavigate={setTab}
+        onCreateClase={goCreateClase}
+        activePanel={tab}
+        clases={clases}
+      />
+      <CimbraQuickActions
+        open={actionsOpen}
+        onOpenChange={setActionsOpen}
+        onNavigate={setTab}
+        onSearch={() => setPaletteOpen(true)}
+        onCreateClase={goCreateClase}
+      />
     </Tabs.Root>
   )
 }
@@ -212,7 +248,7 @@ function Brand({ compact = false }: { compact?: boolean }) {
         <p className="text-sm leading-tight font-semibold" style={{ fontFamily: 'var(--font-cimbra-display)' }}>
           Cimbra
         </p>
-        {!compact && <p className="text-[11px] leading-tight text-[#1C222B]/50">Panel interno</p>}
+        {!compact && <p className="text-[11px] leading-tight text-[#1C222B]/65">Panel interno</p>}
       </div>
     </div>
   )

@@ -14,6 +14,15 @@ export const navItems = [
 
 export type PanelValue = (typeof navItems)[number]['value']
 
+export const staffActivo = {
+  nombre: 'Sofía Bianchi',
+  rol: 'Recepción',
+  iniciales: 'SB',
+}
+
+// Lun a sáb, 7:00-20:00 - usado para calcular el estado "Abierto ahora" en vivo.
+export const horarioEstudio = { diasAbiertos: [1, 2, 3, 4, 5, 6], apertura: 7, cierre: 20 }
+
 // --- Inicio ---
 
 export const onboarding = [
@@ -23,18 +32,32 @@ export const onboarding = [
 ]
 
 export const stats = [
-  { label: 'Ocupación promedio', value: '94%' },
   { label: 'Tiempo de reserva', value: '3.2 min' },
   { label: 'Instructores certificados', value: '12' },
 ]
 
-export const clases = [
-  { name: 'Reformer', time: 'Lun a Vie · 7:00–20:00', spots: 4, level: 'Todos los niveles' },
-  { name: 'Fuerza funcional', time: 'Lun, Mié, Vie · 18:30', spots: 2, level: 'Intermedio' },
-  { name: 'Movilidad', time: 'Mar y Jue · 8:00', spots: 6, level: 'Todos los niveles' },
-]
+export type Clase = {
+  id: string
+  name: string
+  hora: string
+  instructor: string
+  nivel: (typeof NIVELES)[number]
+  cuposDisponibles: number
+  capacidad: number
+}
 
-export const nivelFiltros = ['Todas', 'Todos los niveles', 'Intermedio'] as const
+export const HORARIOS = ['07:00', '08:00', '09:30', '12:00', '15:00', '18:30', '20:00'] as const
+
+export const NIVELES = ['Todos los niveles', 'Intermedio', 'Avanzado'] as const
+
+export const nivelFiltros = ['Todas', ...NIVELES] as const
+
+export const clasesIniciales: Clase[] = [
+  { id: 'reformer', name: 'Reformer', hora: '07:00', instructor: 'Bruno Ledesma', nivel: 'Todos los niveles', cuposDisponibles: 4, capacidad: 10 },
+  { id: 'movilidad', name: 'Movilidad', hora: '08:00', instructor: 'Nadia Ríos', nivel: 'Todos los niveles', cuposDisponibles: 6, capacidad: 8 },
+  { id: 'hiit', name: 'HIIT', hora: '09:30', instructor: 'Camila Suárez', nivel: 'Avanzado', cuposDisponibles: 0, capacidad: 6 },
+  { id: 'fuerza', name: 'Fuerza funcional', hora: '18:30', instructor: 'Bruno Ledesma', nivel: 'Intermedio', cuposDisponibles: 2, capacidad: 8 },
+]
 
 // --- Sistema ---
 
@@ -58,11 +81,17 @@ export const designSystemNotes = [
 ]
 
 export const componentes = [
-  { name: 'Tarjeta elevada', desc: 'Sombra dual (clara/oscura), radio de 24px, sin borde visible.' },
-  { name: 'Control segmentado', desc: 'Pill con estado activo hundido, usado para elegir plan o filtrar.' },
-  { name: 'Botón primario', desc: 'Relleno coral, se hunde (sombra inset) al presionar.' },
-  { name: 'Tab', desc: 'Cambia de panel al hacer click o tap; con flechas si se navega por teclado, sin animación - los atajos de teclado no deberían esperar a una transición.' },
+  { name: 'Tarjeta elevada', desc: 'Sombra dual (clara/oscura), radio de 24px, sin borde visible.', usos: 23 },
+  { name: 'Control segmentado', desc: 'Pill con estado activo hundido, usado para elegir plan, nivel u horario.', usos: 6 },
+  { name: 'Botón primario', desc: 'Relleno coral, se hunde (sombra inset) al presionar.', usos: 11 },
+  { name: 'Tab', desc: 'Cambia de panel al hacer click o tap; con flechas si se navega por teclado, sin animación - los atajos de teclado no deberían esperar a una transición.', usos: 8 },
 ]
+
+export const sistemaMeta = {
+  mantenedor: 'Equipo de producto de Cimbra',
+  colaboradores: ['SB', 'BL', 'NR', 'CS'],
+  notaUso: 'Referencia obligatoria antes de construir o modificar un componente del panel - cualquier superficie nueva se valida contra estas reglas antes de salir a producción.',
+}
 
 export const planes = [
   { name: 'Clase suelta', price: '$ 890', copy: 'Para probar sin compromiso.', featured: false },
@@ -73,10 +102,10 @@ export const planes = [
 // --- Changelog ---
 
 export const changelog = [
-  { version: 'v1.0', date: '12 mar', title: 'Relevamiento', copy: 'Mapear qué necesita ver una persona antes de reservar: horario, cupo, instructor, nivel.' },
-  { version: 'v1.1', date: '19 mar', title: 'Wireframe de grilla', copy: 'Probar la densidad de información en escala de grises antes de sumar elevación o color.' },
-  { version: 'v1.2', date: '2 abr', title: 'Sistema neumórfico', copy: 'Definir el par de sombras, el radio y el acento como reglas fijas, no como estilo por componente.' },
-  { version: 'v2.0', date: '18 abr', title: 'Construcción', copy: 'Implementación real en Next.js, con el mismo estándar de performance y accesibilidad que el resto del portfolio.' },
+  { version: 'v1.0', date: '12 mar', title: 'Relevamiento', copy: 'Mapear qué necesita ver una persona antes de reservar: horario, cupo, instructor, nivel.', tag: 'Research', autor: 'SB' },
+  { version: 'v1.1', date: '19 mar', title: 'Wireframe de grilla', copy: 'Probar la densidad de información en escala de grises antes de sumar elevación o color.', tag: 'Diseño', autor: 'NR' },
+  { version: 'v1.2', date: '2 abr', title: 'Sistema neumórfico', copy: 'Definir el par de sombras, el radio y el acento como reglas fijas, no como estilo por componente.', tag: 'Sistema', autor: 'NR' },
+  { version: 'v2.0', date: '18 abr', title: 'Construcción', copy: 'Implementación real en Next.js, con el mismo estándar de performance y accesibilidad que el resto del portfolio.', tag: 'Build', autor: 'CS' },
 ]
 
 // --- Notas ---
@@ -88,6 +117,8 @@ export const notas = {
       'El punto de partida ficticio: un estudio de movimiento con una agenda real (reformer, fuerza, movilidad) mostrado en una landing plana de texto y fotos, sin ninguna sensación de "estado en vivo" - cupos, horarios, progreso.',
       'El desafío de diseño real: tomar prestada la densidad organizada de un dashboard de producto (Stripe, Notion, Arc) para un sitio de cara al público, sin que se sienta frío ni corporativo - la calidez tenía que venir de la forma, no de fotos de stock.',
     ],
+    autor: 'SB',
+    fecha: '10 mar',
   },
   investigacion: {
     title: 'Tableros, no folletos.',
@@ -97,10 +128,14 @@ export const notas = {
       'Un estado "presionado" en botones y tabs comunica interactividad sin necesitar color adicional.',
       'La densidad de información se percibe como orden, no como saturación, cuando cada tarjeta resuelve una sola pregunta.',
     ],
+    autor: 'NR',
+    fecha: '19 mar',
   },
   resultado: {
     title: 'Reservar se siente como abrir un panel de control.',
     body: 'El resultado es un sitio que muestra su propio estado - cupos, horarios, plan activo - en vez de pedir que el visitante lo adivine o lo busque. La calidez no viene de fotos genéricas, viene de superficies que responden al tacto.',
+    autor: 'CS',
+    fecha: '18 abr',
   },
   tecnologias: ['Next.js (App Router)', 'Tailwind CSS v4', 'Motion (Framer Motion)', 'Base UI', 'TypeScript'],
 }
@@ -112,6 +147,7 @@ export const cta = {
 
 export const quickActions = [
   { id: 'buscar', label: 'Buscar en el panel' },
+  { id: 'crear-clase', label: 'Crear una clase', panel: 'inicio' as PanelValue },
   { id: 'sistema', label: 'Ver sistema de diseño', panel: 'sistema' as PanelValue },
   { id: 'contacto', label: 'Contactar al equipo', href: '/#contact' },
 ]

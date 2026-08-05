@@ -1,11 +1,12 @@
 'use client'
 
 import { Drawer } from '@base-ui/react/drawer'
-import { Search, ArrowRight, Mail } from 'lucide-react'
+import { Search, ArrowRight, Mail, Plus } from 'lucide-react'
 import { quickActions, type PanelValue } from '@/components/case-studies/cimbra/data'
 
 const ICONS: Record<string, typeof Search> = {
   buscar: Search,
+  'crear-clase': Plus,
   sistema: ArrowRight,
   contacto: Mail,
 }
@@ -21,11 +22,13 @@ export function CimbraQuickActions({
   onOpenChange,
   onNavigate,
   onSearch,
+  onCreateClase,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
   onNavigate: (panel: PanelValue) => void
   onSearch: () => void
+  onCreateClase: () => void
 }) {
   return (
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
@@ -46,6 +49,7 @@ export function CimbraQuickActions({
                     onClick={() => {
                       onOpenChange(false)
                       if (action.id === 'buscar') onSearch()
+                      else if (action.id === 'crear-clase') onCreateClase()
                       else if ('panel' in action && action.panel) onNavigate(action.panel)
                       else if ('href' in action && action.href) window.location.href = action.href
                     }}
