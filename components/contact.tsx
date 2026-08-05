@@ -45,6 +45,7 @@ export function Contact() {
 
     if (state.status === 'success') {
       track('contact_form_submit_success')
+      window.gtag?.('event', 'conversion', { send_to: 'AW-18368950176/yXltCJPVl9scEKDf_7ZE' })
       toast.success(state.message)
       formRef.current?.reset()
     } else if (state.status === 'error') {
