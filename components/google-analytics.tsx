@@ -14,6 +14,11 @@ declare global {
 // tracking property be overridden per deployment without exposing any secret.
 const measurementId = process.env.NEXT_PUBLIC_GA_ID?.trim() || 'G-2EQ71K5M2F'
 
+// A Google Ads conversion ID is public by design, same as the GA4 ID above.
+// Configured on the same gtag.js loader per Google's own instructions for a
+// site that already has the global tag installed from another product.
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim() || 'AW-18368950176'
+
 /** Loads GA4 after interaction and records client-side route changes in the App Router. */
 export function GoogleAnalytics() {
   const pathname = usePathname()
@@ -38,6 +43,7 @@ export function GoogleAnalytics() {
           window.gtag = window.gtag || gtag;
           window.gtag('js', new Date());
           window.gtag('config', ${JSON.stringify(measurementId)}, { anonymize_ip: true, send_page_view: false });
+          window.gtag('config', ${JSON.stringify(googleAdsId)});
         `}
       </Script>
       <Script
