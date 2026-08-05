@@ -1,9 +1,10 @@
 'use client'
 
 import type { Variants } from 'motion/react'
-import { motion, useReducedMotion, useMotionValue, useSpring, useInView, animate } from 'motion/react'
+import { motion, useReducedMotion, useMotionValue, useSpring, useInView, animate, AnimatePresence } from 'motion/react'
 import type { CSSProperties, PointerEvent, ReactNode } from 'react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Info, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 /**
@@ -94,4 +95,50 @@ export function CountUp({ to, suffix = '', className, style }: { to: number; suf
   }, [inView, to, suffix, reduceMotion])
 
   return <span ref={ref} className={className} style={style}>0{suffix}</span>
+}
+
+/**
+ * The opt-in reading layer for a scene the visitor is meant to discover, not
+ * read. Closed by default everywhere; toggling it is a deliberate, rare
+ * action (not a hover), so a short reveal is appropriate rather than an
+ * instant cut.
+ */
+export function InfoToggle({ text, tone = 'light' }: { text: string; tone?: 'light' | 'dark' }) {
+  const [open, setOpen] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const dark = tone === 'dark'
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        aria-label={open ? 'Ocultar contexto de esta escena' : 'Ver contexto de esta escena'}
+        className={cn(
+          'flex size-9 items-center justify-center rounded-full border backdrop-blur-xl transition-transform duration-150 active:scale-[0.94]',
+          dark ? 'border-white/15 bg-white/[0.06] text-white/80' : 'border-[#10151B]/10 bg-white/60 text-[#10151B]/70',
+        )}
+      >
+        {open ? <X className="size-4" /> : <Info className="size-4" />}
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.p
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: (reduceMotion ? 10 : 200) / 1000, ease: [0.23, 1, 0.32, 1] }}
+            style={{ transformOrigin: 'top right' }}
+            className={cn(
+              'absolute top-11 right-0 z-10 w-64 border p-4 text-sm leading-relaxed backdrop-blur-xl sm:w-80',
+              dark ? 'border-white/15 bg-[#10151B]/90 text-white/75' : 'border-[#10151B]/10 bg-white/90 text-[#10151B]/75',
+            )}
+          >
+            {text}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
+  )
 }
