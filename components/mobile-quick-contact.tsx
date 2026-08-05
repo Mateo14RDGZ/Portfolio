@@ -28,7 +28,7 @@ export function MobileQuickContact() {
   if (!visible) return null
 
   return (
-    <div className="fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 sm:hidden">
+    <div className="fixed left-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 sm:hidden">
       <Link
         href="#contact"
         onClick={() => track('mobile_quick_contact_click')}

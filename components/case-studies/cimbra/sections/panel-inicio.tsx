@@ -138,7 +138,8 @@ export function CimbraPanelInicio({
         {abiertoAhora !== null && (
           <span
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold ${
-              abiertoAhora ? 'bg-[#FF6B4A]/12 text-[#C22300]' : 'bg-[#1C222B]/8 text-[#1C222B]/65'
+              // text-[#1C222B]/80 (not /65, used by sm+) fixes a real 4.45:1 contrast failure on mobile without touching desktop
+              abiertoAhora ? 'bg-[#FF6B4A]/12 text-[#C22300]' : 'bg-[#1C222B]/8 text-[#1C222B]/80 sm:text-[#1C222B]/65'
             }`}
           >
             <span className={`size-1.5 rounded-full ${abiertoAhora ? 'bg-[#C22300]' : 'bg-[#1C222B]/70'}`} />
