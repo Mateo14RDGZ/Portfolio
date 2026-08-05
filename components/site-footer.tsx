@@ -1,6 +1,21 @@
 import Link from 'next/link'
+import localFont from 'next/font/local'
 import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react'
 import { LogoMark } from '@/components/logo-mark'
+
+// Scoped here instead of the root layout - this is the only place on the
+// site that renders the "MƦ14" wordmark, so only the pages that render
+// this footer (home, /proyectos, /trabajo-destacado, /notas) should pay for
+// preloading it. The three case-study pages render their own dedicated
+// landing without this footer and never reference the variable, so they no
+// longer compete with it for bandwidth during their own critical load.
+const maziusDisplay = localFont({
+  src: '../app/fonts/MaziusDisplay-ExtraItalicBold.woff2',
+  variable: '--font-mazius-display',
+  weight: '700',
+  style: 'italic',
+  display: 'swap',
+})
 
 const LINKS = [
   { label: 'Proyectos', href: '/proyectos' },
@@ -14,7 +29,7 @@ const LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-accent text-foreground">
+    <footer className={`bg-accent text-foreground ${maziusDisplay.variable}`}>
       <div className="mx-auto max-w-[1400px] px-5 py-10 sm:px-8 sm:py-14">
         <div className="grid items-center gap-8 border-b border-foreground pb-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16 lg:pb-14">
           <Link href="/" className="group mx-auto flex w-fit items-center gap-5 lg:mx-0" aria-label="Volver al inicio">

@@ -1,7 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/sonner'
 import { GoogleAnalytics } from '@/components/google-analytics'
 import { MetaPixel } from '@/components/meta-pixel'
@@ -18,14 +17,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
-  display: 'swap',
-})
-
-const maziusDisplay = localFont({
-  src: './fonts/MaziusDisplay-ExtraItalicBold.woff2',
-  variable: '--font-mazius-display',
-  weight: '700',
-  style: 'italic',
   display: 'swap',
 })
 
@@ -111,7 +102,7 @@ export default function RootLayout({
   return (
     <html
       lang="es-UY"
-      className={`bg-background ${geistSans.variable} ${geistMono.variable} ${maziusDisplay.variable}`}
+      className={`bg-background ${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-sans antialiased">

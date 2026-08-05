@@ -28,7 +28,7 @@ export function MetaPixel() {
 
   return (
     <>
-      <Script id="meta-pixel-config" strategy="afterInteractive" onReady={() => setIsReady(true)}>
+      <Script id="meta-pixel-config" strategy="lazyOnload" onReady={() => setIsReady(true)}>
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
