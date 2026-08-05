@@ -9,29 +9,29 @@ export type ConceptProject = {
 
 export const CONCEPT_PROJECTS: ConceptProject[] = [
   {
-    slug: 'ombu-cafe',
-    name: 'Ombú Café de Especialidad',
-    category: 'Hospitalidad · Proyecto conceptual',
+    slug: 'bruma-cafe',
+    name: 'Bruma Café',
+    category: 'Hospitalidad · Caso de diseño',
     description:
-      'Una experiencia digital cálida para una cafetería de especialidad que necesita convertir búsquedas locales en visitas, reservas y consultas.',
+      'Una identidad editorial y minimalista, inspirada en el diseño nórdico, para una cafetería de especialidad que necesita transmitir calma y calidad antes de la primera visita.',
     image: '/concepts/ombu-hero.webp',
-    imageAlt: 'Barista preparando café filtrado en una cafetería conceptual',
+    imageAlt: 'Taza de café de especialidad sobre una barra de piedra, luz natural',
   },
   {
-    slug: 'aster-automoviles',
-    name: 'Aster Automóviles Eléctricos',
-    category: 'Movilidad eléctrica · Proyecto conceptual',
+    slug: 'astra',
+    name: 'Astra',
+    category: 'Movilidad eléctrica · Caso de diseño',
     description:
-      'Una experiencia digital para un concesionario premium que necesita mostrar unidades, explicar tecnología y acompañar cada decisión de compra.',
+      'Un showroom espacial para una marca de autos eléctricos premium, donde la ficha técnica se explora como si estuviera flotando frente a vos.',
     image: '/concepts/aster-vehicle-norte-s1.webp',
     imageAlt: 'SUV eléctrico conceptual en un showroom premium',
   },
   {
     slug: 'cimbra-estudio',
     name: 'Cimbra Estudio de Movimiento',
-    category: 'Bienestar · Proyecto conceptual',
+    category: 'Bienestar · Caso de diseño',
     description:
-      'Una landing modular para un estudio de movimiento que necesita organizar clases, reservas y una práctica clara para cada persona.',
+      'Un panel neumórfico y denso para un estudio de movimiento, donde clases, cupos y planes se organizan con la claridad de un dashboard de producto.',
     image: '/concepts/cimbra-hero.webp',
     imageAlt: 'Estudio de movimiento y Pilates contemporáneo',
   },

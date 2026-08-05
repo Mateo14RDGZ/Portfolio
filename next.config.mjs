@@ -16,6 +16,16 @@ const nextConfig = {
         destination: 'https://www.mateordgz.dev/:path*',
         permanent: true,
       },
+      {
+        source: '/proyectos/ombu-cafe',
+        destination: '/proyectos/bruma-cafe',
+        permanent: true,
+      },
+      {
+        source: '/proyectos/aster-automoviles',
+        destination: '/proyectos/astra',
+        permanent: true,
+      },
     ]
   },
 }
