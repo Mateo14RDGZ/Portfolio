@@ -1,22 +1,27 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
-import { ConceptLanding } from '@/components/concept-landing'
-import { conceptFontVariables } from '@/lib/concept-fonts'
 import { CONCEPT_PROJECTS, getConceptProject, type ConceptProject } from '@/lib/project-data'
 import { SITE_URL, SITE_NAME } from '@/lib/site'
 
 // Each case study is its own dynamic import (not ssr:false - this is
 // primary, SEO-critical content) so visiting one never ships another's JS
-// or fonts. Cimbra hasn't been migrated to its own case-study folder yet,
-// so it still renders through the legacy ConceptLanding component/font
-// module for now.
+// or fonts.
 const BrumaLanding = dynamic(() =>
   import('@/components/case-studies/bruma/bruma-landing').then((m) => m.BrumaLanding),
 )
 const AstraLanding = dynamic(() =>
   import('@/components/case-studies/astra/astra-landing').then((m) => m.AstraLanding),
 )
+const CimbraLanding = dynamic(() =>
+  import('@/components/case-studies/cimbra/cimbra-landing').then((m) => m.CimbraLanding),
+)
+
+const LANDINGS: Record<string, typeof BrumaLanding> = {
+  'bruma-cafe': BrumaLanding,
+  astra: AstraLanding,
+  'cimbra-estudio': CimbraLanding,
+}
 
 export function generateStaticParams() {
   return CONCEPT_PROJECTS.map(({ slug }) => ({ slug }))
@@ -51,17 +56,11 @@ export default async function ConceptProjectPage({ params }: { params: Promise<{
   const project = getConceptProject(slug)
   if (!project) notFound()
 
+  const Landing = LANDINGS[slug]
+
   return (
     <>
-      {slug === 'bruma-cafe' ? (
-        <BrumaLanding />
-      ) : slug === 'astra' ? (
-        <AstraLanding />
-      ) : (
-        <div className={conceptFontVariables}>
-          <ConceptLanding project={project} />
-        </div>
-      )}
+      <Landing />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema(project)) }}

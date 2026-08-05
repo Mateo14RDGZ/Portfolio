@@ -57,7 +57,7 @@ const FAQS = [
 const FEATURED_CONCEPTS: Record<string, string> = {
   'bruma-cafe': 'An editorial, Scandinavian-minimal design case study for a specialty coffee shop.',
   'astra': 'A spatial showroom design case study for a premium electric vehicle brand.',
-  'cimbra-estudio': 'A modular studio landing for managing classes, bookings and membership plans.',
+  'cimbra-estudio': 'A neumorphic, dashboard-dense design case study for a movement studio.',
 }
 
 export default function EnglishPage() {

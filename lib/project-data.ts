@@ -29,9 +29,9 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
   {
     slug: 'cimbra-estudio',
     name: 'Cimbra Estudio de Movimiento',
-    category: 'Bienestar · Proyecto conceptual',
+    category: 'Bienestar · Caso de diseño',
     description:
-      'Una landing modular para un estudio de movimiento que necesita organizar clases, reservas y una práctica clara para cada persona.',
+      'Un panel neumórfico y denso para un estudio de movimiento, donde clases, cupos y planes se organizan con la claridad de un dashboard de producto.',
     image: '/concepts/cimbra-hero.webp',
     imageAlt: 'Estudio de movimiento y Pilates contemporáneo',
   },
