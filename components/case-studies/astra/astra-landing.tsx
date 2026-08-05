@@ -1,28 +1,22 @@
 import { ConceptNotice } from '@/components/case-studies/shared/concept-notice'
 import { SkipLink } from '@/components/case-studies/shared/skip-link'
 import { astraFontVariables } from '@/components/case-studies/astra/astra-fonts'
-import { AstraHero } from '@/components/case-studies/astra/sections/hero'
-import { AstraIntro } from '@/components/case-studies/astra/sections/intro'
-import { AstraResearch } from '@/components/case-studies/astra/sections/research'
-import { AstraDesignSystem } from '@/components/case-studies/astra/sections/design-system'
-import { AstraShowcase } from '@/components/case-studies/astra/sections/showcase'
-import { AstraProcessResult } from '@/components/case-studies/astra/sections/process-result'
-import { AstraCta } from '@/components/case-studies/astra/sections/cta'
+import { AstraSceneTrack } from '@/components/case-studies/astra/sections/scene-track'
 
+/**
+ * Astra is no longer a scrolling page - it's one full-viewport horizontal
+ * track of scenes to explore, not read. `SceneTrack` owns the whole
+ * experience (HUD nav, snap track, per-scene motion); this file only wraps
+ * it in the fixed-height frame, fonts and the required transparency notice.
+ */
 export function AstraLanding() {
   return (
-    <div className={astraFontVariables}>
-      <SkipLink targetId="astra-title" label="Ir al caso de diseño" />
-      <main className="overflow-x-clip bg-[#10151B] text-white" style={{ fontFamily: 'var(--font-astra-body)' }}>
-        <ConceptNotice className="bg-[#10151B] text-[#8FB4C9]" />
-        <AstraHero />
-        <AstraIntro />
-        <AstraResearch />
-        <AstraDesignSystem />
-        <AstraShowcase />
-        <AstraProcessResult />
-        <AstraCta />
-      </main>
+    <div className={`flex h-dvh flex-col overflow-hidden ${astraFontVariables}`}>
+      <SkipLink targetId="astra-track" label="Ir a la experiencia" />
+      <ConceptNotice className="shrink-0 bg-[#10151B] text-[#8FB4C9]" />
+      <div id="astra-track" className="min-h-0 flex-1" style={{ fontFamily: 'var(--font-astra-body)' }}>
+        <AstraSceneTrack />
+      </div>
     </div>
   )
 }
