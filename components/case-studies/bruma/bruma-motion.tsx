@@ -67,16 +67,26 @@ export function EditorialLink({ href, children }: { href: string; children: Reac
 }
 
 /**
- * A note living beside the main text (desktop: narrow side column next to
- * its paragraph; mobile: an inset block right after it) - this is where
- * the former "Sistema"/"Investigación" section content now lives, as
- * marginalia rather than its own headed section.
+ * A note living beside the main text - desktop: an always-open narrow
+ * side column next to its paragraph. Mobile: a native <details> disclosure,
+ * collapsed by default, so the technical/supporting notes (palette hex
+ * values, findings, rules) don't add to the page's felt density on a
+ * phone. Content is never removed from the DOM either way - <details>
+ * keeps it present (and crawlable) regardless of open state, it only
+ * changes what's visually expanded. No JS, no added motion: the native
+ * disclosure marker is the only affordance.
  */
 export function Marginalia({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <aside className="border-l border-[#1D1B18]/20 pl-5">
-      <p className="text-[10px] tracking-[0.18em] text-[#4A3324] uppercase">{label}</p>
-      <div className="mt-3 text-sm leading-relaxed text-[#1D1B18]/70">{children}</div>
-    </aside>
+    <>
+      <details className="border-t border-[#1D1B18]/12 py-4 sm:hidden">
+        <summary className="cursor-pointer text-[10px] tracking-[0.18em] text-[#4A3324] uppercase">{label}</summary>
+        <div className="mt-3 text-sm leading-relaxed text-[#1D1B18]/75">{children}</div>
+      </details>
+      <aside className="hidden border-l border-[#1D1B18]/20 pl-5 sm:block">
+        <p className="text-[10px] tracking-[0.18em] text-[#4A3324] uppercase">{label}</p>
+        <div className="mt-3 text-sm leading-relaxed text-[#1D1B18]/75">{children}</div>
+      </aside>
+    </>
   )
 }

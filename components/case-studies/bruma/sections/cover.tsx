@@ -17,7 +17,7 @@ export function BrumaCover() {
       />
       <div className="pointer-events-none absolute inset-0 aspect-[4/5] bg-gradient-to-t from-[#1D1B18]/45 via-transparent to-transparent sm:aspect-[16/10] lg:aspect-[21/9]" />
 
-      <div className="mx-auto max-w-[1400px] px-6 py-14 sm:px-10 sm:py-20">
+      <div className="mx-auto max-w-[1400px] px-6 py-16 sm:px-10 sm:py-20">
         <Reveal variants={brumaFade}>
           <p className="text-[11px] tracking-[0.22em] uppercase text-[#4A3324]">{brumaMeta.eyebrow}</p>
         </Reveal>

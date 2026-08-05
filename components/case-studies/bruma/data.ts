@@ -30,8 +30,10 @@ export const premisa = {
 export const referencias = {
   kicker: 'Referencias',
   lede: 'Referencias, no atajos.',
-  paragraph:
-    'Se relevó diseño editorial escandinavo, identidades de estudios de café de especialidad y fotografía de producto minimalista - no para copiar una estética puntual, sino para entender qué decisiones (tipografía comedida, paletas de un solo acento, composición asimétrica) hacen que un diseño se sienta silencioso en vez de simplemente vacío.',
+  paragraphs: [
+    'Se relevó diseño editorial escandinavo, identidades de estudios de café de especialidad y fotografía de producto minimalista.',
+    'No para copiar una estética puntual, sino para entender qué decisiones - tipografía comedida, paletas de un solo acento, composición asimétrica - hacen que un diseño se sienta silencioso en vez de simplemente vacío.',
+  ],
   hallazgos: [
     'La calma percibida depende más del ritmo del scroll que de la cantidad de blanco en pantalla.',
     'Un solo acento de color, usado con moderación, comunica más lujo que una paleta amplia.',
@@ -47,8 +49,10 @@ export const referencias = {
 export const sistema = {
   kicker: 'El sistema',
   lede: 'Un sistema, no una decoración.',
-  paragraph:
-    'La paleta se redujo a cuatro colores: papel, madera clara, tinta y un único acento de café tostado, usado con moderación en toda la interfaz - nunca decorativo, siempre funcional, botones, links y highlights comparten el mismo tono. La tipografía combina Petrona para titulares y momentos editoriales con Work Sans para texto de lectura e interfaz.',
+  paragraphs: [
+    'La paleta se redujo a cuatro colores: papel, madera clara, tinta y un único acento de café tostado, usado con moderación en toda la interfaz - nunca decorativo, siempre funcional, botones, links y highlights comparten el mismo tono.',
+    'La tipografía combina Petrona para titulares y momentos editoriales con Work Sans para texto de lectura e interfaz.',
+  ],
   reglas: [
     'Sin bordes redondeados: los cortes rectos refuerzan el carácter editorial e impreso.',
     'Sin sombras: la jerarquía se resuelve con espaciado y tamaño, nunca con elevación falsa.',
@@ -71,8 +75,11 @@ export const sistema = {
 export const composicion = {
   kicker: 'La composición',
   lede: 'La misma calma, en cualquier tamaño.',
-  paragraph:
-    'En desktop, la fotografía ocupa hasta el 60% del viewport y el texto vive en una columna angosta a un costado, como una revista abierta. En tablet, el grid pasa de dos columnas a una sola sin perder los márgenes generosos. En mobile, las fotos pasan a formato vertical propio - no un recorte forzado del desktop - y el texto conserva su jerarquía completa.',
+  paragraphs: [
+    'En desktop, la fotografía ocupa hasta el 60% del viewport y el texto vive en una columna angosta a un costado, como una revista abierta.',
+    'En tablet, el grid pasa de dos columnas a una sola sin perder los márgenes generosos.',
+    'En mobile, las fotos pasan a formato vertical propio - no un recorte forzado del desktop - y el texto conserva su jerarquía completa.',
+  ],
   etapas: [
     { n: '01', label: 'Desktop', nota: 'Columna angosta junto a fotografía a página completa.' },
     { n: '02', label: 'Tablet', nota: 'Una sola columna, mismo ritmo y márgenes.' },
