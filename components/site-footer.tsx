@@ -57,7 +57,14 @@ export function SiteFooter() {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/75">Navegación</p>
             <nav className="mt-3 flex flex-col items-center sm:items-start" aria-label="Pie de página">
               {LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="py-1.5 text-lg font-medium hover:underline hover:underline-offset-4">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`py-1.5 text-lg font-medium hover:underline hover:underline-offset-4 ${
+                    // "Habilidades" targets a Home section that Phase 4 removed from the mobile flow.
+                    link.href === '/#work' ? 'hidden sm:inline' : ''
+                  }`}
+                >
                   {link.label}
                 </Link>
               ))}

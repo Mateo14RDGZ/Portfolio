@@ -1,12 +1,13 @@
 'use client'
 
 import { useRef } from 'react'
-import { ArrowUpRight, Building2, Check, Globe, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Building2, Check, Globe, Plus, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { cn } from '@/lib/utils'
+import { useMobileFirst } from '@/lib/motion'
 import { track } from '@vercel/analytics'
 
 type PlanGroup = { title: string; features: string[] }
@@ -166,7 +167,58 @@ function PlanBack({ plan, index }: { plan: Plan; index: number }) {
   )
 }
 
+/** Compact mobile card: name, one line, audience, and features behind a native disclosure. Reuses the same PLANS data as the desktop flip-card. */
+function PlanCompact({ plan }: { plan: Plan }) {
+  const Icon = plan.icon
+  return (
+    <div className="rounded-[1.5rem_0.4rem_1.5rem_0.4rem] border border-foreground/15 bg-background p-5">
+      <div className="flex items-center gap-3">
+        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-primary">
+          <Icon className="size-5" />
+        </span>
+        <div className="min-w-0">
+          <p className="truncate font-mono text-[10px] font-bold tracking-[0.14em] text-muted-foreground uppercase">{plan.designedFor}</p>
+          <h3 className="text-lg font-bold tracking-tight">Plan {plan.name}</h3>
+        </div>
+      </div>
+      <p className="mt-3 text-sm leading-relaxed text-foreground/80">{plan.positioning}</p>
+
+      <details className="group mt-4 border-t border-foreground/15 pt-3">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-sm font-semibold [&::-webkit-details-marker]:hidden">
+          Ver qué incluye
+          <Plus className="size-4 transition-transform duration-300 group-open:rotate-45" />
+        </summary>
+        <div className="mt-3 flex flex-col gap-4">
+          {plan.groups
+            ? plan.groups.map((group) => (
+                <div key={group.title}>
+                  <h4 className="mb-2 font-mono text-[0.62rem] font-bold uppercase tracking-[0.14em] text-muted-foreground">{group.title}</h4>
+                  <ul className="flex flex-col gap-2.5">
+                    {group.features.map((feature) => <PlanFeature key={feature} feature={feature} />)}
+                  </ul>
+                </div>
+              ))
+            : (
+              <ul className="flex flex-col gap-2.5">
+                {plan.features.map((feature) => <PlanFeature key={feature} feature={feature} />)}
+              </ul>
+            )}
+          {plan.note ? <p className="text-xs leading-relaxed text-muted-foreground">{plan.note}</p> : null}
+          <Button
+            className="h-11 w-full rounded-full text-sm font-bold"
+            nativeButton={false}
+            render={<a href="#contact" onClick={() => track('plan_information_click', { plan: plan.name, source: 'compact' })} aria-label={`Solicitar información sobre el plan ${plan.name}`} />}
+          >
+            Solicitar información <ArrowUpRight data-icon="inline-end" />
+          </Button>
+        </div>
+      </details>
+    </div>
+  )
+}
+
 export function Services() {
+  const isMobileFirst = useMobileFirst()
   const pointerStart = useRef<Record<string, { x: number; y: number; angle: number }>>({})
   const cardRefs = useRef<Partial<Record<Plan['name'], HTMLDivElement>>>({})
   const settledAngle = useRef<Partial<Record<Plan['name'], number>>>({})
@@ -224,35 +276,45 @@ export function Services() {
           align="center"
         />
 
-        <StaggerGroup className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3 lg:items-stretch" gap={0.13}>
-          {PLANS.map((plan, index) => (
-            <RevealItem key={plan.name} className="h-full">
-              <div className="flex h-full flex-col">
-                <div
-                  className="plan-flip-card h-full"
-                  ref={(node) => { cardRefs.current[plan.name] = node ?? undefined }}
-                  onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
-                  onPointerMove={(event) => movePlanSwipe(event, plan.name)}
-                  onPointerUp={(event) => finishPlanSwipe(event, plan.name)}
-                  onPointerCancel={(event) => {
-                    const start = pointerStart.current[plan.name]
-                    delete pointerStart.current[plan.name]
-                    event.currentTarget.classList.remove('plan-flip-card--dragging')
-                    if (start) setCardAngle(plan.name, start.angle)
-                  }}
-                >
-                  <article className="plan-flip-inner h-full">
-                    <PlanFront plan={plan} index={index} />
-                    <PlanBack plan={plan} index={index} />
-                  </article>
+        {isMobileFirst ? (
+          <StaggerGroup className="mt-9 flex flex-col gap-4" gap={0.1}>
+            {PLANS.map((plan) => (
+              <RevealItem key={plan.name}>
+                <PlanCompact plan={plan} />
+              </RevealItem>
+            ))}
+          </StaggerGroup>
+        ) : (
+          <StaggerGroup className="mt-9 grid gap-4 sm:mt-12 lg:grid-cols-3 lg:items-stretch" gap={0.13}>
+            {PLANS.map((plan, index) => (
+              <RevealItem key={plan.name} className="h-full">
+                <div className="flex h-full flex-col">
+                  <div
+                    className="plan-flip-card h-full"
+                    ref={(node) => { cardRefs.current[plan.name] = node ?? undefined }}
+                    onPointerDown={(event) => beginPlanSwipe(event, plan.name)}
+                    onPointerMove={(event) => movePlanSwipe(event, plan.name)}
+                    onPointerUp={(event) => finishPlanSwipe(event, plan.name)}
+                    onPointerCancel={(event) => {
+                      const start = pointerStart.current[plan.name]
+                      delete pointerStart.current[plan.name]
+                      event.currentTarget.classList.remove('plan-flip-card--dragging')
+                      if (start) setCardAngle(plan.name, start.angle)
+                    }}
+                  >
+                    <article className="plan-flip-inner h-full">
+                      <PlanFront plan={plan} index={index} />
+                      <PlanBack plan={plan} index={index} />
+                    </article>
+                  </div>
+                  <p className="mt-3 text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] text-foreground/65 uppercase lg:hidden">
+                    Deslizá para ver si el plan encaja
+                  </p>
                 </div>
-                <p className="mt-3 text-center font-mono text-[0.58rem] font-bold tracking-[0.15em] text-foreground/65 uppercase lg:hidden">
-                  Deslizá para ver si el plan encaja
-                </p>
-              </div>
-            </RevealItem>
-          ))}
-        </StaggerGroup>
+              </RevealItem>
+            ))}
+          </StaggerGroup>
+        )}
       </div>
     </section>
   )
