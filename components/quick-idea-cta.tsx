@@ -11,7 +11,7 @@ export function QuickIdeaCta() {
     <div className="px-5 py-6 sm:hidden">
       <Link
         href="#contact"
-        className="flex min-h-14 items-center justify-between gap-3 rounded-full border border-foreground/20 bg-card px-5 text-sm font-semibold"
+        className="primary-action flex min-h-14 items-center justify-between gap-3 rounded-full border border-foreground/20 bg-card px-5 text-sm font-semibold"
       >
         ¿Ya tenés una idea? Contámela
         <ArrowUpRight className="size-4 shrink-0" />
