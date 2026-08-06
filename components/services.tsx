@@ -184,7 +184,7 @@ function PlanCompact({ plan }: { plan: Plan }) {
       <p className="mt-3 text-sm leading-relaxed text-foreground/80">{plan.positioning}</p>
 
       <details className="group mt-4 border-t border-foreground/15 pt-3">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-sm font-semibold [&::-webkit-details-marker]:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-sm font-semibold transition-transform duration-150 ease-out active:scale-[0.99] [&::-webkit-details-marker]:hidden">
           Ver qué incluye
           <Plus className="size-4 transition-transform duration-300 group-open:rotate-45" />
         </summary>

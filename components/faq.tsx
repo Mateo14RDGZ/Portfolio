@@ -38,7 +38,7 @@ export function Faq() {
                     aria-expanded={active}
                     aria-controls={`faq-answer-${index}`}
                     onClick={() => setOpen(active ? null : index)}
-                    className="group flex min-h-20 w-full items-center justify-between gap-5 py-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
+                    className="group flex min-h-20 w-full items-center justify-between gap-5 py-5 text-left outline-none transition-transform duration-150 ease-out active:scale-[0.99] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                   >
                     <span className="text-lg font-medium tracking-tight sm:text-xl">
                       {item.question}

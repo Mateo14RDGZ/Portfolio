@@ -36,7 +36,7 @@ export function SectionHeading({
         </span>
       </RevealItem>
       <RevealItem>
-        <Heading id={id} className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
+        <Heading data-heading id={id} className="text-gradient max-w-3xl text-4xl leading-[0.95] font-semibold text-balance min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
           {title}
         </Heading>
       </RevealItem>

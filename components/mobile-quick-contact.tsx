@@ -7,31 +7,41 @@ import { track } from '@vercel/analytics'
 
 /**
  * Keeps the primary contact action within reach after the introductory hero,
- * and steps out of the way whenever another primary CTA is already visible
- * (`.primary-action` is the class every main CTA on the page already carries
- * via the shared Button component and the hand-written links in Hero,
- * CaseStudyPreview, Services and Contact) - no separate marker to maintain.
+ * and steps out of the way whenever it would sit on top of something else
+ * that matters: another primary CTA, a section headline, or the contact
+ * form itself. `.primary-action` and `[data-heading]` are markers every main
+ * CTA and every SectionHeading title already carry - no separate markup to
+ * maintain. The Contact section gets its own scroll-distance check rather
+ * than an IntersectionObserver entry: Contact is taller than a few viewports,
+ * so its own intersection ratio can never cross a sane threshold from partial
+ * scroll - it would report "not intersecting enough" for most of the time a
+ * user is actually inside it, which is exactly the bug this replaces.
  */
 export function MobileQuickContact() {
   const [pastHero, setPastHero] = useState(false)
+  const [nearContact, setNearContact] = useState(false)
   const [competing, setCompeting] = useState(false)
   const linkRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
-    const updatePastHero = () => setPastHero(window.scrollY > 560)
-    updatePastHero()
-    window.addEventListener('scroll', updatePastHero, { passive: true })
-    return () => window.removeEventListener('scroll', updatePastHero)
+    const update = () => {
+      setPastHero(window.scrollY > 560)
+      const contact = document.getElementById('contact')
+      setNearContact(contact ? contact.getBoundingClientRect().top < window.innerHeight * 0.86 : false)
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
   }, [])
 
   useEffect(() => {
-    const targets = Array.from(document.querySelectorAll<HTMLElement>('.primary-action')).filter(
-      (el) => el !== linkRef.current,
-    )
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('.primary-action, [data-heading]'),
+    ).filter((el) => el !== linkRef.current)
     if (targets.length === 0) return
 
     // Any one of these entering the viewport is enough to stand down - two
-    // CTAs asking for the same commitment at the same time reads as noise.
+    // CTAs (or a CTA and a headline) competing for attention reads as noise.
     const visible = new Set<Element>()
     const observer = new IntersectionObserver(
       (entries) => {
@@ -47,7 +57,7 @@ export function MobileQuickContact() {
     return () => observer.disconnect()
   }, [])
 
-  const shouldShow = pastHero && !competing
+  const shouldShow = pastHero && !nearContact && !competing
 
   return (
     <div
