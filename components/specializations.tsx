@@ -59,7 +59,7 @@ export function Specializations() {
             key={project.slug}
             href={`/proyectos/${project.slug}`}
             onClick={() => track('specialization_click', { project: project.slug })}
-            className="group relative block h-72 w-[78vw] shrink-0 snap-center overflow-hidden rounded-[1.75rem] border border-border"
+            className="group relative block aspect-square w-[78vw] shrink-0 snap-center overflow-hidden rounded-[1.75rem_0.5rem_1.75rem_0.5rem] border border-border transition-transform duration-150 ease-out active:scale-[0.98]"
           >
             <Image
               src={project.image}
@@ -88,7 +88,7 @@ export function Specializations() {
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
             aria-label="Especialización anterior"
-            className="grid size-11 place-items-center rounded-full border border-border text-foreground disabled:opacity-30"
+            className="grid size-11 place-items-center rounded-full border border-border text-foreground transition-transform duration-150 ease-out active:scale-90 disabled:opacity-30 disabled:active:scale-100"
           >
             <ArrowLeft className="size-4" />
           </button>
@@ -97,7 +97,7 @@ export function Specializations() {
             onClick={() => goTo(active + 1)}
             disabled={active === CONCEPT_PROJECTS.length - 1}
             aria-label="Siguiente especialización"
-            className="grid size-11 place-items-center rounded-full border border-border text-foreground disabled:opacity-30"
+            className="grid size-11 place-items-center rounded-full border border-border text-foreground transition-transform duration-150 ease-out active:scale-90 disabled:opacity-30 disabled:active:scale-100"
           >
             <ArrowRight className="size-4" />
           </button>
@@ -114,7 +114,7 @@ export function Specializations() {
               onClick={() => goTo(index)}
               className="grid size-6 place-items-center"
             >
-              <span className={`block size-2 rounded-full transition-all ${index === active ? 'w-5 bg-primary' : 'bg-foreground/25'}`} />
+              <span className={`block size-2 rounded-full transition-[width,background-color] duration-200 ease-out ${index === active ? 'w-5 bg-primary' : 'bg-foreground/25'}`} />
             </button>
           ))}
         </div>
