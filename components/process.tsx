@@ -55,7 +55,8 @@ export function Process() {
         {STEPS.map((step, i) => (
           <details key={step.title} className="group border-b border-foreground">
             <summary className="flex min-h-18 cursor-pointer list-none items-center gap-4 py-4 pr-1 font-medium [&::-webkit-details-marker]:hidden">
-              <span className="font-mono text-xs font-semibold text-primary">{String(i + 1).padStart(2, '0')}</span>
+              {/* text-foreground here (not text-primary, used by the desktop timeline) fixes a real 2.67:1 contrast failure against bg-card without touching desktop */}
+              <span className="font-mono text-xs font-semibold text-foreground/85">{String(i + 1).padStart(2, '0')}</span>
               <span className="flex-1 text-lg tracking-tight">{step.title}</span>
               <Plus className="size-4 shrink-0 transition-transform duration-300 group-open:rotate-45" />
             </summary>

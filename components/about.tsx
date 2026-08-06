@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'motion/react'
 import { Code2, Gauge, MessagesSquare } from 'lucide-react'
 import { Reveal, RevealItem, StaggerGroup } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
-import { fadeUp, scaleIn, slideLeft, useCompactMotion } from '@/lib/motion'
+import { fadeUp, scaleIn, slideLeft, useCompactMotion, useMobileFirst } from '@/lib/motion'
 
 const PILLARS = [
   {
@@ -27,7 +27,11 @@ const PILLARS = [
 export function About() {
   const reduceMotion = useReducedMotion()
   const compactMotion = useCompactMotion()
+  const isMobileFirst = useMobileFirst()
   const floatCard = !reduceMotion && !compactMotion
+  // Mobile shows only the first pillar (About+WhyMe read as one condensed
+  // block there); desktop keeps all three, unchanged.
+  const visiblePillars = isMobileFirst ? PILLARS.slice(0, 1) : PILLARS
 
   return (
     <section id="about" className="relative mx-auto my-6 max-w-6xl scroll-mt-24 rounded-[2.5rem_0.5rem_2.5rem_0.5rem] bg-card px-5 py-16 sm:my-10 sm:px-10 sm:py-20">
@@ -40,7 +44,7 @@ export function About() {
           />
 
           <StaggerGroup className="flex flex-col" gap={0.12}>
-            {PILLARS.map((pillar) => (
+            {visiblePillars.map((pillar) => (
               <RevealItem
                 key={pillar.title}
                 variants={slideLeft}

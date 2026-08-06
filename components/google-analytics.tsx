@@ -36,7 +36,7 @@ export function GoogleAnalytics() {
 
   return (
     <>
-      <Script id="google-analytics-config" strategy="afterInteractive">
+      <Script id="google-analytics-config" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
@@ -48,7 +48,7 @@ export function GoogleAnalytics() {
       </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         onReady={() => setIsReady(true)}
       />
     </>

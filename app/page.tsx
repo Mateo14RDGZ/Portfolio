@@ -14,6 +14,8 @@ import { Faq } from '@/components/faq'
 import { WhyMe } from '@/components/why-me'
 import { NotesPreview } from '@/components/notes-preview'
 import { MobileQuickContact } from '@/components/mobile-quick-contact'
+import { Specializations } from '@/components/specializations'
+import { QuickIdeaCta } from '@/components/quick-idea-cta'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 import { SITE_URL } from '@/lib/site'
 
@@ -96,19 +98,32 @@ export default function HomePage() {
       <SiteHeader />
       <MobileQuickContact />
 
-      <main>
-        <Hero />
-        <CaseStudyPreview />
-        <About />
-        <WhyMe />
-        <Services />
-        <Projects />
-        <Technologies />
-        <QualityPanel />
-        <Process />
-        <Faq />
-        <NotesPreview />
-        <Contact />
+      {/*
+        Mobile reorders this flow via `order` only (Hero -> Services ->
+        Especializaciones -> CTA contextual -> Proyecto destacado -> Sobre mí
+        -> Tecnologías -> Calidad -> Faq -> Contacto), and drops
+        Habilidades/Notas/Proceso from the mobile flow entirely (Proceso's
+        content now lives inside Faq). DOM order stays exactly as it was
+        before Phase 4 - `sm:order-none` resets every section back to it at
+        640px+, so desktop's order is untouched. flex-col only changes how
+        `order` is interpreted; these are already full-width stacked
+        sections, so it has no visual effect on its own.
+      */}
+      <main className="flex flex-col">
+        <div className="order-1 sm:order-none"><Hero /></div>
+        <div className="order-2 sm:order-none"><Services /></div>
+        <div className="order-3 sm:order-none"><Specializations /></div>
+        <div className="order-4 sm:order-none"><QuickIdeaCta /></div>
+        <div className="order-5 sm:order-none"><CaseStudyPreview /></div>
+        <div className="order-6 sm:order-none"><About /></div>
+        <div className="order-7 sm:order-none"><WhyMe /></div>
+        <div className="hidden sm:order-none sm:block"><Projects /></div>
+        <div className="order-8 sm:order-none"><Technologies /></div>
+        <div className="order-9 sm:order-none"><QualityPanel /></div>
+        <div className="hidden sm:order-none sm:block"><Process /></div>
+        <div className="order-10 sm:order-none"><Faq /></div>
+        <div className="hidden sm:order-none sm:block"><NotesPreview /></div>
+        <div className="order-11 sm:order-none"><Contact /></div>
       </main>
 
       <SiteFooter />

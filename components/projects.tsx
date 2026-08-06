@@ -87,19 +87,23 @@ export function Projects() {
           className="border-background/50 [&_h2]:text-background [&_p]:text-background/65 [&_span]:text-primary"
         />
 
+        <p className="mt-8 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-background/60 sm:hidden">
+          Deslizá para ver todo <span aria-hidden>→</span>
+        </p>
+
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px', amount: 0.12 }}
-          className="mt-9 grid gap-3 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 -mx-5 px-5 sm:mx-0 sm:mt-12 sm:grid sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 sm:grid-cols-2 lg:grid-cols-3"
         >
           {SKILLS.map((skill) => (
             <motion.article
               key={skill.number}
               variants={card}
               whileHover="hover"
-              className="group relative flex min-h-[21rem] overflow-hidden rounded-[2.25rem_0.75rem_2.25rem_0.75rem] border border-background/25 bg-background/[0.035] p-6 sm:p-7"
+              className="group relative flex min-h-[21rem] w-[78vw] shrink-0 snap-center overflow-hidden rounded-[2.25rem_0.75rem_2.25rem_0.75rem] border border-background/25 bg-background/[0.035] p-6 sm:w-auto sm:shrink sm:p-7"
             >
               <motion.div
                 aria-hidden

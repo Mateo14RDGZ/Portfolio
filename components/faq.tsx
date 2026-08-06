@@ -4,11 +4,18 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Plus } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
-import { EASE } from '@/lib/motion'
-import { FAQ_ITEMS } from '@/lib/faq-data'
+import { EASE, useMobileFirst } from '@/lib/motion'
+import { FAQ_ITEMS, MOBILE_FAQ_IDS } from '@/lib/faq-data'
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0)
+  const isMobileFirst = useMobileFirst()
+  // Mobile shows a 5-question subset focused on real objections; desktop
+  // keeps the original 7 questions, unchanged, minus the 2 mobile-only additions.
+  const MOBILE_ONLY_IDS = ['proceso', 'modalidad-remota']
+  const items = isMobileFirst
+    ? MOBILE_FAQ_IDS.map((id) => FAQ_ITEMS.find((item) => item.id === id)!)
+    : FAQ_ITEMS.filter((item) => !MOBILE_ONLY_IDS.includes(item.id))
 
   return (
     <section id="faq" className="relative overflow-hidden bg-background py-16 sm:py-24">
@@ -21,10 +28,10 @@ export function Faq() {
           />
 
           <div className="border-t border-foreground">
-            {FAQ_ITEMS.map((item, index) => {
+            {items.map((item, index) => {
               const active = open === index
               return (
-                <div key={item.question} className="border-b border-foreground">
+                <div key={item.id} className="border-b border-foreground">
                   <button
                     id={`faq-question-${index}`}
                     type="button"

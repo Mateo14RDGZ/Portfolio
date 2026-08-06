@@ -5,6 +5,8 @@ export type ConceptProject = {
   description: string
   image: string
   imageAlt: string
+  /** One-line specialization tag used by the Home "Especializaciones" strip. */
+  specialization: string
 }
 
 export const CONCEPT_PROJECTS: ConceptProject[] = [
@@ -16,6 +18,7 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
       'Una identidad editorial y minimalista, inspirada en el diseño nórdico, para una cafetería de especialidad que necesita transmitir calma y calidad antes de la primera visita.',
     image: '/concepts/ombu-hero.webp',
     imageAlt: 'Taza de café de especialidad sobre una barra de piedra, luz natural',
+    specialization: 'Brand Experience',
   },
   {
     slug: 'astra',
@@ -25,6 +28,7 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
       'Un showroom espacial para una marca de autos eléctricos premium, donde la ficha técnica se explora como si estuviera flotando frente a vos.',
     image: '/concepts/aster-vehicle-norte-s1.webp',
     imageAlt: 'SUV eléctrico conceptual en un showroom premium',
+    specialization: 'Interactive Experience',
   },
   {
     slug: 'cimbra-estudio',
@@ -34,6 +38,7 @@ export const CONCEPT_PROJECTS: ConceptProject[] = [
       'Un panel neumórfico y denso para un estudio de movimiento, donde clases, cupos y planes se organizan con la claridad de un dashboard de producto.',
     image: '/concepts/cimbra-hero.webp',
     imageAlt: 'Estudio de movimiento y Pilates contemporáneo',
+    specialization: 'Product Experience',
   },
 ]
 

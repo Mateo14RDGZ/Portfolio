@@ -95,3 +95,29 @@ export function useCompactMotion() {
     () => false,
   )
 }
+
+// Matches Tailwind's `sm` breakpoint exactly (min-width: 640px), so JS-branched
+// content switches at the same boundary as the `sm:` CSS used alongside it.
+const MOBILE_FIRST_QUERY = '(max-width: 639px)'
+
+/**
+ * Same mechanism as useCompactMotion, but for the Home page's Phase 4
+ * mobile/desktop content branches (Services, About+WhyMe, Faq) specifically.
+ * The server snapshot defaults to `true` (mobile-shaped) rather than `false`:
+ * ~99% of this site's traffic is mobile, and only mobile Lighthouse/CLS is
+ * measured, so any brief post-hydration correction lands on the minority
+ * desktop path instead of the majority mobile one. Kept separate from
+ * useCompactMotion so its default doesn't affect that hook's many existing
+ * call sites.
+ */
+export function useMobileFirst() {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      const media = window.matchMedia(MOBILE_FIRST_QUERY)
+      media.addEventListener('change', onStoreChange)
+      return () => media.removeEventListener('change', onStoreChange)
+    },
+    () => window.matchMedia(MOBILE_FIRST_QUERY).matches,
+    () => true,
+  )
+}

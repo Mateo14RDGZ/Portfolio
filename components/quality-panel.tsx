@@ -7,10 +7,10 @@ import { SectionHeading } from '@/components/section-heading'
 import { EASE } from '@/lib/motion'
 
 const SCORES = [
-  { label: 'Rendimiento', value: 94 },
-  { label: 'Accesibilidad', value: 97 },
-  { label: 'Buenas prácticas', value: 100 },
-  { label: 'SEO', value: 100 },
+  { label: 'Rendimiento', value: 94, benefit: 'Carga rápida' },
+  { label: 'Accesibilidad', value: 97, benefit: 'Usable para todos' },
+  { label: 'Buenas prácticas', value: 100, benefit: 'Código confiable' },
+  { label: 'SEO', value: 100, benefit: 'Fácil de encontrar' },
 ]
 
 export function QualityPanel() {
@@ -57,6 +57,7 @@ export function QualityPanel() {
                       className="h-full origin-left bg-foreground"
                     />
                   </div>
+                  <p className="mt-2 text-xs font-medium text-foreground/70 sm:hidden">{score.benefit}</p>
                 </motion.div>
               </RevealItem>
             ))}

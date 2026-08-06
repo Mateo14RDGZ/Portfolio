@@ -33,9 +33,9 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="relative grid min-h-[22rem] place-items-center overflow-hidden border-t border-foreground bg-accent p-6 min-[390px]:min-h-[25rem] min-[390px]:p-8 lg:min-h-0 lg:border-t-0">
+        <div className="relative grid min-h-[12rem] place-items-center overflow-hidden border-t border-foreground bg-accent p-6 min-[390px]:min-h-[13rem] min-[390px]:p-8 lg:min-h-0 lg:border-t-0">
           <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em]">Identidad / MR14</span>
-          <div className="relative aspect-square w-[min(78vw,22rem)] sm:w-[min(92%,36rem)]">
+          <div className="relative aspect-square w-[min(40vw,8rem)] sm:w-[min(92%,36rem)]">
             <LogoMark
               animateIntro
               loopIntro={false}

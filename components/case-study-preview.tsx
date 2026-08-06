@@ -46,10 +46,13 @@ export function CaseStudyPreview() {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-2" aria-label="Alcance del proyecto">
-              {FACTS.map((fact) => (
+              {FACTS.map((fact, index) => (
                 <span
                   key={fact}
-                  className="rounded-full border border-background/25 px-3 py-1.5 font-mono text-[9px] tracking-[0.12em] uppercase text-background/75"
+                  className={`rounded-full border border-background/25 px-3 py-1.5 font-mono text-[9px] tracking-[0.12em] uppercase text-background/75 ${
+                    // Mobile shows the 3 most meaningful facts (resumed card); desktop keeps all 4.
+                    index === 3 ? 'hidden sm:inline-block' : ''
+                  }`}
                 >
                   {fact}
                 </span>
