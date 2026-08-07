@@ -54,20 +54,13 @@ export const metadata: Metadata = {
     title: 'Desarrollador web en Uruguay | Mateo Rodríguez',
     description: SITE_DESCRIPTION,
     locale: 'es_UY',
-    images: [
-      {
-        url: '/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Mateo Rodríguez, desarrollador web en Uruguay · MR14',
-      },
-    ],
+    // No explicit `images` here - the app/opengraph-image.png file convention
+    // resolves this (and the twitter.images fallback below) automatically.
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Desarrollador web en Uruguay | Mateo Rodríguez',
     description: SITE_DESCRIPTION,
-    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
