@@ -18,7 +18,12 @@ const nextConfig = {
       },
       {
         source: '/proyectos/ombu-cafe',
-        destination: '/proyectos/bruma-cafe',
+        destination: '/proyectos/vapor-cafe',
+        permanent: true,
+      },
+      {
+        source: '/proyectos/bruma-cafe',
+        destination: '/proyectos/vapor-cafe',
         permanent: true,
       },
       {

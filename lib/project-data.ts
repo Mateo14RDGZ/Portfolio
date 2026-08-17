@@ -11,8 +11,8 @@ export type ConceptProject = {
 
 export const CONCEPT_PROJECTS: ConceptProject[] = [
   {
-    slug: 'bruma-cafe',
-    name: 'Bruma Café',
+    slug: 'vapor-cafe',
+    name: 'Vapor Café',
     category: 'Hospitalidad · Caso de diseño',
     description:
       'Una identidad editorial y minimalista, inspirada en el diseño nórdico, para una cafetería de especialidad que necesita transmitir calma y calidad antes de la primera visita.',
