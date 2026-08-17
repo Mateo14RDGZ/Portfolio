@@ -35,7 +35,7 @@ export function BrumaMasthead() {
     <header className="relative z-30 border-b border-[#1D1B18]/12">
       <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6 sm:px-10">
         <Link href="#bruma-title" className="text-lg tracking-[-0.01em]" style={{ fontFamily: 'var(--font-bruma-display)' }}>
-          Bruma Café
+          Vapor Café
         </Link>
         <button
           ref={menuButtonRef}

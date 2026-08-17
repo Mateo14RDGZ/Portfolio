@@ -50,7 +50,7 @@ export function BrumaClosing() {
         </Reveal>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-[#1D1B18]/12 pt-6 text-xs text-[#1D1B18]/65 sm:flex-row sm:items-center sm:justify-between">
-          <p>Bruma Café · Caso de diseño · Construido con {cierre.tecnologias.join(', ')}.</p>
+          <p>Vapor Café · Caso de diseño · Construido con {cierre.tecnologias.join(', ')}.</p>
           <ProjectBack className="text-[#1D1B18]/70" />
         </div>
       </div>

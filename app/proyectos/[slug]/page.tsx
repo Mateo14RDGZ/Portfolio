@@ -18,7 +18,7 @@ const CimbraLanding = dynamic(() =>
 )
 
 const LANDINGS: Record<string, typeof BrumaLanding> = {
-  'bruma-cafe': BrumaLanding,
+  'vapor-cafe': BrumaLanding,
   astra: AstraLanding,
   'cimbra-estudio': CimbraLanding,
 }

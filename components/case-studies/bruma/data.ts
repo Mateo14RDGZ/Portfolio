@@ -1,5 +1,5 @@
 export const brumaMeta = {
-  eyebrow: 'Bruma Café · Caso de diseño',
+  eyebrow: 'Vapor Café · Caso de diseño',
   headline: 'Diseñar en silencio.',
   intro:
     'Concepto de diseño desarrollado para demostrar mi proceso, criterio de diseño y capacidad técnica.',
