@@ -2,7 +2,6 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Building2,
   Clock,
-  Dumbbell,
   Image as ImageIcon,
   Layers3,
   MapPin,
@@ -11,8 +10,6 @@ import {
   Rocket,
   Share2,
   Smartphone,
-  Sparkles,
-  UtensilsCrossed,
 } from 'lucide-react'
 
 export type NegociosInclude = { icon: LucideIcon; title: string }
@@ -29,52 +26,6 @@ export const NEGOCIOS_INCLUDES: NegociosInclude[] = [
   { icon: Share2, title: 'Redes sociales' },
   { icon: MessageCircle, title: 'Contacto directo por WhatsApp' },
   { icon: Rocket, title: 'Publicación de la web' },
-]
-
-export type NegociosExample = {
-  slug: string
-  icon: LucideIcon
-  domain: string
-  name: string
-  tagline: string
-  tags: string[]
-  accent: 'primary' | 'accent' | 'secondary'
-}
-
-/**
- * Demonstrative-only mockups (restaurante / gimnasio / centro de estética),
- * built as abstract browser-frame previews rather than real screenshots —
- * there are no real client cases to show yet, and the copy is explicit
- * about that on the page itself.
- */
-export const NEGOCIOS_EXAMPLES: NegociosExample[] = [
-  {
-    slug: 'restaurante',
-    icon: UtensilsCrossed,
-    domain: 'turestaurante.uy',
-    name: 'Restaurante',
-    tagline: 'Menú, ambiente y reservas en un mismo lugar.',
-    tags: ['Menú digital', 'Galería de platos', 'Reservas por WhatsApp'],
-    accent: 'primary',
-  },
-  {
-    slug: 'gimnasio',
-    icon: Dumbbell,
-    domain: 'tugimnasio.uy',
-    name: 'Gimnasio',
-    tagline: 'Planes, horarios y clases, claros desde el celular.',
-    tags: ['Planes y precios', 'Horarios de clases', 'Contacto directo'],
-    accent: 'accent',
-  },
-  {
-    slug: 'centro-estetica',
-    icon: Sparkles,
-    domain: 'tucentrodeestetica.uy',
-    name: 'Centro de estética',
-    tagline: 'Servicios y turnos que transmiten confianza.',
-    tags: ['Catálogo de servicios', 'Galería de trabajos', 'Turnos por WhatsApp'],
-    accent: 'secondary',
-  },
 ]
 
 export const NEGOCIOS_PROCESS = [
