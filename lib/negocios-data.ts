@@ -90,7 +90,7 @@ export const NEGOCIOS_FAQ: NegociosFaqItem[] = [
   {
     id: 'demora',
     question: '¿Cuánto demora?',
-    answer: 'Para una web de este tipo, el plazo habitual ronda las 2-3 semanas una vez que tengo todo el contenido necesario para empezar.',
+    answer: 'Para una web de este tipo, el plazo habitual ronda los 5 a 8 días hábiles una vez que tengo todo el contenido necesario para empezar.',
   },
   {
     id: 'que-enviar',

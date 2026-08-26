@@ -24,7 +24,7 @@ const PILLARS = [
 
 const STATS = [
   { k: 'Tiempo de respuesta', v: 'Menos de 24 h' },
-  { k: 'Plazo habitual', v: '2–5 semanas' },
+  { k: 'Plazo habitual', v: '5-8 días hábiles' },
 ]
 
 export function NegociosAbout() {

@@ -9,7 +9,7 @@ export const FAQ_ITEMS = [
     id: 'tiempos',
     question: '¿Cuánto tarda un sitio web?',
     answer:
-      'Un sitio CLASSIC suele requerir entre 2 y 3 semanas; GOLD, entre 4 y 6 semanas. Los proyectos BLACK se estiman después de definir sus funciones. Los plazos comienzan cuando recibo el contenido necesario.',
+      'Un sitio CLASSIC suele requerir entre 5 y 8 días hábiles; GOLD, entre 4 y 6 semanas. Los proyectos BLACK se estiman después de definir sus funciones. Los plazos comienzan cuando recibo el contenido necesario.',
   },
   {
     id: 'revisiones',
