@@ -66,7 +66,7 @@ const PLAN_CUES: Record<Plan['name'], string[]> = {
 }
 
 const PLAN_TIMELINE: Record<Plan['name'], string> = {
-  CLASSIC: '2-3 semanas',
+  CLASSIC: '5-8 días hábiles',
   GOLD: '4-6 semanas',
   BLACK: 'Se define según el alcance',
 }
