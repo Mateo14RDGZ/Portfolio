@@ -16,6 +16,7 @@ import { NotesPreview } from '@/components/notes-preview'
 import { MobileQuickContact } from '@/components/mobile-quick-contact'
 import { Specializations } from '@/components/specializations'
 import { QuickIdeaCta } from '@/components/quick-idea-cta'
+import { NegociosBanner } from '@/components/negocios-banner'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 import { SITE_URL } from '@/lib/site'
 
@@ -100,18 +101,21 @@ export default function HomePage() {
 
       {/*
         Mobile reorders this flow via `order` only (Hero -> Services ->
-        Especializaciones -> CTA contextual -> Proyecto destacado -> Sobre mí
-        -> Tecnologías -> Calidad -> Faq -> Contacto), and drops
-        Habilidades/Notas/Proceso from the mobile flow entirely (Proceso's
-        content now lives inside Faq). DOM order stays exactly as it was
-        before Phase 4 - `sm:order-none` resets every section back to it at
-        640px+, so desktop's order is untouched. flex-col only changes how
-        `order` is interpreted; these are already full-width stacked
-        sections, so it has no visual effect on its own.
+        Negocios banner -> Especializaciones -> CTA contextual -> Proyecto
+        destacado -> Sobre mí -> Tecnologías -> Calidad -> Faq -> Contacto),
+        and drops Habilidades/Notas/Proceso from the mobile flow entirely
+        (Proceso's content now lives inside Faq). The Negocios banner shares
+        Services' order value and relies on DOM position to land right after
+        it (flex ties resolve by source order). DOM order otherwise stays
+        exactly as it was before Phase 4 - `sm:order-none` resets every
+        section back to it at 640px+, so desktop's order is untouched.
+        flex-col only changes how `order` is interpreted; these are already
+        full-width stacked sections, so it has no visual effect on its own.
       */}
       <main className="flex flex-col">
         <div className="order-1 sm:order-none"><Hero /></div>
         <div className="order-2 sm:order-none"><Services /></div>
+        <div className="order-2 sm:order-none"><NegociosBanner /></div>
         <div className="order-3 sm:order-none"><Specializations /></div>
         <div className="order-4 sm:order-none"><QuickIdeaCta /></div>
         <div className="order-5 sm:order-none"><CaseStudyPreview /></div>
